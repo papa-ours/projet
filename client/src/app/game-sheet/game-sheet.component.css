@@ -1,0 +1,10 @@
+
+.game-title {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.game-preview-image {
+    width: 320px;
+    height: 240px;
+}
