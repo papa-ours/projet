@@ -4,8 +4,8 @@
       <img src="assets/img/logo.png">
       <div id="login-box">
         <label>Identification :</label>
-        <input type="text" placeholder="Nom d'utilisateur">
-        <button>Jouer</button>
+        <input [(ngModel)]="username" type="text" placeholder="Nom d'utilisateur">
+        <button (click)="allo()">Jouer</button>
       </div>
     </div>
   </div>

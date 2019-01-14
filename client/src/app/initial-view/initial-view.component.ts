@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InitialViewComponent implements OnInit {
 
+  username: string;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  validateUsername() {
+    console.log(this.username);
+  }
 }
