@@ -5,11 +5,13 @@ import { AppComponent } from "./app.component";
 import { BasicService } from "./basic.service";
 import { HttpClientModule } from "@angular/common/http";
 import { GameListComponent } from './game-list/game-list.component';
+import { GameSheetComponent } from './game-sheet/game-sheet.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GameListComponent
+    GameListComponent,
+    GameSheetComponent
   ],
   imports: [
     BrowserModule,
