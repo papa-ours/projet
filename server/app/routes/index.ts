@@ -12,6 +12,10 @@ export module Route {
             return usernameValidation;
         }
 
+        private isAlphaNumeric(ch: string) : boolean {
+            return true;
+        }
+
         private validateUsername(username: string) : {isUsernameValid: boolean, errorMessage: string} {
             let errorMessage: string = "";
             let isUsernameValid: boolean = true;
@@ -19,6 +23,9 @@ export module Route {
             if (username.length > 16 || username.length < 3) {
                 isUsernameValid = false;
                 errorMessage = "Le nom d'utilisateur doit contenir entre 3 et 16 charactères";
+            } else if (!this.isAlphaNumeric(username)) {
+                isUsernameValid = false;
+                errorMessage = "Le nom d'utilisateur doit contenir que des lettres et des chiffres";
             }
 
             return {
