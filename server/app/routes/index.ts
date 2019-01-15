@@ -1,19 +1,33 @@
 import { Request, Response, NextFunction } from "express";
 import { Message } from "../../../common/communication/message";
 import "reflect-metadata";
-import { injectable, } from "inversify";
+import { injectable } from "inversify";
 
 export module Route {
 
-    @injectable()
-    export class Index {
+    @injectable() 
+    export class UsernameValidator {
 
-        public helloWorld(req: Request, res: Response, next: NextFunction): void {
-            const message: Message = {
-                title: "Hello",
-                body: "World"
+        private usernames: string[] = [];
+
+        public addUser(username: string, req?: Request) : {isUsernameValid: boolean, errorMessage: string} {
+            let usernameValidation = {isUsernameValid: true, errorMessage: ""}
+            return usernameValidation;
+        }
+
+        private isAlphaNumeric(ch: string) : boolean {
+            return true;
+        }
+
+        private validateUsername(username: string) : {isUsernameValid: boolean, errorMessage: string} {
+            return {
+                isUsernameValid: true,
+                errorMessage: ""
             };
-            res.send(JSON.stringify(message));
+        }
+
+        public getUsernameValidation(req: Request, res: Response, next: NextFunction): void {
+            
         }
     }
 }
