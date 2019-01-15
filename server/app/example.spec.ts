@@ -45,25 +45,5 @@ it("should complete an async test by returning a promise and NOT SPECIFYING A DO
        console.log(`Got ${v} from promise`);
        expect(v).to.be.of.length.at.least(2, 'message from getPromise should be at least 2 of length');
        expect(v).not.to.be.of.length.at.least(4, 'message from getPromise should have a length smaller than 4');
-   })
+   });
 });
-
-// If a parameter (done) is passed to `it`, we MUST call it and NOT RETURN a Promise
-it("should complete the ", (done) => {
-    getPromise().then(v => {
-        console.log(`Got ${v} from promise`);
-        done()
-    })
- });
- 
- it('should show something about an error', () => {
-    return Promise.reject('Something went wrong')
- });
-
- it('should show something about an error b', () => {
-    return Promise.reject('Something went wrong').catch(reason => assert.fail(reason))
- });
-
- it('a rejected promise will not fail', () => {
-    Promise.reject('Simply to test a wrong value')
- });
