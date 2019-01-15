@@ -15,7 +15,7 @@ export module Route {
             if (usernameValidation.isUsernameValid) {
                 this.usernames.push(username);
             }
-            
+
             return usernameValidation;
         }
 
@@ -45,7 +45,14 @@ export module Route {
         }
 
         public getUsernameValidation(req: Request, res: Response, next: NextFunction): void {
-            
+            let username = req.params.username;
+            let usernameValidationMessage = this.addUser(username, req).errorMessage;
+        
+            const message: Message = {
+                title: "Username Validation",
+                body: usernameValidationMessage
+            }
+            res.send(JSON.stringify(message));
         }
     }
 }
