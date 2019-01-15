@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { Message } from "../../../common/communication/message";
 import "reflect-metadata";
 import { injectable } from "inversify";
 
@@ -8,21 +7,23 @@ export module Route {
     @injectable() 
     export class UsernameValidator {
 
-        private usernames: string[] = [];
-
         public addUser(username: string, req?: Request) : {isUsernameValid: boolean, errorMessage: string} {
-            let usernameValidation = {isUsernameValid: true, errorMessage: ""}
+            let usernameValidation = this.validateUsername(username);
             return usernameValidation;
         }
 
-        private isAlphaNumeric(ch: string) : boolean {
-            return true;
-        }
-
         private validateUsername(username: string) : {isUsernameValid: boolean, errorMessage: string} {
+            let errorMessage: string = "";
+            let isUsernameValid: boolean = true;
+
+            if (username.length > 16 || username.length < 3) {
+                isUsernameValid = false;
+                errorMessage = "Le nom d'utilisateur doit contenir entre 3 et 16 charactères";
+            }
+
             return {
-                isUsernameValid: true,
-                errorMessage: ""
+                isUsernameValid: isUsernameValid,
+                errorMessage: errorMessage
             };
         }
 
