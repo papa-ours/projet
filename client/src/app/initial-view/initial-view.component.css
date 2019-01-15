@@ -1,16 +1,6 @@
-#container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    background: #2F74D3;
-}
-
 #login-container {
     font-family: 'Helvetica Neue';
-    margin: auto;
+    margin: 130px auto;
     width: 500px;
     height: 675px;
     text-align: center;
