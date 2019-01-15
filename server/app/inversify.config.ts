@@ -11,6 +11,6 @@ container.bind(Types.Server).to(Server);
 container.bind(Types.Application).to(Application);
 container.bind(Types.Routes).to(Routes);
 
-container.bind(Types.Index).to(Route.Index);
+container.bind(Types.UsernameValidator).to(Route.UsernameValidator);
 
 export { container };
