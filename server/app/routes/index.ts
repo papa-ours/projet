@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import "reflect-metadata";
 import { injectable } from "inversify";
+import { Message } from "../.././../common/communication/message";
 
 export module Route {
 
