@@ -19,7 +19,7 @@ export class InitialViewComponent implements OnInit {
 
   validateUsername() : void {
     this.usernameValidationService.getUsernameValidation(this.username)
-    .subscribe(this.usernameValidated);
+      .subscribe(this.usernameValidated);
   }
 
   usernameValidated = (validationMessage: Message) : void => {
