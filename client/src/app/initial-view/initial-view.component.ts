@@ -9,7 +9,7 @@ import { Message } from "../../../../common/communication/message";
 })
 export class InitialViewComponent implements OnInit {
 
-  private username: string;
+  private username: string = "";
   private usernameValidationMessage: string = "";
 
   constructor(private usernameValidationService: UsernameValidationService) { }

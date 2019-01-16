@@ -25,8 +25,8 @@ export class UsernameValidator {
     private validateUsername(username: string) : {isUsernameValid: boolean, errorMessage: string} {
         let errorMessage: string = "";
         let isUsernameValid: boolean = true;
-
-        if (username.length > 16 || username.length < 3) {
+        
+        if (username == undefined || username.length > 16 || username.length < 3) {
             isUsernameValid = false;
             errorMessage = "Le nom d'utilisateur doit contenir entre 3 et 16 charactères";
         } else if (!this.isAlphaNumeric(username)) {

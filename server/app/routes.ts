@@ -12,7 +12,7 @@ export class Routes {
     public get routes(): Router {
         const router: Router = Router();
 
-        router.get("/addUser/:username",
+        router.get("/addUser/:username?",
             (req: Request, res: Response, next: NextFunction) => this.usernameValidator.getUsernameValidation(req, res, next));
         
         return router;
