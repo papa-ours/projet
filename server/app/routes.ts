@@ -13,7 +13,8 @@ export class Routes {
         const router: Router = Router();
 
         router.get("/addUser/:username",
-                    (req: Request, res: Response, next: NextFunction) => this.usernameValidator.getUsernameValidation(req, res, next));
+            (req: Request, res: Response, next: NextFunction) => this.usernameValidator.getUsernameValidation(req, res, next));
+        
         return router;
     }
 }
