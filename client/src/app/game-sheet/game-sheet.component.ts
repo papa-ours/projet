@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GameSheetDescription } from "../../../../common/communication/game-description";
 
 @Component({
   selector: 'app-game-sheet',
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameSheetComponent implements OnInit {
 
-  constructor() { }
+  private description: GameSheetDescription;
+
+  public constructor() {
+    this.description = {
+      name: "Placeholder",
+      preview: "../../assets/preview-placeholder.png",
+      topScores1v1: [],
+      topScoresSolo: [],
+    };
+  }
 
   ngOnInit() {
   }
