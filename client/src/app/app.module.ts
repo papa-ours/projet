@@ -6,6 +6,7 @@ import { AppComponent } from "./app.component";
 import { HttpClientModule } from "@angular/common/http";
 import { InitialViewComponent } from "./initial-view/initial-view.component";
 import { UsernameValidationService } from "./username-validation-service.service";
+import { DeleteUsernameService } from "./delete-username.service";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,10 @@ import { UsernameValidationService } from "./username-validation-service.service
     HttpClientModule,
     FormsModule
   ],
-  providers: [UsernameValidationService],
+  providers: [
+    UsernameValidationService,
+    DeleteUsernameService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
