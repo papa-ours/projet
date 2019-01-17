@@ -16,7 +16,7 @@ export class Routes {
             (req: Request, res: Response, next: NextFunction) => this.usernameValidator.getUsernameValidation(req, res));
         
         router.get("/deleteUser/:username?",
-            (req: Request, res: Response, next: NextFunction) => this.usernameValidator.deleteUsername(req));
+            (req: Request, res: Response, next: NextFunction) => this.usernameValidator.deleteUsername(req, res));
 
         return router;
     }
