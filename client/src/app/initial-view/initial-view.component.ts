@@ -20,7 +20,7 @@ export class InitialViewComponent implements OnInit {
   }
 
   ngOnDestroy() {
-
+    this.deleteUsernameService.deleteUsername(this.username);
   }
 
   validateUsername() : void {
