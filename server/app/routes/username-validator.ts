@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import "reflect-metadata";
 import { injectable } from "inversify";
 import { Message } from "../../../common/communication/message";
