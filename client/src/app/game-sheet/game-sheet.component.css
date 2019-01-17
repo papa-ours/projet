@@ -29,5 +29,12 @@
 
 .scores {
     display: grid;
+    width: 50%;
     grid-template-columns: 1fr 1fr;
+    margin: auto;
+}
+
+.top-score-icon {
+    position: absolute;
+    transform: translatex(-30px);
 }
