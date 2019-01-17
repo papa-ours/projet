@@ -16,6 +16,18 @@
     text-align: center;
 }
 
-.scores {
+.score-header {
     text-align: center;
+}
+
+.top3-component {
+    text-align: center;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row: 1;
+}
+
+.scores {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
