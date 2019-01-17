@@ -47,7 +47,7 @@ export class UsernameValidator {
         return validation;
     }
 
-    public getUsernameValidation(req: Request, res: Response, next: NextFunction): void {
+    public getUsernameValidation(req: Request, res: Response): void {
         let username = req.params.username;
         let usernameValidation = this.addUser(username, req);
     
@@ -56,5 +56,13 @@ export class UsernameValidator {
             body: usernameValidation.errorMessage
         }
         res.send(JSON.stringify(message));
+    }
+
+    public deleteUsername(req: Request) : void {
+        let username = req.params.username;
+        let index = this.usernames.indexOf(username);
+        if (index >= 0) {
+            this.usernames.splice(index, 1);
+        }
     }
 }
