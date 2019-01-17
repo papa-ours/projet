@@ -8,7 +8,7 @@ import { DeleteUsernameService } from "../delete-username.service";
   templateUrl: './initial-view.component.html',
   styleUrls: ['./initial-view.component.css']
 })
-export class InitialViewComponent implements OnInit {
+export class InitialViewComponent implements OnInit, OnDestroy {
 
   private username: string = "";
   private usernameValidationMessage: string = "";
