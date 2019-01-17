@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UsernameValidationService } from '../username-validation-service.service';
 import { Message } from "../../../../common/communication/message";
+import { DeleteUsernameService } from "../delete-username.service";
 
 @Component({
   selector: 'app-initial-view',
@@ -12,9 +13,14 @@ export class InitialViewComponent implements OnInit {
   private username: string = "";
   private usernameValidationMessage: string = "";
 
-  constructor(private usernameValidationService: UsernameValidationService) { }
+  constructor(private usernameValidationService: UsernameValidationService,
+              private deleteUsernameService: DeleteUsernameService) { }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+
   }
 
   validateUsername() : void {
