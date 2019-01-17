@@ -7,7 +7,7 @@ import { catchError } from "rxjs/operators";
 import { Message } from "../../../common/communication/message";
 
 @Injectable()
-export class DeleteUsernameSerivce {
+export class DeleteUsernameService {
 
     private readonly BASE_URL: string = "http://localhost:3000/deleteUser/";
     public constructor(private http: HttpClient) { }
