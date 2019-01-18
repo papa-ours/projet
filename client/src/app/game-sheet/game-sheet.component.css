@@ -34,11 +34,6 @@
     margin: auto;
 }
 
-.top-score-icon {
-    position: absolute;
-    transform: translatex(-30px);
-}
-
 .medals {
     width: 0px;
     position: relative;
