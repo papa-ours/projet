@@ -2,6 +2,7 @@
     width: auto;
     height: 35px;
     background-color:#201e1e;
+    text-align: center;
     position: fixed;
     top: 0;
     width: 100%;
@@ -12,17 +13,10 @@
     background-color:#201e1e;
     color:#FFFFFF;
     border:none;
-    width:30%;
+    width:28%;
     height: 35px;
 }
 .button:hover {
     background:#12bfd6;
     color:#201e1e;
-}
-.button-2D{
-    margin-left:15%;
-}
-.button-3D{
-    margin-left:15px;
-    margin-right:17%;
 }
