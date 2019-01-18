@@ -1,16 +1,23 @@
 .admin-fixed-bar{
     width: auto;
     height: 35px;
-    background-color:#d9d9d9;
+    background-color:#201e1e;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 .button{
     font-family: 'Helvetica Neue';
     font-size: 18px;
-    background-color:#08a037;
+    background-color:#201e1e;
     color:#FFFFFF;
     border:none;
-    margin-top:5px;
     width:30%;
+    height: 35px;
+}
+.button:hover {
+    background:#12bfd6;
+    color:#201e1e;
 }
 .button-2D{
     margin-left:15%;
