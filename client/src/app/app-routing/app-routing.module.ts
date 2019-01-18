@@ -20,24 +20,3 @@ const ROUTES: Routes = [
 })
 
 export class AppRoutingModule { }
-
-
-
-
-
-
-/*import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
-})
-const ROUTES:Routes{
-
-}
-export class AppRoutingModule {
-
- }*/
