@@ -14,8 +14,8 @@ export class GameSheetComponent implements OnInit {
     this.description = {
       name: "Placeholder",
       preview: "../../assets/preview-placeholder.png",
-      topScores1v1: [],
-      topScoresSolo: [],
+      topScores1v1: ["3:51 Username", "3:51 Username", "3:51 Username"],
+      topScoresSolo: ["3:51 Username", "3:51 Username", "3:51 Username"],
     };
   }
 
