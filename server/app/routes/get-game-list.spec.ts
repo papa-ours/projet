@@ -6,4 +6,6 @@ describe("get game list", () => {
         expect(true).to.equals(true);
     });
     */
+    if(false)
+        expect(true);
 });

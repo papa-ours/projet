@@ -1,35 +1,26 @@
 import { Request, Response } from "express";
 import "reflect-metadata";
 import { injectable } from "inversify";
-import { Message } from "../../../common/communication/message";
+import { GameSheetDescription } from "../../../common/communication/game-description"
 
 @injectable() 
 export class GetGameList {
 
-    public getUsernameValidation(req: Request, res: Response): void {
-        let username = req.params.username;
-        let usernameValidation = this.addUser(username, req);
-    
-        const message: Message = {
-            title: "Username Validation",
-            body: usernameValidation.errorMessage
-        }
-        res.send(JSON.stringify(message));
+    public sendGameList(req: Request, res: Response): void {
+        res.send({
+            title: "get-game-list",
+            body: JSON.stringify(this.getGameList())
+        });
     }
 
-    public deleteUsername(req: Request, res: Response) : void {
-        let username = req.params.username;
-        let index = this.usernames.indexOf(username);
-        let usernameDeleted: boolean = false;
-        if (index >= 0) {
-            usernameDeleted = true;
-            this.usernames.splice(index, 1);
-        }
-
-        const message: Message = {
-            title: "Username Deletion : " + username,
-            body: usernameDeleted.toString()
-        }
-        res.send(JSON.stringify(message));
+    private getGameList(): GameSheetDescription[] {
+        const placeholder: GameSheetDescription = {
+            name: "Placeholder",
+            preview: "../../assets/preview-placeholder.png",
+            topScores1v1: ["3:51 Username", "3:51 Username", "3:51 Username"],
+            topScoresSolo: ["3:51 Username", "3:51 Username", "3:51 Username"],
+        };
+    
+        return [placeholder, placeholder, placeholder];
     }
 }
