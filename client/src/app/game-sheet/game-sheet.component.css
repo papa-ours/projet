@@ -22,19 +22,25 @@
 
 .top3-component {
     text-align: center;
-    grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 4;
     grid-row: 1;
 }
 
 .scores {
     display: grid;
     width: 50%;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0 1fr 1fr;
     margin: auto;
 }
 
 .top-score-icon {
     position: absolute;
     transform: translatex(-30px);
+}
+
+.medals {
+    width: 0px;
+    position: relative;
+    transform: translateX(-30px);
 }
