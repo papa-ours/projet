@@ -9,12 +9,14 @@ import { UsernameValidationService } from "./username-validation-service.service
 import { DeleteUsernameService } from "./delete-username.service";
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { SimpleGameCreationComponent } from './simple-game-creation/simple-game-creation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InitialViewComponent,
-    AdminViewComponent
+    AdminViewComponent,
+    SimpleGameCreationComponent
   ],
   imports: [
     BrowserModule,

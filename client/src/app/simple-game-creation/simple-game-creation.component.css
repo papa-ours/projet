@@ -1,0 +1,39 @@
+.form{
+    background-color:#FFFFFF;
+    width:auto;
+    height:auto;
+    max-width: 500px;
+    max-height: 500px;
+    border-radius: 10px;
+    border: #000000 solid 2px;
+}
+.title{
+    height: 40px;
+    text-align: center;
+}
+.info{
+    height: 40px;
+    margin-left:10px;
+}
+input{
+    margin-left:10px;
+}
+.name-input{
+    margin-left:37px;
+}
+.button-section{
+    height: 40px;
+    text-align: center;
+}
+button{
+    font-family: 'Helvetica Neue';
+    font-size: 16px;
+    background-color:#201e1e;
+    color:#FFFFFF;
+    border:none;
+    width:20%;
+}
+button:hover{
+    background:#12bfd6;
+    color:#201e1e;
+}
