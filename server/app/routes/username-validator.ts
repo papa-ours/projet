@@ -1,20 +1,24 @@
-import { Request, Response } from "express";
-import "reflect-metadata";
 import { injectable } from "inversify";
 import { Message } from "../../../common/communication/message";
 
-interface UsernameValidation {
-    isUsernameValid: boolean, 
-    errorMessage: string
-};
+import { Request, Response } from "express";
+import "reflect-metadata";
 
-@injectable() 
+interface UsernameValidation {
+    isUsernameValid: boolean;
+    errorMessage: string;
+}
+
+@injectable()
 export class UsernameValidator {
 
     private usernames: string[] = [];
+    private readonly MAX_LENGTH: number = 16;
+    private readonly MIN_LENGTH: number = 3;
 
-    public addUser(username: string, req?: Request) : UsernameValidation {
-        let usernameValidation = this.validateUsername(username);
+    public addUser(username: string, req?: Request): UsernameValidation {
+        const usernameValidation: UsernameValidation =
+            this.validateUsername(username);
 
         if (usernameValidation.isUsernameValid) {
            this.usernames.push(username);
@@ -23,44 +27,46 @@ export class UsernameValidator {
         return usernameValidation;
     }
 
-    private isAlphaNumeric(ch: string) : boolean {
+    private isAlphaNumeric(ch: string): boolean {
         return ch.match(/^[a-z0-9]+$/i) !== null;
     }
 
-    private validateUsername(username: string) : UsernameValidation {
-        let validation : UsernameValidation = {
+    private validateUsername(username: string): UsernameValidation {
+        const validation: UsernameValidation = {
             isUsernameValid: true,
-            errorMessage: ""
+            errorMessage: "",
         };
 
-        if (username == undefined || username.length > 16 || username.length < 3) {
+        const BASE_MESSAGE: string = "Le nom d'utilisateur ";
+        if (username === undefined || username.length > this.MAX_LENGTH || username.length < this.MIN_LENGTH) {
             validation.isUsernameValid = false;
-            validation.errorMessage = "Le nom d'utilisateur doit contenir entre 3 et 16 charactères";
+            validation.errorMessage += BASE_MESSAGE.concat(`doit contenir entre ${this.MIN_LENGTH}
+                                         et ${this.MAX_LENGTH} charactères`);
         } else if (!this.isAlphaNumeric(username)) {
             validation.isUsernameValid = false;
-            validation.errorMessage = "Le nom d'utilisateur doit contenir que des lettres et des chiffres";
+            validation.errorMessage += BASE_MESSAGE.concat("doit contenir que des lettres et des chiffres");
         } else if (this.usernames.indexOf(username) !== -1) {
             validation.isUsernameValid = false;
-            validation.errorMessage = "Le nom d'utilisateur existe déjà";
+            validation.errorMessage += BASE_MESSAGE.concat("existe déjà");
         }
 
         return validation;
     }
 
     public getUsernameValidation(req: Request, res: Response): void {
-        let username = req.params.username;
-        let usernameValidation = this.addUser(username, req);
-    
+        const username: string = req.params.username;
+        const usernameValidation: UsernameValidation = this.addUser(username, req);
+
         const message: Message = {
             title: "Username Validation",
-            body: usernameValidation.errorMessage
-        }
-        res.send(JSON.stringify(message));
+            body: usernameValidation.errorMessage,
+        };
+        res.send(message);
     }
 
-    public deleteUsername(req: Request, res: Response) : void {
-        let username = req.params.username;
-        let index = this.usernames.indexOf(username);
+    public deleteUsername(req: Request, res: Response): void {
+        const username: string = req.params.username;
+        const index: number = this.usernames.indexOf(username);
         let usernameDeleted: boolean = false;
         if (index >= 0) {
             usernameDeleted = true;
@@ -69,8 +75,8 @@ export class UsernameValidator {
 
         const message: Message = {
             title: "Username Deletion : " + username,
-            body: usernameDeleted.toString()
-        }
+            body: usernameDeleted.toString(),
+        };
         res.send(JSON.stringify(message));
     }
 }
