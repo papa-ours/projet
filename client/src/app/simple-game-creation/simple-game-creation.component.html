@@ -11,12 +11,12 @@
 
   <div class="info original-image-section">
     Image originale 
-    <input type="file" placeholder="choisir un fichier">
+    <input type="file" placeholder="choisir un fichier" (change)="fileEntered($event, 0)">
   </div>
 
   <div class="info modified-image-section">
     Image modifiée 
-    <input type="file" placeholder="choisir un fichier">
+    <input type="file" placeholder="choisir un fichier" (change)="fileEntered($event, 1)">
   </div>
 
   <div class="button-section"> 
