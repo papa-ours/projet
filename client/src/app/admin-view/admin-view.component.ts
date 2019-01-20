@@ -8,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class AdminViewComponent implements OnInit {
 
   constructor() { }
-
   ngOnInit() {
   }
+  showForm2D:boolean=false;
+  showForm3D:boolean=false;
 
 }

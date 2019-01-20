@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-simple-game-creation',
@@ -8,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class SimpleGameCreationComponent implements OnInit {
 
   constructor() { }
-
+  
+  @Output() public closeForm=new EventEmitter();
+  
   ngOnInit() {
+  }
+
+  close(){
+    this.closeForm.emit(false);
   }
 
 }
