@@ -1,8 +1,7 @@
-import { injectable, inject } from "inversify";
-import { Router, Request, Response, NextFunction } from "express";
-
-import Types from "./types";
+import { NextFunction, Request, Response, Router } from "express";
+import { inject, injectable } from "inversify";
 import { UsernameValidator } from "./routes/username-validator";
+import Types from "./types";
 
 @injectable()
 export class Routes {
@@ -13,10 +12,12 @@ export class Routes {
         const router: Router = Router();
 
         router.get("/addUser/:username?",
-            (req: Request, res: Response, next: NextFunction) => this.usernameValidator.getUsernameValidation(req, res));
-        
+                   (req: Request, res: Response, next: NextFunction) =>
+                        this.usernameValidator.getUsernameValidation(req, res));
+
         router.get("/deleteUser/:username?",
-            (req: Request, res: Response, next: NextFunction) => this.usernameValidator.deleteUsername(req, res));
+                   (req: Request, res: Response, next: NextFunction) =>
+                        this.usernameValidator.deleteUsername(req, res));
 
         return router;
     }
