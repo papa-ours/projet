@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Message } from "../../../../common/communication/message";
 import { DifferenceImageService } from "../difference-image.service";
 
@@ -27,8 +27,15 @@ export class SimpleGameCreationComponent implements OnInit {
   private readonly N_IMAGES: number = 2;
   private imageFiles: File[] = new Array<File>(this.N_IMAGES);
   private imagesData: Uint8Array[] = [];
+  @Output() public closeForm=new EventEmitter();
+
+
 
   constructor(private differenceImageService: DifferenceImageService) { }
+
+  close(){
+    this.closeForm.emit(false);
+  }
 
   ngOnInit() {
   }
