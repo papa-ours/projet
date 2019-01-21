@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameSheetDescription } from "../../../../common/communication/game-description";
+import { GameListService } from "../game-list-getter.service"
 
 @Component({
   selector: 'app-game-list',
@@ -7,22 +8,14 @@ import { GameSheetDescription } from "../../../../common/communication/game-desc
   styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent implements OnInit {
+  
+  //@ts-ignore
+  private descriptions: GameSheetDescription[];
 
-  private descriptions: GameSheetDescription[] = GameListComponent.getDesc();
-
-  private static getDesc: () => GameSheetDescription[] = () => {
-    const placeholder: GameSheetDescription = {
-      name: "Placeholder",
-      preview: "../../assets/preview-placeholder.png",
-      topScores1v1: ["3:51 Username", "3:51 Username", "3:51 Username"],
-      topScoresSolo: ["3:51 Username", "3:51 Username", "3:51 Username"],
-    };
-    return [placeholder, placeholder, placeholder];
-  }
-
-  constructor() { }
+  constructor(private gameListService: GameListService) { }
 
   ngOnInit() {
+    this.gameListService.getGameList().subscribe(descriptions => this.descriptions = descriptions);
   }
 
 }
