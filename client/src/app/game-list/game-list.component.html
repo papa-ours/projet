@@ -1,5 +1,3 @@
-<div class="game-list">
-    <app-game-sheet [description]="description[0]"></app-game-sheet>
-    <app-game-sheet [description]="description[1]"></app-game-sheet>
-    <app-game-sheet [description]="description[2]"></app-game-sheet>
+<div class="game-list" *ngFor="let description of descriptions">
+    <app-game-sheet [description]="description"></app-game-sheet>
 </div>

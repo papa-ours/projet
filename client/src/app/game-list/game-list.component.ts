@@ -8,7 +8,7 @@ import { GameSheetDescription } from "../../../../common/communication/game-desc
 })
 export class GameListComponent implements OnInit {
 
-  private description: GameSheetDescription = GameListComponent.getDesc();
+  private descriptions: GameSheetDescription[] = GameListComponent.getDesc();
 
   private static getDesc: () => GameSheetDescription[] = () => {
     const placeholder: GameSheetDescription = {
@@ -17,7 +17,6 @@ export class GameListComponent implements OnInit {
       topScores1v1: ["3:51 Username", "3:51 Username", "3:51 Username"],
       topScoresSolo: ["3:51 Username", "3:51 Username", "3:51 Username"],
     };
-
     return [placeholder, placeholder, placeholder];
   }
 
