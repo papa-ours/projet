@@ -19,6 +19,9 @@ export class Routes {
                    (req: Request, res: Response, next: NextFunction) =>
                         this.usernameValidator.deleteUsername(req, res));
 
+        router.post("/diffImg",
+                    (req: Request, res: Response, next: NextFunction) => {});
+
         return router;
     }
 }
