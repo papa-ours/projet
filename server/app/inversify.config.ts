@@ -1,9 +1,10 @@
 import { Container } from "inversify";
-import Types from "./types";
-import { Server } from "./server";
 import { Application } from "./app";
-import { UsernameValidator } from "./routes/username-validator";
 import { Routes } from "./routes";
+import { DifferenceImageGenerator } from "./routes/difference-image-generator";
+import { UsernameValidator } from "./routes/username-validator";
+import { Server } from "./server";
+import Types from "./types";
 
 const container: Container = new Container();
 
@@ -12,5 +13,6 @@ container.bind(Types.Application).to(Application);
 container.bind(Types.Routes).to(Routes);
 
 container.bind(Types.UsernameValidator).to(UsernameValidator);
+container.bind(Types.DifferenceImageGenerator).to(DifferenceImageGenerator);
 
 export { container };

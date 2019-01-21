@@ -6,22 +6,22 @@
 
   <div class="info name-section">
     nom du jeu 
-    <input class="name-input" placeholder="7 differences">
+    <input class="name-input" placeholder="7 differences" [(ngModel)]="name">
   </div>
 
   <div class="info original-image-section">
     Image originale 
-    <input type="file" placeholder="choisir un fichier">
+    <input type="file" placeholder="choisir un fichier" (change)="fileEntered($event, 0)">
   </div>
 
   <div class="info modified-image-section">
     Image modifiée 
-    <input type="file" placeholder="choisir un fichier">
+    <input type="file" placeholder="choisir un fichier" (change)="fileEntered($event, 1)">
   </div>
 
   <div class="button-section"> 
-    <button>Creer</button>
     <button (click)="close()">Annuler</button>
+    <button (click)="submitForm()">Creer</button>
   </div>
 
 </div>
