@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { DifferenceImageService } from '../difference-image.service';
-import { Message } from '../../../../common/communication/message';
+import { Component, OnInit } from "@angular/core";
+import { Message } from "../../../../common/communication/message";
+import { DifferenceImageService } from "../difference-image.service";
 
 interface FileReaderEventTarget extends EventTarget {
   result: string;
@@ -17,9 +17,9 @@ enum ImageType {
 }
 
 @Component({
-  selector: 'app-simple-game-creation',
-  templateUrl: './simple-game-creation.component.html',
-  styleUrls: ['./simple-game-creation.component.css']
+  selector: "app-simple-game-creation",
+  templateUrl: "./simple-game-creation.component.html",
+  styleUrls: ["./simple-game-creation.component.css"],
 })
 
 export class SimpleGameCreationComponent implements OnInit {
@@ -51,11 +51,13 @@ export class SimpleGameCreationComponent implements OnInit {
   private readFile(file: File): void {
     const reader: FileReader = new FileReader();
     reader.onload = (): void => {
-      const data: ArrayBuffer = reader.result;
-      const imageData: Uint8Array = new Uint8Array(data);
-      this.imagesData.push(imageData);
-      if (this.imagesData.length === this.N_IMAGES) {
-        this.sendForm();
+      const data: ArrayBuffer = reader.result as ArrayBuffer;
+      if (typeof(data !== null)) {
+        const imageData: Uint8Array = new Uint8Array(data);
+        this.imagesData.push(imageData);
+        if (this.imagesData.length === this.N_IMAGES) {
+          this.sendForm();
+        }
       }
     };
 
@@ -66,11 +68,11 @@ export class SimpleGameCreationComponent implements OnInit {
     const formData: FormData = new FormData();
 
     formData.append("name", this.name);
-    formData.append("originalImage", this.imagesData[ImageType.ORIGINAL]);
-    formData.append("modifiedImage", this.imagesData[ImageType.MODIFIED]);
+    formData.append("originalImage", this.imagesData[ImageType.ORIGINAL].toString());
+    formData.append("modifiedImage", this.imagesData[ImageType.MODIFIED].toString());
 
     this.differenceImageService.postDifferenceImageData(formData)
-      .subscribe((message: Message) => message.body);
+      .subscribe((message: Message) => console.log(message));
   }
 
   // @ts-ignore
