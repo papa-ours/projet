@@ -7,14 +7,17 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 @Injectable()
-export class UsernameValidationService {
+export class DifferenceImageService {
 
-    private readonly URL: string = "http://localhost:3000/diffImg/";
+    private readonly URL: string = "http://localhost:3000/diffImg";
     public constructor(private http: HttpClient) { }
 
-    public postDifferenceImage(formData: FormData): Observable<Message> {
-        return this.http.post<Message>(this.URL, formData)
-            .pipe(catchError(this.handleError<Message>("postDifferenceImage")),
+    public postDifferenceImageData(formData: FormData): Observable<Message> {
+        return this.http.post<Message>(this.URL, {
+                name: formData.get("name"),
+                originalImage: formData.get("originalImage"),
+                modifiedImage: formData.get("modifiedImage"),
+            }).pipe(catchError(this.handleError<Message>("postDifferenceImageData")),
         );
     }
 
