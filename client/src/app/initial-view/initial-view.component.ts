@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UsernameValidationService } from '../username-validation-service.service';
 import { Message } from "../../../../common/communication/message";
 import { DeleteUsernameService } from "../delete-username.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-initial-view',
@@ -14,7 +15,8 @@ export class InitialViewComponent implements OnInit, OnDestroy {
   private usernameValidationMessage: string = "";
 
   constructor(private usernameValidationService: UsernameValidationService,
-              private deleteUsernameService: DeleteUsernameService) { }
+              private deleteUsernameService: DeleteUsernameService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -32,6 +34,7 @@ export class InitialViewComponent implements OnInit, OnDestroy {
     this.usernameValidationMessage = validationMessage.body;
     if (this.usernameValidationMessage === "") {
       //TODO: Go to game page
+      this.router.navigateByUrl('/gamelist');
     }
   };
 }
