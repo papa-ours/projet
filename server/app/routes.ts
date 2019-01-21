@@ -2,11 +2,14 @@ import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import { UsernameValidator } from "./routes/username-validator";
 import Types from "./types";
+import { DifferenceImageGenerator } from "./routes/difference-image-generator";
 
 @injectable()
 export class Routes {
 
-    public constructor(@inject(Types.UsernameValidator) private usernameValidator: UsernameValidator) {}
+    public constructor(
+        @inject(Types.UsernameValidator) private usernameValidator: UsernameValidator,
+        @inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator) {}
 
     public get routes(): Router {
         const router: Router = Router();
@@ -20,7 +23,9 @@ export class Routes {
                         this.usernameValidator.deleteUsername(req, res));
 
         router.post("/diffImg",
-                    (req: Request, res: Response, next: NextFunction) => {});
+                    (req: Request, res: Response, next: NextFunction) => {
+                        this.differenceImageGenerator.generate(req, res);
+                    });
 
         return router;
     }
