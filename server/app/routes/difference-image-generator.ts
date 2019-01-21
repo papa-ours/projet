@@ -13,7 +13,7 @@ export class DifferenceImageGenerator {
 
         if (this.isBMP(originalImageData) && this.isBMP(modifiedImageData)) {
             this.getDifferenceImage(originalImageData, modifiedImageData);
-        } 
+        }
     }
 
     private isBMP(imageData: Uint8Array): boolean {
@@ -24,7 +24,10 @@ export class DifferenceImageGenerator {
     }
 
     private getDifferenceImage(originalImage: Uint8Array, modifiedImage: Uint8Array): Uint8Array {
-        let differenceImageData: Uint8Array;
-        return differenceImageData;
+        return this.calculateDifferenceFromImages(originalImage, modifiedImage);
+    }
+
+    private calculateDifferenceFromImages(originalImage: Uint8Array, modifiedImage: Uint8Array): Uint8Array {
+
     }
 }
