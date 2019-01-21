@@ -12,7 +12,6 @@ interface UsernameValidation {
 @injectable()
 export class UsernameValidator {
 
-    private usernames: string[] = [];
     private readonly MAX_LENGTH: number = 16;
     private readonly MIN_LENGTH: number = 3;
 

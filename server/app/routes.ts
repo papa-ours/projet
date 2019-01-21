@@ -23,7 +23,7 @@ export class Routes {
                         this.usernameValidator.deleteUsername(req, res));
 
         router.get("/gameList",
-            (req: Request, res: Response, next: NextFunction) => this.gameListGetter.sendGameList(req, res));
+                   (req: Request, res: Response, next: NextFunction) => this.gameListGetter.sendGameList(req, res));
 
         return router;
     }
