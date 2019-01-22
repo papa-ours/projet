@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GameSheetDescription } from '../../../common/communication/game-description';
 import { HttpClient } from "@angular/common/http";
 
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
 import { Message } from "../../../common/communication/message";
