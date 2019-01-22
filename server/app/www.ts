@@ -7,4 +7,6 @@ import { Socket } from "./socket";
 const server: Server = container.get<Server>(Types.Server);
 
 server.init();
-const socket: Socket = new Socket(server.getServer());
+
+const socket: Socket = new Socket();
+socket.init(server.getServer());
