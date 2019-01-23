@@ -4,4 +4,5 @@ export default {
         Routes: Symbol("Routes"),
         UsernameValidator: Symbol("UsernameValidator"),
         DifferenceImageGenerator: Symbol("DifferenceImageGenerator"),
+        GetGameList: Symbol("GetGameList"),
 };

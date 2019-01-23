@@ -1,3 +1,9 @@
+.game-lists {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
 .admin-fixed-bar{
     width: auto;
     height: 35px;

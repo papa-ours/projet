@@ -2,6 +2,7 @@ import { Container } from "inversify";
 import { Application } from "./app";
 import { Routes } from "./routes";
 import { DifferenceImageGenerator } from "./routes/difference-image-generator";
+import { GetGameList } from "./routes/get-game-list";
 import { UsernameValidator } from "./routes/username-validator";
 import { Server } from "./server";
 import Types from "./types";
@@ -14,5 +15,6 @@ container.bind(Types.Routes).to(Routes);
 
 container.bind(Types.UsernameValidator).to(UsernameValidator);
 container.bind(Types.DifferenceImageGenerator).to(DifferenceImageGenerator);
+container.bind(Types.GetGameList).to(GetGameList);
 
 export { container };
