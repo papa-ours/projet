@@ -21,16 +21,14 @@ export class Socket {
         this.io.on("connection", (socket: SocketIO.Socket) => {
             let currentUsername: string = "";
 
-            // tslint:disable-next-line:no-any
-            socket.on("validation", (username: string, answerFunction: any) => {
+            socket.on("requestUsernameValidation", (username: string) => {
                 const message: Message = this.usernameValidator.getUsernameValidation(username, this.users);
 
                 if (message.body === "") {
                     currentUsername = username;
                     this.users.push(username);
                 }
-
-                answerFunction(message);
+                socket.emit("validation", message);
             });
 
             socket.on("disconnect", () => {

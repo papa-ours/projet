@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Observable, Observer } from "rxjs";
 import * as io from "socket.io-client";
 import { Message } from "../../../common/communication/message";
 
@@ -10,14 +11,17 @@ export class UsernameValidationService {
 
     public constructor() {
         this.socket = io(this.BASE_URL);
-        this.socket.on("connected", (message: string) => console.log(message));
-        this.socket.on("disconnected", (message: string) => console.log(message));
     }
 
     public sendUsername(username: string): void {
-        console.log(username);
-        this.socket.emit("validation", username, (validationMessage: Message) => {
-            console.log(validationMessage);
+        this.socket.emit("requestUsernameValidation", username);
+    }
+
+    public getUsernameValidation(): Observable<Message> {
+        return new Observable<Message>((observer: Observer<Message>) => {
+            this.socket.on("validation", (message: Message) => {
+                observer.next(message);
+            });
         });
     }
 }

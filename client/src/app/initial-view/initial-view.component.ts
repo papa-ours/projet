@@ -1,44 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { UsernameValidationService } from '../username-validation-service.service';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { Message } from "../../../../common/communication/message";
-import { DeleteUsernameService } from "../delete-username.service";
-import { Router } from '@angular/router';
+import { UsernameValidationService } from "../username-validation-service.service";
 
 @Component({
-  selector: 'app-initial-view',
-  templateUrl: './initial-view.component.html',
-  styleUrls: ['./initial-view.component.css']
+  selector: "app-initial-view",
+  templateUrl: "./initial-view.component.html",
+  styleUrls: ["./initial-view.component.css"],
 })
 export class InitialViewComponent implements OnInit {
-
   private username: string = "";
   private usernameValidationMessage: string = "";
 
-  constructor(private usernameValidationService: UsernameValidationService,
-              private deleteUsernameService: DeleteUsernameService,
-              private router: Router) { }
+  public constructor(private usernameValidationService: UsernameValidationService,
+                     private router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this.usernameValidationService.getUsernameValidation().subscribe((message: Message) => {
+      this.usernameValidationMessage = message.body;
+      if (this.usernameValidationMessage === "") {
+        this.router.navigateByUrl("/gamelist");
+      }
+    });
   }
 
-  validateUsername() : void {
-    this.usernameValidationService.getUsernameValidation(this.username)
-      .subscribe(this.usernameValidated);
+  // @ts-ignore
+  private validateUsername(): void {
+    this.usernameValidationService.sendUsername(this.username);
   }
-
-  deleteUsername() : void {
-    this.deleteUsernameService.deleteUsername(this.username)
-      .subscribe();
-  }
-
-  usernameValidated = (validationMessage: Message) : void => {
-    this.usernameValidationMessage = validationMessage.body;
-    if (this.usernameValidationMessage === "") {
-      //If the user quits app, its username will be destroyed from server
-      window.onbeforeunload = () => this.deleteUsername();
-      
-      //TODO: Go to game page
-      this.router.navigateByUrl('/gamelist');
-    }
-  };
 }
