@@ -1,0 +1,41 @@
+.game-sheet {
+    border: 2px solid black;
+}
+.game-title {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 10px 0px 10px;
+}
+
+.game-preview-image {
+    width: 320px;
+    height: 240px;
+}
+
+.game-preview {
+    text-align: center;
+}
+
+.score-header {
+    text-align: center;
+}
+
+.top3-component {
+    text-align: center;
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row: 1;
+}
+
+.scores {
+    display: grid;
+    width: 50%;
+    grid-template-columns: 0 1fr 1fr;
+    margin: auto;
+}
+
+.medals {
+    width: 0px;
+    position: relative;
+    transform: translateX(-30px);
+}

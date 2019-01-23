@@ -6,4 +6,5 @@ import "reflect-metadata";
 
 @injectable()
 export class DifferenceImageGenerator {
+    public generate(req: Request, res: Response): void;
 }
