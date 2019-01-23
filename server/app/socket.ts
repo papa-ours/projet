@@ -36,7 +36,6 @@ export class Socket {
             socket.on("disconnect", () => {
                 if (currentUsername !== "") {
                     this.deleteUser(currentUsername);
-                    this.io.emit("disconnected", `${currentUsername} has quit`);
                 }
             });
         });
