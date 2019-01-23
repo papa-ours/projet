@@ -1,8 +1,8 @@
-import { Application } from "./app";
 import * as http from "http";
-import Types from "./types";
-import { injectable, inject } from "inversify";
+import { inject, injectable } from "inversify";
 import { AddressInfo } from "net";
+import { Application } from "./app";
+import Types from "./types";
 
 @injectable()
 export class Server {
@@ -12,6 +12,10 @@ export class Server {
     private server: http.Server;
 
     public constructor(@inject(Types.Application) private application: Application) { }
+
+    public getServer(): http.Server {
+        return this.server;
+    }
 
     public init(): void {
         this.application.app.set("port", this.appPort);
