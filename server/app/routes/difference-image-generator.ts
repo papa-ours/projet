@@ -14,10 +14,10 @@ export class DifferenceImageGenerator {
         const modifiedImageData: Uint8Array =
             JSON.parse("[" + req.body.modifiedImage + "]");
 
-        let message: Message = {
+        const message: Message = {
             title: "Image Message",
             body: "error",
-        }
+        };
         if (this.isBMP(originalImageData) && this.isBMP(modifiedImageData)) {
 
             const imageData: number[] = this.getDifferenceImage(originalImageData, modifiedImageData);
@@ -42,16 +42,14 @@ export class DifferenceImageGenerator {
         const WHITE: number = 255;
         const BLACK: number = 0;
         const OFF_SET_ORIGINAL_IMAGE: number = originalImage[OFF_SET_LOCATION];
-        
-        let differenceImage: number[] = Array.from(originalImage);
+        const differenceImage: number[] = Array.from(originalImage);
 
-        for ( let i = OFF_SET_ORIGINAL_IMAGE; i < originalImage.length - OFF_SET_ORIGINAL_IMAGE; i += this.PIXEL_LENGTH ) {
-            const originalImagePixel = originalImage.slice(i, i + this.PIXEL_LENGTH);
-            const modifiedImagePixel = modifiedImage.slice(i, i + this.PIXEL_LENGTH);
-            const color = this.isPixelEqual(originalImagePixel, modifiedImagePixel) ? WHITE : BLACK;
+        for ( let i: number = OFF_SET_ORIGINAL_IMAGE; i < originalImage.length - OFF_SET_ORIGINAL_IMAGE; i += this.PIXEL_LENGTH ) {
+            const originalImagePixel: Uint8Array = originalImage.slice(i, i + this.PIXEL_LENGTH);
+            const modifiedImagePixel: Uint8Array = modifiedImage.slice(i, i + this.PIXEL_LENGTH);
+            const color: number = this.isPixelEqual(originalImagePixel, modifiedImagePixel) ? WHITE : BLACK;
             differenceImage.splice(i, i + this.PIXEL_LENGTH, color, color, color);
         }
-
 
         return differenceImage;
 
@@ -62,5 +60,3 @@ export class DifferenceImageGenerator {
     }
 
 }
-
-    
