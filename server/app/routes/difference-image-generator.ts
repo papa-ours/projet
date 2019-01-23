@@ -45,7 +45,7 @@ export class DifferenceImageGenerator {
         
         let differenceImage: number[] = Array.from(originalImage);
 
-        for ( let i = 0; i < originalImage.length - OFF_SET_ORIGINAL_IMAGE / this.PIXEL_LENGTH; i += this.PIXEL_LENGTH ) {
+        for ( let i = OFF_SET_ORIGINAL_IMAGE; i < originalImage.length - OFF_SET_ORIGINAL_IMAGE; i += this.PIXEL_LENGTH ) {
             const originalImagePixel = originalImage.slice(i, i + this.PIXEL_LENGTH);
             const modifiedImagePixel = modifiedImage.slice(i, i + this.PIXEL_LENGTH);
             const color = this.isPixelEqual(originalImagePixel, modifiedImagePixel) ? WHITE : BLACK;
