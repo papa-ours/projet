@@ -1,31 +1,38 @@
-.form{
-    background-color:#FFFFFF;
+.form {
+    background-color:#FFFFFF20;
     width:auto;
+    color: #FFF;
+    font-family: 'Helvetica';
     height:auto;
     max-width: 500px;
     max-height: 500px;
     border-radius: 10px;
-    border: #000000 solid 2px;
 }
-.title{
+
+.title {
     height: 40px;
     text-align: center;
 }
-.info{
+
+.info {
     height: 40px;
     margin-left:10px;
 }
-input{
+
+input {
     margin-left:10px;
 }
-.name-input{
+
+.name-input {
     margin-left:37px;
 }
-.button-section{
+
+.button-section {
     height: 40px;
     text-align: center;
 }
-button{
+
+button {
     font-family: 'Helvetica Neue';
     font-size: 16px;
     background-color:#201e1e;
@@ -33,7 +40,8 @@ button{
     border:none;
     width:20%;
 }
-button:hover{
+
+button:hover {
     background:#12bfd6;
     color:#201e1e;
 }
