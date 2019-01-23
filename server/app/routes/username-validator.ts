@@ -2,7 +2,6 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 import { Message } from "../../../common/communication/message";
 
-
 @injectable()
 export class UsernameValidator {
     private readonly MAX_LENGTH: number = 16;
