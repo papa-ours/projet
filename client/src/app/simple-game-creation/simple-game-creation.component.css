@@ -1,9 +1,9 @@
 .form {
-    background-color:#FFFFFF20;
-    width:auto;
+    background-color: #FFFFFF20;
+    width: auto;
     color: #FFF;
     font-family: 'Helvetica';
-    height:auto;
+    height: auto;
     max-width: 500px;
     max-height: 500px;
     border-radius: 10px;
@@ -16,15 +16,15 @@
 
 .info {
     height: 40px;
-    margin-left:10px;
+    margin-left: 10px;
 }
 
 input {
-    margin-left:10px;
+    margin-left: 10px;
 }
 
 .name-input {
-    margin-left:37px;
+    margin-left: 37px;
 }
 
 .button-section {
@@ -35,13 +35,13 @@ input {
 button {
     font-family: 'Helvetica Neue';
     font-size: 16px;
-    background-color:#201e1e;
-    color:#FFFFFF;
-    border:none;
-    width:20%;
+    background-color: #201e1e;
+    color: #FFFFFF;
+    border: none;
+    width: 20%;
 }
 
 button:hover {
-    background:#12bfd6;
-    color:#201e1e;
+    background: #12bfd6;
+    color: #201e1e;
 }
