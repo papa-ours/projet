@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import "reflect-metadata";
 import { injectable } from "inversify";
-import { GameSheetDescription } from "../../../common/communication/game-description"
+import { GameSheetDescription, GameLists } from "../../../common/communication/game-description"
 
 @injectable() 
 export class GetGameList {
@@ -13,7 +13,7 @@ export class GetGameList {
         });
     }
 
-    private getGameList(): GameSheetDescription[] {
+    private getGameList(): GameLists {
         const placeholder: GameSheetDescription = {
             name: "Placeholder",
             preview: "../../assets/preview-placeholder.png",
@@ -21,6 +21,9 @@ export class GetGameList {
             topScoresSolo: ["3:51 Username", "3:51 Username", "3:51 Username"],
         };
     
-        return [placeholder, placeholder, placeholder];
+        return {
+            list2d: [placeholder, placeholder, placeholder],
+            list3d: [placeholder, placeholder]
+        }
     }
 }
