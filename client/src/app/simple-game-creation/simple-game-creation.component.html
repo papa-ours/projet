@@ -1,27 +1,27 @@
 <div class="form">
 
   <div class="title">
-    Creer un jeu point de vue simple
+    Créer un jeu point de vue simple
   </div>
 
   <div class="info name-section">
-    nom du jeu 
+    Nom du jeu :
     <input class="name-input" placeholder="7 differences" [(ngModel)]="name">
   </div>
 
   <div class="info original-image-section">
-    Image originale 
+    Image originale : 
     <input type="file" placeholder="choisir un fichier" (change)="fileEntered($event, 0)">
   </div>
 
   <div class="info modified-image-section">
-    Image modifiée 
+    Image modifiée :
     <input type="file" placeholder="choisir un fichier" (change)="fileEntered($event, 1)">
   </div>
 
   <div class="button-section"> 
-    <button (click)="close()">Annuler</button>
-    <button (click)="submitForm()">Creer</button>
+    <button class="cancel-btn" (click)="close()">Annuler</button>
+    <button class="create-btn" (click)="submitForm()">Créer</button>
   </div>
 
 </div>
