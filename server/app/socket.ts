@@ -18,7 +18,6 @@ export class Socket {
 
         this.io.on("connection", (socket: SocketIO.Socket) => {
             let currentUsername: string = "";
-            socket.emit("connected", "You are connected");
 
             socket.on("requestUsernameValidation", (username: string) => {
                 const message: Message = this.usernameValidator.getUsernameValidation(username, this.users);
