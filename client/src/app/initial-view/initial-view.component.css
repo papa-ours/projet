@@ -49,6 +49,9 @@ input[type="text"] {
 }
 
 #error-message {
+    background: #ffffff55;
+    border-radius: 10px;
+    padding: 10px;
     margin-top: 10px;
     font-weight: 600;
     font-size: 18px;
@@ -61,7 +64,7 @@ input[type="text"] {
 
 button {
     display: block;
-    margin-top: 180px;
+    margin-top: 200px;
     margin-left: 60px;
     font-weight: 600;
     color: #FFF;
