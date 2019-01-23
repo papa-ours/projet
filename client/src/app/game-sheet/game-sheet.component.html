@@ -4,27 +4,19 @@
     <img class="game-preview-image" src={{description.preview}}>
   </div>
   <div class="scores">
-    <div class="medals"></div>
     <div class="top3-component">Top 3</div>
-    <div class="medals"></div>
-    <div class="score score-header">Solo</div>
-    <div class="score score-header">1v1</div>
-    <div class="medals">
-      <div>Au</div>
+    <div></div>
+    <div class="score-header">Solo</div>
+    <div class="score-header">1v1</div>
+
+    <div class="row" *ngFor="let topScore of description.topScores; index as i">
+        <div class="medals" [style.background]="medalColors[i]">
+          <div class="value">{{i + 1}}</div>
+        </div>
+        <div class="solo score">{{topScore.solo}}</div>
+        <div class="pvp score">{{topScore.pvp}}</div>
     </div>
-    <div>{{description.topScoresSolo[0]}}</div>
-    <div>{{description.topScores1v1[0]}}</div>
-    <div class="medals">
-      <div>Ag</div>
-    </div>
-    <div>{{description.topScoresSolo[1]}}</div>
-    <div>{{description.topScores1v1[1]}}</div>
-    <div class="medals">
-      <div>Br</div>
-    </div>
-    <div>{{description.topScoresSolo[2]}}</div>
-    <div>{{description.topScores1v1[2]}}</div>
-    <div class="medals"></div>
+    <div></div>
     <button>Jouer</button>
     <button>Créer</button>
   </div>
