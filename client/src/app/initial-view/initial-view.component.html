@@ -7,7 +7,7 @@
           [(ngModel)]="username" 
           (keyup.Enter)="validateUsername()"
           placeholder="Nom d'utilisateur">
-    <div id="error-message">{{usernameValidationMessage}}</div>
+    <div *ngIf="usernameValidationMessage" id="error-message">{{usernameValidationMessage}}</div>
     <button (click)="validateUsername()">Jouer</button>
   </div>
 </div>
