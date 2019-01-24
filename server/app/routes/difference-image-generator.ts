@@ -18,10 +18,7 @@ export class DifferenceImageGenerator {
             title: "Image Message",
             body: "error",
         };
-<<<<<<< HEAD
 
-=======
->>>>>>> 10174622867203330da5458cd20ace6c19a34c03
         if (this.isBMP(originalImageData) && this.isBMP(modifiedImageData)) {
 
             const imageData: number[] = this.getDifferenceImage(originalImageData, modifiedImageData);
