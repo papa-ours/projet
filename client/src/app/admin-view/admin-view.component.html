@@ -2,6 +2,10 @@
   <button class="button" (click)="showForm2D= !showForm2D">Creer un jeu 2D</button>
   <button class="button" (click)="showForm3D= !showForm3D">Creer un jeu 3D</button>
 </div>
+<div class="game-lists">
+  <app-game-list type="2D" privilege="admin"></app-game-list>
+  <app-game-list type="3D" privilege="admin"></app-game-list>
+</div>
 <div class="form-area" *ngIf="showForm2D">
 <app-simple-game-creation (closeForm)="showForm2D= $event"></app-simple-game-creation>
 </div>
