@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
+import { DifferenceImageGenerator } from "./routes/difference-image-generator";
 import { UsernameValidator } from "./routes/username-validator";
 import Types from "./types";
-import { DifferenceImageGenerator } from "./routes/difference-image-generator";
 
 @injectable()
 export class Routes {
