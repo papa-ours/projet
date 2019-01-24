@@ -1,9 +1,12 @@
+export interface TopScore {
+    solo: string;
+    pvp: string;
+}
 
 export interface GameSheetDescription {
     name: string;
     preview: string;
-    topScoresSolo: string[];
-    topScores1v1: string[];
+    topScores: TopScore[];
 }
 
 export interface GameLists {

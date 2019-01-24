@@ -1,3 +1,5 @@
-<div class="game-list" *ngFor="let description of descriptions">
-    <app-game-sheet [description]="description" privilege={{privilege}}></app-game-sheet>
+<div class="game-list-container">
+    <div class="game-list" *ngFor="let description of descriptions; i as index">
+        <app-game-sheet [description]="description" privilege={{privilege}}></app-game-sheet>
+    </div>
 </div>

@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { Message } from "../../../common/communication/message";
 
 @injectable()
-export class UsernameValidator {
+export class UsernameValidatorService {
     private readonly MAX_LENGTH: number = 16;
     private readonly MIN_LENGTH: number = 3;
 

@@ -12,7 +12,7 @@ export class GameListComponent implements OnInit {
   //@ts-ignore
   private descriptions: GameSheetDescription[];
   @Input() private type: "3D" | "2D";
-  @Input() private privilege: "admin" | "user";
+  @Input() private privilege: "admin" | "user" = "user";
   constructor(private gameListService: GameListService) { }
 
   ngOnInit() {

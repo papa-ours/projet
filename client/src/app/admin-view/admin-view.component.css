@@ -5,6 +5,7 @@
     height: 100vh;
 }
 .admin-fixed-bar{
+    z-index: 2;
     background-color: #122237;
     text-align: center;
     position: fixed;
@@ -28,7 +29,7 @@
 
 .form-area{
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     left: 300px;
     top: 100px;
 }
