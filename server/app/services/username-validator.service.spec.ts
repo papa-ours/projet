@@ -1,8 +1,8 @@
 import { expect } from "chai";
-import { UsernameValidator } from "./username-validator";
+import { UsernameValidatorService } from "./username-validator.service";
 
 describe("username validation", () => {
-    const validator: UsernameValidator = new UsernameValidator();
+    const validator: UsernameValidatorService = new UsernameValidatorService();
     it("should return an empty message if the username is correct", () => {
         const username: string = "correctName";
         const users: string[] = [];

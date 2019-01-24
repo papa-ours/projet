@@ -1,6 +1,6 @@
 export interface TopScore {
-    solo: string[];
-    pvp: string[];
+    solo: string;
+    pvp: string;
 }
 
 export interface GameSheetDescription {

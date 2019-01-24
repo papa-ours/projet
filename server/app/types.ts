@@ -3,6 +3,8 @@ export default {
         Socket: Symbol("Socket"),
         Application: Symbol("Application"),
         Routes: Symbol("Routes"),
-        UsernameValidator: Symbol("UsernameValidator"),
-        GetGameList: Symbol("GetGameList"),
+        UsernameValidatorService: Symbol("UsernameValidatorService"),
+        UsernameValidatorController: Symbol("UsernameValidatorController"),
+        GetGameListService: Symbol("GetGameListService"),
+        GetGameListController: Symbol("GetGameListController"),
 };

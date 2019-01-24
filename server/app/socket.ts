@@ -1,8 +1,8 @@
 import * as http from "http";
-import { injectable, inject } from "inversify";
+import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
 import { Message } from "../../common/communication/message";
-import { UsernameValidator } from "./routes/username-validator";
+import { UsernameValidatorService } from "./services/username-validator.service";
 import Types from "./types";
 
 @injectable()
@@ -11,7 +11,7 @@ export class Socket {
     private io: SocketIO.Server;
 
     public constructor(
-        @inject(Types.UsernameValidator) private usernameValidator: UsernameValidator) {}
+        @inject(Types.UsernameValidatorService) private usernameValidatorService: UsernameValidatorService) {}
 
     public init(server: http.Server): void {
         this.io = socketio(server);
@@ -20,7 +20,7 @@ export class Socket {
             let currentUsername: string = "";
 
             socket.on("requestUsernameValidation", (username: string) => {
-                const message: Message = this.usernameValidator.getUsernameValidation(username, this.users);
+                const message: Message = this.usernameValidatorService.getUsernameValidation(username, this.users);
 
                 if (message.body === "") {
                     currentUsername = username;
