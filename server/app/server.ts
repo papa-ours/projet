@@ -13,6 +13,10 @@ export class Server {
 
     public constructor(@inject(Types.Application) private application: Application) { }
 
+    public getServer(): http.Server {
+        return this.server;
+    }
+
     public init(): void {
         this.application.app.set("port", this.appPort);
 

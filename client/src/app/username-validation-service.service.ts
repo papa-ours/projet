@@ -1,24 +1,27 @@
-import { of, Observable } from "rxjs";
-import { catchError } from "rxjs/operators";
-
-import { Message } from "../../../common/communication/message";
-
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable, Observer } from "rxjs";
+import * as io from "socket.io-client";
+import { Message } from "../../../common/communication/message";
 
 @Injectable()
 export class UsernameValidationService {
 
-    private readonly BASE_URL: string = "http://localhost:3000/addUser/";
-    public constructor(private http: HttpClient) { }
+    private socket: SocketIOClient.Socket;
+    private readonly BASE_URL: string = "http://localhost:3000";
 
-    public getUsernameValidation(username: string): Observable<Message> {
-        return this.http.get<Message>(this.BASE_URL + username)
-            .pipe(catchError(this.handleError<Message>("getUsernameValidation")),
-        );
+    public constructor() {
+        this.socket = io(this.BASE_URL);
     }
 
-    private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {
-        return (error: Error): Observable<T> => of(result as T);
+    public sendUsername(username: string): void {
+        this.socket.emit("requestUsernameValidation", username);
+    }
+
+    public getUsernameValidation(): Observable<Message> {
+        return new Observable<Message>((observer: Observer<Message>) => {
+            this.socket.on("validation", (message: Message) => {
+                observer.next(message);
+            });
+        });
     }
 }
