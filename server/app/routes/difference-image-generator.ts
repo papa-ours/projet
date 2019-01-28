@@ -39,7 +39,7 @@ export class DifferenceImageGenerator {
     }
 
     private calculateDifferenceFromImages(originalImage: Uint8Array, modifiedImage: Uint8Array): number[] {
-        const OFF_SET_LOCATION: number = 14;
+        const OFF_SET_LOCATION: number = 10;
         const WHITE: number = 255;
         const BLACK: number = 0;
         const OFF_SET_ORIGINAL_IMAGE: number = originalImage[OFF_SET_LOCATION];
