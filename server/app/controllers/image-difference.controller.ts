@@ -11,8 +11,8 @@ export class ImageDifferenceController {
     public get router(): Router {
         const router: Router = Router();
 
-        router.get("/",
-                   (req: Request, res: Response, next: NextFunction) =>
+        router.post("/",
+                    (req: Request, res: Response, next: NextFunction) =>
                         this.differenceImageGenerator.generate(req, res));
 
         return router;
