@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { Message } from "../../../common/communication/message";
+import { CHUNK_COLORS, CHUNK_RELATIVE_POSITION, Position  } from "./circle-area";
 import { Color } from "./enums";
 
 @injectable()
@@ -65,19 +66,35 @@ export class DifferenceImageGenerator {
     }
 
     private augmentPixelsDifferences(differenceImage: number[], differencesPosition: number[]): number[] {
+        for (const position of differencesPosition) {
+            let colorIndex: number = 0;
+            for (const relativePoition of CHUNK_RELATIVE_POSITION) {
+                const color: number = CHUNK_COLORS[colorIndex++];
+                const centerPosition: Position = this.resolvePosition(position);
+                const index: number = this.resolveIndex(centerPosition.i + relativePoition.i , centerPosition.j + relativePoition.j );
+                if (color === Color.Black) {
+                    differenceImage.splice(index, this.PIXEL_LENGTH, color, color, color);
+                }
+            }
+        }
 
         return differenceImage;
     }
 
     private resolveIndex(i: number, j: number): number {
-        return j * this.IMAGE_WIDTH + i;
+        // il faut multiplier par PIXEL_LENGTH pour avoir la position du pixel
+        // (j * this.IMAGE_WIDTH + i) est incomplet
+        return (j * this.IMAGE_WIDTH + i) * this.PIXEL_LENGTH;
     }
 
-    private resolvePosition(index: number): {i: number, j: number} {
+    private resolvePosition(index: number): Position {
+        // il faut diviser par PIXEL_LENGTH pour passer de RGB a PIXEL
+        index = index / this.PIXEL_LENGTH ;
+
         return {
-            i: Math.floor(index / this.IMAGE_WIDTH),
-            j: index % this.IMAGE_WIDTH,
-        }
+            i: ( index % this.IMAGE_WIDTH ) ,
+            j: Math.floor(index / this.IMAGE_WIDTH) ,
+        };
     }
 
 }
