@@ -1,17 +1,8 @@
-import { Observable, fromEvent } from "rxjs";
-
-export interface FileReaderEventTarget extends EventTarget {
-    result: ArrayBuffer;
-    files: FileList;
-}
-
-export interface FileReaderEvent extends Event {
-    target: FileReaderEventTarget;
-}
+import { fromEvent, Observable } from "rxjs";
 
 export class FileReaderUtil {
     public readFile(file: File): Observable<Event> {
-        const fileReader = new FileReader();
+        const fileReader: FileReader = new FileReader();
         fileReader.readAsArrayBuffer(file);
 
         return fromEvent(fileReader, "load");
