@@ -1,0 +1,23 @@
+<div class="game-sheet">
+  <div class="game-title">{{description.name}}</div>
+  <div class="game-preview">
+    <img class="game-preview-image" src={{description.preview}}>
+  </div>
+  <div class="scores">
+    <div class="top3-component">Top 3</div>
+    <div></div>
+    <div class="score-header">Solo</div>
+    <div class="score-header">1v1</div>
+
+    <div class="row" *ngFor="let topScore of description.topScores; index as i">
+        <div class="medals" [style.background]="medalColors[i]">
+          <div class="value">{{i + 1}}</div>
+        </div>
+        <div class="solo score">{{topScore.solo}}</div>
+        <div class="pvp score">{{topScore.pvp}}</div>
+    </div>
+    <div></div>
+    <button #btn1>Jouer</button>
+    <button #btn2>Créer</button>
+  </div>
+</div>
