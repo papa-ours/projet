@@ -6,6 +6,7 @@ import { DifferenceImageService } from "./difference-image.service";
 import { GameListComponent } from "./game-list/game-list.component";
 import { GameSheetComponent } from "./game-sheet/game-sheet.component";
 import { InitialViewComponent } from "./initial-view/initial-view.component";
+import { FileReaderUtil } from "./simple-game-creation/file-reader.util";
 import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-creation.component";
 import { UsernameValidationService } from "./username-validation-service.service";
 
@@ -33,6 +34,7 @@ import { BrowserModule } from "@angular/platform-browser";
     UsernameValidationService,
     DeleteUsernameService,
     DifferenceImageService,
+    FileReaderUtil,
   ],
   bootstrap: [AppComponent],
 })

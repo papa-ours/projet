@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Message } from "../../../../common/communication/message";
 import { DifferenceImageService } from "../difference-image.service";
+import { FileReaderUtil } from "./file-reader.util";
 
 interface FileReaderEventTarget extends EventTarget {
   result: string;
@@ -29,7 +30,8 @@ export class SimpleGameCreationComponent implements OnInit {
   private imagesData: Uint8Array[] = [];
   @Output() public closeForm: EventEmitter <boolean> = new EventEmitter();
 
-  public constructor(private differenceImageService: DifferenceImageService) { }
+  public constructor(private differenceImageService: DifferenceImageService,
+                     private fileReaderUtil: FileReaderUtil) { }
 
   public close(): void {
     this.closeForm.emit(false);
