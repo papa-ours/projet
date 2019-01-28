@@ -1,39 +1,74 @@
-.form{
-    background-color:#FFFFFF;
-    width:auto;
-    height:auto;
-    max-width: 500px;
-    max-height: 500px;
+.form {
+    padding: 30px;
+    background-color: #122237;
+    width: auto;
+    color: #FFF;
+    font-family: 'Helvetica';
+    height: auto;
     border-radius: 10px;
-    border: #000000 solid 2px;
 }
-.title{
+
+.title {
     height: 40px;
+    font-size: 22px;
     text-align: center;
+    margin-bottom: 10px;
 }
-.info{
+
+.info {
     height: 40px;
-    margin-left:10px;
+    margin-left: 10px;
 }
-input{
-    margin-left:10px;
+
+input {
+    margin-left: 10px;
 }
-.name-input{
-    margin-left:37px;
+
+input[type="file"] {
+    margin-top: 20px;
+    cursor: pointer;
 }
-.button-section{
-    height: 40px;
-    text-align: center;
-}
-button{
-    font-family: 'Helvetica Neue';
+
+.name-input {
+    padding-left: 6px;
     font-size: 16px;
-    background-color:#201e1e;
-    color:#FFFFFF;
-    border:none;
-    width:20%;
+    margin-left: 37px;
+    border-radius: 8px;
+    border: none;
+    height: 40px;
+    width: 200px;
 }
-button:hover{
-    background:#12bfd6;
-    color:#201e1e;
+
+.button-section {
+    margin-top: 20px;
+    height: 40px;
+    text-align: center;
+}
+
+button {
+    font-family: 'Helvetica';
+    font-size: 18px;
+    color: #FFFFFF;
+    border: none;
+    width: 100px;
+    height: 35px;
+    margin: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button.cancel-btn {
+    background: #ff5757;
+}
+
+button.create-btn {
+    background: #08A037;
+}
+
+button.cancel-btn:hover {
+    background: #f57575;
+}
+
+button.create-btn:hover {
+    background: #10ab37;
 }

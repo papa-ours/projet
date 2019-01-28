@@ -8,6 +8,11 @@ import { GameSheetDescription } from "../../../../common/communication/game-desc
 })
 export class GameSheetComponent implements OnInit {
 
+  private medalColors: string[] = [
+    "#FFD700",
+    "#C0C0C0",
+    "#CD7F32",
+  ];
   @Input() private description: GameSheetDescription;
   @Input() private privilege: "admin" | "user";
   @ViewChild('btn1') btn1: ElementRef;

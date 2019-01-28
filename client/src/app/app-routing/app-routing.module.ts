@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { InitialViewComponent } from '../initial-view/initial-view.component'; 
-
+import { GameListViewComponent } from "../game-list-view/game-list-view.component";
 
 const ROUTES: Routes = [
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "login", component: InitialViewComponent },
   { path: "admin", component: AdminViewComponent },
+  { path: "gamelist", component: GameListViewComponent },
 ];
 
 @NgModule({
