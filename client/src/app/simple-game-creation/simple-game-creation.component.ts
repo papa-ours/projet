@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Message } from "../../../../common/communication/message";
 import { DifferenceImageService } from "../difference-image.service";
 
@@ -27,18 +27,15 @@ export class SimpleGameCreationComponent implements OnInit {
   private readonly N_IMAGES: number = 2;
   private imageFiles: File[] = new Array<File>(this.N_IMAGES);
   private imagesData: Uint8Array[] = [];
-  @Output() public closeForm=new EventEmitter();
+  @Output() public closeForm: EventEmitter <boolean> = new EventEmitter();
 
+  public constructor(private differenceImageService: DifferenceImageService) { }
 
-
-  constructor(private differenceImageService: DifferenceImageService) { }
-
-  close(){
+  public close(): void {
     this.closeForm.emit(false);
   }
 
-  ngOnInit() {
-  }
+  public ngOnInit(): void {}
 
   // @ts-ignore
   private fileEntered(event: FileReaderEvent, type: ImageType): void {
@@ -79,7 +76,12 @@ export class SimpleGameCreationComponent implements OnInit {
     formData.append("modifiedImage", this.imagesData[ImageType.MODIFIED].toString());
 
     this.differenceImageService.postDifferenceImageData(formData)
-      .subscribe((message: Message) => console.log(message));
+      .subscribe((message: Message) => {
+        const image: HTMLImageElement = document.getElementById("image") as HTMLImageElement;
+        const myRawData: number[] = message.body.split(",").map(Number);
+        const myData: string[] = myRawData.map((x) => String.fromCharCode(x));
+        image.src = "data:image/bmp;base64," + btoa(myData.join(""));
+      });
   }
 
   // @ts-ignore

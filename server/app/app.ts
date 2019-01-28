@@ -5,6 +5,7 @@ import * as express from "express";
 import { inject, injectable } from "inversify";
 import * as logger from "morgan";
 import { GetGameListController } from "./controllers/get-game-list.controller";
+import { ImageDifferenceController } from "./controllers/image-difference.controller";
 import Types from "./types";
 
 @injectable()
@@ -13,7 +14,9 @@ export class Application {
     private readonly internalError: number = 500;
     public app: express.Application;
 
-    public constructor(@inject(Types.GetGameListController) private getGameListController: GetGameListController) {
+    public constructor(
+            @inject(Types.GetGameListController) private getGameListController: GetGameListController,
+            @inject(Types.ImageDifferenceController) private imageDifferenceController: ImageDifferenceController) {
         this.app = express();
 
         this.config();
@@ -24,8 +27,8 @@ export class Application {
     private config(): void {
         // Middlewares configuration
         this.app.use(logger("dev"));
-        this.app.use(bodyParser.json());
-        this.app.use(bodyParser.urlencoded({ extended: true }));
+        this.app.use(bodyParser.json({ limit: "50mb"}));
+        this.app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
         this.app.use(cookieParser());
         this.app.use(cors());
     }
@@ -33,6 +36,7 @@ export class Application {
     public bindRoutes(): void {
         // Notre application utilise le routeur de notre API `Index`
         this.app.use("/api/gamelist", this.getGameListController.router);
+        this.app.use("/api/imagedifference", this.imageDifferenceController.router);
         this.errorHandeling();
     }
 
