@@ -11,12 +11,13 @@ export class GameListComponent implements OnInit {
   
   //@ts-ignore
   private descriptions: GameSheetDescription[];
-  @Input() private type: "3D" | "2D";
+  @Input() private is2D: boolean;
+  //@ts-ignore
   @Input() private privilege: "admin" | "user";
   constructor(private gameListService: GameListService) { }
 
   ngOnInit() {
-    this.gameListService.getGameList().subscribe(lists => this.descriptions = this.type === "2D" ? lists.list2d : lists.list3d);
+    this.gameListService.getGameList().subscribe(lists => this.descriptions = this.is2D ? lists.list2d : lists.list3d);
   }
 
 }

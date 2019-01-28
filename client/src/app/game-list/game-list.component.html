@@ -1,3 +1,5 @@
+<div *ngIf="is2D; else elseBlock" class="list-title">Point de vue simple</div>
+<ng-template #elseBlock><div class="list-title">Point de vue libre</div></ng-template>
 <div class="game-list" *ngFor="let description of descriptions">
     <app-game-sheet [description]="description" privilege={{privilege}}></app-game-sheet>
 </div>
