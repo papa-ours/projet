@@ -4,7 +4,7 @@ import { DifferenceImageService } from "../difference-image.service";
 import { FileReaderUtil } from "./file-reader.util";
 
 interface FileReaderEventTarget extends EventTarget {
-  result: string;
+  result: ArrayBuffer;
   files: FileList;
 }
 
@@ -54,25 +54,8 @@ export class SimpleGameCreationComponent implements OnInit {
     );
   }
 
-  private readFile(file: File): void {
-    const reader: FileReader = new FileReader();
-    reader.onload = (): void => {
-      const data: ArrayBuffer = reader.result as ArrayBuffer;
-      if (typeof(data !== null)) {
-        const imageData: Uint8Array = new Uint8Array(data);
-        this.imagesData.push(imageData);
-        if (this.imagesData.length === this.N_IMAGES) {
-          this.sendForm();
-        }
-      }
-    };
-
-    reader.readAsArrayBuffer(file);
-  }
-
   private sendForm(): void {
     const formData: FormData = new FormData();
-
     formData.append("name", this.name);
     formData.append("originalImage", this.imagesData[ImageType.ORIGINAL].toString());
     formData.append("modifiedImage", this.imagesData[ImageType.MODIFIED].toString());
@@ -88,8 +71,19 @@ export class SimpleGameCreationComponent implements OnInit {
 
   // @ts-ignore
   private submitForm(): void {
+    let readFiles: number = 0;
     if (this.allValuesEntered) {
-      this.imageFiles.forEach((file) => this.readFile(file));
+      this.imageFiles.forEach((file: File, index: number) => {
+        this.fileReaderUtil.readFile(file)
+          .subscribe((event: Event) => {
+              const eventTarget: FileReaderEventTarget = event.target as FileReaderEventTarget;
+              this.imagesData[index] = new Uint8Array(eventTarget.result);
+
+              if (++readFiles === this.imageFiles.length) {
+                this.sendForm();
+              }
+          });
+      });
     }
   }
 }
