@@ -9,4 +9,5 @@ export default {
         GetGameListController: Symbol("GetGameListController"),
         DifferenceImageGenerator: Symbol("DifferenceImageGenerator"),
         ImageDifferenceController: Symbol("ImageDifferenceController"),
+        DifferencesFinderService: Symbol("DifferenceFinderService"),
 };
