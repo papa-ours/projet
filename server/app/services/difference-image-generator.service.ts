@@ -10,6 +10,7 @@ export class DifferenceImageGenerator {
 
     private readonly PIXEL_LENGTH: number = 3;
     private readonly IMAGE_WIDTH: number = 640;
+    private readonly OFF_SET_LOCATION: number = 10;
 
     public generate(req: Request, res: Response): void {
         const originalImageData: Uint8Array =
@@ -42,8 +43,7 @@ export class DifferenceImageGenerator {
     }
 
     private calculateDifferenceFromImages(originalImage: Uint8Array, modifiedImage: Uint8Array): number[] {
-        const OFF_SET_LOCATION: number = 10;
-        const OFF_SET_ORIGINAL_IMAGE: number = originalImage[OFF_SET_LOCATION];
+        const OFF_SET_ORIGINAL_IMAGE: number = originalImage[this.OFF_SET_LOCATION];
         const differenceImage: number[] = Array.from(originalImage);
         const differencesPosition: number[] = [];
         for ( let i: number = OFF_SET_ORIGINAL_IMAGE;
@@ -73,7 +73,9 @@ export class DifferenceImageGenerator {
                 const centerPosition: Position = this.resolvePosition(position);
                 const index: number = this.resolveIndex(centerPosition.i + relativePoition.i , centerPosition.j + relativePoition.j );
                 if (color === Color.Black) {
-                    differenceImage.splice(index, this.PIXEL_LENGTH, color, color, color);
+                    if (index >= differenceImage[this.OFF_SET_LOCATION] && index < differenceImage.length) {
+                        differenceImage.splice(index, this.PIXEL_LENGTH, color, color, color);
+                    }
                 }
             }
         }
@@ -89,7 +91,7 @@ export class DifferenceImageGenerator {
 
     private resolvePosition(index: number): Position {
         // il faut diviser par PIXEL_LENGTH pour passer de RGB a PIXEL
-        index = index / this.PIXEL_LENGTH ;
+        index = Math.floor(index / this.PIXEL_LENGTH) + index % this.PIXEL_LENGTH;
 
         return {
             i: ( index % this.IMAGE_WIDTH ) ,
