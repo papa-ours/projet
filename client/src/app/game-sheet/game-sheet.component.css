@@ -7,15 +7,15 @@
     font-family: 'Helvetica';
     background: #ffffff20;
     margin-bottom: 20px;
-    margin-left:25px;
     height: 220px;
     padding: 10px;
     width: 80%;
+    margin-left: 10%;
     color: white;
 }
 
 .game-title {
-    grid-column-start: 1;
+    grid-column-start: 2;
     grid-column-end: 2;
     font-size: 26px;
     font-weight: 600;
@@ -24,12 +24,15 @@
 }
 
 .game-preview-image {
-    grid-row-start: 1;
-    grid-row-end: 1;
-    width: 100%;
+    margin: 5%;
+    width: 90%;
 }
 
 .game-preview {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 1;
     text-align: center;
 }
 
@@ -45,6 +48,7 @@
 }
 
 .scores {
+    grid-column-start: 2;
     margin-top: 10px;
     display: grid;
     grid-template-columns: 20px repeat(2, 120px);
@@ -95,17 +99,14 @@
 
 button {
     background: #08A037;
-    display: flex;
     border: none;
     color: #fff;
     font-size: 18px;
-    margin: 10px;
-    text-align: center;
     border-radius: 8px;
     cursor: pointer;
-    width: 110px;
+    width: 90%;
+    margin-left: 5%;
     height: 35px;
-    align-content: center;
 }
 
 button:hover {
@@ -113,5 +114,5 @@ button:hover {
 }
 
 button div {
-    margin: auto;
+    text-align: center;
 }
