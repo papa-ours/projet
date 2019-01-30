@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Message } from "../../../../common/communication/message";
 import { DifferenceImageService } from "../difference-image.service";
+import { FormValidationService } from "../form-validation.service";
 
 interface FileReaderEventTarget extends EventTarget {
   result: string;
@@ -29,7 +30,8 @@ export class SimpleGameCreationComponent implements OnInit {
   private imagesData: Uint8Array[] = [];
   @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
 
-  public constructor(private differenceImageService: DifferenceImageService) { }
+  public constructor(private differenceImageService: DifferenceImageService,
+                     private formValidationService: FormValidationService) { }
 
   public close(): void {
     this.closeForm.emit(false);
@@ -45,11 +47,10 @@ export class SimpleGameCreationComponent implements OnInit {
   }
 
   private get allValuesEntered(): boolean {
-    return (
-      this.name !== undefined &&
-      this.imageFiles[ImageType.ORIGINAL] !== undefined &&
-      this.imageFiles[ImageType.MODIFIED] !== undefined
-    );
+    const originalImage: File = this.imageFiles[ImageType.ORIGINAL];
+    const modifiedImage: File = this.imageFiles[ImageType.MODIFIED];
+
+    return this.formValidationService.isFormValide(this.name, originalImage, modifiedImage);
   }
 
   private readFile(file: File): void {
