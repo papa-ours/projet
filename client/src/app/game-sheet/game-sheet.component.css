@@ -1,15 +1,22 @@
 .game-sheet {
     padding-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: 10% 90%;
     border-radius: 10px;
     font-family: 'Helvetica';
     background: #ffffff20;
     margin-bottom: 20px;
     margin-left:25px;
-    width: 650px;
+    height: 220px;
+    padding: 10px;
+    width: 80%;
     color: white;
 }
 
 .game-title {
+    grid-column-start: 1;
+    grid-column-end: 2;
     font-size: 26px;
     font-weight: 600;
     text-align: center;
@@ -17,8 +24,9 @@
 }
 
 .game-preview-image {
-    width: 426.66px;
-    height: 320px;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    width: 100%;
 }
 
 .game-preview {
@@ -39,10 +47,10 @@
 .scores {
     margin-top: 10px;
     display: grid;
-    grid-template-columns: 20px 200px 200px;
-    grid-template-rows: 30px 30px 30px 30px 30px;
-    margin-left: 100px;
-    font-size: 20px;
+    grid-template-columns: 20px repeat(2, 120px);
+    grid-template-rows: repeat(4, 24px);
+    margin-left: 4%;
+    font-size: 14px;
 }
 
 .solo {
@@ -52,7 +60,6 @@
 
 .score {
     text-align: center;
-    width: 200px;
 }
 
 .pvp {
@@ -62,11 +69,10 @@
 
 .row {
     display: grid;
-    grid-template-columns: 20px 200px 200px;
-    grid-template-rows: 20px;
+    grid-template-columns: 20px repeat(2, 120px);
+    grid-template-rows: 24px;
     grid-column-start: 1;
     grid-column-end: 4;
-    grid-template-rows: 20px;
 }
 
 .medals {
@@ -77,10 +83,10 @@
     text-align: center;
     display: flex;
     background: red;
-    width: 25px;
-    height: 25px;
-    border-radius: 12.5px;
-    color: #fff;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    color: #000;
 }
 
 .medals .value {
@@ -89,15 +95,23 @@
 
 button {
     background: #08A037;
+    display: flex;
     border: none;
     color: #fff;
-    font-size: 24px;
+    font-size: 18px;
     margin: 10px;
-    padding: 10px;
+    text-align: center;
     border-radius: 8px;
     cursor: pointer;
+    width: 110px;
+    height: 35px;
+    align-content: center;
 }
 
 button:hover {
     background: #10ab37;
+}
+
+button div {
+    margin: auto;
 }
