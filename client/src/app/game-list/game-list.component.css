@@ -1,14 +1,18 @@
 .game-list {
     width: 700px;
 }
+
 .list-title{
     margin-top:70px;
+    color: #FFF;
+    font-weight: 600;
     font-family: 'Trebuchet MS';
-    font-size: 22px;
+    font-size: 28px;
     text-align: center;
     height: 10%;
     width: 100%;
 }
+
 .game-container {
     width: 700px;
     margin-top:35px;
