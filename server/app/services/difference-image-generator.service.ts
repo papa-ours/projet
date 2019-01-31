@@ -4,6 +4,7 @@ import "reflect-metadata";
 import { Message } from "../../../common/communication/message";
 import { Color } from "./enums";
 import { CHUNK_RELATIVE_POSITIONS, Position  } from "./utils/circle-area";
+import { BMPImage } from "./utils/bmp-image";
 
 @injectable()
 export class DifferenceImageGenerator {
@@ -11,12 +12,15 @@ export class DifferenceImageGenerator {
     private readonly PIXEL_LENGTH: number = 3;
     private readonly IMAGE_WIDTH: number = 640;
     private readonly OFF_SET_LOCATION: number = 10;
+    private originalImage: BMPImage;
+    private modifiedImage: BMPImage;
 
     public generate(req: Request, res: Response): void {
-        const originalImageData: Uint8Array =
-            JSON.parse("[" + req.body.originalImage + "]");
-        const modifiedImageData: Uint8Array =
-            JSON.parse("[" + req.body.modifiedImage + "]");
+        const originalImageData: Uint8Array = JSON.parse("[" + req.body.originalImage + "]");
+        const modifiedImageData: Uint8Array = JSON.parse("[" + req.body.modifiedImage + "]");
+
+        this.originalImage = BMPImage.fromArray(originalImageData);
+        this.modifiedImage = BMPImage.fromArray(modifiedImageData);
 
         const message: Message = {
             title: "Image Message",
