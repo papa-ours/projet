@@ -11,17 +11,9 @@ export class DifferenceImageGenerator {
     private originalImage: BMPImage;
     private modifiedImage: BMPImage;
 
-    public generate(req: Request, res: Response): void {
-        const originalImageData: Uint8Array = JSON.parse("[" + req.body.originalImage + "]");
-        const modifiedImageData: Uint8Array = JSON.parse("[" + req.body.modifiedImage + "]");
-
+    public generate(originalImageData: Uint8Array, modifiedImageData: Uint8Array): BMPImage | undefined {
         this.originalImage = BMPImage.fromArray(originalImageData);
         this.modifiedImage = BMPImage.fromArray(modifiedImageData);
-
-        const message: Message = {
-            title: "Image Message",
-            body: "error",
-        };
 
         if (this.originalImage.isBMP() && this.modifiedImage.isBMP()) {
             const differenceImage: BMPImage = this.originalImage.compare(this.modifiedImage);
@@ -33,9 +25,9 @@ export class DifferenceImageGenerator {
                 console.error(error.message);
             }
 
-            message.body = differenceImage.toArray().toString();
+            return differenceImage;
         }
 
-        res.send(message);
+        return undefined;
     }
 }

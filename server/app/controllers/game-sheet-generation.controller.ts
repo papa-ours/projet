@@ -1,19 +1,26 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
-import { DifferenceImageGenerator } from "../services/difference-image-generator.service";
+import { GameSheetGenerationService } from "../services/game-sheet-generation.service";
 import Types from "../types";
 
 @injectable()
 export class GameSheetGenerationController {
 
-    public constructor(@inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator) { }
+    public constructor(@inject(Types.GameSheetGenerationService) private gameSheetGenerationService: GameSheetGenerationService) { }
 
     public get router(): Router {
         const router: Router = Router();
 
         router.post("/",
-                    (req: Request, res: Response, next: NextFunction) =>
-                        this.differenceImageGenerator.generate(req, res));
+                    (req: Request, res: Response, next: NextFunction) => {
+                        const name: string = req.body.name;
+                        const originalImageData: Uint8Array = JSON.parse("[" + req.body.originalImage + "]");
+                        const modifiedImageData: Uint8Array = JSON.parse("[" + req.body.modifiedImage + "]");
+
+                        const body: string = this.gameSheetGenerationService.generateGameSheet(name, originalImageData, modifiedImageData);
+
+                        res.send({ title: "image", body: body });
+                    });
 
         return router;
     }
