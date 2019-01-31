@@ -1,5 +1,5 @@
 import { readLittleEndianBytes } from "./binary";
-import { CHUNK_RELATIVE_POSITIONS } from "./circle-area";
+import { CHUNK_RELATIVE_POSITIONS, Position } from "./circle-area";
 import { Pixel } from "./pixel";
 
 export class BMPImage {
@@ -67,12 +67,35 @@ export class BMPImage {
     }
 
     private augmentPixel(pixel: Pixel, index: number): void {
-
     }
 
     private placePixel(index: number, pixel: Pixel): void {
         if (index >= 0 && index < this.pixels.length) {
             this.pixels[index] = pixel;
         }
+    }
+
+    private resolveIndex(position: Position): number {
+        // il faut multiplier par PIXEL_LENGTH pour avoir la position du pixel
+        // (j * this.IMAGE_WIDTH + i) est incomplet
+        if (!this.width) {
+            throw Error("Image width must be know to resolve index");
+        }
+
+        return (position.j * this.width + position.i) * Pixel.BYTES_PER_PIXEL;
+    }
+
+    private resolvePosition(index: number): Position {
+
+        if (!this.width) {
+            throw Error("Image width must be know to resolve position");
+        }
+
+        index = Math.floor(index / Pixel.BYTES_PER_PIXEL) + index % Pixel.BYTES_PER_PIXEL;
+
+        return {
+            i: ( index % this.width ),
+            j: Math.floor(index / this.width),
+        };
     }
 }
