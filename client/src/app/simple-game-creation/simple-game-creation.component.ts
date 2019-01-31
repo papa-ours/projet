@@ -24,7 +24,7 @@ enum ImageType {
 })
 
 export class SimpleGameCreationComponent implements OnInit {
-  private name: string;
+  private name: string = "";
   private readonly N_IMAGES: number = 2;
   private imageFiles: File[] = new Array<File>(this.N_IMAGES);
   private imagesData: Uint8Array[] = [];
