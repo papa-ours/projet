@@ -1,7 +1,5 @@
-import { Request, Response } from "express";
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { Message } from "../../../common/communication/message";
 import { BMPImage } from "./utils/bmp-image";
 
 @injectable()
