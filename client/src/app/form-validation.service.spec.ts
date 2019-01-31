@@ -1,10 +1,8 @@
-import { TestBed } from "@angular/core/testing";
-
 import { FormValidationService } from "./form-validation.service";
 
 describe("FormValidationService", () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
-  const formValidationService: FormValidationService = TestBed.get(FormValidationService);
+  beforeEach(() => {});
+  const formValidationService: FormValidationService = new FormValidationService();
   it("should be created", () => {
     expect(formValidationService).toBeTruthy();
   });
