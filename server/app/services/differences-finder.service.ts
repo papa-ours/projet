@@ -2,13 +2,16 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 import { BMPImage } from "./utils/bmp-image";
 import { Pixel } from "./utils/pixel";
-import { Position } from "./utils/circle-area";
 
 @injectable()
 export class DifferencesFinderService {
 
     private isPixelVisited: boolean[] = [];
     public getNumberOfDifferences(image: BMPImage): number {
+        if (!image) {
+            throw Error("Image must be defined");
+        }
+
         let differencesCount: number = 0;
         this.isPixelVisited = new Array(image.size()).fill(false);
 
