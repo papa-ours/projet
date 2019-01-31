@@ -1,9 +1,25 @@
 .game-list {
-    width: 700px;
-    margin-left: 30px;
+    width: 50vw;
+    min-width: 700px;
+    max-width: 900px;
+}
+
+.list-title{
+    padding-top: 10px;
+    margin-top:70px;
+    background: #525286;
+    color: #FFF;
+    font-weight: 600;
+    font-family: 'Trebuchet MS';
+    font-size: 28px;
+    text-align: center;
+    height: 6%;
+    z-index: 2;
+    min-width: 700px;
+    width: 50vw;
 }
 
 .game-list-container {
-    padding-top: 90px;
-    height: 100%;
+    width: 50%;
+    margin-top: 20px;
 }
