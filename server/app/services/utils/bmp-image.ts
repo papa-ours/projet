@@ -67,6 +67,17 @@ export class BMPImage {
     }
 
     private augmentPixel(pixel: Pixel, index: number): void {
+        const centerPosition: Position = this.resolvePosition(index);
+
+        CHUNK_RELATIVE_POSITIONS.forEach((position: Position) => {
+            const pixelToPlacePosition: Position = {
+                i: centerPosition.i + position.i,
+                j: centerPosition.j + position.j,
+            };
+
+            const pixelToPlaceIndex: number = this.resolveIndex(pixelToPlacePosition);
+            this.placePixel(pixelToPlaceIndex, Pixel.BLACK_PIXEL);
+        });
     }
 
     private placePixel(index: number, pixel: Pixel): void {
@@ -76,22 +87,17 @@ export class BMPImage {
     }
 
     private resolveIndex(position: Position): number {
-        // il faut multiplier par PIXEL_LENGTH pour avoir la position du pixel
-        // (j * this.IMAGE_WIDTH + i) est incomplet
         if (!this.width) {
             throw Error("Image width must be know to resolve index");
         }
 
-        return (position.j * this.width + position.i) * Pixel.BYTES_PER_PIXEL;
+        return (position.j * this.width + position.i);
     }
 
     private resolvePosition(index: number): Position {
-
         if (!this.width) {
             throw Error("Image width must be know to resolve position");
         }
-
-        index = Math.floor(index / Pixel.BYTES_PER_PIXEL) + index % Pixel.BYTES_PER_PIXEL;
 
         return {
             i: ( index % this.width ),
