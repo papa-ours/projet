@@ -7,7 +7,8 @@ export class BMPImage {
 
     public static fromArray(array: Uint8Array): BMPImage {
         const dataIndexIndex: number = 10;
-        const dataIndex: number = readLittleEndianBytes(array, 4, dataIndexIndex);
+        const dataIndexLength: number = 4;
+        const dataIndex: number = readLittleEndianBytes(array, dataIndexLength, dataIndexIndex);
 
         const pixels: Pixel[] = [];
         const image: BMPImage = new BMPImage(pixels, array.slice(0, dataIndex));
