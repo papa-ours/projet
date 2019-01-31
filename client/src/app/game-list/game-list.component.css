@@ -1,10 +1,11 @@
 .game-list {
-    width: 700px;
+    width: 50vw;
+    min-width: 700px;
+    max-width: 900px;
 }
 
 .list-title{
     padding-top: 10px;
-    position: fixed;
     margin-top:70px;
     background: #525286;
     color: #FFF;
@@ -14,10 +15,11 @@
     text-align: center;
     height: 6%;
     z-index: 2;
-    width: 51.5%;
+    min-width: 700px;
+    width: 50vw;
 }
 
 .game-list-container {
     width: 50%;
-    margin-top:150px;
+    margin-top: 20px;
 }
