@@ -52,6 +52,14 @@ export class BMPImage {
         return array;
     }
 
+    public size(): number {
+        return this.pixels.length;
+    }
+
+    public pixelAt(index: number): Pixel {
+        return this.pixels[index];
+    }
+
     public augmentBlackPixels(): void {
         if (!this.width) {
             throw Error("Image width must be known to augment pixels");
