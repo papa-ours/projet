@@ -22,9 +22,9 @@ export class BMPImage {
 
     public compare(other: BMPImage): BMPImage {
         const image: BMPImage = new BMPImage(Array.from(this.pixels), this.header);
-        for (let i: number = 0; i < image.pixels.length; i++) {
-            image.pixels[i] = this.pixels[i].equals(other.pixels[i]) ? Pixel.WHITE_PIXEL : Pixel.BLACK_PIXEL;
-        }
+        image.pixels = this.pixels.map((pixel: Pixel, index: number) => {
+            return pixel.equals(other.pixels[index]) ? Pixel.WHITE_PIXEL : Pixel.BLACK_PIXEL;
+        });
 
         return image;
     }
