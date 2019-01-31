@@ -1,12 +1,15 @@
-import { TestBed } from '@angular/core/testing';
-
 import { DeleteUsernameService } from './delete-username.service';
 
 describe('DeleteUsernameService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let httpClientSpy: { get: jasmine.Spy };
+  let  deleteUsernameService: DeleteUsernameService;
+  beforeEach(() => {
+    httpClientSpy = jasmine.createSpyObj("HttpClient", ["get"]);
+    // tslint:disable-next-line:no-any
+    deleteUsernameService = new DeleteUsernameService( httpClientSpy as any) ;
+  });
 
   it('should be created', () => {
-    const service: DeleteUsernameService = TestBed.get(DeleteUsernameService);
-    expect(service).toBeTruthy();
+    expect(deleteUsernameService).toBeTruthy();
   });
 });
