@@ -1,6 +1,6 @@
-import { DifferenceImageService } from './difference-image.service';
+import { DifferenceImageService } from "./difference-image.service";
 
-describe('DifferenceImageService', () => {
+describe("DifferenceImageService", () => {
   let httpClientSpy: { get: jasmine.Spy };
   let  deleteUsernameService: DifferenceImageService;
   beforeEach(() => {
@@ -8,7 +8,7 @@ describe('DifferenceImageService', () => {
     // tslint:disable-next-line:no-any
     deleteUsernameService = new DifferenceImageService( httpClientSpy as any) ;
   });
-  it('should be created', () => {
+  it("should be created", () => {
     expect(deleteUsernameService).toBeTruthy();
   });
 });
