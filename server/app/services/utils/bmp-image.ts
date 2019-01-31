@@ -21,6 +21,13 @@ export class BMPImage {
         return image;
     }
 
+    public isBMP(): boolean {
+        const B_CODE: number = 66;
+        const M_CODE: number = 77;
+
+        return (this.header[0] === B_CODE && this.header[1] === M_CODE);
+    }
+
     public compare(other: BMPImage): BMPImage {
         const image: BMPImage = new BMPImage(Array.from(this.pixels), this.header);
         image.pixels = this.pixels.map((pixel: Pixel, index: number) => {
