@@ -31,22 +31,40 @@ describe("Differences finder", () => {
         expect(differencesFinder.getNumberOfDifferences.bind(image)).to.throw("Image must be defined");
     });
 
-    it("should return 1 if it is passed an image with one black pixel", () => {
+    it("should return 1 if it is passed an image with two black pixels", () => {
         const header: Uint8Array = new Uint8Array(0);
-        const pixels: Pixel[] = [Pixel.BLACK_PIXEL];
-        const image: BMPImage = new BMPImage(pixels, header);
+        const pixels: Pixel[] = [Pixel.BLACK_PIXEL, Pixel.BLACK_PIXEL];
+        const image: BMPImage = new BMPImage(pixels, header, pixels.length);
         const result: number = differencesFinder.getNumberOfDifferences(image);
 
         expect(result).to.equals(1);
     });
 
-    it("should return 1 if it is passed an image with two black pixels", () => {
+    it("should return 1 if it is passed an image with one black pixel and one white pixel", () => {
         const header: Uint8Array = new Uint8Array(0);
-        const pixels: Pixel[] = [Pixel.BLACK_PIXEL, Pixel.BLACK_PIXEL];
-        const image: BMPImage = new BMPImage(pixels, header);
+        const pixels: Pixel[] = [Pixel.WHITE_PIXEL, Pixel.BLACK_PIXEL];
+        const image: BMPImage = new BMPImage(pixels, header, pixels.length);
         const result: number = differencesFinder.getNumberOfDifferences(image);
 
         expect(result).to.equals(1);
+    });
+
+    it("should return 1 if it is passed an image with one black pixel", () => {
+        const header: Uint8Array = new Uint8Array(0);
+        const pixels: Pixel[] = [Pixel.BLACK_PIXEL];
+        const image: BMPImage = new BMPImage(pixels, header, pixels.length);
+        const result: number = differencesFinder.getNumberOfDifferences(image);
+
+        expect(result).to.equals(1);
+    });
+
+    it("should return 2 if it is passed an image with two seperated black pixels", () => {
+        const header: Uint8Array = new Uint8Array(0);
+        const pixels: Pixel[] = [Pixel.BLACK_PIXEL, Pixel.WHITE_PIXEL, Pixel.BLACK_PIXEL, Pixel.WHITE_PIXEL];
+        const image: BMPImage = new BMPImage(pixels, header, pixels.length);
+        const result: number = differencesFinder.getNumberOfDifferences(image);
+
+        expect(result).to.equals(2);
     });
 
     it("should return 0 if it is passed an image with one white pixel", () => {

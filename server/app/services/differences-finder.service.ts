@@ -19,34 +19,44 @@ export class DifferencesFinderService {
         let differencesCount: number = 0;
         this.isPixelVisited = new Array(this.image.size()).fill(false);
 
-        this.isPixelVisited.forEach((isCurrentPixelVisited: boolean, index: number) => {
-            if (!isCurrentPixelVisited && this.image.pixelAt(index).equals(Pixel.BLACK_PIXEL)) {
-                this.explorePixel(index);
-                differencesCount++;
+        const stack: number[] = [];
+        for (let i: number = 0; i < this.isPixelVisited.length; i++) {
+            if (!this.isPixelVisited[i]) {
+                if (this.image.pixelAt(i).equals(Pixel.BLACK_PIXEL)) {
+                    stack.push(i);
+                    differencesCount++;
+                    while (stack.length > 0) {
+                        this.explorePixel(stack.pop() as number, stack);
+                    }
+                } else {
+                    this.isPixelVisited[i] = true;
+                }
             }
-        });
+        }
 
         return differencesCount;
     }
 
-    private explorePixel(index: number): void {
-        if (this.image.pixelAt(index).equals(Pixel.WHITE_PIXEL) || this.isPixelVisited[index] ||
-            index < 0 || index >= this.isPixelVisited.length) {
-            return;
-        }
-
+    private explorePixel(index: number, pixelsToVisit: number[]): void {
         this.isPixelVisited[index] = true;
-
         const currentPosition: Position = this.image.resolvePosition(index);
         for (let i: number = -1; i <= 1; i++) {
             for (let j: number = -1; j <= 1; j++) {
-                const pixelToVisitPosition: Position = {
-                    i: currentPosition.i + i,
-                    j: currentPosition.j + j,
-                };
+                if (!(i === 0 && j === 0)) {
+                    const pixelToVisitPosition: Position = {
+                        i: currentPosition.i + i,
+                        j: currentPosition.j + j,
+                    };
+                    const pixelToVisitIndex: number = this.image.resolveIndex(pixelToVisitPosition);
 
-                const pixelToVisitIndex: number = this.image.resolveIndex(pixelToVisitPosition);
-                this.explorePixel(pixelToVisitIndex);
+                    if (pixelToVisitIndex >= 0 && pixelToVisitIndex < this.isPixelVisited.length) {
+                        if (this.image.pixelAt(pixelToVisitIndex).equals(Pixel.BLACK_PIXEL) && !this.isPixelVisited[pixelToVisitIndex]) {
+                            if (!pixelsToVisit.find((val: number) => val === pixelToVisitIndex)) {
+                                pixelsToVisit.push(pixelToVisitIndex);
+                            }
+                        }
+                    }
+                }
             }
         }
     }
