@@ -11,4 +11,5 @@ export default {
         ImageDifferenceController: Symbol("ImageDifferenceController"),
         DifferencesFinderService: Symbol("DifferenceFinderService"),
         DBConnectionService: Symbol("DBConnectionService"),
+        GameSheetGenerationService: Symbol("GameSheetGenerationService"),
 };

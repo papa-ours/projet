@@ -6,6 +6,7 @@ import { Server } from "./server";
 import { DBConnectionService } from "./services/dbconnection.service";
 import { DifferenceImageGenerator } from "./services/difference-image-generator.service";
 import { DifferencesFinderService } from "./services/differences-finder.service";
+import { GameSheetGenerationService } from "./services/game-sheet-generation.service";
 import { GetGameListService } from "./services/get-game-list.service";
 import { UsernameValidatorService } from "./services/username-validator.service";
 import { Socket } from "./socket";
@@ -23,5 +24,6 @@ container.bind(Types.DifferenceImageGenerator).to(DifferenceImageGenerator);
 container.bind(Types.ImageDifferenceController).to(ImageDifferenceController);
 container.bind(Types.DifferencesFinderService).to(DifferencesFinderService);
 container.bind(Types.DBConnectionService).to(DBConnectionService);
+container.bind(Types.GameSheetGenerationService).to(GameSheetGenerationService);
 
 export { container };
