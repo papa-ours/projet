@@ -4,7 +4,7 @@ import { DifferenceImageGenerator } from "../services/difference-image-generator
 import Types from "../types";
 
 @injectable()
-export class ImageDifferenceController {
+export class GameSheetGenerationController {
 
     public constructor(@inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator) { }
 
