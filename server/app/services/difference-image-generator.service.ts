@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { Message } from "../../../common/communication/message";
-import { CHUNK_COLORS, CHUNK_RELATIVE_POSITION, Position  } from "./circle-area";
 import { Color } from "./enums";
+import { CHUNK_RELATIVE_POSITIONS, Position  } from "./utils/circle-area";
 
 @injectable()
 export class DifferenceImageGenerator {
@@ -67,26 +67,30 @@ export class DifferenceImageGenerator {
 
     private augmentPixelsDifferences(differenceImage: number[], differencesPosition: number[]): number[] {
         for (const position of differencesPosition) {
-            let colorIndex: number = 0;
-            for (const relativePoition of CHUNK_RELATIVE_POSITION) {
-                const color: number = CHUNK_COLORS[colorIndex++];
-                const centerPosition: Position = this.resolvePosition(position);
-                const index: number = this.resolveIndex(centerPosition.i + relativePoition.i , centerPosition.j + relativePoition.j );
-                if (color === Color.Black) {
-                    if (index >= differenceImage[this.OFF_SET_LOCATION] && index < differenceImage.length) {
-                        differenceImage.splice(index, this.PIXEL_LENGTH, color, color, color);
-                    }
+            const centerPosition: Position = this.resolvePosition(position);
+
+            for (const relativePoition of CHUNK_RELATIVE_POSITIONS) {
+
+                const pixelToPlacePosition: Position = { 
+                    i: centerPosition.i + relativePoition.i,
+                    j: centerPosition.j + relativePoition.j,
+                };
+
+                const index: number = this.resolveIndex(pixelToPlacePosition);
+                if (index >= differenceImage[this.OFF_SET_LOCATION] && index < differenceImage.length) {
+                    differenceImage.splice(index, this.PIXEL_LENGTH, Color.Black, Color.Black, Color.Black);
                 }
+
             }
         }
 
         return differenceImage;
     }
 
-    private resolveIndex(i: number, j: number): number {
+    private resolveIndex(position: Position): number {
         // il faut multiplier par PIXEL_LENGTH pour avoir la position du pixel
         // (j * this.IMAGE_WIDTH + i) est incomplet
-        return (j * this.IMAGE_WIDTH + i) * this.PIXEL_LENGTH;
+        return (position.j * this.IMAGE_WIDTH + position.i) * this.PIXEL_LENGTH;
     }
 
     private resolvePosition(index: number): Position {
