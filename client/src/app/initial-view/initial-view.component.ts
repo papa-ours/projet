@@ -19,7 +19,7 @@ export class InitialViewComponent implements OnInit {
     this.usernameValidationService.getUsernameValidation().subscribe((message: Message) => {
       this.usernameValidationMessage = message.body;
       if (this.usernameValidationMessage === "") {
-        this.router.navigateByUrl("/gamelist");
+        this.router.navigateByUrl("/gamelist/" + this.username);
       }
     });
   }
