@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Message } from "../../../../common/communication/message";
 import { DifferenceImageService } from "../difference-image.service";
+import { FormValidationService } from "../form-validation.service";
 
 interface FileReaderEventTarget extends EventTarget {
   result: string;
@@ -23,22 +24,20 @@ enum ImageType {
 })
 
 export class SimpleGameCreationComponent implements OnInit {
-  private name: string;
+  private name: string = "";
   private readonly N_IMAGES: number = 2;
   private imageFiles: File[] = new Array<File>(this.N_IMAGES);
   private imagesData: Uint8Array[] = [];
-  @Output() public closeForm=new EventEmitter();
+  @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
 
+  public constructor(private differenceImageService: DifferenceImageService,
+                     private formValidationService: FormValidationService) { }
 
-
-  constructor(private differenceImageService: DifferenceImageService) { }
-
-  close(){
+  public close(): void {
     this.closeForm.emit(false);
   }
 
-  ngOnInit() {
-  }
+  public ngOnInit(): void {}
 
   // @ts-ignore
   private fileEntered(event: FileReaderEvent, type: ImageType): void {
@@ -48,11 +47,10 @@ export class SimpleGameCreationComponent implements OnInit {
   }
 
   private get allValuesEntered(): boolean {
-    return (
-      this.name !== undefined &&
-      this.imageFiles[ImageType.ORIGINAL] !== undefined &&
-      this.imageFiles[ImageType.MODIFIED] !== undefined
-    );
+    const originalImage: File = this.imageFiles[ImageType.ORIGINAL];
+    const modifiedImage: File = this.imageFiles[ImageType.MODIFIED];
+
+    return this.formValidationService.isFormValide(this.name, originalImage, modifiedImage);
   }
 
   private readFile(file: File): void {
