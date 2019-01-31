@@ -10,4 +10,5 @@ export default {
         DifferenceImageGenerator: Symbol("DifferenceImageGenerator"),
         ImageDifferenceController: Symbol("ImageDifferenceController"),
         DifferencesFinderService: Symbol("DifferenceFinderService"),
+        DBConnectionService: Symbol("DBConnectionService"),
 };
