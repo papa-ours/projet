@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { Message } from "../../../common/communication/message";
-import { Color } from "./enums";
-import { CHUNK_RELATIVE_POSITIONS, Position  } from "./utils/circle-area";
 import { BMPImage } from "./utils/bmp-image";
 
 @injectable()
