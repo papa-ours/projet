@@ -1,6 +1,6 @@
-import { DeleteUsernameService } from './delete-username.service';
+import { DeleteUsernameService } from "./delete-username.service";
 
-describe('DeleteUsernameService', () => {
+describe("DeleteUsernameService", () => {
   let httpClientSpy: { get: jasmine.Spy };
   let  deleteUsernameService: DeleteUsernameService;
   beforeEach(() => {
@@ -9,7 +9,7 @@ describe('DeleteUsernameService', () => {
     deleteUsernameService = new DeleteUsernameService( httpClientSpy as any) ;
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(deleteUsernameService).toBeTruthy();
   });
 });
