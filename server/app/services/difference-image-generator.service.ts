@@ -28,10 +28,18 @@ export class DifferenceImageGenerator {
         };
 
         if (this.originalImage.isBMP() && this.modifiedImage.isBMP()) {
+            const differenceImage: BMPImage = this.originalImage.compare(this.modifiedImage);
+            differenceImage.width = this.IMAGE_WIDTH;
 
-            const imageData: Uint8Array = this.originalImage.compare(this.modifiedImage).toArray();
-            message.body = imageData.toString();
+            try {
+                differenceImage.augmentBlackPixels();
+            } catch (error) {
+                console.error(error.message);
+            }
+
+            message.body = differenceImage.toString();
         }
+
         res.send(message);
     }
 

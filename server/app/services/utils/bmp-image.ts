@@ -1,9 +1,10 @@
 import { readLittleEndianBytes } from "./binary";
+import { CHUNK_RELATIVE_POSITIONS } from "./circle-area";
 import { Pixel } from "./pixel";
 
 export class BMPImage {
 
-    public constructor(private pixels: Pixel[], private readonly header: Uint8Array) {}
+    public constructor(private pixels: Pixel[], private readonly header: Uint8Array, public width?: number) {}
 
     public static fromArray(array: Uint8Array): BMPImage {
         const dataIndexIndex: number = 10;
@@ -29,7 +30,7 @@ export class BMPImage {
     }
 
     public compare(other: BMPImage): BMPImage {
-        const image: BMPImage = new BMPImage(Array.from(this.pixels), this.header);
+        const image: BMPImage = new BMPImage(Array.from(this.pixels), this.header, this.width);
         image.pixels = this.pixels.map((pixel: Pixel, index: number) => {
             return pixel.equals(other.pixels[index]) ? Pixel.WHITE_PIXEL : Pixel.BLACK_PIXEL;
         });
@@ -49,5 +50,29 @@ export class BMPImage {
         });
 
         return array;
+    }
+
+    public augmentBlackPixels(): void {
+        if (!this.width) {
+            throw Error("Image width must be known to augment pixels");
+        } else {
+            const pixelsBefore: Pixel[] = Array.from(this.pixels);
+            pixelsBefore.forEach((pixel: Pixel, index: number) => {
+                if (pixel.equals(Pixel.BLACK_PIXEL)) {
+                    this.augmentPixel(pixel, index);
+                }
+            });
+        }
+
+    }
+
+    private augmentPixel(pixel: Pixel, index: number): void {
+
+    }
+
+    private placePixel(index: number, pixel: Pixel): void {
+        if (index >= 0 && index < this.pixels.length) {
+            this.pixels[index] = pixel;
+        }
     }
 }
