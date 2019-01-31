@@ -29,14 +29,10 @@ export class DifferenceImageGenerator {
 
         if (this.originalImage.isBMP() && this.modifiedImage.isBMP()) {
 
-            const imageData: number[] = this.getDifferenceImage(originalImageData, modifiedImageData);
+            const imageData: Uint8Array = this.originalImage.compare(this.modifiedImage).toArray();
             message.body = imageData.toString();
         }
         res.send(message);
-    }
-
-    private getDifferenceImage(originalImage: Uint8Array, modifiedImage: Uint8Array): number[] {
-        return this.calculateDifferenceFromImages(originalImage, modifiedImage);
     }
 
     private calculateDifferenceFromImages(originalImage: Uint8Array, modifiedImage: Uint8Array): number[] {
