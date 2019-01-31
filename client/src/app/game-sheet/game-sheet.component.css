@@ -15,21 +15,13 @@
     box-shadow: 2px 2px 8px #00000044;
 }
 
-.game-title {
-    grid-column-start: 2;
-    grid-column-end: 2;
-    font-size: 26px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
 .game-preview-image {
-    margin: 5%;
-    width: 90%;
+    margin: 4%;
+    width: 92%;
 }
 
 .game-preview {
+    width: 300px;
     grid-row-start: 1;
     grid-row-end: 2;
     grid-column-start: 1;
@@ -41,20 +33,30 @@
     text-align: center;
 }
 
+.game-title {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row: 1;
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .top3-component {
     text-align: center;
     grid-column-start: 1;
     grid-column-end: 4;
-    grid-row: 1;
+    grid-row: 2;
 }
 
 .scores {
-    grid-column-start: 2;
+    grid-column: 2;
     margin-top: 10px;
     display: grid;
     grid-template-columns: 20px repeat(2, 120px);
-    grid-template-rows: repeat(4, 24px);
-    margin-left: 4%;
+    grid-template-rows: 40px repeat(4, 24px);
+    margin-left: 8%;
     font-size: 14px;
 }
 
