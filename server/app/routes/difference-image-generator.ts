@@ -56,11 +56,9 @@ export class DifferenceImageGenerator {
         return differenceImage;
 
     }
-
+    
     private isPixelEqual(firstPixel: Uint8Array, secondPixel: Uint8Array): Boolean {
         return firstPixel.toString() === secondPixel.toString();
     }
-
-}
-
     
+}
