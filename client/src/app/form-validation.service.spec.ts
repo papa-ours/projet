@@ -29,13 +29,13 @@ describe("FormValidationService", () => {
     expect(formValidationService.validateName(name)).toBeTruthy();
   });
   it("should return false if it's not a bitmap image", () => {
-    const file: File = new File([""], "./assets/img/logo.png");
+    const file: File = new File([""], "./assets/img/logo.png", { lastModified: 1 , type: "image/png"});
     const name: string = "Hello";
     expect(formValidationService.isFormValide(name, file, file)).toBeFalsy();
   });
   it("should return true if it's bitmap image", () => {
-    const file: File = new File([""], "./assets/img/dog.bmp");
+    const file: File = new File([""], "./assets/img/dog.bmp", { lastModified: 1 , type: "image/bmp"});
     const name: string = "Hello";
-    expect(formValidationService.isFormValide(name, file, file)).toBeFalsy();
+    expect(formValidationService.isFormValide(name, file, file)).toBeTruthy();
   });
 });
