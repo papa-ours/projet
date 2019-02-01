@@ -72,3 +72,7 @@ button.cancel-btn:hover {
 button.create-btn:hover {
     background: #10ab37;
 }
+.error-message{
+    color:red;
+    font-weight: bold;
+}
