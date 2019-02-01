@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-admin-view',
-  templateUrl: './admin-view.component.html',
-  styleUrls: ['./admin-view.component.css']
+  selector: "app-admin-view",
+  templateUrl: "./admin-view.component.html",
+  styleUrls: ["./admin-view.component.css"],
 })
 export class AdminViewComponent implements OnInit {
 
-  constructor() { }
-  ngOnInit() {
-  }
-  showForm2D:boolean=false;
-  showForm3D:boolean=false;
+  public constructor() {}
+  public showForm2D: boolean = false;
+  public showForm3D: boolean = false;
+  public ngOnInit(): void {}
 
 }
