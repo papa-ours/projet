@@ -1,8 +1,10 @@
 import { FormValidationService } from "./form-validation.service";
 
 describe("FormValidationService", () => {
-  beforeEach(() => {});
-  const formValidationService: FormValidationService = new FormValidationService();
+  let  formValidationService: FormValidationService ;
+  beforeEach(() => {
+    formValidationService = new FormValidationService();
+  });
   it("should be created", () => {
     expect(formValidationService).toBeTruthy();
   });
