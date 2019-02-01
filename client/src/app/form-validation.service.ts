@@ -9,7 +9,7 @@ export class FormValidationService {
   private readonly FILE_TYPE: string = "image/bmp";
   public constructor() { }
 
-  public validateName( name: string): boolean {
+  private validateName( name: string): boolean {
     return name !== undefined &&
            name.length >= this.NAME_MIN_SIZE &&
            name.length <= this.NAME_MAX_SIZE;
