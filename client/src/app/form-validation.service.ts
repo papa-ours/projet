@@ -14,14 +14,8 @@ export class FormValidationService {
            name.length >= this.NAME_MIN_SIZE &&
            name.length <= this.NAME_MAX_SIZE;
   }
-  private fileIsEmpty(file: File): boolean {
-    return file === undefined;
-  }
   private isBMP(file: File): boolean {
     return file.type === this.FILE_TYPE;
-  }
-  public imageIsValide(image: File): boolean {
-    return !this.fileIsEmpty(image) && this.isBMP(image);
   }
   public isFormValide(name: string, originalImage: File, modifiedImage: File): boolean {
     return this.validateName(name) && this.isBMP(originalImage) && this.isBMP(modifiedImage);
