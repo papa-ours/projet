@@ -60,13 +60,7 @@ export class SimpleGameCreationComponent implements OnInit {
     formData.append("originalImage", this.imagesData[ImageType.ORIGINAL].toString());
     formData.append("modifiedImage", this.imagesData[ImageType.MODIFIED].toString());
 
-    this.differenceImageService.postDifferenceImageData(formData)
-      .subscribe((message: Message) => {
-        const image: HTMLImageElement = document.getElementById("image") as HTMLImageElement;
-        const myRawData: number[] = message.body.split(",").map(Number);
-        const myData: string[] = myRawData.map((x) => String.fromCharCode(x));
-        image.src = "data:image/bmp;base64," + btoa(myData.join(""));
-      });
+    this.differenceImageService.postDifferenceImageData(formData).subscribe();
   }
 
   // @ts-ignore
