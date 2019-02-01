@@ -1,9 +1,14 @@
-import { injectable } from "inversify";
+import { injectable, inject } from "inversify";
 import "reflect-metadata";
 import { GameLists, GameSheetDescription } from "../../../common/communication/game-description";
+import Types from "../types";
+import { DBConnectionService } from "./dbconnection.service";
 
 @injectable()
 export class GetGameListService {
+
+    public constructor(@inject(Types.DBConnectionService) private dbConnection: DBConnectionService) {
+    }
 
     public getGameList(): GameLists {
         const placeholder: GameSheetDescription = {
