@@ -2,9 +2,10 @@ import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Message } from "../../../../common/communication/message";
 import { DifferenceImageService } from "../difference-image.service";
 import { FormValidationService } from "../form-validation.service";
+import { FileReaderUtil } from "./file-reader.util";
 
 interface FileReaderEventTarget extends EventTarget {
-  result: string;
+  result: ArrayBuffer;
   files: FileList;
 }
 
@@ -28,9 +29,10 @@ export class SimpleGameCreationComponent implements OnInit {
   private readonly N_IMAGES: number = 2;
   private imageFiles: File[] = new Array<File>(this.N_IMAGES);
   private imagesData: Uint8Array[] = [];
-  @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
+  @Output() public closeForm: EventEmitter <boolean> = new EventEmitter();
 
   public constructor(private differenceImageService: DifferenceImageService,
+                     private fileReaderUtil: FileReaderUtil,
                      private formValidationService: FormValidationService) { }
 
   public close(): void {
@@ -53,37 +55,36 @@ export class SimpleGameCreationComponent implements OnInit {
     return this.formValidationService.isFormValide(this.name, originalImage, modifiedImage);
   }
 
-  private readFile(file: File): void {
-    const reader: FileReader = new FileReader();
-    reader.onload = (): void => {
-      const data: ArrayBuffer = reader.result as ArrayBuffer;
-      if (typeof(data !== null)) {
-        const imageData: Uint8Array = new Uint8Array(data);
-        this.imagesData.push(imageData);
-        if (this.imagesData.length === this.N_IMAGES) {
-          this.sendForm();
-        }
-      }
-    };
-
-    reader.readAsArrayBuffer(file);
-  }
-
   private sendForm(): void {
     const formData: FormData = new FormData();
-
     formData.append("name", this.name);
     formData.append("originalImage", this.imagesData[ImageType.ORIGINAL].toString());
     formData.append("modifiedImage", this.imagesData[ImageType.MODIFIED].toString());
 
     this.differenceImageService.postDifferenceImageData(formData)
-      .subscribe((message: Message) => console.log(message));
+      .subscribe((message: Message) => {
+        const image: HTMLImageElement = document.getElementById("image") as HTMLImageElement;
+        const myRawData: number[] = message.body.split(",").map(Number);
+        const myData: string[] = myRawData.map((x) => String.fromCharCode(x));
+        image.src = "data:image/bmp;base64," + btoa(myData.join(""));
+      });
   }
 
   // @ts-ignore
   private submitForm(): void {
+    let readFiles: number = 0;
     if (this.allValuesEntered) {
-      this.imageFiles.forEach((file) => this.readFile(file));
+      this.imageFiles.forEach((file: File, index: number) => {
+        this.fileReaderUtil.readFile(file)
+          .subscribe((event: Event) => {
+              const eventTarget: FileReaderEventTarget = event.target as FileReaderEventTarget;
+              this.imagesData[index] = new Uint8Array(eventTarget.result);
+
+              if (++readFiles === this.imageFiles.length) {
+                this.sendForm();
+              }
+          });
+      });
     }
   }
 }
