@@ -15,7 +15,6 @@ export class DifferenceImageGenerator {
             this.modifiedImage = BMPImage.fromArray(modifiedImageData);
 
             const differenceImage: BMPImage = this.originalImage.compare(this.modifiedImage);
-            differenceImage.width = this.IMAGE_WIDTH;
 
             try {
                 differenceImage.augmentBlackPixels();

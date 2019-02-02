@@ -4,18 +4,26 @@ import { Pixel } from "./pixel";
 
 export class BMPImage {
 
-    public constructor(private pixels: Pixel[], private readonly header: Uint8Array, public width?: number) {}
+    public static readonly WIDTH: number = 640;
+    public static readonly HEIGHT: number = 480;
 
-    public static fromArray(array: Uint8Array): BMPImage {
+    public constructor(
+            private pixels: Pixel[],
+            private readonly header: Uint8Array,
+            public readonly width: number,
+            public readonly height: number,
+        ) {}
+
+    public static fromArray(array: Uint8Array, width: number = BMPImage.WIDTH, height: number = BMPImage.HEIGHT): BMPImage {
         const dataIndexIndex: number = 10;
         const dataIndexLength: number = 4;
         const dataIndex: number = readLittleEndianBytes(array, dataIndexLength, dataIndexIndex);
 
-        const pixels: Pixel[] = [];
-        const image: BMPImage = new BMPImage(pixels, array.slice(0, dataIndex));
+        const pixels: Pixel[] = new Array<Pixel>(width * height);
+        const image: BMPImage = new BMPImage(pixels, array.slice(0, dataIndex), width, height);
 
         let index: number  = 0;
-        for (let i: number = dataIndex; i < array.length; i += Pixel.BYTES_PER_PIXEL) {
+        for (let i: number = dataIndex; index < pixels.length; i += Pixel.BYTES_PER_PIXEL) {
             pixels[index++] = Pixel.readPixelColor(array, i);
         }
 
@@ -30,7 +38,7 @@ export class BMPImage {
     }
 
     public compare(other: BMPImage): BMPImage {
-        const image: BMPImage = new BMPImage(Array.from(this.pixels), this.header, this.width);
+        const image: BMPImage = new BMPImage(Array.from(this.pixels), this.header, this.width, this.height);
         image.pixels = this.pixels.map((pixel: Pixel, index: number) => {
             return pixel.equals(other.pixels[index]) ? Pixel.WHITE_PIXEL : Pixel.BLACK_PIXEL;
         });
@@ -61,17 +69,12 @@ export class BMPImage {
     }
 
     public augmentBlackPixels(): void {
-        if (!this.width) {
-            throw Error("Image width must be known to augment pixels");
-        } else {
-            const pixelsBefore: Pixel[] = Array.from(this.pixels);
-            pixelsBefore.forEach((pixel: Pixel, index: number) => {
-                if (pixel.equals(Pixel.BLACK_PIXEL)) {
-                    this.augmentPixel(pixel, index);
-                }
-            });
-        }
-
+        const pixelsBefore: Pixel[] = Array.from(this.pixels);
+        pixelsBefore.forEach((pixel: Pixel, index: number) => {
+            if (pixel.equals(Pixel.BLACK_PIXEL)) {
+                this.augmentPixel(pixel, index);
+            }
+        });
     }
 
     private augmentPixel(pixel: Pixel, index: number): void {
@@ -95,18 +98,10 @@ export class BMPImage {
     }
 
     public resolveIndex(position: Position): number {
-        if (!this.width) {
-            throw Error("Image width must be know to resolve index");
-        }
-
         return (position.j * this.width + position.i);
     }
 
     public resolvePosition(index: number): Position {
-        if (!this.width) {
-            throw Error("Image width must be know to resolve position");
-        }
-
         return {
             i: ( index % this.width ),
             j: Math.floor(index / this.width),
