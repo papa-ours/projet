@@ -42,18 +42,18 @@ describe("game sheet generation", () => {
         expect(result).to.equals(true);
     });
 
-    it("should throw an error if min is greater than max", () => {
-        const MIN: number = 15;
-        const MAX: number = 10;
-        expect(gameSheetGenerator.getNumberBetween.bind(gameSheetGenerator, MIN, MAX)).to.throw("Min must be less than Max");
+    it.only("should work even if min is greater than max", () => {
+        const MIN: number = 12;
+        const MAX: number = 20;
+        const val: number = gameSheetGenerator.getNumberBetween(MAX, MIN);
+        const result: boolean = (val <= MAX) && (val >= MIN);
+        expect(result).to.equals(true);
     });
 
-    it.only("should return usernames between 3 and 16 characters", () => {
+    it("should return usernames between 3 and 16 characters", () => {
         const MIN: number = 3;
         const MAX: number = 16;
         const username: string = gameSheetGenerator.makeUsername();
-        console.log(username);
-
         const result: boolean = (username.length <= MAX) && (username.length >= MIN);
         expect(result).to.equals(true);
     });

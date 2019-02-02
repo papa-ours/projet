@@ -29,11 +29,7 @@ export class GameSheetGenerationService {
         if (numberOfDifferences !== REQUIRED_DIFFERENCES) {
             message.body = "Les images n'ont pas exactement 7 différences, la création a été annulée";
         } else {
-            try {
-                this.createGameSheet(name, originalImageData);
-            } catch (err) {
-                console.error(err);
-            }
+            this.createGameSheet(name, originalImageData);
         }
 
         return message;
@@ -94,7 +90,10 @@ export class GameSheetGenerationService {
 
     public getNumberBetween(min: number, max: number): number {
         if (min > max) {
-            throw Error("Min must be less than Max");
+            // If min is greater than max, we switch them
+            const temp: number = max;
+            max = min;
+            min = temp;
         }
 
         return Math.floor(Math.random() * (max - min)) + min;
