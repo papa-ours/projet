@@ -17,7 +17,24 @@ export class GameListComponent implements OnInit {
   constructor(private gameListService: GameListService) { }
 
   ngOnInit() {
-    this.gameListService.getGameList().subscribe(lists => this.descriptions = this.is2D ? lists.list2d : lists.list3d);
+    this.gameListService.getGameList().subscribe((lists) => {
+      console.log(lists);
+      this.descriptions = this.is2D ? lists.list2d : lists.list3d;
+      this.encodeImages();
+    });
+  }
+
+  private encodeImages(): void {
+    this.descriptions.forEach((description: GameSheetDescription) => {
+      description.preview = this.encodeImage(description.preview);
+    });
+  }
+
+  private encodeImage(imageData: string): string {
+    const numberData: number[] = imageData.split(",").map(Number);
+    const encodedString: string[] = numberData.map((val: number) => String.fromCharCode(val));
+
+    return "data:image/bmp;base64," + btoa(encodedString.join(""));
   }
 
 }
