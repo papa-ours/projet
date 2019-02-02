@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GameSheetDescription } from "../../../../common/communication/game-description";
 import { GameListService } from "../game-list-getter.service"
-import { Privilege } from "../../../../common/communication/game-description";
+import { Privilege } from "../privilege";
 
 @Component({
   selector: 'app-game-list',

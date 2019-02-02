@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GameSheetDescription } from "../../../../common/communication/game-description";
-import { Privilege } from "../../../../common/communication/game-description";
+import { Privilege } from "../privilege";
 @Component({
   selector: 'app-game-sheet',
   templateUrl: './game-sheet.component.html',

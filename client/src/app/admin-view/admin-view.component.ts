@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Privilege } from "../../../../common/communication/game-description";
+import { Privilege } from "../privilege";
 @Component({
   selector: 'app-admin-view',
   templateUrl: './admin-view.component.html',

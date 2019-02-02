@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Privilege } from "../../../../common/communication/game-description";
+import { Privilege } from "../privilege";
 @Component({
   selector: 'app-game-list-view',
   //templateUrl: './game-list-view.component.html',
