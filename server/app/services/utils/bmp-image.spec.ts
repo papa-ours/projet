@@ -7,7 +7,7 @@ import { Pixel } from "./pixel";
 /* tslint:disable:no-magic-numbers */
 describe.only("bmp image", () => {
     let data: Uint8Array;
-    beforeEach((done: Mocha.Func) => {
+    before((done: Mocha.Func) => {
         fs.readFile("../client/src/assets/img/dog.bmp", (err: NodeJS.ErrnoException, fileData: Buffer) => {
             data = Uint8Array.from(fileData);
             setTimeout(done, 0);
