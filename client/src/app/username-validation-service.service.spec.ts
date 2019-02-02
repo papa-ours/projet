@@ -8,4 +8,7 @@ describe("UsernameValidationServiceService", () => {
   it("should be created", () => {
     expect(usernameValidationService).toBeTruthy();
   });
+  it("it should return an observable on request", () => {
+    expect(usernameValidationService.getUsernameValidation()).toBeDefined();
+  });
 });
