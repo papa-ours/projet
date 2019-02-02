@@ -33,20 +33,20 @@ describe("FormValidationService", () => {
     const name: string = "Hello world!!!!";
     expect(formValidationService.isFormValide(name, file, file)).toBeTruthy();
   });
-  it("should return false if both files are not a bitmap image", () => {
+  it("should return an error if both files are not a bitmap image", () => {
     const file: File = new File([""], "./assets/img/logo.png", { lastModified: 1 , type: "image/png"});
     const name: string = "Hello";
-    expect(formValidationService.isFormValide(name, file, file)).toBeFalsy();
+    expect(() => formValidationService.isFormValide(name, file, file)).toThrow();
   });
   it("should return true if both files are bitmap image", () => {
     const file: File = new File([""], "./assets/img/dog.bmp", { lastModified: 1 , type: "image/bmp"});
     const name: string = "Hello";
     expect(formValidationService.isFormValide(name, file, file)).toBeTruthy();
   });
-  it("should return false if one of both files is not a bitmap image", () => {
+  it("should throw an error if one of both files is not a bitmap image", () => {
     const file1: File = new File([""], "./assets/img/dog.bmp", { lastModified: 1 , type: "image/bmp"});
     const file2: File = new File([""], "./assets/img/logo.png", { lastModified: 1 , type: "image/png"});
     const name: string = "Hello";
-    expect(formValidationService.isFormValide(name, file1, file2)).toBeFalsy();
+    expect(() => formValidationService.isFormValide(name, file1, file2)).toThrow();
   });
 });
