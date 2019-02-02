@@ -20,7 +20,7 @@ describe("DifferenceImageService", () => {
     expect(differenceImageService).toBeTruthy();
   });
 
-  it("sould be a POST REQUEST", () => {
+  it("should be a POST REQUEST", () => {
     const response: Message = {
       title: "this is the title",
       body: "this is the body",
@@ -33,7 +33,7 @@ describe("DifferenceImageService", () => {
     request.flush(response);
   });
 
-  it("sould return a proper message body on POST request", () => {
+  it("should return a proper message body on POST request", () => {
     const response: Message = {
       title: "this is the title",
       body: "this is the body",
@@ -45,7 +45,7 @@ describe("DifferenceImageService", () => {
     request.flush(response);
     expect(request.request.method).toBe("POST");
   });
-  it("sould return a proper message title on POST request", () => {
+  it("should return a proper message title on POST request", () => {
     const response: Message = {
       title: "this is the title",
       body: "this is the body",
