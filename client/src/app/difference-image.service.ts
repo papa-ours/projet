@@ -9,7 +9,7 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class DifferenceImageService {
 
-    private readonly URL: string = "http://localhost:3000/api/imagedifference";
+    public readonly URL: string = "http://localhost:3000/api/imagedifference";
     public constructor(private http: HttpClient) { }
 
     public postDifferenceImageData(formData: FormData): Observable<Message> {
