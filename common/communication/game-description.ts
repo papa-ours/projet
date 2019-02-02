@@ -13,3 +13,8 @@ export interface GameLists {
     list2d: GameSheetDescription[];
     list3d: GameSheetDescription[];
 }
+
+export enum Privilege {
+    ADMIN,
+    USER
+}

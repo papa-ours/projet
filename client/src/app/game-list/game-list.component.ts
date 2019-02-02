@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GameSheetDescription } from "../../../../common/communication/game-description";
 import { GameListService } from "../game-list-getter.service"
+import { Privilege } from "../../../../common/communication/game-description";
 
 @Component({
   selector: 'app-game-list',
@@ -13,7 +14,7 @@ export class GameListComponent implements OnInit {
   private descriptions: GameSheetDescription[];
   @Input() private is2D: boolean;
   //@ts-ignore
-  @Input() private privilege: "admin" | "user";
+  @Input() private privilege : Privilege;
   constructor(private gameListService: GameListService) { }
 
   ngOnInit() {
