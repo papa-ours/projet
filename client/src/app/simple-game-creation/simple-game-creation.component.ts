@@ -56,7 +56,7 @@ export class SimpleGameCreationComponent implements OnInit {
     let allValuesEntered: boolean = false;
     try {
      this.errorMessage = "";
-     allValuesEntered = this.formValidationService.isFormValide(this.name, originalImage, modifiedImage);
+     allValuesEntered = this.formValidationService.isFormValid(this.name, originalImage, modifiedImage);
     } catch (error) {
       this.errorMessage = error.message;
     }
