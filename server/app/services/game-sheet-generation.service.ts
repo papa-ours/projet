@@ -102,7 +102,7 @@ export class GameSheetGenerationService {
     public saveGameSheet(gameSheetDescription: GameSheetDescription): void {
         this.dbConnection.connect()
             .then(() => {
-                // this.dbConnection.saveGameSheet2D(gameSheetDescription);
+                this.dbConnection.saveGameSheet2D(gameSheetDescription);
             });
     }
 }
