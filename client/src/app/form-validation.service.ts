@@ -33,7 +33,7 @@ export class FormValidationService {
 
     return image;
   }
-  public isImageDimensionValide(imageData: Uint8Array): boolean {
+  public isImageDimensionValid(imageData: Uint8Array): boolean {
     const image: HTMLImageElement = this.createImageFromData(imageData);
     const isImageDimensionRespected: boolean = (image.width === this.IMAGE_WIDTH &&
                                                 image.height === this.IMAGE_HEIGHT);
@@ -45,7 +45,7 @@ export class FormValidationService {
     return isImageDimensionRespected;
   }
 
-  public isFormValide(name: string, originalImage: File, modifiedImage: File): boolean {
+  public isFormValid(name: string, originalImage: File, modifiedImage: File): boolean {
     return this.validateName(name) && this.isBMP(originalImage) && this.isBMP(modifiedImage);
   }
 }

@@ -92,7 +92,7 @@ export class SimpleGameCreationComponent implements OnInit {
               try {
                 this.errorMessage = "";
                 if (++readFiles === this.imageFiles.length &&
-                    this.formValidationService.isImageDimensionValide(this.imagesData[index])) {
+                    this.formValidationService.isImageDimensionValid(this.imagesData[index])) {
                     this.sendForm();
                 }
               } catch (error) {
