@@ -5,9 +5,9 @@ import { DifferencesFinderService } from "./differences-finder.service";
 
 import "reflect-metadata";
 import { GameSheetDescription, TopScore } from "../../../common/communication/game-description";
+import { Message } from "../../../common/communication/message";
 import Types from "../types";
 import { BMPImage } from "./utils/bmp-image";
-import { Message } from "../../../common/communication/message";
 
 @injectable()
 export class GameSheetGenerationService {
@@ -29,7 +29,11 @@ export class GameSheetGenerationService {
         if (numberOfDifferences !== REQUIRED_DIFFERENCES) {
             message.body = "Les images n'ont pas exactement 7 différences, la création a été annulée";
         } else {
-            this.createGameSheet(name, originalImageData);
+            try {
+                this.createGameSheet(name, originalImageData);
+            } catch (err) {
+                console.error(err);
+            }
         }
 
         return message;
@@ -37,7 +41,7 @@ export class GameSheetGenerationService {
 
     private createGameSheet(name: string, originalImageData: Uint8Array): void {
         const TOP_SCORES_LENGTH: number = 3;
-        const topScores: TopScore[] = new Array(TOP_SCORES_LENGTH).map(() => this.generateTopScore());
+        const topScores: TopScore[] = [...Array(TOP_SCORES_LENGTH)].map(() => this.generateTopScore());
 
         const gameSheet: GameSheetDescription = {
             name: name,
@@ -49,16 +53,57 @@ export class GameSheetGenerationService {
     }
 
     public generateTopScore(): TopScore {
-        return { solo: "", pvp: "" };
+        return { solo: this.makeScore(), pvp: this.makeScore() };
+    }
+
+    private makeScore(): string {
+        return this.makeUsername + " " + this.makeTime();
+    }
+
+    private makeTime(): string {
+        return this.makeMinutes() + ":" + this.makeSeconds();
+    }
+
+    private makeMinutes(): number {
+        const MIN: number = 8;
+        const MAX: number = 15;
+
+        return this.getNumberBetween(MIN, MAX);
+    }
+
+    private makeSeconds(): number {
+        const MIN: number = 0;
+        const MAX: number = 59;
+
+        return this.getNumberBetween(MIN, MAX);
+    }
+
+    public makeUsername(): string {
+        const POSSIBLE_VALUES: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        const MIN_LENGTH: number = 3;
+        const MAX_LENGTH: number = 16;
+        const usernameLength: number = this.getNumberBetween(MIN_LENGTH, MAX_LENGTH);
+        const username: string[] = [...Array(usernameLength)].map(() => {
+            const index: number = this.getNumberBetween(0, POSSIBLE_VALUES.length - 1);
+
+            return POSSIBLE_VALUES.charAt(index);
+        });
+
+        return username.join("");
+    }
+
+    public getNumberBetween(min: number, max: number): number {
+        if (min > max) {
+            throw Error("Min must be less than Max");
+        }
+
+        return Math.floor(Math.random() * (max - min)) + min;
     }
 
     public saveGameSheet(gameSheetDescription: GameSheetDescription): void {
         this.dbConnection.connect()
             .then(() => {
                 // this.dbConnection.saveGameSheet2D(gameSheetDescription);
-            })
-            .catch((err: Error) => {
-                console.error(err);
             });
     }
 }
