@@ -29,6 +29,8 @@ export class SimpleGameCreationComponent implements OnInit {
   private readonly N_IMAGES: number = 2;
   private imageFiles: File[] = new Array<File>(this.N_IMAGES);
   private imagesData: Uint8Array[] = [];
+  // @ts-ignore
+  private errorMessage: string = "";
   @Output() public closeForm: EventEmitter <boolean> = new EventEmitter();
 
   public constructor(private differenceImageService: DifferenceImageService,
@@ -51,8 +53,15 @@ export class SimpleGameCreationComponent implements OnInit {
   private get allValuesEntered(): boolean {
     const originalImage: File = this.imageFiles[ImageType.ORIGINAL];
     const modifiedImage: File = this.imageFiles[ImageType.MODIFIED];
+    let allValuesEntered: boolean = false;
+    try {
+     this.errorMessage = "";
+     allValuesEntered = this.formValidationService.isFormValide(this.name, originalImage, modifiedImage);
+    } catch (error) {
+      this.errorMessage = error.message;
+    }
 
-    return this.formValidationService.isFormValide(this.name, originalImage, modifiedImage);
+    return allValuesEntered;
   }
 
   private sendForm(): void {
@@ -63,6 +72,7 @@ export class SimpleGameCreationComponent implements OnInit {
 
     this.differenceImageService.postDifferenceImageData(formData)
       .subscribe((message: Message) => {
+        //TODO: supprimer avant la remise
         const image: HTMLImageElement = document.getElementById("image") as HTMLImageElement;
         const myRawData: number[] = message.body.split(",").map(Number);
         const myData: string[] = myRawData.map((x) => String.fromCharCode(x));
@@ -79,9 +89,14 @@ export class SimpleGameCreationComponent implements OnInit {
           .subscribe((event: Event) => {
               const eventTarget: FileReaderEventTarget = event.target as FileReaderEventTarget;
               this.imagesData[index] = new Uint8Array(eventTarget.result);
-
-              if (++readFiles === this.imageFiles.length) {
-                this.sendForm();
+              try {
+                this.errorMessage = "";
+                if (++readFiles === this.imageFiles.length &&
+                    this.formValidationService.isImageDimensionValide(this.imagesData[index])) {
+                    this.sendForm();
+                }
+              } catch (error) {
+                this.errorMessage = error.message;
               }
           });
       });
