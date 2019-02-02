@@ -9,13 +9,15 @@ import { Privilege } from "../privilege";
   styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent implements OnInit {
-  
-  //@ts-ignore
-  private descriptions: GameSheetDescription[];
+
   @Input() private is2D: boolean;
   //@ts-ignore
   @Input() private privilege : Privilege;
-  constructor(private gameListService: GameListService) { }
+  //@ts-ignore
+  private descriptions: GameSheetDescription[];
+
+  constructor(private gameListService: GameListService) { 
+  }
 
   ngOnInit() {
     this.gameListService.getGameList().subscribe(lists => this.descriptions = this.is2D ? lists.list2d : lists.list3d);

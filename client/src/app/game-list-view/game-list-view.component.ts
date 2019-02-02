@@ -9,8 +9,8 @@ export class GameListViewComponent implements OnInit {
 
   Privilege = Privilege;
  
-
-  constructor() { }
+  constructor() { 
+  }
   ngOnInit() {
   }
 

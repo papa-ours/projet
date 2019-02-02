@@ -6,11 +6,14 @@ import { Privilege } from "../privilege";
   styleUrls: ['./admin-view.component.css']
 })
 export class AdminViewComponent implements OnInit {
-  constructor() { }
-  ngOnInit() {
-  }
+
   Privilege = Privilege;
   showForm2D:boolean=false;
   showForm3D:boolean=false;
+
+  constructor() { 
+  }
+  ngOnInit() {
+  }
 
 }

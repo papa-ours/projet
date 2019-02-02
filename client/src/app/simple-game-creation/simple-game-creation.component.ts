@@ -30,8 +30,8 @@ export class SimpleGameCreationComponent implements OnInit {
   @Output() public closeForm=new EventEmitter();
 
 
-
-  constructor(private differenceImageService: DifferenceImageService) { }
+  constructor(private differenceImageService: DifferenceImageService) {
+  }
 
   close(){
     this.closeForm.emit(false);
