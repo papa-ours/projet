@@ -10,10 +10,10 @@ export class DifferenceImageGenerator {
     private modifiedImage: BMPImage;
 
     public generate(originalImageData: Uint8Array, modifiedImageData: Uint8Array): BMPImage | undefined {
-        this.originalImage = BMPImage.fromArray(originalImageData);
-        this.modifiedImage = BMPImage.fromArray(modifiedImageData);
+        if (BMPImage.isBMP(originalImageData) && BMPImage.isBMP(modifiedImageData)) {
+            this.originalImage = BMPImage.fromArray(originalImageData);
+            this.modifiedImage = BMPImage.fromArray(modifiedImageData);
 
-        if (this.originalImage.isBMP() && this.modifiedImage.isBMP()) {
             const differenceImage: BMPImage = this.originalImage.compare(this.modifiedImage);
             differenceImage.width = this.IMAGE_WIDTH;
 
@@ -24,8 +24,8 @@ export class DifferenceImageGenerator {
             }
 
             return differenceImage;
+        } else {
+            return undefined;
         }
-
-        return undefined;
     }
 }

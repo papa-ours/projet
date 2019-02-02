@@ -22,11 +22,11 @@ export class BMPImage {
         return image;
     }
 
-    public isBMP(): boolean {
-        const B_CODE: number = 66;
-        const M_CODE: number = 77;
+    public static isBMP(array: Uint8Array): boolean {
+        const B_CODE: number = "B".charCodeAt(0);
+        const M_CODE: number = "M".charCodeAt(0);
 
-        return (this.header[0] === B_CODE && this.header[1] === M_CODE);
+        return (array[0] === B_CODE && array[1] === M_CODE);
     }
 
     public compare(other: BMPImage): BMPImage {
