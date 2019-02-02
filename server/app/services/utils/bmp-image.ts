@@ -78,7 +78,7 @@ export class BMPImage {
     }
 
     private augmentPixel(pixel: Pixel, index: number): void {
-        const centerPosition: Position = this.resolvePosition(index);
+        const centerPosition: Position = this.getPosition(index);
 
         CHUNK_RELATIVE_POSITIONS.forEach((position: Position) => {
             const pixelToPlacePosition: Position = {
@@ -86,7 +86,7 @@ export class BMPImage {
                 j: centerPosition.j + position.j,
             };
 
-            const pixelToPlaceIndex: number = this.resolveIndex(pixelToPlacePosition);
+            const pixelToPlaceIndex: number = this.getIndex(pixelToPlacePosition);
             this.placePixel(pixelToPlaceIndex, Pixel.BLACK_PIXEL);
         });
     }
@@ -97,13 +97,13 @@ export class BMPImage {
         }
     }
 
-    public resolveIndex(position: Position): number {
+    public getIndex(position: Position): number {
         return (position.j * this.width + position.i);
     }
 
-    public resolvePosition(index: number): Position {
+    public getPosition(index: number): Position {
         return {
-            i: ( index % this.width ),
+            i: (index % this.width),
             j: Math.floor(index / this.width),
         };
     }
