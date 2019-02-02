@@ -52,7 +52,7 @@ export class SimpleGameCreationComponent implements OnInit {
     const originalImage: File = this.imageFiles[ImageType.ORIGINAL];
     const modifiedImage: File = this.imageFiles[ImageType.MODIFIED];
 
-    return this.formValidationService.isFormValide(this.name, originalImage, modifiedImage);
+    return this.formValidationService.isFormValid(this.name, originalImage, modifiedImage);
   }
 
   private sendForm(): void {
