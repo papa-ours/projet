@@ -29,3 +29,10 @@
     margin-top: 40px;
     opacity: 0.95;
 }
+
+.game-lists {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
