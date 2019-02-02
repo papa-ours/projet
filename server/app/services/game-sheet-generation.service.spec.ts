@@ -42,7 +42,7 @@ describe("game sheet generation", () => {
         expect(result).to.equals(true);
     });
 
-    it.only("should work even if min is greater than max", () => {
+    it("should work even if min is greater than max", () => {
         const MIN: number = 12;
         const MAX: number = 20;
         const val: number = gameSheetGenerator.getNumberBetween(MAX, MIN);
