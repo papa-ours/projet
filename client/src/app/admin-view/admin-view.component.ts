@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Privilege } from "../privilege";
 @Component({
   selector: 'app-admin-view',
@@ -9,8 +9,7 @@ export class AdminViewComponent implements OnInit {
   constructor() { }
   ngOnInit() {
   }
-  @Input() privilege: Privilege ;
-  Privilege = Privilege.ADMIN;
+  Privilege = Privilege;
   showForm2D:boolean=false;
   showForm3D:boolean=false;
 
