@@ -17,9 +17,7 @@ export class GameSheetGenerationController {
                         const originalImageData: Uint8Array = JSON.parse("[" + req.body.originalImage + "]");
                         const modifiedImageData: Uint8Array = JSON.parse("[" + req.body.modifiedImage + "]");
 
-                        const body: string = this.gameSheetGenerationService.generateGameSheet(name, originalImageData, modifiedImageData);
-
-                        res.send({ title: "image", body: body });
+                        this.gameSheetGenerationService.generateGameSheet(name, originalImageData, modifiedImageData);
                     });
 
         return router;
