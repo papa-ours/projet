@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { BMPImage } from "./utils/bmp-image";
-import { Pixel } from "./utils/pixel";
 import { Position } from "./utils/circle-area";
+import { Pixel } from "./utils/pixel";
 
 @injectable()
 export class DifferencesFinderService {
