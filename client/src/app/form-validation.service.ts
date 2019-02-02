@@ -17,7 +17,7 @@ export class FormValidationService {
   private isBMP(file: File): boolean {
     return file.type === this.FILE_TYPE;
   }
-  public isFormValide(name: string, originalImage: File, modifiedImage: File): boolean {
+  public isFormValid(name: string, originalImage: File, modifiedImage: File): boolean {
     return this.validateName(name) && this.isBMP(originalImage) && this.isBMP(modifiedImage);
   }
 }
