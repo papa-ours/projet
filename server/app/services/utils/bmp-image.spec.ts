@@ -26,8 +26,8 @@ describe.only("bmp image", () => {
         expect(BMPImage.fromArray(data).size()).to.be.equal(640 * 480);
     });
 
-    it ("should return a white pixel", () => {
-        const WHITE_PIXEL: Pixel = new Pixel(0xFFFFFF);
+    it("should return a white pixel", () => {
+        const WHITE_PIXEL: Pixel = Pixel.WHITE_PIXEL;
         expect(BMPImage.fromArray(data).pixelAt(0)).to.deep.equal(WHITE_PIXEL);
     });
 
