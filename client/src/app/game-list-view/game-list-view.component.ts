@@ -27,7 +27,9 @@ export class GameListViewComponent implements OnInit {
                      private gameListService: GameListService) { }
 
   public ngOnInit(): void {
-    this.checkUserConnection();
+    if (this.route.snapshot.url[0].path === "gamelist") {
+      this.checkUserConnection();
+    }
 
     this.route.params.subscribe((params) => {
       this.username = params["username"];
