@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Privilege } from "../privilege";
+import { Component, OnInit } from "@angular/core";
 import { GameSheetDescription } from "../../../../common/communication/game-description";
 import { GameListService } from "../game-list-getter.service";
+import { Privilege } from "../privilege";
 
 enum GameType {
   Simple,
@@ -14,15 +14,17 @@ enum GameType {
   styleUrls: ["./admin-view.component.css"],
 })
 
-export class AdminViewComponent {
+export class AdminViewComponent implements OnInit {
 
   Privilege = Privilege;
-  showForm2D:boolean=false;
-  showForm3D:boolean=false;
+  // @ts-ignore
+  private showForm2D: boolean = false;
+  // @ts-ignore
+  private showForm3D: boolean = false;
 
   private games: GameSheetDescription[][] = [];
 
-  public constructor(private gameListService: GameListService) { 
+  public constructor(private gameListService: GameListService) {
   }
 
   public ngOnInit(): void {
