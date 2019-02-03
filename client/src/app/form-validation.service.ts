@@ -18,7 +18,7 @@ export class FormValidationService {
 
   private fileIsEmpty(file: File): boolean {
     if (file === undefined) {
-      throw(new Error("The files should not be empty"));
+      throw( Error("Les fichiers ne doivent pas être vide") );
     }
 
     return file === undefined;
@@ -32,7 +32,7 @@ export class FormValidationService {
     }
 
     if ( file.type !== this.FILE_TYPE) {
-      throw(new Error("The files should be in a bitmap format"));
+      throw( Error("Les fichiers doivent etre dans le format Bitmap (.bmp)") );
     }
 
     return file.type === this.FILE_TYPE;
@@ -52,7 +52,7 @@ export class FormValidationService {
                                                 image.height === this.IMAGE_HEIGHT);
 
     if ( !isImageDimensionRespected ) {
-      throw(new Error(`Image should be ${this.IMAGE_WIDTH} by ${this.IMAGE_HEIGHT}`));
+      throw( Error(`Les images doivent être ${this.IMAGE_WIDTH}px par ${this.IMAGE_HEIGHT}px`) );
     }
 
     return isImageDimensionRespected;
