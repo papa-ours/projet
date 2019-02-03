@@ -15,11 +15,7 @@ export class DifferenceImageGenerator {
 
             const differenceImage: BMPImage = this.originalImage.compare(this.modifiedImage);
 
-            try {
-                differenceImage.augmentBlackPixels();
-            } catch (error) {
-                console.error(error.message);
-            }
+            differenceImage.augmentBlackPixels();
 
             return differenceImage;
         } else {
