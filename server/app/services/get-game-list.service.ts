@@ -2,11 +2,10 @@ import { Response } from "express";
 import { inject, injectable } from "inversify";
 import { MongooseDocument } from "mongoose";
 import "reflect-metadata";
-// import { GameLists, GameSheetDescription } from "../../../common/communication/game-description";
-import { GameLists, TopScore } from "../../../common/communication/game-description";
+import { GameLists, TopScoresInterface } from "../../../common/communication/game-description";
+import { Message } from "../../../common/communication/message";
 import Types from "../types";
 import { DBConnectionService } from "./dbconnection.service";
-import { Message } from "../../../common/communication/message";
 
 @injectable()
 export class GetGameListService {
@@ -25,7 +24,7 @@ export class GetGameListService {
                         gameList.list2d.push({
                             name: doc.get("name", String),
                             preview: doc.get("preview", String),
-                            topScores: doc.get("topScores", Array<TopScore>()),
+                            topScores: doc.get("topScores", Array<TopScoresInterface>()),
                         });
                     });
 
