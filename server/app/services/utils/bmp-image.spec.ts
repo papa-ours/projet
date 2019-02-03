@@ -44,4 +44,15 @@ describe.only("bmp image", () => {
         expect(BMPImage.fromArray(data).pixelAt(width * height + 1)).to.equal(undefined);
     });
 
+    it("should recognize a bmp image", () => {
+        expect(BMPImage.isBMP(data)).to.equal(true);
+    });
+
+    it("should rejects a non-bmp image", (done: Mocha.Func) => {
+        fs.readFile("../client/src/assets/img/logo.png", (err: NodeJS.ErrnoException, fileData: Buffer) => {
+            const png: Uint8Array = Uint8Array.from(fileData);
+            expect(BMPImage.isBMP(png)).to.equal(false);
+            setTimeout(done, 0);
+        });
+    });
 });
