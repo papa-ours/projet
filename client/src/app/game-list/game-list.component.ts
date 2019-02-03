@@ -14,7 +14,7 @@ export class GameListComponent implements OnInit {
 
   @Input() private descriptions: GameSheetDescription[];
   //@ts-ignore
-  @Input() private Privilege: Privilege;
+  @Input() private privilege: Privilege;
 
   public ngOnInit(): void {
     this.descriptions.forEach((description: GameSheetDescription) => {
