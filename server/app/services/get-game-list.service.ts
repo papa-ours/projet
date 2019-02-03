@@ -2,7 +2,7 @@ import { Response } from "express";
 import { inject, injectable } from "inversify";
 import { MongooseDocument } from "mongoose";
 import "reflect-metadata";
-import { GameLists, TopScoresInterface, GameSheetDescription } from "../../../common/communication/game-description";
+import { GameLists, GameSheetDescription, TopScoresInterface } from "../../../common/communication/game-description";
 import { Message } from "../../../common/communication/message";
 import Types from "../types";
 import { DBConnectionService } from "./dbconnection.service";
