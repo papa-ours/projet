@@ -49,4 +49,14 @@ describe("FormValidationService", () => {
     const name: string = "Hello";
     expect(() => formValidationService.isFormValid(name, file1, file2)).toThrow();
   });
+  it("should throw an error if one of both files is empty", () => {
+    const file2: File = new File([""], "./assets/img/logo.png", { lastModified: 1 , type: "image/bmp"});
+    const name: string = "Hello";
+    expect(() => formValidationService.isFormValid(name, new File( [""] , "") , file2)).toThrow();
+  });
+  it("should throw an error if the format is not 640 by 480", () => {
+    // tslint:disable-next-line:no-magic-numbers
+    const image: Uint8Array = new Uint8Array([255, 255, 255, 255]);
+    expect(() => formValidationService.isImageDimensionValid(image)).toThrow();
+  });
 });
