@@ -1,16 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 import { GameSheetDescription } from "../../../../common/communication/game-description";
 
 @Component({
-  selector: 'app-game-list',
-  templateUrl: './game-list.component.html',
-  styleUrls: ['./game-list.component.css']
+  selector: "app-game-list",
+  templateUrl: "./game-list.component.html",
+  styleUrls: ["./game-list.component.css"],
 })
 export class GameListComponent implements OnInit {
 
-  //@ts-ignore
+  // @ts-ignore
   @Input() private descriptions: GameSheetDescription[];
-  //@ts-ignore
+  // @ts-ignore
   @Input() private privilege: "admin" | "user";
 
   public ngOnInit(): void {
