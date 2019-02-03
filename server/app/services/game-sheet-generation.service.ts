@@ -7,8 +7,8 @@ import "reflect-metadata";
 import { GameSheetDescription } from "../../../common/communication/game-description";
 import { Message } from "../../../common/communication/message";
 import Types from "../types";
-import { BMPImage } from "./utils/bmp-image";
 import { TopScores } from "./score/top-scores";
+import { BMPImage } from "./utils/bmp-image";
 
 @injectable()
 export class GameSheetGenerationService {

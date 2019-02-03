@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Privilege } from "../privilege";
+import { ActivatedRoute, Router } from '@angular/router';
 import { GameSheetDescription } from "../../../../common/communication/game-description";
 import { GameListService } from "../game-list-getter.service";
 import { UsernameValidationService } from "../username-validation-service.service";
@@ -17,6 +18,7 @@ enum GameType {
 
 export class GameListViewComponent implements OnInit {
 
+  Privilege = Privilege;
   // @ts-ignore
   private username: string = "";
   private games: GameSheetDescription[][] = [];
