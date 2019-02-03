@@ -29,6 +29,7 @@ export class SimpleGameCreationComponent {
   private readonly N_IMAGES: number = 2;
   private imageFiles: File[] = new Array<File>(this.N_IMAGES);
   private imagesData: Uint8Array[] = [];
+  private readFiles: number = 0;
   // @ts-ignore
   private errorMessage: string = "";
   @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
@@ -80,24 +81,30 @@ export class SimpleGameCreationComponent {
 
   // @ts-ignore
   private submitForm(): void {
-    let readFiles: number = 0;
     if (this.allValuesEntered) {
       this.imageFiles.forEach((file: File, index: number) => {
-        this.fileReaderUtil.readFile(file)
-          .subscribe((event: Event) => {
-              const eventTarget: FileReaderEventTarget = event.target as FileReaderEventTarget;
-              this.imagesData[index] = new Uint8Array(eventTarget.result);
-              try {
-                this.errorMessage = "";
-                if (++readFiles === this.imageFiles.length &&
-                    this.formValidationService.isImageDimensionValid(this.imagesData[index])) {
-                    this.sendForm();
-                }
-              } catch (error) {
-                this.errorMessage = error.message;
-              }
-          });
+        this.readFile(file, index);
       });
+    }
+  }
+
+  private readFile(file: File, index: number): void {
+    this.fileReaderUtil.readFile(file)
+      .subscribe((event: Event) => {
+        const eventTarget: FileReaderEventTarget = event.target as FileReaderEventTarget;
+        this.imagesData[index] = new Uint8Array(eventTarget.result);
+        this.fileIsRead(index);
+    });
+  }
+
+  private fileIsRead(index: number): void {
+    try {
+      this.formValidationService.isImageDimensionValid(this.imagesData[index]);
+      if (++this.readFiles === this.imageFiles.length) {
+          this.sendForm();
+      }
+    } catch (error) {
+      this.errorMessage = error.message;
     }
   }
 }
