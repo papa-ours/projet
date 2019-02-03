@@ -2,7 +2,7 @@ import { TopScoresInterface } from "../../../../common/communication/game-descri
 import { Score } from "./score";
 
 export class TopScores implements TopScoresInterface {
-    private scores: Score[];
+    public scores: Score[];
     public scoresStrings: string[];
     private SCORE_LENGTH: number = 3;
 
