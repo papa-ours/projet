@@ -65,6 +65,7 @@ describe.only("Differences finder", () => {
         const image: BMPImage = new BMPImage(pixels, header, pixels.length, 1);
         const result: number = differencesFinder.getNumberOfDifferences(image);
 
+        // tslint:disable:no-magic-numbers
         expect(result).to.equals(2);
     });
 

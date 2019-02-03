@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
+import { Message } from "../../../common/communication/message";
 import { GameSheetGenerationService } from "../services/game-sheet-generation.service";
 import Types from "../types";
 
@@ -17,9 +18,10 @@ export class GameSheetGenerationController {
                         const originalImageData: Uint8Array = JSON.parse("[" + req.body.originalImage + "]");
                         const modifiedImageData: Uint8Array = JSON.parse("[" + req.body.modifiedImage + "]");
 
-                        const body: string = this.gameSheetGenerationService.generateGameSheet(name, originalImageData, modifiedImageData);
+                        const message: Message =
+                            this.gameSheetGenerationService.generateGameSheet(name, originalImageData, modifiedImageData);
 
-                        res.send({ title: "image", body: body });
+                        res.send(message);
                     });
 
         return router;

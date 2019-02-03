@@ -14,10 +14,7 @@ export class GetGameListController {
         router.get("/",
                    (req: Request, res: Response, next: NextFunction) => {
                        // Send the request to the service and send the response
-                       res.send({
-                           title: "get-game-list",
-                           body: JSON.stringify(this.getGameListService.getGameList()),
-                       });
+                       this.getGameListService.getGameList(res);
                    });
 
         return router;
