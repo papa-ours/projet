@@ -18,7 +18,8 @@ enum GameType {
 
 export class GameListViewComponent implements OnInit {
 
-  Privilege = Privilege;
+  // @ts-ignore
+  private Privilege: enum = Privilege;
   // @ts-ignore
   private username: string = "";
   private games: GameSheetDescription[][] = [];
