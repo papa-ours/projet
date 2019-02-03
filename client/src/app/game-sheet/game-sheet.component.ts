@@ -4,7 +4,7 @@ import { GameSheetDescription } from "../../../../common/communication/game-desc
 @Component({
   selector: "app-game-sheet",
   templateUrl: "./game-sheet.component.html",
-  styleUrls: ["./game-sheet.component.css"]
+  styleUrls: ["./game-sheet.component.css"],
 })
 export class GameSheetComponent implements OnInit {
 
