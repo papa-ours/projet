@@ -2,5 +2,5 @@
     <div class="username">Bonjour {{username}}</div>
 </div>
 <div class="game-lists">
-    <app-game-list *ngFor="let game of games" [descriptions]="game" [privilege]=Privilege.USER></app-game-list>
+    <app-game-list *ngFor="let game of games; index as i" [is2D]="i" [descriptions]="game" [privilege]="Privilege.USER"></app-game-list>
 </div>

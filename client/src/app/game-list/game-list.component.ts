@@ -10,8 +10,8 @@ import { Privilege } from "../privilege";
   styleUrls: ["./game-list.component.css"],
 })
 export class GameListComponent implements OnInit {
-
-
+  //@ts-ignore
+  @Input() private is2D: boolean;
   @Input() private descriptions: GameSheetDescription[];
   //@ts-ignore
   @Input() private privilege: Privilege;

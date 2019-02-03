@@ -51,8 +51,15 @@ export class SimpleGameCreationComponent {
   private get allValuesEntered(): boolean {
     const originalImage: File = this.imageFiles[ImageType.ORIGINAL];
     const modifiedImage: File = this.imageFiles[ImageType.MODIFIED];
+    let allValuesEntered: boolean = false;
+    try {
+     this.errorMessage = "";
+     allValuesEntered = this.formValidationService.isFormValid(this.name, originalImage, modifiedImage);
+    } catch (error) {
+      this.errorMessage = error.message;
+    }
 
-    return this.formValidationService.isFormValid(this.name, originalImage, modifiedImage);
+    return allValuesEntered;
   }
 
   private sendForm(): void {
@@ -80,9 +87,14 @@ export class SimpleGameCreationComponent {
           .subscribe((event: Event) => {
               const eventTarget: FileReaderEventTarget = event.target as FileReaderEventTarget;
               this.imagesData[index] = new Uint8Array(eventTarget.result);
-
-              if (++readFiles === this.imageFiles.length) {
-                this.sendForm();
+              try {
+                this.errorMessage = "";
+                if (++readFiles === this.imageFiles.length &&
+                    this.formValidationService.isImageDimensionValid(this.imagesData[index])) {
+                    this.sendForm();
+                }
+              } catch (error) {
+                this.errorMessage = error.message;
               }
           });
       });

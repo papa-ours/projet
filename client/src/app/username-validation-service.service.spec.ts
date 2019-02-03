@@ -1,12 +1,14 @@
-import { TestBed } from "@angular/core/testing";
-
 import { UsernameValidationService } from "./username-validation-service.service";
 
 describe("UsernameValidationServiceService", () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
-
+  let usernameValidationService: UsernameValidationService;
+  beforeEach(() => {
+    usernameValidationService = new UsernameValidationService();
+  });
   it("should be created", () => {
-    const service: UsernameValidationService = TestBed.get(UsernameValidationService);
-    expect(service).toBeTruthy();
+    expect(usernameValidationService).toBeTruthy();
+  });
+  it("it should return an observable on request", () => {
+    expect(usernameValidationService.getUsernameValidation()).toBeDefined();
   });
 });

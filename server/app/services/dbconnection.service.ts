@@ -34,8 +34,4 @@ export class DBConnectionService {
     public async getGameSheets2D(): Promise<mongoose.Document[]> {
         return mongoose.models.GameSheet2D.find({}).exec();
     }
-
-    public deleteAll(): void {
-        mongoose.models.GameSheet2D.deleteMany({}).then(() => console.log("deleted all"));
-    }
 }
