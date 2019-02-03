@@ -67,11 +67,13 @@ export class GameSheetGenerationService {
         return this.getNumberBetween(MIN, MAX);
     }
 
-    private makeSeconds(): number {
+    private makeSeconds(): string {
         const MIN: number = 0;
         const MAX: number = 59;
+        const seconds: number = this.getNumberBetween(MIN, MAX);
+        const FIRST_TWO_DIGITS_NUMBER: number = 10;
 
-        return this.getNumberBetween(MIN, MAX);
+        return ((seconds < FIRST_TWO_DIGITS_NUMBER) ? "0" : "") + seconds.toString();
     }
 
     public makeUsername(): string {
