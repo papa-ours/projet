@@ -12,25 +12,18 @@
     </div>
 
     <div class="scores">
-      <div class="medals" [style.background]="medalColors[0]">
-          <div class="value">1</div>
+      <div *ngFor="let medalColor of medalColors; index as i" 
+        class="medals" [style.background]="medalColors[i]">
+          <div class="value">{{i + 1}}</div>
       </div>
-      <div class="medals" [style.background]="medalColors[1]">
-          <div class="value">2</div>
-      </div>
-      <div class="medals" [style.background]="medalColors[2]">
-          <div class="value">3</div>
-      </div>
-      <div *ngFor="let score of description.topScores[0].scoresStrings; index as i">
-          <div class="solo score">{{score}}</div>
-      </div>
-
-      <div *ngFor="let score of description.topScores[1].scoresStrings; index as i">
-        <div class="pvp score">{{score}}</div>
-      </div>
+      
+      <span *ngFor="let topScore of description.topScores; index as i" [style.gridColumn]="i + 2">
+          <div *ngFor="let score of topScore.scoresStrings">
+              <div class="score">{{score}}</div>
+          </div>
+        </span>
     </div>
 
-    <div></div>
     <div class="buttons">
       <button #btn1>
         <div>Jouer</div>

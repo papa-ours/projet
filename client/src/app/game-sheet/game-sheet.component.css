@@ -68,16 +68,9 @@
     font-size: 14px;
 }
 
-.solo {
-    grid-column: 2;
-}
-
 .score {
+    margin-bottom: 10px;
     text-align: center;
-}
-
-.pvp {
-    grid-column: 3;
 }
 
 .medals {
@@ -100,6 +93,7 @@
 }
 
 .buttons {
+    grid-column: 2;
     margin-left: 16%;
     margin-top: -50px;
     display: grid;
