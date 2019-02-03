@@ -39,7 +39,7 @@ export class DifferencesFinderService {
 
     private explorePixel(index: number, pixelsToVisit: number[]): void {
         this.isPixelVisited[index] = true;
-        const currentPosition: Position = this.image.resolvePosition(index);
+        const currentPosition: Position = this.image.getPosition(index);
         for (let i: number = -1; i <= 1; i++) {
             for (let j: number = -1; j <= 1; j++) {
                 if (!(i === 0 && j === 0)) {
@@ -47,7 +47,7 @@ export class DifferencesFinderService {
                         i: currentPosition.i + i,
                         j: currentPosition.j + j,
                     };
-                    const pixelToVisitIndex: number = this.image.resolveIndex(pixelToVisitPosition);
+                    const pixelToVisitIndex: number = this.image.getIndex(pixelToVisitPosition);
 
                     if (pixelToVisitIndex >= 0 && pixelToVisitIndex < this.isPixelVisited.length) {
                         if (this.image.pixelAt(pixelToVisitIndex).equals(Pixel.BLACK_PIXEL) && !this.isPixelVisited[pixelToVisitIndex]) {
