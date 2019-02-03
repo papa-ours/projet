@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Message } from "../../../../common/communication/message";
 import { DifferenceImageService } from "../difference-image.service";
-import { FileReaderUtil } from "./file-reader.util";
 import { FormValidationService } from "../form-validation.service";
+import { FileReaderUtil } from "./file-reader.util";
 
 interface FileReaderEventTarget extends EventTarget {
   result: ArrayBuffer;
@@ -29,6 +29,8 @@ export class SimpleGameCreationComponent implements OnInit {
   private readonly N_IMAGES: number = 2;
   private imageFiles: File[] = new Array<File>(this.N_IMAGES);
   private imagesData: Uint8Array[] = [];
+  // @ts-ignore
+  private errorMessage: string = "";
   @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
 
   public constructor(private differenceImageService: DifferenceImageService,
@@ -52,7 +54,7 @@ export class SimpleGameCreationComponent implements OnInit {
     const originalImage: File = this.imageFiles[ImageType.ORIGINAL];
     const modifiedImage: File = this.imageFiles[ImageType.MODIFIED];
 
-    return this.formValidationService.isFormValide(this.name, originalImage, modifiedImage);
+    return this.formValidationService.isFormValid(this.name, originalImage, modifiedImage);
   }
 
   private sendForm(): void {
@@ -61,7 +63,14 @@ export class SimpleGameCreationComponent implements OnInit {
     formData.append("originalImage", this.imagesData[ImageType.ORIGINAL].toString());
     formData.append("modifiedImage", this.imagesData[ImageType.MODIFIED].toString());
 
-    this.differenceImageService.postDifferenceImageData(formData).subscribe();
+    this.differenceImageService.postDifferenceImageData(formData)
+      .subscribe((message: Message) => {
+        if (message.body !== "") {
+          this.errorMessage = message.body;
+        } else {
+          this.close();
+        }
+      });
   }
 
   // @ts-ignore
