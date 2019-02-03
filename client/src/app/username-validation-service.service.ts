@@ -7,6 +7,8 @@ import { Message } from "../../../common/communication/message";
 export class UsernameValidationService {
 
     private socket: SocketIOClient.Socket;
+    public connected: boolean = false;
+    public username: string = "";
     private readonly BASE_URL: string = "http://localhost:3000";
 
     public constructor() {
@@ -15,6 +17,10 @@ export class UsernameValidationService {
 
     public sendUsername(username: string): void {
         this.socket.emit("requestUsernameValidation", username);
+    }
+
+    public deleteUsername(): void {
+        this.socket.emit("deleteUsername", this.username);
     }
 
     public getUsernameValidation(): Observable<Message> {
