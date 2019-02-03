@@ -29,11 +29,11 @@ describe("FormValidationService", () => {
   it("should return false if it's not a bitmap image", () => {
     const file: File = new File([""], "./assets/img/logo.png");
     const name: string = "Hello";
-    expect(formValidationService.isFormValide(name, file, file)).toBeFalsy();
+    expect(formValidationService.isFormValid(name, file, file)).toBeFalsy();
   });
   it("should return true if it's bitmap image", () => {
     const file: File = new File([""], "./assets/img/dog.bmp");
     const name: string = "Hello";
-    expect(formValidationService.isFormValide(name, file, file)).toBeFalsy();
+    expect(formValidationService.isFormValid(name, file, file)).toBeFalsy();
   });
 });
