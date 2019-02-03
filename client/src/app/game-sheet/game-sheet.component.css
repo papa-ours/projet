@@ -1,103 +1,121 @@
 .game-sheet {
     padding-top: 20px;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 10% 90%;
     border-radius: 10px;
     font-family: 'Helvetica';
     background: #ffffff20;
     margin-bottom: 20px;
-    margin-left:25px;
-    width: 650px;
+    height: 220px;
+    padding: 10px;
+    width: 80%;
+    margin-left: 10%;
     color: white;
-}
-
-.game-title {
-    font-size: 26px;
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 20px;
+    box-shadow: 2px 2px 8px #00000044;
 }
 
 .game-preview-image {
-    width: 426.66px;
-    height: 320px;
+    width: 80%;
+    margin-top: 6%;
+    margin-left: 4%;
 }
 
 .game-preview {
-    text-align: center;
+    width: 300px;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 1;
+}
+
+.header {
+    margin-left: 12%;
+    display: grid;
+    grid-template-rows: 40px 20px 20px;
+    grid-template-columns: 20px 140px 140px;
 }
 
 .score-header {
     text-align: center;
 }
 
+.game-title {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row: 1;
+    font-size: 26px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .top3-component {
     text-align: center;
     grid-column-start: 1;
     grid-column-end: 4;
-    grid-row: 1;
+    grid-row: 2;
 }
 
 .scores {
-    margin-top: 10px;
+    grid-column: 2;
+    margin-top: 70px;
+    grid-auto-flow: column;
     display: grid;
-    grid-template-columns: 20px 200px 200px;
-    grid-template-rows: 30px 30px 30px 30px 30px;
-    margin-left: 100px;
-    font-size: 20px;
-}
-
-.solo {
-    grid-column-start: 2;
-    grid-column-end: 3;
+    grid-template-columns: 20px repeat(2, 140px);
+    grid-template-rows: repeat(3, 24px);
+    margin-left: 12%;
+    font-size: 14px;
 }
 
 .score {
+    margin-bottom: 10px;
     text-align: center;
-    width: 200px;
-}
-
-.pvp {
-    grid-column-start: 3;
-    grid-column-end: 4;
-}
-
-.row {
-    display: grid;
-    grid-template-columns: 20px 200px 200px;
-    grid-template-rows: 20px;
-    grid-column-start: 1;
-    grid-column-end: 4;
-    grid-template-rows: 20px;
 }
 
 .medals {
     grid-column-start: 1;
+    box-shadow: 0px 0px 8px #00000044;
     grid-column-end: 1;
     z-index: 0;
     position: relative;
     text-align: center;
     display: flex;
     background: red;
-    width: 25px;
-    height: 25px;
-    border-radius: 12.5px;
-    color: #fff;
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    color: #000;
 }
 
 .medals .value {
     margin: auto;
 }
 
+.buttons {
+    grid-column: 2;
+    margin-left: 16%;
+    margin-top: -50px;
+    display: grid;
+    grid-template-columns: 140px 140px;
+}
+
 button {
     background: #08A037;
     border: none;
     color: #fff;
-    font-size: 24px;
-    margin: 10px;
-    padding: 10px;
+    font-size: 18px;
     border-radius: 8px;
     cursor: pointer;
+    width: 90%;
+    margin-left: 5%;
+    height: 35px;
 }
 
 button:hover {
     background: #10ab37;
+}
+
+button div {
+    text-align: center;
 }

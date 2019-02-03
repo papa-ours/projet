@@ -6,7 +6,10 @@
 
   <div class="info name-section">
     Nom du jeu :
-    <input class="name-input" placeholder="7 differences" [(ngModel)]="name">
+    <input class="name-input" placeholder="7 differences" [(ngModel)]="name"><br>
+    <div  class="error-message" *ngIf="(name.length < 5  || name.length > 15)">
+        Le nom du jeu doit comporter entre 5 et 15 caractères
+    </div>
   </div>
 
   <div class="info original-image-section">
@@ -19,9 +22,10 @@
     <input type="file" placeholder="choisir un fichier" (change)="fileEntered($event, 1)">
   </div>
 
+  <div class="error-message">{{errorMessage}}</div>
+
   <div class="button-section"> 
     <button class="cancel-btn" (click)="close()">Annuler</button>
     <button class="create-btn" (click)="submitForm()">Créer</button>
   </div>
-
 </div>

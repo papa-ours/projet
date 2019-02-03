@@ -6,6 +6,7 @@
     font-family: 'Helvetica';
     height: auto;
     border-radius: 10px;
+    margin-top: 100px;
 }
 
 .title {
@@ -20,12 +21,16 @@
     margin-left: 10px;
 }
 
+.original-image-section {
+    margin-top: 50px;
+}
+
 input {
     margin-left: 10px;
 }
 
 input[type="file"] {
-    margin-top: 20px;
+    margin-bottom: 40px;
     cursor: pointer;
 }
 
@@ -33,6 +38,7 @@ input[type="file"] {
     padding-left: 6px;
     font-size: 16px;
     margin-left: 37px;
+    margin-bottom: 10px;
     border-radius: 8px;
     border: none;
     height: 40px;
@@ -40,7 +46,6 @@ input[type="file"] {
 }
 
 .button-section {
-    margin-top: 20px;
     height: 40px;
     text-align: center;
 }
@@ -71,4 +76,11 @@ button.cancel-btn:hover {
 
 button.create-btn:hover {
     background: #10ab37;
+}
+.error-message {
+    line-break: auto;
+    max-width: 365px;
+    color:#F00;
+    font-size: 16px;
+    font-weight: bold;
 }

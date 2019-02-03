@@ -7,4 +7,9 @@ export default {
         UsernameValidatorController: Symbol("UsernameValidatorController"),
         GetGameListService: Symbol("GetGameListService"),
         GetGameListController: Symbol("GetGameListController"),
+        DifferenceImageGenerator: Symbol("DifferenceImageGenerator"),
+        GameSheetGenerationController: Symbol("GameSheetGenerationController"),
+        DifferencesFinderService: Symbol("DifferenceFinderService"),
+        DBConnectionService: Symbol("DBConnectionService"),
+        GameSheetGenerationService: Symbol("GameSheetGenerationService"),
 };
