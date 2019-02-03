@@ -38,18 +38,15 @@ export class FormValidationService {
     return file.type === this.FILE_TYPE;
   }
 
-  private createImageFromData(imageData: Uint8Array): HTMLImageElement {
-    const image: HTMLImageElement = new Image();
-    const imageToCharCode: string[] = imageData.toString().split(",").map(Number).map((x) => String.fromCharCode(x));
-    image.src = "data:image/bmp;base64," + btoa(imageToCharCode.join(""));
-
-    return image;
-  }
-
   public isImageDimensionValid(imageData: Uint8Array): boolean {
-    const image: HTMLImageElement = this.createImageFromData(imageData);
-    const isImageDimensionRespected: boolean = (image.width === this.IMAGE_WIDTH &&
-                                                image.height === this.IMAGE_HEIGHT);
+    const dataView: DataView = new DataView(imageData.buffer);
+    const WIDTH_OFFSET: number = 18;
+    const HEIGHT_OFFSET: number = 22;
+
+    const imageWidth: number = dataView.getUint16(WIDTH_OFFSET, true);
+    const imageHeight: number = dataView.getUint16(HEIGHT_OFFSET, true);
+    const isImageDimensionRespected: boolean = (imageWidth === this.IMAGE_WIDTH &&
+                                                imageHeight === this.IMAGE_HEIGHT);
 
     if ( !isImageDimensionRespected ) {
       throw( Error(`Les images doivent être ${this.IMAGE_WIDTH}px par ${this.IMAGE_HEIGHT}px`) );
