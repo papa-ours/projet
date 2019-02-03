@@ -12,7 +12,6 @@ describe.only("Differences finder", () => {
         differencesFinder = new DifferencesFinderService();
     });
 
-    const dog: BMPImage = BMPImage.fromArray(fs.readFileSync("../client/src/assets/img/dog.bmp"));
     const blank: BMPImage = BMPImage.fromArray(fs.readFileSync("./test/blank.bmp"));
     const text: BMPImage = BMPImage.fromArray(fs.readFileSync("./test/image-difference-test.bmp"));
 

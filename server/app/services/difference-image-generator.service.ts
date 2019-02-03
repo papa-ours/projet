@@ -5,7 +5,6 @@ import { BMPImage } from "./utils/bmp-image";
 @injectable()
 export class DifferenceImageGenerator {
 
-    private readonly IMAGE_WIDTH: number = 640;
     private originalImage: BMPImage;
     private modifiedImage: BMPImage;
 
