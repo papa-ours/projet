@@ -1,12 +1,22 @@
-export interface TopScore {
-    solo: string;
-    pvp: string;
+export interface ScoreInterface {
+    username: string;
+    minutes: number;
+    seconds: number;
+}
+
+export interface TopScoresInterface {
+    scoresStrings: string[];
+}
+
+export enum GameType {
+    Solo,
+    Pvp,
 }
 
 export interface GameSheetDescription {
     name: string;
     preview: string;
-    topScores: TopScore[];
+    topScores: TopScoresInterface[];
 }
 
 export interface GameLists {

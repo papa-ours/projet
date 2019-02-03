@@ -4,10 +4,11 @@ import { DifferenceImageGenerator } from "./difference-image-generator.service";
 import { DifferencesFinderService } from "./differences-finder.service";
 
 import "reflect-metadata";
-import { GameSheetDescription, TopScore } from "../../../common/communication/game-description";
+import { GameSheetDescription } from "../../../common/communication/game-description";
 import { Message } from "../../../common/communication/message";
 import Types from "../types";
 import { BMPImage } from "./utils/bmp-image";
+import { TopScores } from "./score/top-scores";
 
 @injectable()
 export class GameSheetGenerationService {
@@ -36,69 +37,22 @@ export class GameSheetGenerationService {
     }
 
     private createGameSheet(name: string, originalImageData: Uint8Array): void {
-        const TOP_SCORES_LENGTH: number = 3;
-        const topScores: TopScore[] = [...Array(TOP_SCORES_LENGTH)].map(() => this.generateTopScore());
-
         const gameSheet: GameSheetDescription = {
             name: name,
             preview: originalImageData.toString(),
-            topScores: topScores,
+            topScores: this.generateTopScores(),
         };
 
         this.saveGameSheet(gameSheet);
     }
 
-    public generateTopScore(): TopScore {
-        return { solo: this.makeScore(), pvp: this.makeScore() };
-    }
+    private generateTopScores(): TopScores[] {
+        const TOP_SCORES_LENGTH: number = 2;
 
-    private makeScore(): string {
-        return this.makeUsername() + " " + this.makeTime();
-    }
+        return [...Array(TOP_SCORES_LENGTH)].map(() => {
 
-    private makeTime(): string {
-        return this.makeMinutes() + ":" + this.makeSeconds();
-    }
-
-    private makeMinutes(): number {
-        const MIN: number = 8;
-        const MAX: number = 15;
-
-        return this.getNumberBetween(MIN, MAX);
-    }
-
-    private makeSeconds(): string {
-        const MIN: number = 0;
-        const MAX: number = 59;
-        const seconds: number = this.getNumberBetween(MIN, MAX);
-        const FIRST_TWO_DIGITS_NUMBER: number = 10;
-
-        return ((seconds < FIRST_TWO_DIGITS_NUMBER) ? "0" : "") + seconds.toString();
-    }
-
-    public makeUsername(): string {
-        const POSSIBLE_VALUES: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        const MIN_LENGTH: number = 3;
-        const MAX_LENGTH: number = 12;
-        const usernameLength: number = this.getNumberBetween(MIN_LENGTH, MAX_LENGTH);
-        const username: string[] = [...Array(usernameLength)].map(() => {
-            const index: number = this.getNumberBetween(0, POSSIBLE_VALUES.length - 1);
-
-            return POSSIBLE_VALUES.charAt(index);
+            return new TopScores();
         });
-
-        return username.join("");
-    }
-
-    public getNumberBetween(min: number, max: number): number {
-        if (min > max) {
-            // If min is greater than max, we switch them
-            const temp: number = max;
-            max = min;
-            min = temp;
-        }
-
-        return Math.floor(Math.random() * (max - min)) + min;
     }
 
     public saveGameSheet(gameSheetDescription: GameSheetDescription): void {
