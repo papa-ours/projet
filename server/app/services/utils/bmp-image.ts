@@ -52,6 +52,14 @@ export class BMPImage {
         return array;
     }
 
+    public size(): number {
+        return this.pixels.length;
+    }
+
+    public pixelAt(index: number): Pixel {
+        return this.pixels[index];
+    }
+
     public augmentBlackPixels(): void {
         if (!this.width) {
             throw Error("Image width must be known to augment pixels");
@@ -86,7 +94,7 @@ export class BMPImage {
         }
     }
 
-    private resolveIndex(position: Position): number {
+    public resolveIndex(position: Position): number {
         if (!this.width) {
             throw Error("Image width must be know to resolve index");
         }
@@ -94,7 +102,7 @@ export class BMPImage {
         return (position.j * this.width + position.i);
     }
 
-    private resolvePosition(index: number): Position {
+    public resolvePosition(index: number): Position {
         if (!this.width) {
             throw Error("Image width must be know to resolve position");
         }

@@ -1,7 +1,7 @@
 .game-sheet {
     padding-top: 20px;
     display: grid;
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: 40% 60%;
     grid-template-rows: 10% 90%;
     border-radius: 10px;
     font-family: 'Helvetica';
@@ -16,8 +16,9 @@
 }
 
 .game-preview-image {
-    margin: 4%;
-    width: 92%;
+    width: 80%;
+    margin-top: 6%;
+    margin-left: 4%;
 }
 
 .game-preview {
@@ -26,7 +27,13 @@
     grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: 1;
-    text-align: center;
+}
+
+.header {
+    margin-left: 12%;
+    display: grid;
+    grid-template-rows: 40px 20px 20px;
+    grid-template-columns: 20px 140px 140px;
 }
 
 .score-header {
@@ -52,34 +59,18 @@
 
 .scores {
     grid-column: 2;
-    margin-top: 10px;
+    margin-top: 70px;
+    grid-auto-flow: column;
     display: grid;
-    grid-template-columns: 20px repeat(2, 120px);
-    grid-template-rows: 40px repeat(4, 24px);
-    margin-left: 8%;
+    grid-template-columns: 20px repeat(2, 140px);
+    grid-template-rows: repeat(3, 24px);
+    margin-left: 12%;
     font-size: 14px;
 }
 
-.solo {
-    grid-column-start: 2;
-    grid-column-end: 3;
-}
-
 .score {
+    margin-bottom: 10px;
     text-align: center;
-}
-
-.pvp {
-    grid-column-start: 3;
-    grid-column-end: 4;
-}
-
-.row {
-    display: grid;
-    grid-template-columns: 20px repeat(2, 120px);
-    grid-template-rows: 24px;
-    grid-column-start: 1;
-    grid-column-end: 4;
 }
 
 .medals {
@@ -99,6 +90,14 @@
 
 .medals .value {
     margin: auto;
+}
+
+.buttons {
+    grid-column: 2;
+    margin-left: 16%;
+    margin-top: -50px;
+    display: grid;
+    grid-template-columns: 140px 140px;
 }
 
 button {

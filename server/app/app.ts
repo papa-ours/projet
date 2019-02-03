@@ -4,8 +4,8 @@ import * as cors from "cors";
 import * as express from "express";
 import { inject, injectable } from "inversify";
 import * as logger from "morgan";
+import { GameSheetGenerationController } from "./controllers/game-sheet-generation.controller";
 import { GetGameListController } from "./controllers/get-game-list.controller";
-import { ImageDifferenceController } from "./controllers/image-difference.controller";
 import Types from "./types";
 
 @injectable()
@@ -16,7 +16,7 @@ export class Application {
 
     public constructor(
             @inject(Types.GetGameListController) private getGameListController: GetGameListController,
-            @inject(Types.ImageDifferenceController) private imageDifferenceController: ImageDifferenceController) {
+            @inject(Types.GameSheetGenerationController) private gameSheetGenerationController: GameSheetGenerationController) {
         this.app = express();
 
         this.config();
@@ -36,7 +36,7 @@ export class Application {
     public bindRoutes(): void {
         // Notre application utilise le routeur de notre API `Index`
         this.app.use("/api/gamelist", this.getGameListController.router);
-        this.app.use("/api/imagedifference", this.imageDifferenceController.router);
+        this.app.use("/api/gamesheet", this.gameSheetGenerationController.router);
         this.errorHandeling();
     }
 

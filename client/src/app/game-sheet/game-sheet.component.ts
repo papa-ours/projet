@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
-import { GameSheetDescription, Privilege } from "../../../../common/communication/game-description";
+import { GameSheetDescription } from "../../../../common/communication/game-description";
 
 @Component({
   selector: "app-game-sheet",
@@ -7,6 +7,7 @@ import { GameSheetDescription, Privilege } from "../../../../common/communicatio
   styleUrls: ["./game-sheet.component.css"],
 })
 export class GameSheetComponent implements OnInit {
+
   // @ts-ignore
   private medalColors: string[] = [
     "#FFD700",
@@ -15,15 +16,13 @@ export class GameSheetComponent implements OnInit {
   ];
   // @ts-ignore
   @Input() private description: GameSheetDescription;
-  @Input() private privilege: Privilege;
-  @ViewChild("btn1") public btn1: ElementRef;
-  @ViewChild("btn2") public btn2: ElementRef;
-
-  public constructor() {}
+  @Input() private privilege: "admin" | "user";
+  @ViewChild("btn1") private btn1: ElementRef;
+  @ViewChild("btn2") private btn2: ElementRef;
 
   public ngOnInit(): void {
-    this.btn1.nativeElement.textContent = this.privilege === Privilege.USER ? "Jouer" : "Supprimer";
-    this.btn2.nativeElement.textContent = this.privilege === Privilege.USER ? "Créer" : "Réinitialiser";
+    this.btn1.nativeElement.textContent = this.privilege === "user" ? "Jouer" : "Supprimer";
+    this.btn2.nativeElement.textContent = this.privilege === "user" ? "Créer" : "Réinitialiser";
   }
 
 }

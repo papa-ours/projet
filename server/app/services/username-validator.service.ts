@@ -4,7 +4,7 @@ import { Message } from "../../../common/communication/message";
 
 @injectable()
 export class UsernameValidatorService {
-    private readonly MAX_LENGTH: number = 16;
+    private readonly MAX_LENGTH: number = 12;
     private readonly MIN_LENGTH: number = 3;
 
     private isAlphaNumeric(ch: string): boolean {

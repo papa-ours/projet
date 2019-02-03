@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { GameSheetDescription, Privilege } from "../../../../common/communication/game-description";
-import { GameListService } from "../game-list-getter.service";
+import { GameSheetDescription } from "../../../../common/communication/game-description";
 
 @Component({
   selector: "app-game-list",
@@ -10,14 +9,21 @@ import { GameListService } from "../game-list-getter.service";
 export class GameListComponent implements OnInit {
 
   // @ts-ignore
-  private descriptions: GameSheetDescription[];
-  @Input() private is2D: boolean;
+  @Input() private descriptions: GameSheetDescription[];
   // @ts-ignore
-  @Input() private privilege: Privilege;
-  public constructor(private gameListService: GameListService) { }
+  @Input() private privilege: "admin" | "user";
 
   public ngOnInit(): void {
-    this.gameListService.getGameList().subscribe((lists) => this.descriptions = this.is2D ? lists.list2d : lists.list3d);
+    this.descriptions.forEach((description: GameSheetDescription) => {
+      description.preview = this.encodeImage(description.preview);
+    });
+  }
+
+  private encodeImage(imageData: string): string {
+    const numberData: number[] = imageData.split(",").map(Number);
+    const encodedString: string[] = numberData.map((val: number) => String.fromCharCode(val));
+
+    return "data:image/bmp;base64," + btoa(encodedString.join(""));
   }
 
 }

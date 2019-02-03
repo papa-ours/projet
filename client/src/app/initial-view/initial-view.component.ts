@@ -16,12 +16,26 @@ export class InitialViewComponent implements OnInit {
                      private router: Router) { }
 
   public ngOnInit(): void {
+    if (this.usernameValidationService.connected) {
+      this.deleteUsername();
+    }
+
     this.usernameValidationService.getUsernameValidation().subscribe((message: Message) => {
       this.usernameValidationMessage = message.body;
       if (this.usernameValidationMessage === "") {
-        this.router.navigateByUrl("/gamelist/" + this.username);
+        this.usernameValidationService.connected = true;
+        this.usernameValidationService.username = this.username;
+        this.router.navigateByUrl("/gamelist/" + this.username)
+        .catch((err: Error) => {
+          console.error(err);
+        });
       }
     });
+  }
+
+  private deleteUsername(): void {
+    this.usernameValidationService.deleteUsername();
+    this.usernameValidationService.connected = false;
   }
 
   // @ts-ignore

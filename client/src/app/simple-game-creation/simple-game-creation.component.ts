@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { Message } from "../../../../common/communication/message";
 import { DifferenceImageService } from "../difference-image.service";
 import { FormValidationService } from "../form-validation.service";
@@ -24,14 +24,14 @@ enum ImageType {
   styleUrls: ["./simple-game-creation.component.css"],
 })
 
-export class SimpleGameCreationComponent implements OnInit {
+export class SimpleGameCreationComponent {
   private name: string = "";
   private readonly N_IMAGES: number = 2;
   private imageFiles: File[] = new Array<File>(this.N_IMAGES);
   private imagesData: Uint8Array[] = [];
   // @ts-ignore
   private errorMessage: string = "";
-  @Output() public closeForm: EventEmitter <boolean> = new EventEmitter();
+  @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
 
   public constructor(private differenceImageService: DifferenceImageService,
                      private fileReaderUtil: FileReaderUtil,
@@ -40,8 +40,6 @@ export class SimpleGameCreationComponent implements OnInit {
   public close(): void {
     this.closeForm.emit(false);
   }
-
-  public ngOnInit(): void {}
 
   // @ts-ignore
   private fileEntered(event: FileReaderEvent, type: ImageType): void {
@@ -72,11 +70,11 @@ export class SimpleGameCreationComponent implements OnInit {
 
     this.differenceImageService.postDifferenceImageData(formData)
       .subscribe((message: Message) => {
-        //TODO: supprimer avant la remise
-        const image: HTMLImageElement = document.getElementById("image") as HTMLImageElement;
-        const myRawData: number[] = message.body.split(",").map(Number);
-        const myData: string[] = myRawData.map((x) => String.fromCharCode(x));
-        image.src = "data:image/bmp;base64," + btoa(myData.join(""));
+        if (message.body !== "") {
+          this.errorMessage = message.body;
+        } else {
+          this.close();
+        }
       });
   }
 

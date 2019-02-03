@@ -2,6 +2,5 @@
     <div class="username">Bonjour {{username}}</div>
 </div>
 <div class="game-lists">
-    <app-game-list [is2D]="true" privilege=Privilege.USER></app-game-list>
-    <app-game-list [is2D]="false" privilege="Privilege.USER"></app-game-list>
+    <app-game-list *ngFor="let game of games" [descriptions]="game" privilege="admin"></app-game-list>
 </div>

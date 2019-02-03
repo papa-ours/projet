@@ -21,14 +21,14 @@ describe("username validation", () => {
         const username: string = "A";
         const users: string[] = [];
         const result: string = validator.getUsernameValidation(username, users).body;
-        expect(result).to.equals("Le nom d'utilisateur doit contenir entre 3 et 16 charactères");
+        expect(result).to.equals("Le nom d'utilisateur doit contenir entre 3 et 12 charactères");
     });
 
     it("should return the correct message if the username is too long", () => {
         const username: string = "tooLongUsernamesAreForbidden";
         const users: string[] = [];
         const result: string = validator.getUsernameValidation(username, users).body;
-        expect(result).to.equals("Le nom d'utilisateur doit contenir entre 3 et 16 charactères");
+        expect(result).to.equals("Le nom d'utilisateur doit contenir entre 3 et 12 charactères");
     });
 
     it("should return the correct message if the username contains forbidden characters", () => {
