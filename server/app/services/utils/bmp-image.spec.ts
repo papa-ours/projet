@@ -6,7 +6,7 @@ import { Pixel } from "./pixel";
 
 /* tslint:disable:no-magic-numbers */
 // tslint:disable:max-func-body-length
-describe.only("bmp image", () => {
+describe("bmp image", () => {
     let data: Uint8Array;
 
     const width: number = 640;

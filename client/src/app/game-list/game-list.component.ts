@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { GameSheetDescription } from "../../../../common/communication/game-description";
-//@ts-ignore
-import { GameListService } from "../game-list-getter.service"
+// @ts-ignore
+import { GameListService } from "../game-list-getter.service";
 import { Privilege } from "../privilege";
 
 @Component({
@@ -10,10 +10,10 @@ import { Privilege } from "../privilege";
   styleUrls: ["./game-list.component.css"],
 })
 export class GameListComponent implements OnInit {
-  //@ts-ignore
+  // @ts-ignore
   @Input() private is2D: boolean;
   @Input() private descriptions: GameSheetDescription[];
-  //@ts-ignore
+  // @ts-ignore
   @Input() private privilege: Privilege;
 
   public ngOnInit(): void {

@@ -5,7 +5,7 @@ import { BMPImage } from "./utils/bmp-image";
 import { Pixel } from "./utils/pixel";
 
 // tslint:disable:max-func-body-length
-describe.only("Differences finder", () => {
+describe("Differences finder", () => {
     let differencesFinder: DifferencesFinderService;
 
     beforeEach(() => {
@@ -14,15 +14,6 @@ describe.only("Differences finder", () => {
 
     const blank: BMPImage = BMPImage.fromArray(fs.readFileSync("./test/blank.bmp"));
     const text: BMPImage = BMPImage.fromArray(fs.readFileSync("./test/image-difference-test.bmp"));
-
-    it.skip("should return 0 if it is passed an empty image", () => {
-        const array: Uint8Array = new Uint8Array(0);
-        const image: BMPImage = BMPImage.fromArray(array);
-        const result: number = differencesFinder.getNumberOfDifferences(image);
-
-        expect(result).to.equals(0);
-
-    });
 
     it("should throw an error if it is passed undefined", () => {
         // @ts-ignore
@@ -65,7 +56,7 @@ describe.only("Differences finder", () => {
         const image: BMPImage = new BMPImage(pixels, header, pixels.length, 1);
         const result: number = differencesFinder.getNumberOfDifferences(image);
 
-        // tslint:disable:no-magic-numbers
+        // tslint:disable-next-line:no-magic-numbers
         expect(result).to.equals(2);
     });
 
