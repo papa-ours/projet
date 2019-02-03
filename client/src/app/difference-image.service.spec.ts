@@ -1,4 +1,4 @@
-import {HttpClientTestingModule , HttpTestingController, TestRequest} from "@angular/common/http/testing"
+import {HttpClientTestingModule , HttpTestingController, TestRequest} from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
 import { Message } from "../../../common/communication/message";
 import { DifferenceImageService } from "./difference-image.service";
