@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GameSheetDescription } from "../../../../common/communication/game-description";
 import { GameListService } from "../game-list-getter.service";
+import { UsernameValidationService } from "../username-validation-service.service";
 
 enum GameType {
   Simple,
@@ -21,9 +22,13 @@ export class GameListViewComponent implements OnInit {
   private games: GameSheetDescription[][] = [];
 
   public constructor(private route: ActivatedRoute,
+                     private router: Router,
+                     private usernameValidationService: UsernameValidationService,
                      private gameListService: GameListService) { }
 
   public ngOnInit(): void {
+    this.checkUserConnection();
+
     this.route.params.subscribe((params) => {
       this.username = params["username"];
     });
@@ -32,6 +37,12 @@ export class GameListViewComponent implements OnInit {
       this.games[GameType.Simple] = lists.list2d;
       this.games[GameType.Free] = lists.list3d;
     });
+  }
+
+  private checkUserConnection(): void {
+    if (!this.usernameValidationService.connected) {
+      this.router.navigateByUrl("/login");
+    }
   }
 
 }
