@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GameSheetDescription } from "../../../../common/communication/game-description";
-import { GameListService } from "../game-list-getter.service"
 
 @Component({
   selector: 'app-game-list',
@@ -8,23 +7,13 @@ import { GameListService } from "../game-list-getter.service"
   styleUrls: ['./game-list.component.css']
 })
 export class GameListComponent implements OnInit {
-  
+
   //@ts-ignore
-  private descriptions: GameSheetDescription[];
-  @Input() private is2D: boolean;
+  @Input() private descriptions: GameSheetDescription[];
   //@ts-ignore
   @Input() private privilege: "admin" | "user";
-  constructor(private gameListService: GameListService) { }
 
-  ngOnInit() {
-    this.gameListService.getGameList().subscribe((lists) => {
-      console.log(lists);
-      this.descriptions = this.is2D ? lists.list2d : lists.list3d;
-      this.encodeImages();
-    });
-  }
-
-  private encodeImages(): void {
+  public ngOnInit(): void {
     this.descriptions.forEach((description: GameSheetDescription) => {
       description.preview = this.encodeImage(description.preview);
     });
