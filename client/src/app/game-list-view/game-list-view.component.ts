@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { GameSheetDescription } from "../../../../common/communication/game-description";
 import { GameListService } from "../game-list-getter.service";
 import { UsernameValidationService } from "../username-validation-service.service";
@@ -10,9 +10,9 @@ enum GameType {
 }
 
 @Component({
-  selector: 'app-game-list-view',
-  templateUrl: './game-list-view.component.html',
-  styleUrls: ['./game-list-view.component.css']
+  selector: "app-game-list-view",
+  templateUrl: "./game-list-view.component.html",
+  styleUrls: ["./game-list-view.component.css"],
 })
 
 export class GameListViewComponent implements OnInit {
@@ -41,7 +41,10 @@ export class GameListViewComponent implements OnInit {
 
   private checkUserConnection(): void {
     if (!this.usernameValidationService.connected) {
-      this.router.navigateByUrl("/login");
+      this.router.navigateByUrl("/login")
+      .catch((err: Error) => {
+        console.error(err);
+      });
     }
   }
 
