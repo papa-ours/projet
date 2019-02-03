@@ -5,8 +5,13 @@ import { BMPImage } from "./bmp-image";
 import { Pixel } from "./pixel";
 
 /* tslint:disable:no-magic-numbers */
+// tslint:disable:max-func-body-length
 describe.only("bmp image", () => {
     let data: Uint8Array;
+
+    const width: number = 640;
+    const height: number = 480;
+
     before((done: Mocha.Func) => {
         fs.readFile("../client/src/assets/img/dog.bmp", (err: NodeJS.ErrnoException, fileData: Buffer) => {
             data = Uint8Array.from(fileData);
@@ -23,12 +28,20 @@ describe.only("bmp image", () => {
     });
 
     it("should return the number of pixels in the image", () => {
-        expect(BMPImage.fromArray(data).size()).to.be.equal(640 * 480);
+        expect(BMPImage.fromArray(data).size()).to.be.equal(width * height);
     });
 
     it("should return a white pixel", () => {
         const WHITE_PIXEL: Pixel = Pixel.WHITE_PIXEL;
         expect(BMPImage.fromArray(data).pixelAt(0)).to.deep.equal(WHITE_PIXEL);
+    });
+
+    it("should return undefined when reading before index 0", () => {
+        expect(BMPImage.fromArray(data).pixelAt(-1)).to.equal(undefined);
+    });
+
+    it("should return undefined when reading after the last pixel", () => {
+        expect(BMPImage.fromArray(data).pixelAt(width * height + 1)).to.equal(undefined);
     });
 
 });
