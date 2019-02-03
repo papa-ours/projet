@@ -1,7 +1,7 @@
 .game-sheet {
     padding-top: 20px;
     display: grid;
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: 40% 60%;
     grid-template-rows: 10% 90%;
     border-radius: 10px;
     font-family: 'Helvetica';
@@ -16,8 +16,9 @@
 }
 
 .game-preview-image {
-    margin: 4%;
-    width: 92%;
+    width: 80%;
+    margin-top: 6%;
+    margin-left: 4%;
 }
 
 .game-preview {
@@ -26,7 +27,6 @@
     grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: 1;
-    text-align: center;
 }
 
 .score-header {
@@ -54,9 +54,9 @@
     grid-column: 2;
     margin-top: 10px;
     display: grid;
-    grid-template-columns: 20px repeat(2, 120px);
+    grid-template-columns: 20px repeat(2, 140px);
     grid-template-rows: 40px repeat(4, 24px);
-    margin-left: 8%;
+    margin-left: 12%;
     font-size: 14px;
 }
 
@@ -76,7 +76,7 @@
 
 .row {
     display: grid;
-    grid-template-columns: 20px repeat(2, 120px);
+    grid-template-columns: 20px repeat(2, 140px);
     grid-template-rows: 24px;
     grid-column-start: 1;
     grid-column-end: 4;
