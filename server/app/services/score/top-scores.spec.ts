@@ -15,6 +15,7 @@ describe("Top Scores", () => {
         expect(scoreOneNumber).to.be.at.most(scoreTwoNumber);
     });
 
+    // tslint:disable:no-magic-numbers
     it("should be sorted", () => {
         const scoreTwoNumber: number = topScores.scores[1].toNumber();
         const scoreThreeNumber: number = topScores.scores[2].toNumber();
