@@ -55,4 +55,17 @@ describe.only("bmp image", () => {
             setTimeout(done, 0);
         });
     });
+
+    it("shouldn't modify an image if the index is out of bounds", () => {
+        const image: BMPImage = BMPImage.fromArray(data);
+        image.placePixel(-1, new Pixel(0x123456));
+        expect(image).to.deep.equal(BMPImage.fromArray(data));
+    });
+
+    it("should modify an image if the index is valid", () => {
+        const image: BMPImage = BMPImage.fromArray(data);
+        image.placePixel(1, new Pixel(0x123456));
+        expect(image).to.not.deep.equal(BMPImage.fromArray(data));
+    });
+
 });

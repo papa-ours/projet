@@ -91,7 +91,7 @@ export class BMPImage {
         });
     }
 
-    private placePixel(index: number, pixel: Pixel): void {
+    public placePixel(index: number, pixel: Pixel): void {
         if (index >= 0 && index < this.pixels.length) {
             this.pixels[index] = pixel;
         }
