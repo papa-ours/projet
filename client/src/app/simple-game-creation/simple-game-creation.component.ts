@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { Message } from "../../../../common/communication/message";
 import { DifferenceImageService } from "../difference-image.service";
 import { FormValidationService } from "../form-validation.service";
@@ -24,7 +24,7 @@ enum ImageType {
   styleUrls: ["./simple-game-creation.component.css"],
 })
 
-export class SimpleGameCreationComponent implements OnInit {
+export class SimpleGameCreationComponent {
   private name: string = "";
   private readonly N_IMAGES: number = 2;
   private imageFiles: File[] = new Array<File>(this.N_IMAGES);
@@ -40,8 +40,6 @@ export class SimpleGameCreationComponent implements OnInit {
   public close(): void {
     this.closeForm.emit(false);
   }
-
-  public ngOnInit(): void {}
 
   // @ts-ignore
   private fileEntered(event: FileReaderEvent, type: ImageType): void {
