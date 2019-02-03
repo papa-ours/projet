@@ -1,11 +1,10 @@
 import { AdminViewComponent } from "./admin-view/admin-view.component";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { AppComponent } from "./app.component";
-import { DeleteUsernameService } from "./delete-username.service";
 import { DifferenceImageService } from "./difference-image.service";
 import { GameListViewComponent } from "./game-list-view/game-list-view.component";
-import { GameListComponent } from './game-list/game-list.component';
-import { GameSheetComponent } from './game-sheet/game-sheet.component';
+import { GameListComponent } from "./game-list/game-list.component";
+import { GameSheetComponent } from "./game-sheet/game-sheet.component";
 import { InitialViewComponent } from "./initial-view/initial-view.component";
 import { FileReaderUtil } from "./simple-game-creation/file-reader.util";
 import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-creation.component";
@@ -34,7 +33,6 @@ import { BrowserModule } from "@angular/platform-browser";
   ],
   providers: [
     UsernameValidationService,
-    DeleteUsernameService,
     DifferenceImageService,
     FileReaderUtil,
   ],

@@ -8,7 +8,7 @@ export class DBConnectionService {
     private readonly uri: string = "mongodb+srv://ving34:pass123@cluster0-m1gwf.mongodb.net/test?retryWrites=true";
     private readonly gameSheetSchema: mongoose.Schema = new mongoose.Schema({
         name: String,
-        preview: String,
+        preview: Buffer,
         topScores: Array,
     });
     public connected: boolean = false;

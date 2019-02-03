@@ -29,6 +29,10 @@ export class Socket {
                 socket.emit("validation", message);
             });
 
+            socket.on("deleteUsername", (username: string) => {
+                this.deleteUser(username);
+            });
+
             socket.on("disconnect", () => {
                 if (currentUsername !== "") {
                     this.deleteUser(currentUsername);

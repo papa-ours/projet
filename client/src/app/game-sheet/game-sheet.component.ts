@@ -1,10 +1,10 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { GameSheetDescription } from "../../../../common/communication/game-description";
 import { Privilege } from "../privilege";
 @Component({
-  selector: 'app-game-sheet',
-  templateUrl: './game-sheet.component.html',
-  styleUrls: ['./game-sheet.component.css']
+  selector: "app-game-sheet",
+  templateUrl: "./game-sheet.component.html",
+  styleUrls: ["./game-sheet.component.css"],
 })
 export class GameSheetComponent implements OnInit {
   //@ts-ignore

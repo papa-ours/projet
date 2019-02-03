@@ -1,11 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { DifferenceImageService } from './difference-image.service';
+import { DifferenceImageService } from "./difference-image.service";
 
-describe('DifferenceImageService', () => {
+describe("DifferenceImageService", () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
+  it("should be created", () => {
     const service: DifferenceImageService = TestBed.get(DifferenceImageService);
     expect(service).toBeTruthy();
   });
