@@ -53,7 +53,7 @@ export class GameSheetGenerationService {
     }
 
     private makeScore(): string {
-        return this.makeUsername + " " + this.makeTime();
+        return this.makeUsername() + " " + this.makeTime();
     }
 
     private makeTime(): string {
@@ -77,7 +77,7 @@ export class GameSheetGenerationService {
     public makeUsername(): string {
         const POSSIBLE_VALUES: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         const MIN_LENGTH: number = 3;
-        const MAX_LENGTH: number = 16;
+        const MAX_LENGTH: number = 12;
         const usernameLength: number = this.getNumberBetween(MIN_LENGTH, MAX_LENGTH);
         const username: string[] = [...Array(usernameLength)].map(() => {
             const index: number = this.getNumberBetween(0, POSSIBLE_VALUES.length - 1);
