@@ -1,26 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GameListService } from "../game-list-getter.service"
+import { GameSheetDescription } from "../../../../common/communication/game-description";
+import { GameListService } from "../game-list-getter.service";
+
+enum GameType {
+  Simple,
+  Free,
+}
 
 @Component({
   selector: 'app-game-list-view',
   templateUrl: './game-list-view.component.html',
   styleUrls: ['./game-list-view.component.css']
 })
+
 export class GameListViewComponent implements OnInit {
 
   // @ts-ignore
   private username: string = "";
-  constructor(private route: ActivatedRoute,
-              private gameListService: GameListService) { }
+  private games: GameSheetDescription[][] = [];
 
-  ngOnInit() {
+  public constructor(private route: ActivatedRoute,
+                     private gameListService: GameListService) { }
+
+  public ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.username = params["username"];
     });
 
     this.gameListService.getGameList().subscribe((lists) => {
-      console.log(lists);
+      this.games[GameType.Simple] = lists.list2d;
+      this.games[GameType.Free] = lists.list3d;
     });
   }
 
