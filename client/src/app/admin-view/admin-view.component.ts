@@ -16,7 +16,8 @@ enum GameType {
 
 export class AdminViewComponent implements OnInit {
 
-  Privilege = Privilege;
+  // @ts-ignore
+  private Privilege: enum = Privilege;
   // @ts-ignore
   private showForm2D: boolean = false;
   // @ts-ignore
