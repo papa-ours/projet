@@ -16,19 +16,9 @@ export class FormValidationService {
            name.length <= this.NAME_MAX_SIZE;
   }
 
-  private fileIsEmpty(file: File): boolean {
+  private isBMP(file: File): boolean {
     if (file === undefined) {
       throw( Error("Les fichiers ne doivent pas être vide") );
-    }
-
-    return file === undefined;
-  }
-
-  private isBMP(file: File): boolean {
-    try {
-      this.fileIsEmpty(file);
-    } catch (err) {
-      throw err;
     }
 
     if ( file.type !== this.FILE_TYPE) {
