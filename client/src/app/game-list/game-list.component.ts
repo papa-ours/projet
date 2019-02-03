@@ -8,6 +8,7 @@ import { GameSheetDescription } from "../../../../common/communication/game-desc
 })
 export class GameListComponent implements OnInit {
 
+  @Input() private is2D: boolean;
   // @ts-ignore
   @Input() private descriptions: GameSheetDescription[];
   // @ts-ignore

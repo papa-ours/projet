@@ -18,7 +18,7 @@ describe("game sheet generation", () => {
         let imageData: Uint8Array;
         fs.readFile("../client/src/assets/img/dog.bmp", (err: NodeJS.ErrnoException, fileData: Buffer) => {
             imageData = Uint8Array.from(fileData);
-            const result: string = gameSheetGenerator.generateGameSheet("", imageData, imageData).body;
+            const result: string = gameSheetGenerator.generateGameSheet("Doggo", imageData, imageData).body;
             expect(result).to.equals("Les images n'ont pas exactement 7 différences, la création a été annulée");
         });
     });
@@ -30,7 +30,7 @@ describe("game sheet generation", () => {
         const originalImageData: Uint8Array = Uint8Array.from(originalImageBuffer);
         const modifiedImageData: Uint8Array = Uint8Array.from(modifiedImageBuffer);
 
-        const result: string = gameSheetGenerator.generateGameSheet("", originalImageData, modifiedImageData).body;
+        const result: string = gameSheetGenerator.generateGameSheet("Doggo", originalImageData, modifiedImageData).body;
         expect(result).to.equals("");
     });
 });
