@@ -25,7 +25,10 @@ export class InitialViewComponent implements OnInit {
       if (this.usernameValidationMessage === "") {
         this.usernameValidationService.connected = true;
         this.usernameValidationService.username = this.username;
-        this.router.navigateByUrl("/gamelist/" + this.username);
+        this.router.navigateByUrl("/gamelist/" + this.username)
+        .catch((err: Error) => {
+          console.error(err);
+        });
       }
     });
   }
