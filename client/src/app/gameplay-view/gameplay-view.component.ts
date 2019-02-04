@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: "app-gameplay-view",
@@ -6,10 +7,10 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./gameplay-view.component.css"],
 })
 export class GameplayViewComponent implements OnInit {
+    // @ts-ignore
+    private hourglassIcon: IconDefinition = faHourglassHalf;
+    constructor() { }
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+    ngOnInit() {
+    }
 }
