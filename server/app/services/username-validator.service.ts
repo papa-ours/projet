@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { Message } from "../../../common/communication/message";
+import { Message, MessageType } from "../../../common/communication/message";
 
 @injectable()
 export class UsernameValidatorService {
@@ -30,7 +30,7 @@ export class UsernameValidatorService {
         const usernameValidation: string = this.validateUsername(username, users);
 
         return {
-            title: "Username Validation",
+            type: MessageType.USERNAME_VALIDATION,
             body: usernameValidation,
         };
     }

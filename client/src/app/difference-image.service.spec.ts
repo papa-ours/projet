@@ -1,6 +1,6 @@
 import {HttpClientTestingModule , HttpTestingController, TestRequest} from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
-import { Message } from "../../../common/communication/message";
+import { Message, MessageType } from "../../../common/communication/message";
 import { DifferenceImageService } from "./difference-image.service";
 
 describe("DifferenceImageService", () => {
@@ -22,7 +22,7 @@ describe("DifferenceImageService", () => {
 
   it("should be a POST REQUEST", () => {
     const response: Message = {
-      title: "this is the title",
+      type: MessageType.GAME_SHEET_GENERATION,
       body: "this is the body",
     };
     differenceImageService.postDifferenceImageData(new FormData()).subscribe(
@@ -35,7 +35,7 @@ describe("DifferenceImageService", () => {
 
   it("should return a proper message body on POST request", () => {
     const response: Message = {
-      title: "this is the title",
+      type: MessageType.GAME_SHEET_GENERATION,
       body: "this is the body",
     };
     differenceImageService.postDifferenceImageData(new FormData()).subscribe(
@@ -45,13 +45,13 @@ describe("DifferenceImageService", () => {
     request.flush(response);
     expect(request.request.method).toBe("POST");
   });
-  it("should return a proper message title on POST request", () => {
+  it("should return a proper message type on POST request", () => {
     const response: Message = {
-      title: "this is the title",
+      type: MessageType.GAME_SHEET_GENERATION,
       body: "this is the body",
     };
     differenceImageService.postDifferenceImageData(new FormData()).subscribe(
-      (data: Message) => { expect(data.title).toBe(response.title); },
+      (data: Message) => { expect(data.type).toBe(response.type); },
    );
     const request: TestRequest = httpMock.expectOne(`${differenceImageService.URL}`);
     request.flush(response);

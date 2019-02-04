@@ -5,7 +5,7 @@ import { DifferencesFinderService } from "./differences-finder.service";
 
 import "reflect-metadata";
 import { GameSheetDescription } from "../../../common/communication/game-description";
-import { Message } from "../../../common/communication/message";
+import { Message, MessageType } from "../../../common/communication/message";
 import Types from "../types";
 import { TopScores } from "./score/top-scores";
 import { BMPImage } from "./utils/bmp-image";
@@ -23,7 +23,7 @@ export class GameSheetGenerationService {
         const REQUIRED_DIFFERENCES: number = 7;
 
         const message: Message = {
-            title: "GameSheet Generation",
+            type: MessageType.GAME_SHEET_GENERATION,
             body: "",
         };
 
