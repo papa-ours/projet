@@ -14,6 +14,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
+import { RenderService } from "./scene3d/render.service";
 import { Scene3dComponent } from "./scene3d/scene3d.component";
 
 @NgModule({
@@ -37,6 +38,7 @@ import { Scene3dComponent } from "./scene3d/scene3d.component";
         UsernameValidationService,
         DifferenceImageService,
         FileReaderUtil,
+        RenderService,
     ],
     bootstrap: [AppComponent],
 })
