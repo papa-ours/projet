@@ -1,0 +1,3 @@
+Le test de server/app/services/game-sheet-generation.service.spec.ts "should return an empty body message if the images have 7 differences" est désactivé parce qu'il empêche mocha de terminer son exécution, même si le test se complète normalement.
+
+La BD est _très lente_ (elle peut prendre 2 minutes + pour répondre). Ce n'est pas la charge de la liste des parties qui prend du temps, c'est le serveur mongodb qui prend du temps à répondre.
