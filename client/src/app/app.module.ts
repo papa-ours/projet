@@ -17,6 +17,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { GameplayViewComponent } from "./gameplay-view/gameplay-view.component";
 import { MessagesComponent } from './messages/messages.component';
 import { ChatMessagesComponent } from './chat-messages/chat-messages.component';
+import { GameImagesComponent } from './game-images/game-images.component';
 
 @NgModule({
     declarations: [
@@ -30,6 +31,7 @@ import { ChatMessagesComponent } from './chat-messages/chat-messages.component';
         GameplayViewComponent,
         MessagesComponent,
         ChatMessagesComponent,
+        GameImagesComponent,
     ],
     imports: [
         BrowserModule,
