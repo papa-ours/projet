@@ -23,7 +23,12 @@
     color: #FFFFFF66;
 }
 
+.images-chat-container {
+    margin-top: 60px;
+}
+
 app-chat-messages {
+    margin-top: -26px;
     float: right;
 }
 
