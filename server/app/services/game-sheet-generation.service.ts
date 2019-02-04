@@ -62,6 +62,8 @@ export class GameSheetGenerationService {
         this.dbConnection.connect()
             .then(() => {
                 this.dbConnection.saveGameSheet2D(gameSheetDescription);
+            }).catch((err: Error) => {
+                console.error(err);
             });
     }
 }
