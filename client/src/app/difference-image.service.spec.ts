@@ -45,6 +45,7 @@ describe("DifferenceImageService", () => {
         request.flush(response);
         expect(request.request.method).toBe("POST");
     });
+
     it("should return a proper message type on POST request", () => {
         const response: Message = {
             type: MessageType.GAME_SHEET_GENERATION,

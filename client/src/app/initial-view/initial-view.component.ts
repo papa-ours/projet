@@ -12,8 +12,10 @@ export class InitialViewComponent implements OnInit {
     private username: string = "";
     private usernameValidationMessage: string = "";
 
-    public constructor(private usernameValidationService: UsernameValidationService,
-                        private router: Router) { }
+    public constructor(
+        private usernameValidationService: UsernameValidationService,
+        private router: Router,
+    ) { }
 
     public ngOnInit(): void {
         if (this.usernameValidationService.connected) {
