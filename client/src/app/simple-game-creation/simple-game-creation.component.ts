@@ -95,7 +95,7 @@ export class SimpleGameCreationComponent {
             this.imagesData[index] = new Uint8Array(eventTarget.result);
             this.fileIsRead(index);
         });
-    } 
+    }
 
     private fileIsRead(index: number): void {
         try {
