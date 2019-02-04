@@ -19,7 +19,7 @@ export class DBConnectionService {
         }
     }
 
-    public connect(): Promise<typeof mongoose> {
+    public async connect(): Promise<typeof mongoose> {
         return mongoose.connect(this.uri, {
             useNewUrlParser: true,
         });
