@@ -3,7 +3,7 @@ import { inject, injectable } from "inversify";
 import { MongooseDocument } from "mongoose";
 import "reflect-metadata";
 import { GameLists, GameSheetDescription, TopScoresInterface } from "../../../common/communication/game-description";
-import { Message } from "../../../common/communication/message";
+import { Message, MessageType } from "../../../common/communication/message";
 import Types from "../types";
 import { DBConnectionService } from "./dbconnection.service";
 
@@ -25,7 +25,7 @@ export class GetGameListService {
                     });
 
                     const message: Message = {
-                        title: "Game List",
+                        type: MessageType.USERNAME_VALIDATION,
                         body: JSON.stringify(gameList),
                     };
 

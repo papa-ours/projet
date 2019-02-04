@@ -79,5 +79,3 @@ describe("binary", () => {
         });
     });
 });
-
-/* tslint:enable:no-magic-numbers */

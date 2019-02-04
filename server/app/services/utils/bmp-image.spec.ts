@@ -5,7 +5,6 @@ import { BMPImage } from "./bmp-image";
 import { Pixel } from "./pixel";
 
 /* tslint:disable:no-magic-numbers */
-// tslint:disable:max-func-body-length
 describe("bmp image", () => {
     let data: Uint8Array;
 

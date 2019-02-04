@@ -5,16 +5,19 @@ import { DifferencesFinderService } from "./differences-finder.service";
 
 import "reflect-metadata";
 import { GameSheetDescription } from "../../../common/communication/game-description";
-import { Message } from "../../../common/communication/message";
+import { Message, MessageType } from "../../../common/communication/message";
 import Types from "../types";
 import { TopScores } from "./score/top-scores";
 import { BMPImage } from "./utils/bmp-image";
 
 @injectable()
 export class GameSheetGenerationService {
-    public constructor(@inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator,
-                       @inject(Types.DifferencesFinderService) private differencesFinder: DifferencesFinderService,
-                       @inject(Types.DBConnectionService) private dbConnection: DBConnectionService) {}
+
+    public constructor(
+        @inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator,
+        @inject(Types.DifferencesFinderService) private differencesFinder: DifferencesFinderService,
+        @inject(Types.DBConnectionService) private dbConnection: DBConnectionService,
+    ) {}
 
     public generateGameSheet(name: string, originalImageData: Uint8Array, modifiedImageData: Uint8Array): Message {
         const differenceImage: BMPImage = this.differenceImageGenerator.generate(originalImageData, modifiedImageData) as BMPImage;
@@ -23,7 +26,7 @@ export class GameSheetGenerationService {
         const REQUIRED_DIFFERENCES: number = 7;
 
         const message: Message = {
-            title: "GameSheet Generation",
+            type: MessageType.GAME_SHEET_GENERATION,
             body: "",
         };
 
