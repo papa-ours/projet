@@ -1,0 +1,29 @@
+.info-container {
+    height: 60px;
+    background: #FFFFFF20;
+    width: 200px;
+    display: flex;
+    border-radius: 8px;
+    margin: 10px;
+    font-size: 36px;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.info-container div {
+    margin: auto;
+}
+
+.info-value {
+    color: #FFF;
+    margin-left: 6px;
+}
+
+.info-label {
+    color: #FFFFFF66;
+}
+
+app-chat-messages {
+    float: right;
+}
+
