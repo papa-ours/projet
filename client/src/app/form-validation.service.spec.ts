@@ -1,5 +1,6 @@
 import { FormValidationService } from "./form-validation.service";
 
+// tslint:disable:no-magic-numbers
 describe("FormValidationService", () => {
     const formValidationService: FormValidationService = new FormValidationService();
     it("should be created", () => {
@@ -44,21 +45,17 @@ describe("FormValidationService", () => {
             .toThrow(new Error("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
     });
     it("should throw an error if the format is not 640px by 480px", () => {
-        // tslint:disable-next-line:no-magic-numbers
-        const image: Uint8Array = new Uint8Array([66, 77, 58, 254, 5, 0, 0, 0, 0, 0, 54, 4, 0, 0, 40, 0,
-            // tslint:disable-next-line:no-magic-numbers
+        const image: Uint8Array = new Uint8Array(
+           [66, 77, 58, 254, 5, 0, 0, 0, 0, 0, 54, 4, 0, 0, 40, 0,
             0, 0, 48, 0, 0, 0, 39, 0, 0, 0, 1, 0, 8, 0, 0, 0, 0, 0,
-            // tslint:disable-next-line:no-magic-numbers
             4, 250, 5, 0, 19, 11, 0, 0, 19, 11, 0, 0, 0, 0]);
         expect(() => formValidationService.isImageDimensionValid(image))
             .toThrow(new Error("Les images doivent être 640px par 480px"));
     });
     it("should return true if the format is 640px by 480px", () => {
-        // tslint:disable-next-line:no-magic-numbers
-        const image: Uint8Array = new Uint8Array([66, 77, 58, 254, 5, 0, 0, 0, 0, 0, 54, 4, 0, 0, 40, 0,
-            // tslint:disable-next-line:no-magic-numbers
+        const image: Uint8Array = new Uint8Array(
+           [66, 77, 58, 254, 5, 0, 0, 0, 0, 0, 54, 4, 0, 0, 40, 0,
             0, 0, 40, 0, 0, 0, 30, 0, 0, 0, 1, 0, 8, 0, 0, 0, 0, 0,
-            // tslint:disable-next-line:no-magic-numbers
             4, 250, 5, 0, 19, 11, 0, 0, 19, 11, 0, 0, 0, 0]);
         expect(() => formValidationService.isImageDimensionValid(image)).toBeTruthy();
     });
