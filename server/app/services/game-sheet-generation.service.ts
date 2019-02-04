@@ -12,9 +12,12 @@ import { BMPImage } from "./utils/bmp-image";
 
 @injectable()
 export class GameSheetGenerationService {
-    public constructor(@inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator,
-                       @inject(Types.DifferencesFinderService) private differencesFinder: DifferencesFinderService,
-                       @inject(Types.DBConnectionService) private dbConnection: DBConnectionService) {}
+
+    public constructor(
+        @inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator,
+        @inject(Types.DifferencesFinderService) private differencesFinder: DifferencesFinderService,
+        @inject(Types.DBConnectionService) private dbConnection: DBConnectionService,
+    ) {}
 
     public generateGameSheet(name: string, originalImageData: Uint8Array, modifiedImageData: Uint8Array): Message {
         const differenceImage: BMPImage = this.differenceImageGenerator.generate(originalImageData, modifiedImageData) as BMPImage;
