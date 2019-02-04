@@ -4,32 +4,32 @@ import { defer } from "rxjs";
 import { GameListService } from "./game-list-getter.service";
 
 describe("GameListGetterService", () => {
-  let httpClientSpy: { get: jasmine.Spy };
-  let  gameListService: GameListService;
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpErrorResponse, defer],
-      providers: [GameListService],
-    });
-    httpClientSpy = jasmine.createSpyObj("HttpClient", ["get"]);
-    // tslint:disable-next-line:no-any
-    gameListService = new GameListService( httpClientSpy as any) ;
-  });
-
-  it("should be created", () => {
-    expect(gameListService).toBeTruthy();
-  });
-  it("should return an error when the server returns a 404", () => {
-    const errorResponse: HttpErrorResponse = new HttpErrorResponse({
-      error: "404 Not Found",
-      status: 404, statusText: "Not Found",
+    let httpClientSpy: { get: jasmine.Spy };
+    let gameListService: GameListService;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [HttpErrorResponse, defer],
+            providers: [GameListService],
+        });
+        httpClientSpy = jasmine.createSpyObj("HttpClient", ["get"]);
+        // tslint:disable-next-line:no-any
+        gameListService = new GameListService(httpClientSpy as any);
     });
 
-    httpClientSpy.get.and.returnValue(defer(() => Promise.reject(errorResponse)));
+    it("should be created", () => {
+        expect(gameListService).toBeTruthy();
+    });
+    it("should return an error when the server returns a 404", () => {
+        const errorResponse: HttpErrorResponse = new HttpErrorResponse({
+            error: "404 Not Found",
+            status: 404, statusText: "Not Found",
+        });
 
-    gameListService.getGameList().subscribe(
-      (list) => fail(`expected an error, not a list : ${list}`),
-      (error)  => expect(error.message).toContain("404 Not Found"),
-    );
-  });
+        httpClientSpy.get.and.returnValue(defer(() => Promise.reject(errorResponse)));
+
+        gameListService.getGameList().subscribe(
+            (list) => fail(`expected an error, not a list : ${list}`),
+            (error) => expect(error.message).toContain("404 Not Found"),
+        );
+    });
 });

@@ -1,13 +1,13 @@
 <div id="login-container">
-  <h2>7 Differences</h2>
-  <img src="assets/img/logo.png">
-  <div id="login-box">
-    <label>Identification :</label>
-    <input type="text"
-          [(ngModel)]="username" 
-          (keyup.Enter)="validateUsername()"
-          placeholder="Nom d'utilisateur">
-    <div *ngIf="usernameValidationMessage" id="error-message">{{usernameValidationMessage}}</div>
+    <h2>7 Differences</h2>
+    <img src="assets/img/logo.png">
+    <div id="login-box">
+        <label>Identification :</label>
+        <input type="text"
+               [(ngModel)]="username" 
+               (keyup.Enter)="validateUsername()"
+               placeholder="Nom d'utilisateur">
+        <div *ngIf="usernameValidationMessage" id="error-message">{{usernameValidationMessage}}</div>
     <button (click)="validateUsername()">Jouer</button>
-  </div>
+    </div>
 </div>
