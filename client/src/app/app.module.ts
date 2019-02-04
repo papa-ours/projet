@@ -15,6 +15,8 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { GameplayViewComponent } from "./gameplay-view/gameplay-view.component";
+import { MessagesComponent } from './messages/messages.component';
+import { ChatMessagesComponent } from './chat-messages/chat-messages.component';
 
 @NgModule({
     declarations: [
@@ -26,6 +28,8 @@ import { GameplayViewComponent } from "./gameplay-view/gameplay-view.component";
         AdminViewComponent,
         SimpleGameCreationComponent,
         GameplayViewComponent,
+        MessagesComponent,
+        ChatMessagesComponent,
     ],
     imports: [
         BrowserModule,
