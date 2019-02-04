@@ -20,8 +20,8 @@ export class GameSheetComponent implements OnInit {
   @ViewChild("btn2") private btn2: ElementRef;
 
   public ngOnInit(): void {
-    this.btn1.nativeElement.textContent = this.privilege === Privilege.USER ? "Jouer" : "Supprimer";
-    this.btn2.nativeElement.textContent = this.privilege === Privilege.USER ? "Créer" : "Réinitialiser";
+    this.btn1.nativeElement.textContent = this.privilege == Privilege.USER ? "Jouer" : "Supprimer";
+    this.btn2.nativeElement.textContent = this.privilege == Privilege.USER ? "Créer" : "Réinitialiser";
   }
 
 }
