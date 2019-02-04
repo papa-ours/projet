@@ -25,7 +25,7 @@ describe("GameListGetterService", () => {
             status: 404, statusText: "Not Found",
         });
 
-        httpClientSpy.get.and.returnValue(defer(() => Promise.reject(errorResponse).then(
+        httpClientSpy.get.and.returnValue(defer(async () => Promise.reject(errorResponse).then(
             (err: Error) => {
                 console.error(err);
         })));
