@@ -4,7 +4,7 @@ import { DifferencesFinderService } from "./differences-finder.service";
 import { BMPImage } from "./utils/bmp-image";
 import { Pixel } from "./utils/pixel";
 
-// tslint:disable:max-func-body-length
+// tslint:disable:no-magic-numbers
 describe("Differences finder", () => {
     let differencesFinder: DifferencesFinderService;
 
@@ -56,7 +56,6 @@ describe("Differences finder", () => {
         const image: BMPImage = new BMPImage(pixels, header, pixels.length, 1);
         const result: number = differencesFinder.getNumberOfDifferences(image);
 
-        // tslint:disable-next-line:no-magic-numbers
         expect(result).to.equals(2);
     });
 
