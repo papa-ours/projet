@@ -30,6 +30,8 @@ export class GetGameListService {
                     };
 
                     res.send(message);
+                }).catch((err: Error) => {
+                    console.error(err);
                 });
         }).catch((err: Error) => {
             console.error(err);
