@@ -16,26 +16,26 @@ import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    GameListViewComponent,
-    GameListComponent,
-    GameSheetComponent,
-    InitialViewComponent,
-    AdminViewComponent,
-    SimpleGameCreationComponent,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    AppRoutingModule,
-  ],
-  providers: [
-    UsernameValidationService,
-    DifferenceImageService,
-    FileReaderUtil,
-  ],
-  bootstrap: [AppComponent],
+    declarations: [
+        AppComponent,
+        GameListViewComponent,
+        GameListComponent,
+        GameSheetComponent,
+        InitialViewComponent,
+        AdminViewComponent,
+        SimpleGameCreationComponent,
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        FormsModule,
+        AppRoutingModule,
+      ],
+    providers: [
+        UsernameValidationService,
+        DifferenceImageService,
+        FileReaderUtil,
+    ],
+    bootstrap: [AppComponent],
 })
 export class AppModule { }

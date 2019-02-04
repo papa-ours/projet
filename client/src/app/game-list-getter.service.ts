@@ -6,16 +6,16 @@ import { GameLists } from "../../../common/communication/game-description";
 import { Message } from "../../../common/communication/message";
 
 @Injectable({
-  providedIn: "root",
+    providedIn: "root",
 })
 export class GameListService {
 
-  private readonly BASE_URL: string = "http://localhost:3000/api/gamelist/";
-  public constructor(private http: HttpClient) { }
+    private readonly BASE_URL: string = "http://localhost:3000/api/gamelist/";
+    public constructor(private http: HttpClient) { }
 
-  public getGameList(): Observable<GameLists> {
-      return this.http.get<Message>(this.BASE_URL)
-          .pipe(map((message: Message) => JSON.parse(message.body)),
-      );
-  }
+    public getGameList(): Observable<GameLists> {
+        return this.http.get<Message>(this.BASE_URL)
+            .pipe(map((message: Message) => JSON.parse(message.body)),
+            );
+    }
 }
