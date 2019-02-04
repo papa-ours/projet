@@ -29,7 +29,7 @@ export class Socket {
                 socket.emit("validation", message);
             });
 
-            socket.on("deleteUsername", (username: string) => {
+            socket.on("deleteUsername", (username: string) => {
                 this.deleteUser(username);
             });
 
