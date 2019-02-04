@@ -8,7 +8,7 @@ describe("GameplayViewComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameplayViewComponent ]
+      declarations: [ GameplayViewComponent ],
     })
     .compileComponents();
   }));
