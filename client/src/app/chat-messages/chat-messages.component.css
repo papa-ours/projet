@@ -1,0 +1,20 @@
+.chat-container {
+    width: 20%;
+    min-width: 300px;
+    border-radius: 10px;
+    height: 360px;
+    padding: 10px;
+    background: #FFF;
+    overflow: scroll auto;
+}
+
+.message-container {
+    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: 40px 260px;
+}
+
+.message {
+    font-size: 16px;
+    text-align: justify;
+}
