@@ -9,9 +9,10 @@ describe("game sheet generation", () => {
     let gameSheetGenerator: GameSheetGenerationService;
 
     beforeEach(() => {
-        gameSheetGenerator = new GameSheetGenerationService(new DifferenceImageGenerator(),
-                                                            new DifferencesFinderService(),
-                                                            new DBConnectionService());
+        gameSheetGenerator = new GameSheetGenerationService(
+            new DifferenceImageGenerator(),
+            new DifferencesFinderService(),
+            new DBConnectionService());
     });
 
     it("should return the correct error message if the images don't have 7 differences", () => {
