@@ -20,8 +20,11 @@ export class GameSheetComponent implements OnInit {
     @ViewChild("btn2") private btn2: ElementRef;
 
     public ngOnInit(): void {
-        this.btn1.nativeElement.textContent = this.privilege == Privilege.USER ? "Jouer" : "Supprimer";
-        this.btn2.nativeElement.textContent = this.privilege == Privilege.USER ? "Créer" : "Réinitialiser";
+        // === doesn't work, even with explicit type conversions.
+        // tslint:disable-next-line:triple-equals
+        const isUser: boolean = this.privilege == Privilege.USER;
+        this.btn1.nativeElement.textContent = isUser ? "Jouer" : "Supprimer";
+        this.btn2.nativeElement.textContent = isUser ? "Créer" : "Réinitialiser";
     }
 
 }
