@@ -1,13 +1,17 @@
 <div class="info-container">
-    <span class="info-label"></span>
-    <span class="info-value">4:20</span>
+    <div>
+        <fa-icon [icon]="hourglassIcon" class="info-label"></fa-icon>
+        <span class="info-value">{{minutes}}:{{seconds}}</span>
+    </div>
+</div>
+
+<div class="info-container">
+    <div>
+        <span class="info-label">Trouvées:</span>
+        <span class="info-value">0</span>
+    </div>
 </div>
 
 <app-game-images></app-game-images>
-<div class="info-container">
-    <span class="info-label">Trouvées: </span>
-    <span class="info-value">0</span>
-</div>
-
 <app-chat-messages></app-chat-messages>
     
