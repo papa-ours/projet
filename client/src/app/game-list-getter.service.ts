@@ -16,6 +16,6 @@ export class GameListService {
     public getGameList(): Observable<GameLists> {
         return this.http.get<Message>(this.BASE_URL)
             .pipe(map((message: Message) => JSON.parse(message.body)),
-            );
+        );
     }
 }
