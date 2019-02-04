@@ -44,12 +44,12 @@ export class GameListViewComponent implements OnInit {
          });
   }
 
-  private checkUserConnection(): void {
+    private checkUserConnection(): void {
         if (!this.usernameValidationService.connected) {
             this.router.navigateByUrl("/login")
-            .catch((err: Error) => {
-                console.error(err);
-            });
+                .catch((err: Error) => {
+                    console.error(err);
+                });
         }
     }
 }
