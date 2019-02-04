@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import { TopScores } from "./top-scores";
 
+// tslint:disable:no-magic-numbers
 describe("Top Scores", () => {
     let topScores: TopScores;
 
@@ -15,7 +16,6 @@ describe("Top Scores", () => {
         expect(scoreOneNumber).to.be.at.most(scoreTwoNumber);
     });
 
-    // tslint:disable:no-magic-numbers
     it("should be sorted", () => {
         const scoreTwoNumber: number = topScores.scores[1].toNumber();
         const scoreThreeNumber: number = topScores.scores[2].toNumber();
