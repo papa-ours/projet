@@ -4,18 +4,18 @@ import * as THREE from "three";
 @injectable()
 export class GeometricObjectGenerator {
 
-    private readonly COLOR_MAX_NUMBER = 16777215;
+    private readonly COLOR_MAX_NUMBER = 0xFFFFFF;
 
-    public generateRandomObject(){
+    public generateRandomObject(): void {
         
     }
 
-    private generateRandomColor(): string{
-
-        return "";
+    private generateRandomColor(): string {
+        let colorNumber:number = Math.floor(Math.random() * 6) + 1
+        return colorNumber.toString(16);
     }
 
-    private generateSize(){
+    private generateSize() {
 
     }
 
