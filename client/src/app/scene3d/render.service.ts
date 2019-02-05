@@ -36,14 +36,18 @@ export class RenderService {
 
     public constructor(private randomGeometryService: RandomGeometryService) { }
     public createRandomShape(): void {
-        const MIN_SHAPE: number = 10;
-        const MAX_SHAPE: number = 200;
-        const numberOfShapes: number = this.randomNumber.randomInteger(MIN_SHAPE, MAX_SHAPE);
+        // const MIN_SHAPE: number = 10;
+        // const MAX_SHAPE: number = 200;
+        const numberOfShapes: number = 1; // this.randomNumber.randomInteger(MIN_SHAPE, MAX_SHAPE);
         for (let i: number = 0; i < numberOfShapes; i++) {
             const color: number = this.randomNumber.randomColor();
             const size: number = this.randomNumber.randomScale(this.GEOMETRY_SIZE);
-            const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({ color: color, wireframe: true });
-            const randomShape: THREE.Mesh = this.randomGeometryService.createPyramid(size, material);
+            const material: THREE.MeshStandardMaterial = new THREE.MeshStandardMaterial({
+                color: color,
+                metalness: 0.7,
+                roughness: 0.2,
+            });
+            const randomShape: THREE.Mesh = this.randomGeometryService.create(size, material);
             this.shapes.push(randomShape);
             this.scene.add(randomShape);
         }
@@ -78,7 +82,6 @@ export class RenderService {
 
     private render(): void {
         requestAnimationFrame(() => this.render());
-
         this.renderer.render(this.scene, this.camera);
     }
     private changeBackgroundScene(): void {
@@ -92,6 +95,14 @@ export class RenderService {
 
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
     }
+    private addLight(): void {
+        const lowIntensity: number = 0.7;
+        const highIntensity: number = 2;
+        const lightColor: number = 0xFFFFFF;
+        this.scene.add(this.camera);
+        this.scene.add(new THREE.AmbientLight(lightColor, lowIntensity));
+        this.camera.add(new THREE.PointLight(lightColor, highIntensity));
+    }
 
     public initialize(container: HTMLDivElement, rotationX: number, rotationY: number): void {
         this.container = container;
@@ -101,6 +112,7 @@ export class RenderService {
         this.createScene();
         this.changeBackgroundScene();
         this.createRandomShape();
+        this.addLight();
         this.startRenderingLoop();
     }
 }
