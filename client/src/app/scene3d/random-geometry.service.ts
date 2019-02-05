@@ -25,9 +25,9 @@ export class RandomGeometryService {
         return new THREE.CylinderGeometry(size, size, size);
     }
     public create(size: number): THREE.Geometry {
-        const functionIndex: number = Math.floor(Math.random() * this.functionList.length);
+        const functionSelector: number = Math.floor(Math.random() * this.functionList.length);
 
-        return this.functionList[functionIndex](size);
+        return this.functionList[functionSelector](size);
     }
     /*
     private createPyramid(): THREE.CylinderGeometry {
