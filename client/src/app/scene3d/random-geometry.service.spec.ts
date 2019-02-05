@@ -15,6 +15,7 @@ describe("RandomGeometryService", () => {
     });
     it("should generate a random geometry", () => {
         const size: number = 100;
-        expect(randomGeometryService.create(size)).toEqual(jasmine.any(THREE.Geometry));
+        const material: THREE.Material = new THREE.Material();
+        expect(randomGeometryService.create(size, material)).toEqual(jasmine.any(THREE.Mesh));
     });
 });
