@@ -39,8 +39,9 @@ export class RenderService {
         }
     }
     public createRandomShape(): void {
-        const MAX_SHAPE: number = 1;
-        for (let i: number = 0; i < MAX_SHAPE; i++) {
+        const MIN_SHAPE: number = 10;
+        const MAX_SHAPE: number = 200;
+        for (let i: number = 0; i < this.getRandomInteger(MIN_SHAPE, MAX_SHAPE); i++) {
             const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({ color: this.getRandomColor(), wireframe: true });
             const randomShape: THREE.Mesh = new THREE.Mesh(this.randomGeometryService.create(this.getRandomSize()), material);
             this.shapes.push(randomShape);
