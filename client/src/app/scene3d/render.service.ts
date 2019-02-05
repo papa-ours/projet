@@ -31,7 +31,7 @@ export class RenderService {
 
     private readonly GEOMETRY_SIZE: number = 65;
 
-    public constructor(private randomGeometryService: RandomGeometryService) {}
+    public constructor(private randomGeometryService: RandomGeometryService) { }
     private animateShapes(): void {
         for (const shape of this.shapes) {
             shape.rotation.x += this.rotationSpeedX;
@@ -49,14 +49,14 @@ export class RenderService {
     }
     // TODO : devrais etre dans un autre fichier
     private getRandomInteger(min: number, max: number): number {
-        return Math.floor(Math.random() * (max - min)  + min ) ;
+        return Math.floor(Math.random() * (max - min) + min);
     }
     // TODO : devrais etre dans un autre fichier
     private getRandomSize(): number {
         const MIN_FACTOR: number = 0.5;
         const MAX_FACTOR: number = 1.5;
 
-        return  this.getRandomInteger(MIN_FACTOR * this.GEOMETRY_SIZE, MAX_FACTOR * this.GEOMETRY_SIZE);
+        return this.getRandomInteger(MIN_FACTOR * this.GEOMETRY_SIZE, MAX_FACTOR * this.GEOMETRY_SIZE);
     }
     // TODO : devrais etre dans une autre classe
     private getRandomColor(): number {
