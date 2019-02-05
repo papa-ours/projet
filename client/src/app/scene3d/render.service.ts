@@ -32,12 +32,6 @@ export class RenderService {
     private readonly GEOMETRY_SIZE: number = 65;
 
     public constructor(private randomGeometryService: RandomGeometryService) { }
-    private animateShapes(): void {
-        for (const shape of this.shapes) {
-            shape.rotation.x += this.rotationSpeedX;
-            shape.rotation.y += this.rotationSpeedY;
-        }
-    }
     public createRandomShape(): void {
         const MIN_SHAPE: number = 10;
         const MAX_SHAPE: number = 200;
@@ -95,7 +89,6 @@ export class RenderService {
 
     private render(): void {
         requestAnimationFrame(() => this.render());
-        this.animateShapes();
 
         this.renderer.render(this.scene, this.camera);
     }
