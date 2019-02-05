@@ -92,6 +92,10 @@ export class RenderService {
 
         this.renderer.render(this.scene, this.camera);
     }
+    private changeBackgroundScene(): void {
+        const backgroundColor: number = 0x18C6CC;
+        this.scene.background = new THREE.Color(backgroundColor);
+    }
 
     public onResize(): void {
         this.camera.aspect = this.getAspectRatio();
@@ -106,6 +110,7 @@ export class RenderService {
         this.rotationSpeedY = rotationY;
 
         this.createScene();
+        this.changeBackgroundScene();
         this.createRandomShape();
         this.startRenderingLoop();
     }
