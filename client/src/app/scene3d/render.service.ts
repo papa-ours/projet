@@ -43,7 +43,7 @@ export class RenderService {
             const color: number = this.randomNumber.randomColor();
             const size: number = this.randomNumber.randomScale(this.GEOMETRY_SIZE);
             const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({ color: color, wireframe: true });
-            const randomShape: THREE.Mesh = new THREE.Mesh(this.randomGeometryService.createPyramid(size), material);
+            const randomShape: THREE.Mesh = this.randomGeometryService.createPyramid(size, material);
             this.shapes.push(randomShape);
             this.scene.add(randomShape);
         }

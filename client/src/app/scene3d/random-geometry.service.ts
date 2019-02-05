@@ -14,25 +14,25 @@ export class RandomGeometryService {
         this.functionList.push(this.createCylinder);
         this.functionList.push(this.createPyramid);
     }
-    private createSphere(size: number): THREE.SphereGeometry {
-        return new THREE.SphereGeometry(size, size, size);
+    private createSphere(size: number, material: THREE.Material): THREE.Mesh {
+        return new THREE.Mesh( new THREE.SphereGeometry(size, size, size), material);
     }
-    private createCube(size: number): THREE.BoxGeometry {
-        return new THREE.BoxGeometry(size, size, size);
+    private createCube(size: number, material: THREE.Material): THREE.Mesh {
+        return  new THREE.Mesh( new THREE.BoxGeometry(size, size, size), material);
     }
-    private createCone(size: number): THREE.ConeGeometry {
-        return new THREE.ConeGeometry(size, size, size);
+    private createCone(size: number, material: THREE.Material): THREE.Mesh {
+        return  new THREE.Mesh( new THREE.ConeGeometry(size, size, size), material);
     }
-    private createCylinder(size: number): THREE.CylinderGeometry {
-        return new THREE.CylinderGeometry(size, size, size);
+    private createCylinder(size: number, material: THREE.Material): THREE.Mesh {
+        return  new THREE.Mesh( new THREE.CylinderGeometry(size, size, size), material);
     }
 
-    public createPyramid(size: number): THREE.Geometry {
-        return  new Pyramid(size).generate();
+    public createPyramid(size: number, material: THREE.Material): THREE.Mesh {
+        return   new THREE.Mesh( new Pyramid(size).generate(), material);
     }
-    public create(size: number): THREE.Geometry {
+    public create(size: number, material: THREE.Material): THREE.Mesh {
         const functionSelector: number = Math.floor(Math.random() * this.functionList.length);
 
-        return this.functionList[functionSelector](size);
+        return this.functionList[functionSelector](size, material);
     }
 }
