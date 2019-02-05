@@ -4,7 +4,6 @@ export class Pyramid {
     private scaleFactor: number;
     public constructor(scale: number) {
         this.scaleFactor = scale;
-        this.generate();
     }
     private createVertices(): void {
         this.geometry.vertices = [
@@ -26,13 +25,12 @@ export class Pyramid {
         const transformation: THREE.Matrix4 = new THREE.Matrix4().makeScale( this.scaleFactor, this.scaleFactor, this.scaleFactor );
         this.geometry.applyMatrix( transformation );
     }
-    private generate(): void {
+    public generate(): THREE.Geometry {
         this.geometry = new THREE.Geometry();
         this.createVertices();
         this.createFaces();
         this.scale();
-    }
-    public get pyramid(): THREE.Geometry {
+
         return this.geometry;
     }
 }

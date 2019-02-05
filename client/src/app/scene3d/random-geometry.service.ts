@@ -28,7 +28,7 @@ export class RandomGeometryService {
     }
 
     public createPyramid(size: number): THREE.Geometry {
-        return  new Pyramid(size).pyramid;
+        return  new Pyramid(size).generate();
     }
     public create(size: number): THREE.Geometry {
         const functionSelector: number = Math.floor(Math.random() * this.functionList.length);
