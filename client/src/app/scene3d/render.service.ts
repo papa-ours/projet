@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
 import { RandomGeometryService } from "./random-geometry.service";
+import { RandomNumber } from "./random-number.util";
 
 // import Stats = require('stats.js');
 
@@ -31,34 +32,21 @@ export class RenderService {
 
     private readonly GEOMETRY_SIZE: number = 65;
 
+    private randomNumber: RandomNumber = new RandomNumber();
+
     public constructor(private randomGeometryService: RandomGeometryService) { }
     public createRandomShape(): void {
         const MIN_SHAPE: number = 10;
         const MAX_SHAPE: number = 200;
-        const numberOfShapes: number = this.getRandomInteger(MIN_SHAPE, MAX_SHAPE);
+        const numberOfShapes: number = this.randomNumber.randomInteger(MIN_SHAPE, MAX_SHAPE);
         for (let i: number = 0; i < numberOfShapes; i++) {
-            const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({ color: this.getRandomColor(), wireframe: true });
-            const randomShape: THREE.Mesh = new THREE.Mesh(this.randomGeometryService.createPyramid(this.getRandomSize()), material);
+            const color: number = this.randomNumber.randomColor();
+            const size: number = this.randomNumber.randomScale(this.GEOMETRY_SIZE);
+            const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({ color: color, wireframe: true });
+            const randomShape: THREE.Mesh = new THREE.Mesh(this.randomGeometryService.createPyramid(size), material);
             this.shapes.push(randomShape);
             this.scene.add(randomShape);
         }
-    }
-    // TODO : devrais etre dans un autre fichier
-    private getRandomInteger(min: number, max: number): number {
-        return Math.floor(Math.random() * (max - min) + min);
-    }
-    // TODO : devrais etre dans un autre fichier
-    private getRandomSize(): number {
-        const MIN_FACTOR: number = 0.5;
-        const MAX_FACTOR: number = 1.5;
-
-        return this.getRandomInteger(MIN_FACTOR * this.GEOMETRY_SIZE, MAX_FACTOR * this.GEOMETRY_SIZE);
-    }
-    // TODO : devrais etre dans une autre classe
-    private getRandomColor(): number {
-        const BASE_COLOR: number = 0xFFFFFF;
-
-        return Math.floor(Math.random() * BASE_COLOR);
     }
     private createScene(): void {
         /* Scene */
