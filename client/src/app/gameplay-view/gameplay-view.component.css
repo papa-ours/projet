@@ -1,7 +1,6 @@
 .info-container {
     color: white;
     font-size: 50px;
-    background-color: #122237;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     max-height: 65px;
 }
@@ -40,10 +39,6 @@ app-chat-messages {
     width: 100%;
 }
 
-.title-container{
-    background-color: #122237;
-}
-
 .title {
     margin-left: 30%;
     position: relative;
@@ -56,4 +51,8 @@ app-chat-messages {
     position: relative;
     top: 8%;
     font-size: 60px;
+}
+
+.container {
+    background-color: #122237;
 }
