@@ -13,7 +13,7 @@ export class GameplayService {
     public readonly URL: string = "http://localhost:3000/api/game/";
     public constructor(private http: HttpClient) { }
 
-    public getGameplayImages(gameSheetId: string): Observable<Message> {
+    public getGameplayImages(gameSheetId: string): Observable<string[]> {
         return this.http.get<Message>(this.URL + gameSheetId)
             .pipe(map((message: Message) => JSON.parse(message.body)),
         );

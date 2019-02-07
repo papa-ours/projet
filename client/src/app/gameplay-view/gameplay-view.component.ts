@@ -25,15 +25,12 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private getGameplayImages(): void {
-        this.gameplayService.getGameplayImages(this.id).subscribe((message: Message) => {
-            const images: string[] = JSON.parse(message.body);
+        this.gameplayService.getGameplayImages(this.id).subscribe((images: string[]) => {
             if (images.length) {
-                this.encodeImage(message.body);
                 this.images = images.map((imageData: string) => {
                     return this.encodeImage(imageData);
                 });
             }
-
         });
     }
 
