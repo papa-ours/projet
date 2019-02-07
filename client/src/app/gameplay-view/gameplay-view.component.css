@@ -3,6 +3,7 @@
     font-size: 50px;
     background-color: #122237;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    max-height: 65px;
 }
 .time-container {
     background: #FFFFFF20;
@@ -29,13 +30,12 @@
 }
 
 app-chat-messages {
-    margin-top: -26px;
+    margin-top: -27px;
     float: right;
 }
 
 .instruction-container, .title-container{
     height: 75px;
-    font-size: 40px;
     color: #FFF;
     width: 100%;
 }
@@ -48,10 +48,12 @@ app-chat-messages {
     margin-left: 30%;
     position: relative;
     top: 20%;
+    font-size: 40px;
 }
 
 .instruction {
-    margin-left: 25%;
+    margin-left: 18%;
     position: relative;
-    top: 20%;
+    top: 8%;
+    font-size: 60px;
 }
