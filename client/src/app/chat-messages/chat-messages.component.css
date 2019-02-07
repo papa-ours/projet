@@ -1,18 +1,16 @@
 .title {
     color: #FFF;
-    font-size: 16px;
-    margin-bottom: 6px;
+    font-size: 25px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .chat-container {
-    width: 20%;
-    min-width: 300px;
-    height: 360px;
+    min-width: 455px;
+    height: 430px;
     padding: 10px;
     background: #FFF;
     overflow: scroll auto;
-    margin-right: 40px;
+    margin-right: 10px;
 }
 
 .message-container {
