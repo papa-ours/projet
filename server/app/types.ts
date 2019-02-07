@@ -12,4 +12,6 @@ export default {
         DifferencesFinderService: Symbol("DifferenceFinderService"),
         DBConnectionService: Symbol("DBConnectionService"),
         GameSheetGenerationService: Symbol("GameSheetGenerationService"),
+        GetGameService: Symbol("GetGameService"),
+        GetGameController: Symbol("GetGameService"),
 };
