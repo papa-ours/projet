@@ -8,3 +8,6 @@
 <div class="form-area" *ngIf="showForm2D">
     <app-simple-game-creation (closeForm)="showForm2D= $event"></app-simple-game-creation>
 </div>
+<div class="form-area" *ngIf="showForm3D">
+    <app-free-view-game-creation (closeForm)="showForm3D= $event"></app-free-view-game-creation>
+</div>
