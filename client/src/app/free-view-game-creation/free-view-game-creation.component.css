@@ -19,6 +19,7 @@
 .info {
     height: 40px;
     margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 input {
@@ -33,6 +34,17 @@ input {
     border-radius: 8px;
     border: none;
     height: 40px;
+    width: 200px;
+}
+
+.type-input {
+    padding-left: 6px;
+    font-size: 14px;
+    margin-left: 7px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: none;
+    height: 20px;
     width: 200px;
 }
 

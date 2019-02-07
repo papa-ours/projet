@@ -4,7 +4,7 @@
         Créer un jeu point de vue libre
     </div>
 
-    <div class="info name-section">
+    <div class="info">
         Nom du jeu :
         <input class="name-input" placeholder="7 differences" [(ngModel)]="name"><br>
         <div  class="error-message" *ngIf="(name.length < 5  || name.length > 15)">
@@ -12,6 +12,15 @@
         </div>
     </div>
 
+    <div class="info">
+        Type des objets :
+        <select class="type-input">
+                <option value="géométrique">Géométrique</option>
+                <option value="thématique">Thématique</option>
+        </select>
+    </div>
+
+    
     
     <div class="button-section"> 
         <button class="cancel-btn" (click)="close()">Annuler</button>
