@@ -4,6 +4,7 @@ import { DBConnectionService } from "./dbconnection.service";
 import { DifferenceImageGenerator } from "./difference-image-generator.service";
 import { DifferencesFinderService } from "./differences-finder.service";
 import { GameSheetGenerationService } from "./game-sheet-generation.service";
+import { GetGameService } from "./get-game.service";
 
 describe("game sheet generation", () => {
     let gameSheetGenerator: GameSheetGenerationService;
@@ -12,7 +13,8 @@ describe("game sheet generation", () => {
         gameSheetGenerator = new GameSheetGenerationService(
             new DifferenceImageGenerator(),
             new DifferencesFinderService(),
-            new DBConnectionService());
+            new DBConnectionService(),
+            new GetGameService());
     });
 
     it("should return the correct error message if the images don't have 7 differences", () => {
