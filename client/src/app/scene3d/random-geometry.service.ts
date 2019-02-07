@@ -1,33 +1,18 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
+import { GeometryGeneratorService } from "./geometry-generator.service";
 @Injectable({
     providedIn: "root",
 })
 export class RandomGeometryService {
-
+    private geometryGeneratorService: GeometryGeneratorService = new GeometryGeneratorService() ;
     private functionList: Function[] = [];
     public constructor() {
-        this.functionList.push(this.createSphere);
-        this.functionList.push(this.createCube);
-        this.functionList.push(this.createCone);
-        this.functionList.push(this.createCylinder);
-        this.functionList.push(this.createPyramid);
-    }
-    private createSphere(size: number, material: THREE.Material): THREE.Mesh {
-        return new THREE.Mesh(new THREE.SphereGeometry(size), material);
-    }
-    private createCube(size: number, material: THREE.Material): THREE.Mesh {
-        return new THREE.Mesh(new THREE.BoxGeometry(size, size, size), material);
-    }
-    private createCone(size: number, material: THREE.Material): THREE.Mesh {
-        return new THREE.Mesh(new THREE.ConeGeometry(size, size, size), material);
-    }
-    private createCylinder(size: number, material: THREE.Material): THREE.Mesh {
-        return new THREE.Mesh(new THREE.CylinderGeometry(size, size, size), material);
-    }
-
-    private createPyramid(size: number, material: THREE.Material): THREE.Mesh {
-        return new THREE.Mesh(new THREE.TetrahedronGeometry(size, 0), material);
+        this.functionList.push(this.geometryGeneratorService.createSphere);
+        this.functionList.push(this.geometryGeneratorService.createCube);
+        this.functionList.push(this.geometryGeneratorService.createCone);
+        this.functionList.push(this.geometryGeneratorService.createCylinder);
+        this.functionList.push(this.geometryGeneratorService.createPyramid);
     }
     public create(size: number, material: THREE.Material): THREE.Mesh {
         const functionSelector: number = Math.floor(Math.random() * this.functionList.length);
