@@ -14,6 +14,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
+import { FreeViewGameCreationComponent } from './free-view-game-creation/free-view-game-creation.component';
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { BrowserModule } from "@angular/platform-browser";
         InitialViewComponent,
         AdminViewComponent,
         SimpleGameCreationComponent,
+        FreeViewGameCreationComponent,
     ],
     imports: [
         BrowserModule,
