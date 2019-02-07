@@ -40,6 +40,7 @@ export class GetGameListService {
 
     private convertDocumentToGameDescription(doc: MongooseDocument): GameSheetDescription {
         return {
+            id: "1231",
             name: doc.get("name", String),
             preview: doc.get("preview", String),
             topScores: doc.get("topScores", Array<TopScoresInterface>()),
