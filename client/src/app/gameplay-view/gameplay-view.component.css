@@ -32,3 +32,16 @@ app-chat-messages {
     float: right;
 }
 
+.instruction, .title{
+    height: 75px;
+    font-size: 40px;
+    color: #FFF;
+}
+
+.title {
+    margin-left: 30%;
+}
+
+.instruction {
+    margin-left: 25%;
+}
