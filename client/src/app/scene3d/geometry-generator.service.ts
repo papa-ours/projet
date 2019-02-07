@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import * as THREE from 'three';
+import { Injectable } from "@angular/core";
+import * as THREE from "three";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: "root",
 })
 export class GeometryGeneratorService {
 
-    constructor() { }
+    public constructor() { }
     public createSphere(size: number, material: THREE.Material): THREE.Mesh {
         return new THREE.Mesh(new THREE.SphereGeometry(size), material);
     }
