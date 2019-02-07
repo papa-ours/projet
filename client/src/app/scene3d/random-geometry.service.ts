@@ -26,7 +26,7 @@ export class RandomGeometryService {
         return new THREE.Mesh(new THREE.CylinderGeometry(size, size, size), material);
     }
 
-    public createPyramid(size: number, material: THREE.Material): THREE.Mesh {
+    private createPyramid(size: number, material: THREE.Material): THREE.Mesh {
         return new THREE.Mesh(new THREE.TetrahedronGeometry(size, 0), material);
     }
     public create(size: number, material: THREE.Material): THREE.Mesh {
