@@ -7,8 +7,7 @@ import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-ico
   styleUrls: ["./gameplay-view.component.css"],
 })
 export class GameplayViewComponent implements OnInit {
-    // @ts-ignore
-    private hourglassIcon: IconDefinition = faHourglassHalf;
+    public hourglassIcon: IconDefinition = faHourglassHalf;
     constructor() { }
 
     ngOnInit() {
