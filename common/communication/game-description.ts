@@ -14,6 +14,7 @@ export enum GameType {
 }
 
 export interface GameSheetDescription {
+    id: string;
     name: string;
     preview: string;
     topScores: TopScoresInterface[];
