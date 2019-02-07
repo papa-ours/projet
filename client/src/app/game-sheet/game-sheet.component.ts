@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { GameSheetDescription } from "../../../../common/communication/game-description";
-import { GameplayService } from "../gameplay.service";
 import { Privilege } from "../privilege";
 
 @Component({
@@ -12,7 +11,6 @@ import { Privilege } from "../privilege";
 export class GameSheetComponent implements OnInit {
     public constructor(
         private router: Router,
-        private gameplayService: GameplayService,
     ) { }
 
     // @ts-ignore
@@ -37,7 +35,6 @@ export class GameSheetComponent implements OnInit {
 
     // @ts-ignore
     private play(): void {
-        this.gameplayService.getGameplayImages(this.description.id);
         this.router.navigateByUrl("/gameplaySimplePOV/" + this.description.id)
         .catch((err: Error) => {
             console.error(err);
