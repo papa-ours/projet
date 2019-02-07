@@ -1,5 +1,6 @@
 import { TestBed } from "@angular/core/testing";
 
+import * as THREE from "three";
 import { GeometryGeneratorService } from "./geometry-generator.service";
 
 describe("GeometryGeneratorService", () => {
@@ -12,6 +13,21 @@ describe("GeometryGeneratorService", () => {
     });
 
     it("should be created", () => {
-    expect(geometryGeneratorService).toBeTruthy();
-  });
+        expect(geometryGeneratorService).toBeTruthy();
+    });
+    it("should return a cube geometry on create cube", () => {
+        const size: number = 100;
+        const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial();
+        expect(geometryGeneratorService.createCube(size, material).geometry.type).toBe(new THREE.BoxGeometry().type);
+    });
+    it("should be the same material as expected in dependency on create cube", () => {
+        const size: number = 100;
+        const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({color: 0xFF4256});
+        expect(geometryGeneratorService.createCube(size, material).material).toBe(material);
+    });
+    it("should be the same size as expected in dependency on create cube", () => {
+        const size: number = 100;
+        const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial();
+        expect(geometryGeneratorService.createCube(size, material).geometry).toBe(material);
+    });
 });
