@@ -45,7 +45,7 @@ export class SimpleGameCreationComponent {
     // @ts-ignore
     private fileEntered(event: FileReaderEvent, type: ImageType): void {
         if (type < this.N_IMAGES) {
-        this.imageFiles[type] = event.target.files[0];
+            this.imageFiles[type] = event.target.files[0];
         }
     }
 
@@ -101,8 +101,8 @@ export class SimpleGameCreationComponent {
         try {
             this.formValidationService.isImageDimensionValid(this.imagesData[index]);
             if (++this.readFiles === this.imageFiles.length) {
-            this.sendForm();
-        }
+                this.sendForm();
+            }
         } catch (error) {
             this.errorMessage = error.message;
         }
