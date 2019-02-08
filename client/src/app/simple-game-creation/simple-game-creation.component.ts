@@ -66,8 +66,8 @@ export class SimpleGameCreationComponent {
     private sendForm(): void {
         const formData: FormData = new FormData();
         formData.append("name", this.name);
-        formData.append("originalImage", this.imagesData[ImageType.ORIGINAL].toString());
-        formData.append("modifiedImage", this.imagesData[ImageType.MODIFIED].toString());
+        formData.append("originalImage", this.imageFiles[ImageType.ORIGINAL], "originalImage.bmp");
+        formData.append("modifiedImage", this.imageFiles[ImageType.MODIFIED], "modifiedImage.bmp");
 
         this.differenceImageService.postDifferenceImageData(formData)
             .subscribe((message: Message) => {
@@ -82,13 +82,14 @@ export class SimpleGameCreationComponent {
     // @ts-ignore
     private submitForm(): void {
         if (this.allValuesEntered) {
-            this.imageFiles.forEach((file: File, index: number) => {
-                this.readFile(file, index);
-            });
+            this.sendForm();
+            // this.imageFiles.forEach((file: File, index: number) => {
+            //     this.readFile(file, index);
+            // });
         }
     }
 
-    private readFile(file: File, index: number): void {
+    public readFile(file: File, index: number): void {
         this.fileReaderUtil.readFile(file)
         .subscribe((event: Event) => {
             const eventTarget: FileReaderEventTarget = event.target as FileReaderEventTarget;
