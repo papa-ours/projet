@@ -12,7 +12,7 @@ export class GameSheetGenerationController {
 
     public get router(): Router {
         const router: Router = Router();
-        const upload: multer.Instance = multer({dest: "uploads/"});
+        const upload: multer.Instance = this.createMulterObject();
 
         router.post("/",
                     upload.fields([ { name: "name", maxCount: 1 },
@@ -24,9 +24,22 @@ export class GameSheetGenerationController {
                                                                                 req.files["originalImage"],
                                                                                 req.files["modifiedImage"]);
 
-                        res.send(message);
+                        // res.send(message);
                     });
 
         return router;
+    }
+
+    private createMulterObject(): multer.Instance {
+        const storage: multer.StorageEngine = multer.diskStorage({
+            destination: (req: Request, file: Express.Multer.File, cb: Function) => {
+                cb(null, "uploads/");
+            },
+            filename: (req: Request, file: Express.Multer.File, cb: Function) => {
+                cb(null, req.body.name + "-" + file.fieldname);
+            },
+        });
+
+        return multer({ storage: storage });
     }
 }
