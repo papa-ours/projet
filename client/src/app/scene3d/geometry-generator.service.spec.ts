@@ -41,7 +41,7 @@ describe("GeometryGeneratorService", () => {
     it("should return a cone geometry on create cone", () => {
         const size: number = 100;
         const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial();
-        expect(geometryGeneratorService.createCone(size, material).geometry.type).toBe(new THREE.SphereGeometry().type);
+        expect(geometryGeneratorService.createCone(size, material).geometry.type).toBe(new THREE.ConeGeometry().type);
     });
     it("should be the same material as expected in dependency on create cone", () => {
         const size: number = 100;
@@ -52,7 +52,7 @@ describe("GeometryGeneratorService", () => {
     it("should return a cylender geometry on create cylinder", () => {
         const size: number = 100;
         const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial();
-        expect(geometryGeneratorService.createCylinder(size, material).geometry.type).toBe(new THREE.SphereGeometry().type);
+        expect(geometryGeneratorService.createCylinder(size, material).geometry.type).toBe(new THREE.CylinderGeometry().type);
     });
     it("should be the same material as expected in dependency on create cylinder", () => {
         const size: number = 100;
