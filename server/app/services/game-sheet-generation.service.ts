@@ -29,7 +29,10 @@ export class GameSheetGenerationService {
         @inject(Types.DifferencesFinderService) private differencesFinder: DifferencesFinderService,
         @inject(Types.DBConnectionService) private dbConnection: DBConnectionService,
         @inject(Types.GetGameService) private getGameService: GetGameService,
-    ) {}
+    ) {
+        this.generateGameSheet("Voiture", ["assets/voiture-originalImage.bmp", "assets/voiture-modifiedImage.bmp"]);
+        this.generateGameSheet("Pringles", ["assets/pringles-originalImage.bmp", "assets/pringles-modifiedImage.bmp"]);
+    }
 
     public generateGameSheet(name: string, paths: string[]): void {
         const readFiles: Promise<Uint8Array>[] = paths.map((path: string) => {
