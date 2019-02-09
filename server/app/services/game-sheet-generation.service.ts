@@ -43,6 +43,21 @@ export class GameSheetGenerationService {
         return message;
     }
 
+    public generateGameSheetTemp(name: string, paths: string[]): void {
+        paths.map((path: string) => {
+            return FileReaderUtil.readFile(path);
+        });
+    }
+
+    // @ts-ignore
+    private filesAreRead(name: string): Message {
+        return {
+            type: MessageType.GAME_SHEET_GENERATION,
+            body: "",
+        };
+    }
+
+    // @ts-ignore
     private createGameSheet(name: string, originalImageData: Uint8Array, modifiedImageData: Uint8Array, differenceImage: BMPImage): void {
         const gameSheet: Game = new Game(   {
                                                 id: this.generateId(),
