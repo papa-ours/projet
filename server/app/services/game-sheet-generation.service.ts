@@ -86,20 +86,6 @@ export class GameSheetGenerationService {
         return message;
     }
 
-    // @ts-ignore
-    private createGameSheet(name: string, originalImageData: Uint8Array, modifiedImageData: Uint8Array, differenceImage: BMPImage): void {
-        const gameSheet: Game = new Game(   {
-                                                id: this.generateId(),
-                                                name: name,
-                                                preview: originalImageData.toString(),
-                                                topScores: this.generateTopScores(),
-                                            },
-                                            modifiedImageData.toString(),
-                                            differenceImage);
-        this.getGameService.addGame(gameSheet);
-        // this.saveGameSheet(gameSheet);
-    }
-
     private createGame(name: string, differenceImage: BMPImage): void {
         const gameSheet: Game = new Game(   {
                                                 id: this.generateId(),
