@@ -2,6 +2,7 @@ import { AdminViewComponent } from "./admin-view/admin-view.component";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { AppComponent } from "./app.component";
 import { ChatMessagesComponent } from "./chat-messages/chat-messages.component";
+import { DifferenceCheckerService } from "./difference-checker.service";
 import { DifferenceImageService } from "./difference-image.service";
 import { GameImageComponent } from "./game-image/game-image.component";
 import { GameListViewComponent } from "./game-list-view/game-list-view.component";
@@ -42,6 +43,7 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
     providers: [
         UsernameValidationService,
         DifferenceImageService,
+        DifferenceCheckerService,
         FileReaderUtil,
     ],
     bootstrap: [AppComponent],
