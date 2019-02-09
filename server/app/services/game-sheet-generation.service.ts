@@ -13,6 +13,12 @@ import { TopScores } from "./score/top-scores";
 import { BMPImage } from "./utils/bmp-image";
 import { FileReaderUtil } from "./utils/file-reader.util";
 
+// @ts-ignore
+enum ImageType {
+    Original,
+    Modified,
+}
+
 @injectable()
 export class GameSheetGenerationService {
     // @ts-ignore
