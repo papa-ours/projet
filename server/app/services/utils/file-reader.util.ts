@@ -1,7 +1,15 @@
+import * as fs from "fs";
+
 export class FileReaderUtil {
     public static readFile(path: string): Promise<Uint8Array> {
         return new Promise((resolve: Function, reject: Function) => {
-            resolve(new Uint8Array([]));
+            fs.readFile(path, (err: Error, data: Uint8Array) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(data);
+                }
+            });
         });
     }
 }
