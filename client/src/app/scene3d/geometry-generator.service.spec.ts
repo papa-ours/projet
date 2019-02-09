@@ -54,9 +54,20 @@ describe("GeometryGeneratorService", () => {
         const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial();
         expect(geometryGeneratorService.createCylinder(size, material).geometry.type).toBe(new THREE.SphereGeometry().type);
     });
-    it("should be the same material as expected in dependency on create cone", () => {
+    it("should be the same material as expected in dependency on create cylinder", () => {
         const size: number = 100;
         const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({color: 0xFF4256});
         expect(geometryGeneratorService.createCylinder(size, material).material).toBe(material);
+    });
+    // pyramid
+    it("should return a Tetrahedron geometry on create pyramid", () => {
+        const size: number = 100;
+        const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial();
+        expect(geometryGeneratorService.createPyramid(size, material).geometry.type).toBe(new THREE.TetrahedronGeometry().type);
+    });
+    it("should be the same material as expected in dependency on create pyramid", () => {
+        const size: number = 100;
+        const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({color: 0xFF4256});
+        expect(geometryGeneratorService.createPyramid(size, material).material).toBe(material);
     });
 });
