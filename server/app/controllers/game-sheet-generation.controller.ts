@@ -22,9 +22,9 @@ export class GameSheetGenerationController {
                         const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
 
                         this.gameSheetGenerationService
-                            .generateGameSheetTemp(req.body.name,
-                                                   ["uploads/" + req.body.name + "-" + "originalImage.bmp",
-                                                    "uploads/" + req.body.name + "-" + "modifiedImage.bmp"]);
+                            .generateGameSheet(req.body.name,
+                                               ["uploads/" + req.body.name + "-" + "originalImage.bmp",
+                                                "uploads/" + req.body.name + "-" + "modifiedImage.bmp"]);
 
                         res.send(message);
                     });
