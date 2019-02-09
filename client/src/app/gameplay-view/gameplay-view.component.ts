@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { Message } from "../../../../common/communication/message";
 import { GameplayService } from "../gameplay.service";
 
 @Component({
