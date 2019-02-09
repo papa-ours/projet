@@ -24,7 +24,7 @@ export class RenderService {
 
     private nearClippingPane: number = 1;
 
-    private farClippingPane: number = 1000;
+    private farClippingPane: number = 2000;
 
     public rotationSpeedX: number = 0.005;
 
