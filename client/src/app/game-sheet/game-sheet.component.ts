@@ -1,13 +1,20 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Router } from "@angular/router";
 import { GameSheetDescription } from "../../../../common/communication/game-description";
 import { Privilege } from "../privilege";
+
 @Component({
     selector: "app-game-sheet",
     templateUrl: "./game-sheet.component.html",
     styleUrls: ["./game-sheet.component.css"],
 })
 export class GameSheetComponent implements OnInit {
-    public medalColors: string[] = [
+    public constructor(
+        private router: Router,
+    ) { }
+
+    // @ts-ignore
+    private medalColors: string[] = [
         "#FFD700",
         "#C0C0C0",
         "#CD7F32",
@@ -23,6 +30,14 @@ export class GameSheetComponent implements OnInit {
         const isUser: boolean = this.privilege == Privilege.USER;
         this.btn1.nativeElement.textContent = isUser ? "Jouer" : "Supprimer";
         this.btn2.nativeElement.textContent = isUser ? "Créer" : "Réinitialiser";
+    }
+
+    // @ts-ignore
+    private play(): void {
+        this.router.navigateByUrl("/gameplaySimplePOV/" + this.description.id)
+        .catch((err: Error) => {
+            console.error(err);
+        });
     }
 
 }

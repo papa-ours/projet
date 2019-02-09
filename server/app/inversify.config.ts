@@ -2,12 +2,14 @@ import { Container } from "inversify";
 import { Application } from "./app";
 import { GameSheetGenerationController } from "./controllers/game-sheet-generation.controller";
 import { GetGameListController } from "./controllers/get-game-list.controller";
+import { GetGameController } from "./controllers/get-game.controller";
 import { Server } from "./server";
 import { DBConnectionService } from "./services/dbconnection.service";
 import { DifferenceImageGenerator } from "./services/difference-image-generator.service";
 import { DifferencesFinderService } from "./services/differences-finder.service";
 import { GameSheetGenerationService } from "./services/game-sheet-generation.service";
 import { GetGameListService } from "./services/get-game-list.service";
+import { GetGameService } from "./services/get-game.service";
 import { UsernameValidatorService } from "./services/username-validator.service";
 import { Socket } from "./socket";
 import Types from "./types";
@@ -25,5 +27,6 @@ container.bind(Types.GameSheetGenerationController).to(GameSheetGenerationContro
 container.bind(Types.DifferencesFinderService).to(DifferencesFinderService);
 container.bind(Types.DBConnectionService).to(DBConnectionService);
 container.bind(Types.GameSheetGenerationService).to(GameSheetGenerationService);
-
+container.bind(Types.GetGameController).to(GetGameController);
+container.bind(Types.GetGameService).to(GetGameService);
 export { container };

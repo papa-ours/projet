@@ -13,6 +13,9 @@ npm-debug.log
 # Code Coverage Folder
 coverage/
 
+# Multer Uploads Folder
+uploads/
+
 ##Typescrit compilation ##
 
 *.js.map
