@@ -14,7 +14,7 @@ export class RandomGeometryService {
         this.functionList.push(this.geometryGeneratorService.createCylinder);
         this.functionList.push(this.geometryGeneratorService.createPyramid);
     }
-    public create(size: number, material: THREE.Material): THREE.Mesh {
+    public getRandomShape(size: number, material: THREE.Material): THREE.Mesh {
         const functionSelector: number = Math.floor(Math.random() * this.functionList.length);
 
         return this.functionList[functionSelector](size, material);
