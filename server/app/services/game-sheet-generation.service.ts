@@ -66,10 +66,22 @@ export class GameSheetGenerationService {
 
     // @ts-ignore
     private filesAreRead(name: string): Message {
-        return {
+        const differenceImage: BMPImage = this.differenceImageGenerator
+            .generate(this.imagesData[ImageType.Original], this.imagesData[ImageType.Modified]) as BMPImage;
+
+        const numberOfDifferences: number = this.differencesFinder.getNumberOfDifferences(differenceImage);
+        const REQUIRED_DIFFERENCES: number = 7;
+
+        const message: Message = {
             type: MessageType.GAME_SHEET_GENERATION,
             body: "",
         };
+
+        if (numberOfDifferences !== REQUIRED_DIFFERENCES) {
+            message.body = "Les images n'ont pas exactement 7 différences, la création a été annulée";
+        }
+
+        return message;
     }
 
     // @ts-ignore
