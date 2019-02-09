@@ -38,7 +38,7 @@ export class RenderService {
     public createRandomShape(): void {
         // const MIN_SHAPE: number = 10;
         // const MAX_SHAPE: number = 200;
-        const numberOfShapes: number = 1; // this.randomNumber.randomInteger(MIN_SHAPE, MAX_SHAPE);
+        const numberOfShapes: number = 200; // this.randomNumber.randomInteger(MIN_SHAPE, MAX_SHAPE);
         for (let i: number = 0; i < numberOfShapes; i++) {
             const color: number = this.randomNumber.randomColor();
             const size: number = this.randomNumber.randomScale(this.GEOMETRY_SIZE);
@@ -47,7 +47,7 @@ export class RenderService {
                 metalness: 0.7,
                 roughness: 0.2,
             });
-            const randomShape: THREE.Mesh = this.randomGeometryService.create(size, material);
+            const randomShape: THREE.Mesh = this.randomGeometryService.getRandomShape(size, material);
             this.shapes.push(randomShape);
             this.scene.add(randomShape);
         }
