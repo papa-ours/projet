@@ -15,6 +15,8 @@ import { FileReaderUtil } from "./utils/file-reader.util";
 
 @injectable()
 export class GameSheetGenerationService {
+    // @ts-ignore
+    private imagesData: Uint8Array[];
 
     public constructor(
         @inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator,
@@ -44,8 +46,15 @@ export class GameSheetGenerationService {
     }
 
     public generateGameSheetTemp(name: string, paths: string[]): void {
-        paths.map((path: string) => {
+        const readFiles: Promise<Uint8Array>[] = paths.map((path: string) => {
             return FileReaderUtil.readFile(path);
+        });
+
+        Promise.all(readFiles).then((buffers: Buffer[]) => {
+            this.imagesData = buffers.map((buffer: Buffer) => {
+                return new Uint8Array(buffer);
+            });
+            this.filesAreRead(name);
         });
     }
 
