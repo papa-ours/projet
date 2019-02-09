@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as multer from "multer";
-import { Message } from "../../../common/communication/message";
+import { Message, MessageType } from "../../../common/communication/message";
 import { GameSheetGenerationService } from "../services/game-sheet-generation.service";
 import Types from "../types";
 
@@ -19,12 +19,14 @@ export class GameSheetGenerationController {
                                     { name: "originalImage", maxCount: 1 },
                                     { name: "modifiedImage", maxCount: 1 } ]),
                     (req: Request, res: Response, next: NextFunction) => {
-                        const message: Message =
-                            this.gameSheetGenerationService.generateGameSheet(  name,
-                                                                                req.files["originalImage"],
-                                                                                req.files["modifiedImage"]);
+                        const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
 
-                        // res.send(message);
+                        this.gameSheetGenerationService
+                            .generateGameSheetTemp(req.body.name,
+                                                   ["uploads/" + req.body.name + "-" + "originalImage.bmp",
+                                                    "uploads/" + req.body.name + "-" + "modifiedImage.bmp"]);
+
+                        res.send(message);
                     });
 
         return router;
