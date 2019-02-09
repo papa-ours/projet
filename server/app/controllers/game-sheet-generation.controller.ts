@@ -22,7 +22,7 @@ export class GameSheetGenerationController {
                         const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
 
                         this.gameSheetGenerationService
-                            .generateGameSheet(req.body.name,
+                            .generateGameSheet( req.body.name,
                                                 ["uploads/" + req.body.name + "-" + "originalImage.bmp",
                                                  "uploads/" + req.body.name + "-" + "modifiedImage.bmp"]);
 
