@@ -70,7 +70,7 @@ export class GameSheetGenerationService {
         const gameSheet: Game = new Game(   {
                                                 id: this.generateId(),
                                                 name: name,
-                                                preview: this.imagesData[ImageType.Modified].toString(),
+                                                preview: this.imagesData[ImageType.Original].toString(),
                                                 topScores: this.generateTopScores(),
                                             },
                                             this.imagesData[ImageType.Modified].toString(),
