@@ -31,27 +31,7 @@ export class GameSheetGenerationService {
         @inject(Types.GetGameService) private getGameService: GetGameService,
     ) {}
 
-    public generateGameSheet(name: string, originalImageData: Uint8Array, modifiedImageData: Uint8Array): Message {
-        const differenceImage: BMPImage = this.differenceImageGenerator.generate(originalImageData, modifiedImageData) as BMPImage;
-
-        const numberOfDifferences: number = this.differencesFinder.getNumberOfDifferences(differenceImage);
-        const REQUIRED_DIFFERENCES: number = 7;
-
-        const message: Message = {
-            type: MessageType.GAME_SHEET_GENERATION,
-            body: "",
-        };
-
-        if (numberOfDifferences !== REQUIRED_DIFFERENCES) {
-            message.body = "Les images n'ont pas exactement 7 différences, la création a été annulée";
-        } else {
-            this.createGameSheet(name, originalImageData, modifiedImageData, differenceImage);
-        }
-
-        return message;
-    }
-
-    public generateGameSheetTemp(name: string, paths: string[]): void {
+    public generateGameSheet(name: string, paths: string[]): void {
         const readFiles: Promise<Uint8Array>[] = paths.map((path: string) => {
             return FileReaderUtil.readFile(path);
         });
