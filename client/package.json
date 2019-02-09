@@ -22,11 +22,16 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "@types/three": "^0.93.19",
+    "@fortawesome/angular-fontawesome": "^0.3.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.14",
+    "@fortawesome/free-solid-svg-icons": "^5.7.1",
+    "add": "^2.0.6",
     "core-js": "2.5.4",
     "rxjs": "~6.3.3",
     "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "three": "^0.101.1",
+    "yarn": "^1.13.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

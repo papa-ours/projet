@@ -13,11 +13,8 @@ export class DifferenceImageService {
     public constructor(private http: HttpClient) { }
 
     public postDifferenceImageData(formData: FormData): Observable<Message> {
-        return this.http.post<Message>(this.URL, {
-            name: formData.get("name"),
-            originalImage: formData.get("originalImage"),
-            modifiedImage: formData.get("modifiedImage"),
-        }).pipe(catchError(this.handleError<Message>("postDifferenceImageData")),
+        return this.http.post<Message>(this.URL, formData)
+            .pipe(catchError(this.handleError<Message>("postDifferenceImageData")),
         );
     }
 

@@ -1,0 +1,25 @@
+
+<div class="instruction-container">
+    <span class="instruction">Trouvez les 7 différences.</span>
+</div>
+
+<div class="container">
+    <div class="title-container">
+        <span class="title">Nom du jeu</span>
+    </div>
+
+    <div class="images-chat-container">
+        <app-game-images [images]="images"></app-game-images>
+        <app-chat-messages></app-chat-messages>
+    </div>
+
+    <div class="info-container">
+        <span class="time-container">
+            <fa-icon [icon]="hourglassIcon" class="info-label"></fa-icon>
+            <span>00:00</span>
+        </span>
+        <span class="differencesCount">
+            <span>0/7</span>
+        </span>
+    </div>
+</div>
