@@ -85,7 +85,7 @@ export class RenderService {
         this.renderer.render(this.scene, this.camera);
     }
     private changeBackgroundScene(): void {
-        const backgroundColor: number = 0x18C6CC;
+        const backgroundColor: number = 0x515151;
         this.scene.background = new THREE.Color(backgroundColor);
     }
 
