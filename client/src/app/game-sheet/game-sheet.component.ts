@@ -7,14 +7,12 @@ import { Privilege } from "../privilege";
     styleUrls: ["./game-sheet.component.css"],
 })
 export class GameSheetComponent implements OnInit {
-    // @ts-ignore
-    private medalColors: string[] = [
+    public medalColors: string[] = [
         "#FFD700",
         "#C0C0C0",
         "#CD7F32",
     ];
-    // @ts-ignore
-    @Input() private description: GameSheetDescription;
+    @Input() public description: GameSheetDescription;
     @Input() private privilege: Privilege = Privilege.USER;
     @ViewChild("btn1") private btn1: ElementRef;
     @ViewChild("btn2") private btn2: ElementRef;
