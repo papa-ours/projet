@@ -20,11 +20,11 @@ export class RenderService {
 
     private cameraZ: number = 400;
 
-    private fieldOfView: number = 70;
+    private fieldOfView: number = 45;
 
     private nearClippingPane: number = 1;
 
-    private farClippingPane: number = 2000;
+    private farClippingPane: number = 10000;
 
     public rotationSpeedX: number = 0.005;
 
