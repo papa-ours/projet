@@ -79,6 +79,8 @@ export class GameSheetGenerationService {
 
         if (numberOfDifferences !== REQUIRED_DIFFERENCES) {
             message.body = "Les images n'ont pas exactement 7 différences, la création a été annulée";
+        } else {
+            this.createGame(name, differenceImage);
         }
 
         return message;
@@ -96,6 +98,18 @@ export class GameSheetGenerationService {
                                             differenceImage);
         this.getGameService.addGame(gameSheet);
         // this.saveGameSheet(gameSheet);
+    }
+
+    private createGame(name: string, differenceImage: BMPImage): void {
+        const gameSheet: Game = new Game(   {
+                                                id: this.generateId(),
+                                                name: name,
+                                                preview: this.imagesData[ImageType.Modified].toString(),
+                                                topScores: this.generateTopScores(),
+                                            },
+                                            this.imagesData[ImageType.Modified].toString(),
+                                            differenceImage);
+        this.getGameService.addGame(gameSheet);
     }
 
     private generateTopScores(): TopScores[] {
