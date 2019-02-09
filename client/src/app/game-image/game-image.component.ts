@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from "@angular/core";
+import { Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
 
 @Component({
   selector: "app-game-image",
@@ -7,6 +7,8 @@ import { Component, HostListener, Input } from "@angular/core";
 })
 export class GameImageComponent {
     @Input() public source: string;
+    //@ts-ignore
+    @ViewChild("image") private imageElement: ElementRef;
 
     // tslint:disable-next-line:no-any
     @HostListener("click", ["$event"]) public checkDifference(event: any): void {
