@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, HostListener, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-game-image",
@@ -11,4 +11,7 @@ export class GameImageComponent implements OnInit {
     public ngOnInit() {
     }
 
+    // tslint:disable-next-line:no-any
+    @HostListener("click", ["$event"]) public checkDifference(event: any): void {
+    }
 }
