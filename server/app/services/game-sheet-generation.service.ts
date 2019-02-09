@@ -11,6 +11,7 @@ import { Game } from "./game-sheet";
 import { GetGameService } from "./get-game.service";
 import { TopScores } from "./score/top-scores";
 import { BMPImage } from "./utils/bmp-image";
+import { FileReaderUtil } from "./utils/file-reader.util";
 
 @injectable()
 export class GameSheetGenerationService {
