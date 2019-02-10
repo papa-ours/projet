@@ -7,7 +7,9 @@ import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewC
 })
 export class GameImageComponent {
     private readonly IMAGE_WIDTH: number = 640;
+    private readonly IMAGE_HEIGHT: number = 480;
     private readonly HTML_IMAGE_WIDTH: number = 500;
+    private readonly HTML_IMAGE_HEIGHT: number = 375;
     @Input() public source: string;
     @ViewChild("image") private imageElement: ElementRef;
     @Output() private checkDifference: EventEmitter<[number, number]> = new EventEmitter();
