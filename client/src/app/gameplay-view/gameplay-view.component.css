@@ -28,31 +28,29 @@
     color: #FFFFFF66;
 }
 
+.images-chat-container {
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
 app-chat-messages {
-    margin-top: -27px;
     float: right;
 }
 
-.instruction-container, .title-container{
+.instruction-container {
+    background-color: #122237;
+    font-size: 60px;
+}
+.instruction-container, .title-container {
     height: 75px;
     color: #FFF;
     width: 100%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
 }
 
-.title {
-    margin-left: 30%;
+.title-container {
     position: relative;
-    top: 20%;
+    text-align: center;
     font-size: 40px;
-}
-
-.instruction {
-    margin-left: 18%;
-    position: relative;
-    top: 8%;
-    font-size: 60px;
-}
-
-.container {
-    background-color: #122237;
 }
