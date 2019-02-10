@@ -9,7 +9,7 @@
     </div>
 
     <div class="images-chat-container">
-        <app-game-image *ngFor="let src of images" [source]="src"></app-game-image>
+        <app-game-image *ngFor="let src of images" [source]="src" (checkDifference)="checkDifference"></app-game-image>
         <app-chat-messages></app-chat-messages>
     </div>
 
