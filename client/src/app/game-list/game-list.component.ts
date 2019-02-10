@@ -10,11 +10,10 @@ import { Privilege } from "../privilege";
   styleUrls: ["./game-list.component.css"],
 })
 export class GameListComponent implements OnInit {
-    // @ts-ignore
-    @Input() private is3D: boolean;
+    
+    @Input() public is3D: boolean;
     @Input() private descriptions: GameSheetDescription[];
-    // @ts-ignore
-    @Input() private privilege: Privilege;
+    @Input() public privilege: Privilege;
 
     public ngOnInit(): void {
         this.descriptions.forEach((description: GameSheetDescription) => {
