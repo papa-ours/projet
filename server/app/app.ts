@@ -8,6 +8,7 @@ import { GameSheetGenerationController } from "./controllers/game-sheet-generati
 import { GetGameListController } from "./controllers/get-game-list.controller";
 import { GetGameController } from "./controllers/get-game.controller";
 import Types from "./types";
+import { DifferenceCheckerController } from "./controllers/difference-checker.controller";
 
 @injectable()
 export class Application {
@@ -18,7 +19,8 @@ export class Application {
     public constructor(
             @inject(Types.GetGameListController) private getGameListController: GetGameListController,
             @inject(Types.GetGameController) private getGameController: GetGameController,
-            @inject(Types.GameSheetGenerationController) private gameSheetGenerationController: GameSheetGenerationController) {
+            @inject(Types.GameSheetGenerationController) private gameSheetGenerationController: GameSheetGenerationController,
+            @inject(Types.DifferenceCheckerController) private differenceCheckerController: DifferenceCheckerController) {
         this.app = express();
 
         this.config();
@@ -37,6 +39,7 @@ export class Application {
 
     public bindRoutes(): void {
         // Notre application utilise le routeur de notre API `Index`
+        this.app.use("/api/difference", this.differenceCheckerController.router);
         this.app.use("/api/gamelist", this.getGameListController.router);
         this.app.use("/api/gamesheet", this.gameSheetGenerationController.router);
         this.app.use("/api/game", this.getGameController.router);
