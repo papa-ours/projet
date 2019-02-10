@@ -12,6 +12,7 @@ import { DifferenceCheckerService } from "../difference-checker.service";
 export class GameplayViewComponent implements OnInit {
 
     public hourglassIcon: IconDefinition = faHourglassHalf;
+    public foundDifferencesCounter: number = 0;
     private id: string;
     public images: string[];
 
@@ -39,7 +40,9 @@ export class GameplayViewComponent implements OnInit {
     public checkDifference(position: [number, number]): void {
         this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
             .subscribe((isDifference: boolean) => {
-                console.log(isDifference);
+                if (isDifference) {
+                    this.foundDifferencesCounter++;
+                }
             });
     }
 
