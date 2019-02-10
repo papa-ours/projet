@@ -1,9 +1,27 @@
+import Axios, { AxiosResponse } from "axios";
 import { injectable } from "inversify";
 import "reflect-metadata";
+import { Message } from "../../../common/communication/message";
+import { BMPImage } from "./utils/bmp-image";
 
 @injectable()
 export class DifferenceCheckerService {
-    public isPositionDifference(x: number, y: number, id: string): boolean {
-        return false;
+    public async isPositionDifference(x: number, y: number, id: string): Promise<boolean> {
+        return Axios.get<Message>("http://localhost:3000/api/game/differenceImage/" + id).then(
+            // tslint:disable-next-line:no-any
+            (response: AxiosResponse<any>) => {
+                const differenceImage: BMPImage = response.data.body;
+
+                return this.checkDifference(x, y, differenceImage);
+            },
+        ).catch((error: Error) => {
+            console.error("ERROR !", error.message);
+
+            return false;
+        });
+    }
+
+    private checkDifference(x: number, y: number, image: BMPImage): boolean {
+        return true;
     }
 }
