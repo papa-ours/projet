@@ -4,7 +4,6 @@ import { Message, MessageType } from "../../../common/communication/message";
 import { Game } from "../services/game-sheet";
 import { GetGameService } from "../services/get-game.service";
 import Types from "../types";
-import { BMPImage } from "../services/utils/bmp-image";
 
 @injectable()
 export class GetGameController {
