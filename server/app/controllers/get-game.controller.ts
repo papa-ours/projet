@@ -13,18 +13,30 @@ export class GetGameController {
     public get router(): Router {
         const router: Router = Router();
 
-        router.get("/:id",
-                   (req: Request, res: Response, next: NextFunction) => {
+        router.get( "/differenceImage/:id",
+                    (req: Request, res: Response, next: NextFunction) => {
                         const game: Game | undefined = this.getGameService.getGame(req.params.id);
-
-                        const images: string[] = game ? [ game.preview, game.modifiedImage ] : [];
                         const message: Message = {
                             type: MessageType.GAME_SHEET_GENERATION,
-                            body: JSON.stringify(images),
+                            body: JSON.stringify(game.differenceImage),
                         };
 
                         res.send(message);
-                   });
+                    });
+
+        router.get( "/:id",
+                    (req: Request, res: Response, next: NextFunction) => {
+                            const game: Game | undefined = this.getGameService.getGame(req.params.id);
+
+                            const images: string[] = game ? [ game.preview, game.modifiedImage ] : [];
+                            const message: Message = {
+                                type: MessageType.GAME_SHEET_GENERATION,
+                                body: JSON.stringify(images),
+                            };
+
+                            res.send(message);
+                    });
+
 
         return router;
     }
