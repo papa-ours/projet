@@ -4,6 +4,7 @@ import { Message, MessageType } from "../../../common/communication/message";
 import { Game } from "../services/game-sheet";
 import { GetGameService } from "../services/get-game.service";
 import Types from "../types";
+import { BMPImage } from "../services/utils/bmp-image";
 
 @injectable()
 export class GetGameController {
@@ -16,9 +17,13 @@ export class GetGameController {
         router.get( "/differenceImage/:id",
                     (req: Request, res: Response, next: NextFunction) => {
                         const game: Game | undefined = this.getGameService.getGame(req.params.id);
+                        const imageData: string = game ?
+                                                    game.differenceImage.toArray().toString() :
+                                                    "";
+
                         const message: Message = {
                             type: MessageType.GAME_SHEET_GENERATION,
-                            body: JSON.stringify(game.differenceImage),
+                            body: imageData,
                         };
 
                         res.send(message);
