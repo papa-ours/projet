@@ -28,6 +28,34 @@ export class GetGameController {
                         res.send(message);
                     });
 
+        router.get( "/:id/originalImage",
+                    (req: Request, res: Response, next: NextFunction) => {
+                            const game: Game | undefined = this.getGameService.getGame(req.params.id);
+                            const imageData: string = game ?
+                                                        game.preview :
+                                                        "";
+                            const message: Message = {
+                                type: MessageType.GAME_SHEET_GENERATION,
+                                body: imageData,
+                            };
+
+                            res.send(message);
+                    });
+
+        router.get( "/:id/modifiedImage",
+                    (req: Request, res: Response, next: NextFunction) => {
+                            const game: Game | undefined = this.getGameService.getGame(req.params.id);
+                            const imageData: string = game ?
+                                                        game.modifiedImage :
+                                                        "";
+                            const message: Message = {
+                                type: MessageType.GAME_SHEET_GENERATION,
+                                body: imageData,
+                            };
+
+                            res.send(message);
+                    });
+
         router.get( "/:id",
                     (req: Request, res: Response, next: NextFunction) => {
                             const game: Game | undefined = this.getGameService.getGame(req.params.id);
@@ -40,7 +68,6 @@ export class GetGameController {
 
                             res.send(message);
                     });
-
 
         return router;
     }
