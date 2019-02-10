@@ -8,7 +8,7 @@ import { Pixel } from "./utils/pixel";
 @injectable()
 export class DifferenceCheckerService {
     public async isPositionDifference(x: number, y: number, id: string): Promise<boolean> {
-        return Axios.get<Message>("http://localhost:3000/api/game/differenceImage/" + id).then(
+        return Axios.get<Message>("http://localhost:3000/api/game/" + id + "differenceImage/").then(
             // tslint:disable-next-line:no-any
             (response: AxiosResponse<any>) => {
                 const rawData: number[] = response.data.body.split(",").map(Number);

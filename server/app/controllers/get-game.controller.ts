@@ -13,7 +13,7 @@ export class GetGameController {
     public get router(): Router {
         const router: Router = Router();
 
-        router.get( "/differenceImage/:id",
+        router.get( "/:id/differenceImage",
                     (req: Request, res: Response, next: NextFunction) => {
                         const game: Game | undefined = this.getGameService.getGame(req.params.id);
                         const imageData: string = game ?
