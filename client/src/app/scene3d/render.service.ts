@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
-import { RandomGeometryService } from "./random-geometry.service";
-import { RandomNumber } from "./random-number.util";
+import { SceneGeneratorService } from "./scene-generator.service";
 
 // import Stats = require('stats.js');
 
@@ -11,8 +10,6 @@ export class RenderService {
     private container: HTMLDivElement;
 
     private camera: THREE.PerspectiveCamera;
-
-    private shapes: THREE.Mesh[] = [];
 
     private renderer: THREE.WebGLRenderer;
 
@@ -30,31 +27,12 @@ export class RenderService {
 
     public rotationSpeedY: number = 0.01;
 
-    private readonly GEOMETRY_SIZE: number = 65;
+    public constructor(private sceneGeneratorService: SceneGeneratorService) { }
 
-    private randomNumber: RandomNumber = new RandomNumber();
-
-    public constructor(private randomGeometryService: RandomGeometryService) { }
-    public createRandomShape(): void {
-        // const MIN_SHAPE: number = 10;
-        // const MAX_SHAPE: number = 200;
-        const numberOfShapes: number = 200; // this.randomNumber.randomInteger(MIN_SHAPE, MAX_SHAPE);
-        for (let i: number = 0; i < numberOfShapes; i++) {
-            const color: number = this.randomNumber.randomColor();
-            const size: number = this.randomNumber.randomScale(this.GEOMETRY_SIZE);
-            const material: THREE.MeshStandardMaterial = new THREE.MeshStandardMaterial({
-                color: color,
-                metalness: 0.7,
-                roughness: 0.2,
-            });
-            const randomShape: THREE.Mesh = this.randomGeometryService.getRandomShape(size, material);
-            this.shapes.push(randomShape);
-            this.scene.add(randomShape);
-        }
-    }
     private createScene(): void {
         /* Scene */
-        this.scene = new THREE.Scene();
+        const numberOfGeometry: number = 100;
+        this.scene = this.sceneGeneratorService.createScene(numberOfGeometry);
 
         /* Camera */
         const aspectRatio: number = this.getAspectRatio();
@@ -111,7 +89,6 @@ export class RenderService {
 
         this.createScene();
         this.changeBackgroundScene();
-        this.createRandomShape();
         this.addLight();
         this.startRenderingLoop();
     }
