@@ -58,9 +58,7 @@ export class GetGameController {
 
         router.get( "/:id",
                     (req: Request, res: Response, next: NextFunction) => {
-                            const game: Game | undefined = this.getGameService.getGame(req.params.id);
-
-                            const images: string[] = game ? [ game.preview, game.modifiedImage ] : [];
+                            const images: string[] = this.getGameService.getGameImages(req.params.id);
                             const message: Message = {
                                 type: MessageType.GAME_SHEET_GENERATION,
                                 body: JSON.stringify(images),
