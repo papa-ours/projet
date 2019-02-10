@@ -18,6 +18,12 @@ export class GetGameService {
         });
     }
 
+    public async getGameImages(id: string): Promise<string[]> {
+        return new Promise<string[]>(() => {
+            return [];
+        });
+    }
+
     public getGameDescriptions(): GameSheetDescription[] {
         return GetGameService.games.map((game: Game) => {
             return game as GameSheetDescription;
