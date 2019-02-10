@@ -3,6 +3,7 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 import { Message } from "../../../common/communication/message";
 import { BMPImage } from "./utils/bmp-image";
+import { Pixel } from "./utils/pixel";
 
 @injectable()
 export class DifferenceCheckerService {
@@ -24,6 +25,9 @@ export class DifferenceCheckerService {
     }
 
     private checkDifference(x: number, y: number, image: BMPImage): boolean {
-        return true;
+        const index: number = image.getIndex({ i: x, j: y });
+        const pixel: Pixel = image.pixelAt(index);
+
+        return pixel ? pixel.equals(Pixel.BLACK_PIXEL) : false;
     }
 }
