@@ -10,7 +10,9 @@ export class DifferenceCheckerService {
         return Axios.get<Message>("http://localhost:3000/api/game/differenceImage/" + id).then(
             // tslint:disable-next-line:no-any
             (response: AxiosResponse<any>) => {
-                const differenceImage: BMPImage = response.data.body;
+                const rawData: number[] = response.data.body.split(",").map(Number);
+                const imageData: Uint8Array = new Uint8Array(rawData);
+                const differenceImage: BMPImage = BMPImage.fromArray(imageData, 640, 480);
 
                 return this.checkDifference(x, y, differenceImage);
             },
