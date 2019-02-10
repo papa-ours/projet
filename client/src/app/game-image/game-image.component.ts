@@ -25,4 +25,8 @@ export class GameImageComponent {
     private mapValue(val: number): number {
         return Math.floor(this.IMAGE_WIDTH  / this.HTML_IMAGE_WIDTH * val);
     }
+
+    private mapValueTemp(val: number, fromMin: number, fromMax: number, toMin: number, toMax: number): number {
+        return (val - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin;
+    }
 }
