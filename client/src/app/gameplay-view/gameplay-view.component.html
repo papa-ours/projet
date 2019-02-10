@@ -7,12 +7,7 @@
     <div class="title-container">
         <span class="title">Nom du jeu</span>
     </div>
-
-    <div class="images-chat-container">
-        <app-game-image *ngFor="let src of images" [source]="src" (checkDifference)="checkDifference($event)"></app-game-image>
-        <app-chat-messages></app-chat-messages>
-    </div>
-
+    
     <div class="info-container">
         <span class="time-container">
             <fa-icon [icon]="hourglassIcon" class="info-label"></fa-icon>
@@ -22,4 +17,10 @@
             <span>{{foundDifferencesCounter}}/7</span>
         </span>
     </div>
+
+    <div class="images-chat-container">
+        <app-game-image *ngFor="let src of images" [source]="src" (checkDifference)="checkDifference($event)"></app-game-image>
+        <app-chat-messages></app-chat-messages>
+    </div>
+
 </div>
