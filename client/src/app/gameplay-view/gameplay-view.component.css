@@ -10,14 +10,13 @@
     margin-left: 5px;
 }
 
-.differencesCount {
+.differences-count {
     margin-left: 381px;
     border-radius: 100%;
     border: 4px solid;
     border-color: white;
     background: green;
     padding: 15px;
-   
 }
 
 .info-container div {
