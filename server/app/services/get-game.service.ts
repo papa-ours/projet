@@ -18,10 +18,10 @@ export class GetGameService {
         });
     }
 
-    public async getGameImages(id: string): Promise<string[]> {
-        return new Promise<string[]>(() => {
-            return [];
-        });
+    public getGameImages(id: string): string[] {
+        const game: Game | undefined = this.getGame(id);
+
+        return game ? [game.preview, game.modifiedImage] : [];
     }
 
     public getGameDescriptions(): GameSheetDescription[] {
