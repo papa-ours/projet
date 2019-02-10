@@ -9,6 +9,8 @@ import { Privilege } from "../privilege";
     styleUrls: ["./game-sheet.component.css"],
 })
 export class GameSheetComponent implements OnInit {
+    public constructor(private router: Router) {}
+
     public medalColors: string[] = [
         "#FFD700",
         "#C0C0C0",
