@@ -78,10 +78,8 @@ export class RenderService {
         this.camera.add(new THREE.PointLight(lightColor, highIntensity));
     }
 
-    public initialize(container: HTMLDivElement, rotationX: number, rotationY: number): void {
+    public initialize(container: HTMLDivElement): void {
         this.container = container;
-        this.rotationSpeedX = rotationX;
-        this.rotationSpeedY = rotationY;
 
         this.createScene();
         this.changeBackgroundScene();
