@@ -17,16 +17,17 @@ export class GameImageComponent {
     // tslint:disable-next-line:no-any
     @HostListener("click", ["$event"]) public mouseClicked(event: any): void {
         const imageRectangle: DOMRect = this.imageElement.nativeElement.getBoundingClientRect();
-        const x: number = this.mapValue(event.x - imageRectangle.left);
-        const y: number = this.mapValue(event.y - imageRectangle.top);
-        this.checkDifference.emit([x, y]);
+        const x: number = event.x - imageRectangle.left;
+        const y: number = event.y - imageRectangle.top;
+
+        const pixelX: number = Math.floor(this.mapValue(x, 0, this.HTML_IMAGE_WIDTH, 0, this.IMAGE_WIDTH));
+        // We have to flip the y since the pixels are stored in bottom-up format
+        const pixelY: number = Math.floor(this.mapValue(y, 0, this.HTML_IMAGE_HEIGHT, this.IMAGE_HEIGHT, 0));
+
+        this.checkDifference.emit([pixelX, pixelY]);
     }
 
-    private mapValue(val: number): number {
-        return Math.floor(this.IMAGE_WIDTH  / this.HTML_IMAGE_WIDTH * val);
-    }
-
-    private mapValueTemp(val: number, fromMin: number, fromMax: number, toMin: number, toMax: number): number {
+    private mapValue(val: number, fromMin: number, fromMax: number, toMin: number, toMax: number): number {
         return (val - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin;
     }
 }
