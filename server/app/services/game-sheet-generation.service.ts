@@ -7,7 +7,7 @@ import "reflect-metadata";
 import { GameSheetDescription } from "../../../common/communication/game-description";
 import { Message, MessageType } from "../../../common/communication/message";
 import Types from "../types";
-import { Game } from "./game-sheet";
+import { Game } from "./game";
 import { GetGameService } from "./get-game.service";
 import { TopScores } from "./score/top-scores";
 import { BMPImage } from "./utils/bmp-image";

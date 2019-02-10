@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import { Message, MessageType } from "../../../common/communication/message";
-import { Game } from "../services/game-sheet";
+import { Game } from "../services/game";
 import { GetGameService } from "../services/get-game.service";
 import Types from "../types";
 

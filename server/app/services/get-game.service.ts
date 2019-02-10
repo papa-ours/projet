@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { GameSheetDescription } from "../../../common/communication/game-description";
-import { Game } from "./game-sheet";
+import { Game } from "./game";
 
 @injectable()
 export class GetGameService {
