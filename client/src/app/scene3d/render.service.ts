@@ -23,10 +23,6 @@ export class RenderService {
 
     private farClippingPane: number = 10000;
 
-    public rotationSpeedX: number = 0.005;
-
-    public rotationSpeedY: number = 0.01;
-
     public constructor(private sceneGeneratorService: SceneGeneratorService) { }
 
     private createScene(): void {
