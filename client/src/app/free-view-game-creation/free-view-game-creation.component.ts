@@ -10,8 +10,18 @@ export class FreeViewGameCreationComponent implements OnInit {
     public ajout: boolean = false;
     public suppression: boolean = false;
     public changementCouleur: boolean = false;
+    public nbObjects: string = "";
+    public nbObjectsInt: number;
     constructor() { }
 
+    public isAInt(): boolean {
+            this.nbObjectsInt = parseInt(this.nbObjects);
+            if (Number.isNaN(this.nbObjectsInt)){
+                return false;
+            }
+            else return true;
+        
+    }
     ngOnInit() {
     }
 

@@ -23,6 +23,9 @@
     <div class="info">
             Nombre d'objets :
             <input class="nbObjects-input" [(ngModel)]="nbObjects"><br>
+            <div  class="error-message" *ngIf="!isAInt()">
+                La valeur doit être un nombre
+            </div>
     </div>
 
     <div class="info">
