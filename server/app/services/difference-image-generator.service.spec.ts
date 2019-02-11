@@ -1,6 +1,6 @@
 import { expect } from "chai";
+import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImageGenerator } from "./difference-image-generator.service";
-import { BMPImage } from "./utils/bmp-image";
 
 // tslint:disable:max-func-body-length
 describe("Differences finder", () => {
