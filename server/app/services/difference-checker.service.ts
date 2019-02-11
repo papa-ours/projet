@@ -13,7 +13,7 @@ export class DifferenceCheckerService {
             (response: AxiosResponse<any>) => {
                 const rawData: number[] = response.data.body.split(",").map(Number);
                 const imageData: Uint8Array = new Uint8Array(rawData);
-                const differenceImage: BMPImage = BMPImage.fromArray(imageData, 640, 480);
+                const differenceImage: BMPImage = BMPImage.fromArray(imageData);
 
                 return this.checkDifference(x, y, differenceImage);
             },
