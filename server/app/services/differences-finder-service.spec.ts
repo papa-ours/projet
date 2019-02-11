@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import * as fs from "fs";
+import { BMPImage } from "../../../common/images/bmp-image";
+import { DifferenceImage } from "../../../common/images/difference-image";
+import { Pixel } from "../../../common/images/pixel";
 import { DifferencesFinderService } from "./differences-finder.service";
-import { BMPImage } from "./utils/bmp-image";
-import { Pixel } from "./utils/pixel";
-import { DifferenceImage } from "./utils/difference-image";
 
 // tslint:disable:no-magic-numbers
 describe("Differences finder", () => {
