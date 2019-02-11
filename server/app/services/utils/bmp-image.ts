@@ -8,8 +8,8 @@ export class BMPImage {
     public static readonly HEIGHT: number = 480;
 
     public constructor(
-            private pixels: Pixel[],
-            private readonly header: Uint8Array,
+            public pixels: Pixel[],
+            public readonly header: Uint8Array,
             public readonly width: number,
             public readonly height: number,
         ) {}
@@ -106,5 +106,9 @@ export class BMPImage {
             i: (index % this.width),
             j: Math.floor(index / this.width),
         };
+    }
+
+    public setPixelAt(index: number, pixel: Pixel): void {
+        this.pixels[index] = pixel;
     }
 }
