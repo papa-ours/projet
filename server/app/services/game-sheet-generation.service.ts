@@ -10,7 +10,7 @@ import Types from "../types";
 import { Game } from "./game";
 import { GetGameService } from "./get-game.service";
 import { TopScores } from "./score/top-scores";
-import { BMPImage } from "./utils/bmp-image";
+import { DifferenceImage } from "./utils/difference-image";
 import { FileReaderUtil } from "./utils/file-reader.util";
 
 // @ts-ignore
@@ -49,8 +49,8 @@ export class GameSheetGenerationService {
 
     // @ts-ignore
     private filesAreRead(name: string): Message {
-        const differenceImage: BMPImage = this.differenceImageGenerator
-            .generate(this.imagesData[ImageType.Original], this.imagesData[ImageType.Modified]) as BMPImage;
+        const differenceImage: DifferenceImage = this.differenceImageGenerator
+            .generate(this.imagesData[ImageType.Original], this.imagesData[ImageType.Modified]) as DifferenceImage;
 
         const numberOfDifferences: number = this.differencesFinder.getNumberOfDifferences(differenceImage);
         const REQUIRED_DIFFERENCES: number = 7;
@@ -69,7 +69,7 @@ export class GameSheetGenerationService {
         return message;
     }
 
-    private createGame(name: string, differenceImage: BMPImage): void {
+    private createGame(name: string, differenceImage: DifferenceImage): void {
         const id: string = this.generateId();
         const game: Game = new Game(id, this.imagesData[ImageType.Original], this.imagesData[ImageType.Modified], differenceImage);
         const gameSheet: GameSheetDescription = {
