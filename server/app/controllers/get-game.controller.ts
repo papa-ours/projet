@@ -32,7 +32,7 @@ export class GetGameController {
                     (req: Request, res: Response, next: NextFunction) => {
                             const game: Game | undefined = this.getGameService.getGame(req.params.id);
                             const imageData: string = game ?
-                                                        game.preview :
+                                                        game.originalImage.toArray().toString() :
                                                         "";
                             const message: Message = {
                                 type: MessageType.GAME_SHEET_GENERATION,
@@ -46,7 +46,7 @@ export class GetGameController {
                     (req: Request, res: Response, next: NextFunction) => {
                             const game: Game | undefined = this.getGameService.getGame(req.params.id);
                             const imageData: string = game ?
-                                                        game.modifiedImage :
+                                                        game.modifiedImage.toArray().toString() :
                                                         "";
                             const message: Message = {
                                 type: MessageType.GAME_SHEET_GENERATION,
