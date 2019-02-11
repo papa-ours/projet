@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormValidationFreeViewService } from './form-validation-free-view.service';
 
 @Component({
   selector: 'app-free-view-game-creation',
@@ -12,7 +13,7 @@ export class FreeViewGameCreationComponent implements OnInit {
     public changementCouleur: boolean = false;
     public nbObjects: string = "";
     public nbObjectsInt: number;
-    constructor() { }
+    constructor(private formValidationFreeViewService: FormValidationFreeViewService) { }
 
     public isAInt(): boolean {
             this.nbObjectsInt = parseInt(this.nbObjects);
@@ -22,6 +23,13 @@ export class FreeViewGameCreationComponent implements OnInit {
             else return true;
         
     }
+
+    public get allValuesEntered(): boolean {
+        let allValuesEntered: boolean = false;
+        allValuesEntered = this.formValidationFreeViewService.isFormValid(this.name);
+        return allValuesEntered;
+    }
+
     ngOnInit() {
     }
 
