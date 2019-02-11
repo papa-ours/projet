@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { GameplayService } from "../gameplay.service";
 import { DifferenceCheckerService } from "../difference-checker.service";
+import { Game } from "./game";
 
 @Component({
   selector: "app-gameplay-view",
@@ -14,7 +15,7 @@ export class GameplayViewComponent implements OnInit {
     public hourglassIcon: IconDefinition = faHourglassHalf;
     public foundDifferencesCounter: number = 0;
     private id: string;
-    public images: string[];
+    public images: string[] = [];
 
     public constructor( private route: ActivatedRoute, 
                         private gameplayService: GameplayService,
@@ -30,9 +31,9 @@ export class GameplayViewComponent implements OnInit {
     private getGameplayImages(): void {
         this.gameplayService.getGameplayImages(this.id).subscribe((images: string[]) => {
             if (images.length) {
-                this.images = images.map((imageData: string) => {
-                    return this.encodeImage(imageData);
-                });
+                const game: Game = new Game(images);
+                this.images[0] = game.originalImage.encode();
+                this.images[1] = game.modifiedImage.encode();
             }
         });
     }
