@@ -1,8 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { GameplayService } from "../gameplay.service";
 import { DifferenceCheckerService } from "../difference-checker.service";
+import { GameplayService } from "../gameplay.service";
 import { Game } from "./game";
 
 @Component({
