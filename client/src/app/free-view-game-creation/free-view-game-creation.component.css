@@ -59,6 +59,10 @@ input {
     width: 200px;
 }
 
+.type-section{
+    margin-top: 50px;
+}
+
 .button-section {
     height: 40px;
     text-align: center;
