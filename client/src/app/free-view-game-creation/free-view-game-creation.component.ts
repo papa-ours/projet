@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FreeViewGameCreationComponent implements OnInit {
     public name: string = "";
+    public ajout: boolean = false;
+    public suppression: boolean = false;
+    public changementCouleur: boolean = false;
     constructor() { }
 
     ngOnInit() {
