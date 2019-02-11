@@ -15,6 +15,7 @@ export class GameplayViewComponent implements OnInit {
     public hourglassIcon: IconDefinition = faHourglassHalf;
     public foundDifferencesCounter: number = 0;
     private id: string;
+    private game: Game;
     public images: string[] = [];
 
     public constructor( private route: ActivatedRoute, 
@@ -31,23 +32,23 @@ export class GameplayViewComponent implements OnInit {
     private getGameplayImages(): void {
         this.gameplayService.getGameplayImages(this.id).subscribe((images: string[]) => {
             if (images.length) {
-                const game: Game = new Game(images);
-                this.images[0] = game.originalImage.encode();
-                this.images[1] = game.modifiedImage.encode();
+                this.game = new Game(images);
+                this.images[0] = this.game.originalImage.encode();
+                this.images[1] = this.game.modifiedImage.encode();
             }
         });
     }
 
     public checkDifference(position: [number, number]): void {
         this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
-            .subscribe((image: string) => {
-                if (image.length) {
+            .subscribe((isDifference: boolean) => {
+                if (isDifference) {
                     this.foundDifferencesCounter++;
-
+                    this.game.restoreModifiedImage(position[0], position[1]);
                     const sound: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
                     sound.play();
 
-                    this.images[1] = this.encodeImage(image);
+                    this.images[1] = this.game.modifiedImage.encode();
                 }
             });
     }
