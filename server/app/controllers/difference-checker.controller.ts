@@ -21,15 +21,10 @@ export class DifferenceCheckerController {
                         const y: number = parseInt(req.params.y, 10);
                         const id: string = req.params.id;
                         const isDifference: boolean = await this.differenceChecker.isPositionDifference(x, y, id);
-                        const getGameService: GetGameService = new GetGameService();
 
-                        const game: Game = getGameService.getGame(id) as Game;
-                        if (isDifference) {
-                            game.restoreModifiedImage(x, y);
-                        }
                         const message: Message = {
                             type: MessageType.GAME_SHEET_GENERATION,
-                            body: isDifference ? game.modifiedImage.toArray().toString() : "",
+                            body: isDifference ? isDifference.toString(),
                         };
 
                         res.send(message);
