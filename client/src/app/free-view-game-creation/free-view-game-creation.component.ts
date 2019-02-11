@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormValidationFreeViewService } from './form-validation-free-view.service';
+import { FormValidationFreeViewService } from '../form-validation-free-view.service';
 
 @Component({
   selector: 'app-free-view-game-creation',
