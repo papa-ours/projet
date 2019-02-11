@@ -5,4 +5,8 @@ export class DifferenceImage extends BMPImage {
     public constructor(pixels: Pixel[], header: Uint8Array, width: number, height: number) {
         super(pixels, header, width, height);
     }
+
+    public getDifference(x: number, y: number): number[] {
+        return [];
+    }
 }
