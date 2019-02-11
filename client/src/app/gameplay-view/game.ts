@@ -10,8 +10,8 @@ export class Game {
     public constructor( imagesData: string[]) {
 
                             this.originalImage = BMPImage.fromString(imagesData[0]);
-                            this.differenceImage = DifferenceImage.fromString(imagesData[1]);
-                            this.modifiedImage = BMPImage.fromString(imagesData[2]);
+                            this.modifiedImage = BMPImage.fromString(imagesData[1]);
+                            this.differenceImage = DifferenceImage.fromString(imagesData[2]);
 
                         }
 
