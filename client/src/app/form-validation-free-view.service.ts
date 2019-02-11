@@ -13,8 +13,11 @@ export class FormValidationFreeViewService {
                 name.length <= this.NAME_MAX_SIZE;
     }
 
-    public isFormValid(name: string): boolean {
-        return this.validateName(name);
+    private validateNbObjects(nbObjects: number): boolean{
+        return true;
+    }
+    public isFormValid(name: string, nbObjects: number): boolean {
+        return (this.validateName(name) && this.validateNbObjects(nbObjects));
     }
     constructor() { }
 }

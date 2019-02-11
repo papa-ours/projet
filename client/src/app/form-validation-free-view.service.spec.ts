@@ -11,18 +11,22 @@ describe('FormValidationFreeViewService', () => {
     });
     it("should return false with an empty name ", () => {
         const name: string = "";
-        expect(formValidationFreeViewService.isFormValid(name)).toBeFalsy();
+        const nbObjects = 10;
+        expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();
     });
     it("should return false with a name shorter than 5 characters  ", () => {
         const name: string = "abc";
-        expect(formValidationFreeViewService.isFormValid(name)).toBeFalsy();
+        const nbObjects = 10;
+        expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();
     });
     it("should return false with a name longer than 15 characters ", () => {
         const name: string = "abcdefghijklmnoq";
-        expect(formValidationFreeViewService.isFormValid(name)).toBeFalsy();
+        const nbObjects = 10;
+        expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();;
     });
     it("should return true with a name between 5 and 15 characters ", () => {
         const name: string = "abcdefghijklmno";
-        expect(formValidationFreeViewService.isFormValid(name)).toBeTruthy();
+        const nbObjects = 10;
+        expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();;
     });
 });
