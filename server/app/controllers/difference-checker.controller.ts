@@ -24,7 +24,7 @@ export class DifferenceCheckerController {
 
                         const message: Message = {
                             type: MessageType.GAME_SHEET_GENERATION,
-                            body: isDifference ? isDifference.toString(),
+                            body: isDifference.toString(),
                         };
 
                         res.send(message);
