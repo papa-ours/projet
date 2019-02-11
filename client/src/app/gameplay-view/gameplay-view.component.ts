@@ -39,9 +39,10 @@ export class GameplayViewComponent implements OnInit {
 
     public checkDifference(position: [number, number]): void {
         this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
-            .subscribe((isDifference: boolean) => {
-                if (isDifference) {
+            .subscribe((image: string) => {
+                if (image.length) {
                     this.foundDifferencesCounter++;
+                    this.images[1] = this.encodeImage(image);
                 }
             });
     }
