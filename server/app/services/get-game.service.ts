@@ -7,9 +7,11 @@ import { Game } from "./game";
 export class GetGameService {
 
     private static games: Game[] = [];
+    private static gameSheets: GameSheetDescription[] = [];
 
-    public addGame(game: Game): void {
+    public addGame(gameSheet: GameSheetDescription, game: Game): void {
         GetGameService.games.push(game);
+        GetGameService.gameSheets.push(gameSheet);
     }
 
     public getGame(id: string): Game | undefined {
@@ -21,12 +23,10 @@ export class GetGameService {
     public getGameImages(id: string): string[] {
         const game: Game | undefined = this.getGame(id);
 
-        return game ? [game.preview, game.modifiedImage] : [];
+        return game ? [game.originalImage.toArray().toString(), game.modifiedImage.toArray().toString()] : [];
     }
 
     public getGameDescriptions(): GameSheetDescription[] {
-        return GetGameService.games.map((game: Game) => {
-            return game as GameSheetDescription;
-        });
+        return GetGameService.gameSheets;
     }
 }

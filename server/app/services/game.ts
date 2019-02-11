@@ -1,20 +1,11 @@
-import { GameSheetDescription, TopScoresInterface } from "../../../common/communication/game-description";
 import { BMPImage } from "./utils/bmp-image";
 
-export class Game implements GameSheetDescription {
-    public id: string;
-    public preview: string;
-    public name: string;
-    public topScores: TopScoresInterface[];
-    public modifiedImage: string;
-    public differenceImage: BMPImage;
+export class Game {
+    public originalImage: BMPImage;
+    public modifiedImage: BMPImage;
 
-    public constructor(gameSheetDescription: GameSheetDescription, modifiedImage: string, differenceImage: BMPImage) {
-        this.id = gameSheetDescription.id;
-        this.preview = gameSheetDescription.preview;
-        this.name = gameSheetDescription.name;
-        this.topScores = gameSheetDescription.topScores;
-        this.modifiedImage = modifiedImage;
-        this.differenceImage = differenceImage;
+    public constructor(public id: string, originalImageData: Uint8Array, modifiedImageData: Uint8Array, public differenceImage: BMPImage) {
+        this.originalImage = BMPImage.fromArray(originalImageData);
+        this.modifiedImage = BMPImage.fromArray(modifiedImageData);
     }
 }

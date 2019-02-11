@@ -70,15 +70,15 @@ export class GameSheetGenerationService {
     }
 
     private createGame(name: string, differenceImage: BMPImage): void {
-        const gameSheet: Game = new Game(   {
-                                                id: this.generateId(),
-                                                name: name,
-                                                preview: this.imagesData[ImageType.Original].toString(),
-                                                topScores: this.generateTopScores(),
-                                            },
-                                            this.imagesData[ImageType.Modified].toString(),
-                                            differenceImage);
-        this.getGameService.addGame(gameSheet);
+        const id: string = this.generateId();
+        const game: Game = new Game(id, this.imagesData[ImageType.Original], this.imagesData[ImageType.Modified], differenceImage);
+        const gameSheet: GameSheetDescription = {
+            id: id,
+            name: name,
+            preview: this.imagesData[ImageType.Original].toString(),
+            topScores: this.generateTopScores(),
+        };
+        this.getGameService.addGame(gameSheet, game);
     }
 
     private generateTopScores(): TopScores[] {
