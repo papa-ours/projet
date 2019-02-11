@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./free-view-game-creation.component.css']
 })
 export class FreeViewGameCreationComponent implements OnInit {
+    public name: string = "";
+    constructor() { }
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
 }
