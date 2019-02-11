@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import * as fs from "fs";
-import { readLittleEndianBytes } from "./binary";
-import { BMPImage } from "./bmp-image";
-import { Pixel } from "./pixel";
+import { readLittleEndianBytes } from "../../../../common/images/binary";
+import { BMPImage } from "../../../../common/images/bmp-image";
+import { Pixel } from "../../../../common/images/pixel";
 
 /* tslint:disable:no-magic-numbers */
 describe("bmp image", () => {
