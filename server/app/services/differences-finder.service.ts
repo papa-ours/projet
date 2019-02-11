@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { DifferenceImage } from "./utils/difference-image";
+import { DifferenceImage } from "../../../common/images/difference-image";
 import { Pixel } from "./utils/pixel";
 
 @injectable()
