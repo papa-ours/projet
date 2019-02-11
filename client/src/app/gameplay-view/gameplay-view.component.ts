@@ -42,6 +42,10 @@ export class GameplayViewComponent implements OnInit {
             .subscribe((image: string) => {
                 if (image.length) {
                     this.foundDifferencesCounter++;
+
+                    const sound: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
+                    sound.play();
+
                     this.images[1] = this.encodeImage(image);
                 }
             });
