@@ -21,5 +21,8 @@ describe('FormValidationFreeViewService', () => {
         const name: string = "abcdefghijklmnoq";
         expect(formValidationFreeViewService.isFormValid(name)).toBeFalsy();
     });
-
+    it("should return true with a name between 5 and 15 characters ", () => {
+        const name: string = "abcdefghijklmno";
+        expect(formValidationFreeViewService.isFormValid(name)).toBeTruthy();
+    });
 });
