@@ -31,6 +31,12 @@ export class BMPImage {
         return image;
     }
 
+    public encode(): string {
+        const numberData: number[] = Array.from(this.toArray());
+        const encodedString: string[] = numberData.map(Number).map((val: number) => String.fromCharCode(val));
+        return "data:image/bmp;base64," + btoa(encodedString.join(""));
+    }
+
     public static isBMP(array: Uint8Array): boolean {
         const B_CODE: number = "B".charCodeAt(0);
         const M_CODE: number = "M".charCodeAt(0);
