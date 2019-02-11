@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { BMPImage } from "../../../common/images/bmp-image";
-import { DifferenceImage } from "./utils/difference-image";
+import { DifferenceImage } from "../../../common/images/difference-image";
 
 @injectable()
 export class DifferenceImageGenerator {
