@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from "@angular/core";
+import { GetSceneDataService } from "./get-scene-data.service";
 import { RenderService } from "./render.service";
+import { SceneGeneratorService } from "./scene-generator.service";
 
 @Component({
     selector: "app-scene3d",
@@ -8,7 +10,9 @@ import { RenderService } from "./render.service";
 })
 export class Scene3dComponent implements AfterViewInit {
 
-    public constructor(private renderService: RenderService) {
+    public constructor(private renderService: RenderService,
+                       private getSceneData: GetSceneDataService,
+                       private sceneGeneratorService: SceneGeneratorService) {
     }
 
     private get container(): HTMLDivElement {
@@ -24,7 +28,9 @@ export class Scene3dComponent implements AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        this.renderService.initialize(this.container);
+        this.getSceneData.postSceneData("200").subscribe((data) => {
+            this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(JSON.parse(data.body)));
+        });
     }
 
 }

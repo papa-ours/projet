@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
-import { SceneGeneratorService } from "./scene-generator.service";
 
 // import Stats = require('stats.js');
 
@@ -23,12 +22,10 @@ export class RenderService {
 
     private farClippingPane: number = 10000;
 
-    public constructor(private sceneGeneratorService: SceneGeneratorService) { }
+    public constructor() { }
 
     private createScene(): void {
         /* Scene */
-        const numberOfGeometry: number = 100;
-        this.scene = this.sceneGeneratorService.createScene(numberOfGeometry);
 
         /* Camera */
         const aspectRatio: number = this.getAspectRatio();
@@ -78,9 +75,9 @@ export class RenderService {
         this.camera.add(new THREE.PointLight(lightColor, highIntensity));
     }
 
-    public initialize(container: HTMLDivElement): void {
+    public initialize(container: HTMLDivElement, scene: THREE.Scene ): void {
         this.container = container;
-
+        this.scene = scene;
         this.createScene();
         this.changeBackgroundScene();
         this.addLight();
