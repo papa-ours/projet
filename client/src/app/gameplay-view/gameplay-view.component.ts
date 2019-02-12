@@ -52,11 +52,4 @@ export class GameplayViewComponent implements OnInit {
                 }
             });
     }
-
-    private encodeImage(imageData: string): string {
-        const numberData: number[] = imageData.split(",").map(Number);
-        const encodedString: string[] = numberData.map((val: number) => String.fromCharCode(val));
-
-        return "data:image/bmp;base64," + btoa(encodedString.join(""));
-    }
 }
