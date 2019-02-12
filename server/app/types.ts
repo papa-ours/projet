@@ -14,4 +14,6 @@ export default {
         GameSheetGenerationService: Symbol("GameSheetGenerationService"),
         GetGameService: Symbol("GetGameService"),
         GetGameController: Symbol("GetGameService"),
+        SceneDataGeneratorService: Symbol("SceneDataGeneratorService"),
+        SceneDataControler: Symbol("SceneDataControler"),
 };
