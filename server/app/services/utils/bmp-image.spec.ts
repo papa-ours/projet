@@ -43,6 +43,13 @@ describe("bmp image", () => {
         expect(BMPImage.fromArray(data).pixelAt(width * height + 1)).to.equal(undefined);
     });
 
+    it("should change the pixel color at the correct index", () => {
+        const BLACK_PIXEL: Pixel = Pixel.BLACK_PIXEL;
+        const bmpImage: BMPImage = BMPImage.fromArray(data);
+        bmpImage.setPixelAt(1, BLACK_PIXEL);
+        expect(bmpImage.pixelAt(1)).to.deep.equal(BLACK_PIXEL);
+    });
+
     it("should recognize a bmp image", () => {
         expect(BMPImage.isBMP(data)).to.equal(true);
     });
