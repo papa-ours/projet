@@ -16,8 +16,7 @@ export class SceneDataControler {
         router.post("/",
                     (req: Request, res: Response, next: NextFunction) => {
                        // Send the request to the service and send the response
-                        const scene: GeometryMessage [] = this.sceneDataGeneratorService.getSceneData(200);
-                        console.dir(req.body);
+                        const scene: GeometryMessage [] = this.sceneDataGeneratorService.getSceneData(Number(req.body.body));
                         const message: Message = {
                             type: MessageType.SCENE_DATA,
                             body: JSON.stringify(scene),

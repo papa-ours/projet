@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { of, Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Message } from "../../../../common/communication/message";
+import { Message, MessageType } from "../../../../common/communication/message";
 
 @Injectable({
     providedIn: "root",
@@ -12,8 +12,10 @@ export class GetSceneDataService {
     public readonly URL: string = "http://localhost:3000/api/scene";
     public constructor(private http: HttpClient) { }
 
-    public postSceneData(nGeometry: string): Observable<Message> {
-        return this.http.post<Message>(this.URL, nGeometry)
+    public postSceneData(nGeometry: number): Observable<Message> {
+        const message: Message = {type: MessageType.SCENE_DATA, body: nGeometry.toString()};
+
+        return this.http.post<Message>(this.URL, message)
             .pipe(catchError(this.handleError<Message>("postSceneData")),
         );
     }

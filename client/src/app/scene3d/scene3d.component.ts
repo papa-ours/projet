@@ -28,7 +28,7 @@ export class Scene3dComponent implements AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        this.getSceneData.postSceneData("200").subscribe((data) => {
+        this.getSceneData.postSceneData(200).subscribe((data) => {
             this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(JSON.parse(data.body)));
         });
     }
