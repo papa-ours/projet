@@ -23,7 +23,7 @@ export class GameFreeViewGenerationService {
             suppression: formData.get("suppression"),
             changementCouleur: formData.get("changementCouleur"),
             objectType: formData.get("objectType")
-        }).pipe(catchError(this.handleError<Message>("postGenerate")),
+        }).pipe(catchError(this.handleError<Message>("postGenerateFreeViewData")),
         );
     }
     private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {
