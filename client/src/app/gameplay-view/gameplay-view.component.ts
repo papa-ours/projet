@@ -18,24 +18,12 @@ export class GameplayViewComponent implements OnInit {
     private game: Game;
     public images: string[] = [];
 
-    public constructor( private route: ActivatedRoute, 
-                        private gameplayService: GameplayService,
+    public constructor( private route: ActivatedRoute,
                         private differenceCheckerService: DifferenceCheckerService) { }
 
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.id = params["id"];
-            this.getGameplayImages();
-        });
-    }
-
-    private getGameplayImages(): void {
-        this.gameplayService.getGameplayImages(this.id).subscribe((images: string[]) => {
-            if (images.length) {
-                this.game = new Game(images);
-                this.images[0] = this.game.originalImage.encode();
-                this.images[1] = this.game.modifiedImage.encode();
-            }
         });
     }
 
