@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { GeometryData } from "../../../../common/communication/geometryMessage";
+import { GeometryData, GeometryType } from "../../../../common/communication/geometryMessage";
 import { Vector } from "../../../../common/communication/position";
 import { SKYBOX_MAX, SKYBOX_MIN } from "../../../../common/communication/skybox";
 import { RandomNumber } from "../utils/random-number";
@@ -34,6 +34,13 @@ export class SceneDataGeneratorService {
 
         return this.randomNumber.randomInteger(this.geometryBaseSize * MIN_FACTOR, this.geometryBaseSize * MAX_FACTOR);
     }
+    public getRandomGeometrieType(): GeometryType {
+        const geometrieTypes: GeometryType[] = [GeometryType.SPHERE, GeometryType.CONE,
+                                                GeometryType.CUBE, GeometryType.CYLINDER,
+                                                GeometryType.PYRAMID];
+
+        return geometrieTypes[Math.floor(Math.random() * geometrieTypes.length)];
+    }
     public getGeometryData(): GeometryData {
         const randomPosition: Vector = this.getRandomPosition();
         const randomRotation: Vector = this.getRandomRotation();
@@ -41,7 +48,7 @@ export class SceneDataGeneratorService {
         const randomSize: number = this.getRandomSize();
 
         return { position: randomPosition, rotation: randomRotation,
-                 color: randomColor, size: randomSize, isModified: false};
+                 color: randomColor, size: randomSize, isModified: false, type: this.getRandomGeometrieType() };
     }
     public getSceneData(numberOfObjects: number): GeometryData [] {
         const geometryMessage: GeometryData [] = [];
