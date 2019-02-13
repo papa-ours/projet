@@ -1,11 +1,11 @@
 import { expect } from "chai";
 import * as fs from "fs";
 import { GameSheetDescription, TopScoresInterface } from "../../../common/communication/game-description";
+import { BMPImage } from "../../../common/images/bmp-image";
+import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "./difference-image-generator.service";
 import { Game } from "./game";
 import { GetGameService } from "./get-game.service";
-import { BMPImage } from "./utils/bmp-image";
-import { DifferenceImage } from "./utils/difference-image";
 
 describe("GetGameService", () => {
 
@@ -31,8 +31,8 @@ describe("GetGameService", () => {
 
     it("should return the GameSheetDescription properly if it's empty", () => {
         const expected: GameSheetDescription[] = [];
-        const resultat: GameSheetDescription[] = getGameService.getGameDescriptions();
-        expect(resultat).to.deep.equal(expected);
+        const result: GameSheetDescription[] = getGameService.getGameDescriptions();
+        expect(result).to.deep.equal(expected);
     });
 
     it("should add the game in the GameService properly", () => {
@@ -42,7 +42,8 @@ describe("GetGameService", () => {
 
     it("should return the game images", () => {
         const expected: string[] = [BMPImage.fromArray(originalImage).toArray().toString(),
-                                    BMPImage.fromArray(modifiedImage).toArray().toString()];
+                                    BMPImage.fromArray(modifiedImage).toArray().toString(),
+                                    differenceImage.toArray().toString()];
         const result: string[] = getGameService.getGameImages(carID);
         expect(result).to.deep.equal(expected);
     });
@@ -56,7 +57,7 @@ describe("GetGameService", () => {
 
     it("should return the GameSheetDescription properly", () => {
         const expected: GameSheetDescription[] = [gameSheetDescription];
-        const resultat: GameSheetDescription[] = getGameService.getGameDescriptions();
-        expect(resultat).to.deep.equal(expected);
+        const result: GameSheetDescription[] = getGameService.getGameDescriptions();
+        expect(result).to.deep.equal(expected);
     });
 });

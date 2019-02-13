@@ -20,8 +20,8 @@ export class Game {
         const difference: number[] = this.differenceImage.getDifferenceAt(index);
 
         difference.forEach((differenceIndex: number) => {
-            this.modifiedImage.setPixelAt(differenceIndex, this.originalImage.pixelAt(differenceIndex));
-            this.differenceImage.setPixelAt(differenceIndex, Pixel.WHITE_PIXEL);
+            this.modifiedImage.placePixel(differenceIndex, this.originalImage.pixelAt(differenceIndex));
+            this.differenceImage.placePixel(differenceIndex, Pixel.WHITE_PIXEL);
         });
     }
 }
