@@ -30,4 +30,11 @@ describe("SceneDataDifference", () => {
         const lenghtAfterAdd: number = geometryData.length;
         expect(lenghtAfterAdd).to.be.lessThan(lenghtBeforeAdd);
     });
+    it("should not have the same color after changeColor", () => {
+        const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
+        const colorBefore: number = geometryData[0].color;
+        sceneDataDifference.changeColorGeometryData(geometryData, 0);
+        const colorAfter: number = geometryData[0].color;
+        expect(colorBefore).to.be.not.equal(colorAfter);
+    });
 });
