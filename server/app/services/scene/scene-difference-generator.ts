@@ -5,7 +5,8 @@ import { SceneDataGeneratorService } from "./scene-data-generator";
 
 @injectable()
 export class SceneDataDifference {
-    public constructor(private sceneDataGeneratorService: SceneDataGeneratorService) { }
+    private sceneDataGeneratorService: SceneDataGeneratorService;
+    public constructor() { this.sceneDataGeneratorService = new SceneDataGeneratorService(); }
 
     public addGeometryData(geometryDataDifference: GeometryData[]): void {
         geometryDataDifference.push(this.sceneDataGeneratorService.getGeometryData());
