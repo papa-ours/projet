@@ -11,26 +11,26 @@ describe("SceneDataDifference", () => {
         sceneDataDifference = new SceneDataDifference( new SceneDataGeneratorService());
         sceneDataGeneratorService = new SceneDataGeneratorService()
     });
-    it("should have a greater length on addGeometry", () => {
+    it("should have a greater length on addGeometryData", () => {
         const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
         const lenghtBeforeAdd: number = geometryData.length;
         sceneDataDifference.addGeometryData(geometryData);
         const lenghtAfterAdd: number = geometryData.length;
         expect(lenghtAfterAdd).to.be.greaterThan(lenghtBeforeAdd);
     });
-    it("should set proprety is modified to true on addGeometry", () => {
+    it("should set proprety is modified to true on addGeometryData", () => {
         const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
         sceneDataDifference.addGeometryData(geometryData);
         expect(geometryData[geometryData.length - 1].isModified).to.equal(true);
     });
-    it("should have a lower length on addGeometry", () => {
+    it("should have a lower length on deleteGeometryData", () => {
         const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
         const lenghtBeforeAdd: number = geometryData.length;
         sceneDataDifference.deleteGeometryData(geometryData, 0);
         const lenghtAfterAdd: number = geometryData.length;
         expect(lenghtAfterAdd).to.be.lessThan(lenghtBeforeAdd);
     });
-    it("should not have the same color after changeColor", () => {
+    it("should not have the same color after changeColorGeometryData", () => {
         const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
         const colorBefore: number = geometryData[0].color;
         sceneDataDifference.changeColorGeometryData(geometryData, 0);
