@@ -2,6 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as multer from "multer";
 import { Message, MessageType } from "../../../common/communication/message";
+import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "../services/difference-image-generator.service";
 import Types from "../types";
 
@@ -18,14 +19,16 @@ export class DifferenceImageController {
                     upload.fields([ { name: "name", maxCount: 1 },
                                     { name: "originalImage", maxCount: 1 },
                                     { name: "modifiedImage", maxCount: 1 } ]),
-                    (req: Request, res: Response, next: NextFunction) => {
+                    async (req: Request, res: Response, next: NextFunction) => {
                         const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
                         const name: string = req.body.name;
-                        this.differenceImageGenerator.generateDifferenceImage(  name,
-                                                                                [
-                                                                                    `uploads/${name}-originalImage.bmp`,
-                                                                                    `uploads/${name}-modifiedImage.bmp`,
-                                                                                ]);
+                        // @ts-ignore
+                        const differenceImage: DifferenceImage | undefined =
+                            await this.differenceImageGenerator.generateDifferenceImage(name,
+                                                                                        [
+                                                                                            `uploads/${name}-originalImage.bmp`,
+                                                                                            `uploads/${name}-modifiedImage.bmp`,
+                                                                                        ]);
 
                         res.send(message);
                     });
