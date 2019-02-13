@@ -1,15 +1,15 @@
 import { expect } from "chai";
 import { GeometryData } from "../../../../common/communication/geometryMessage";
 import { SceneDataGeneratorService } from "./scene-data-generator";
-import { SceneDataDifference } from "./scene-difference-generator";
+import { SceneDataDifferenceService } from "./scene-difference-generator";
 
 describe("SceneDataDifference", () => {
     // @ts-ignore a enlever
-    let sceneDataDifference: SceneDataDifference;
+    let sceneDataDifference: SceneDataDifferenceService;
     let sceneDataGeneratorService: SceneDataGeneratorService;
     beforeEach(() => {
-        sceneDataDifference = new SceneDataDifference( new SceneDataGeneratorService());
-        sceneDataGeneratorService = new SceneDataGeneratorService()
+        sceneDataDifference = new SceneDataDifferenceService();
+        sceneDataGeneratorService = new SceneDataGeneratorService();
     });
     it("should have a greater length on addGeometryData", () => {
         const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
