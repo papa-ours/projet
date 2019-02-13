@@ -2,10 +2,8 @@ import { inject, injectable } from "inversify";
 import { DBConnectionService } from "./dbconnection.service";
 
 import "reflect-metadata";
-import { GameSheetDescription, GameSheet } from "../../../common/communication/game-description";
-import { DifferenceImage } from "../../../common/images/difference-image";
+import { GameSheet } from "../../../common/communication/game-description";
 import Types from "../types";
-import { Game } from "./game";
 import { GetGameService } from "./get-game.service";
 import { TopScores } from "./score/top-scores";
 
@@ -33,18 +31,6 @@ export class GameSheetGenerationService {
             topScores: this.generateTopScores(),
         };
         this.getGameService.addGameSheet(gameSheet);
-    }
-
-    public createGame(name: string, differenceImage: DifferenceImage): void {
-        const id: string = this.generateId();
-        const game: Game = new Game(id, this.imagesData[ImageType.Original], this.imagesData[ImageType.Modified], differenceImage);
-        const gameSheet: GameSheetDescription = {
-            id: id,
-            name: name,
-            preview: this.imagesData[ImageType.Original].toString(),
-            topScores: this.generateTopScores(),
-        };
-        this.getGameService.addGame(gameSheet, game);
     }
 
     private generateTopScores(): TopScores[] {
