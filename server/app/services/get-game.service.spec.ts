@@ -31,8 +31,8 @@ describe("GetGameService", () => {
 
     it("should return the GameSheetDescription properly if it's empty", () => {
         const expected: GameSheetDescription[] = [];
-        const resultat: GameSheetDescription[] = getGameService.getGameDescriptions();
-        expect(resultat).to.deep.equal(expected);
+        const result: GameSheetDescription[] = getGameService.getGameDescriptions();
+        expect(result).to.deep.equal(expected);
     });
 
     it("should add the game in the GameService properly", () => {
@@ -57,7 +57,7 @@ describe("GetGameService", () => {
 
     it("should return the GameSheetDescription properly", () => {
         const expected: GameSheetDescription[] = [gameSheetDescription];
-        const resultat: GameSheetDescription[] = getGameService.getGameDescriptions();
-        expect(resultat).to.deep.equal(expected);
+        const result: GameSheetDescription[] = getGameService.getGameDescriptions();
+        expect(result).to.deep.equal(expected);
     });
 });
