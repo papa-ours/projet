@@ -1,6 +1,6 @@
-import { BMPImage } from "./utils/bmp-image";
-import { DifferenceImage } from "./utils/difference-image";
-import { Pixel } from "./utils/pixel";
+import { BMPImage } from "../../../common/images/bmp-image";
+import { DifferenceImage } from "../../../common/images/difference-image";
+import { Pixel } from "../../../common/images/pixel";
 
 export class Game {
     public originalImage: BMPImage;

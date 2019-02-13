@@ -6,11 +6,11 @@ import { DifferencesFinderService } from "./differences-finder.service";
 import "reflect-metadata";
 import { GameSheetDescription } from "../../../common/communication/game-description";
 import { Message, MessageType } from "../../../common/communication/message";
+import { DifferenceImage } from "../../../common/images/difference-image";
 import Types from "../types";
 import { Game } from "./game";
 import { GetGameService } from "./get-game.service";
 import { TopScores } from "./score/top-scores";
-import { DifferenceImage } from "./utils/difference-image";
 import { FileReaderUtil } from "./utils/file-reader.util";
 
 // @ts-ignore

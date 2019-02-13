@@ -12,9 +12,9 @@ export class DifferenceCheckerService {
     public readonly BASE_URL: string = "http://localhost:3000/api/difference/";
     public constructor(private http: HttpClient) { }
 
-    public isPositionDifference(id: string, x: number, y: number): Observable<string> {
+    public isPositionDifference(id: string, x: number, y: number): Observable<boolean> {
         return this.http.get<Message>(this.BASE_URL + id + "/" + x + "/" + y)
-            .pipe(map((message: Message) => message.body),
+            .pipe(map((message: Message) => JSON.parse(message.body)),
         );
     }
 }

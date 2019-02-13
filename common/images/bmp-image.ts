@@ -1,5 +1,6 @@
 import { readLittleEndianBytes } from "./binary";
-import { CHUNK_RELATIVE_POSITIONS, Position } from "./circle-area";
+import { Position } from "./position";
+import { CHUNK_RELATIVE_POSITIONS } from "../../server/app/services/utils/circle-area";
 import { Pixel } from "./pixel";
 
 export class BMPImage {
@@ -28,6 +29,19 @@ export class BMPImage {
         }
 
         return image;
+    }
+
+    public static fromString(data: string): BMPImage {
+        const numberData: number[] = data.split(",").map(Number);
+        const array: Uint8Array = new Uint8Array(numberData);
+
+        return BMPImage.fromArray(array);
+    }
+
+    public encode(): string {
+        const numberData: number[] = Array.from(this.toArray());
+        const encodedString: string[] = numberData.map(Number).map((val: number) => String.fromCharCode(val));
+        return "data:image/bmp;base64," + btoa(encodedString.join(""));
     }
 
     public static isBMP(array: Uint8Array): boolean {

@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { numberToLittleEndinanByteArray, readLittleEndianBytes } from "./binary";
+import { numberToLittleEndinanByteArray, readLittleEndianBytes } from "../../../../common/images/binary";
 
 /* tslint:disable:no-magic-numbers */
 describe("binary", () => {

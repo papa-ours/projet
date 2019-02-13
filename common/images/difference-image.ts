@@ -1,6 +1,6 @@
 import { readLittleEndianBytes } from "./binary";
 import { BMPImage } from "./bmp-image";
-import { Position } from "./circle-area";
+import { Position } from "./position";
 import { Pixel } from "./pixel";
 
 export class DifferenceImage extends BMPImage {
@@ -30,6 +30,13 @@ export class DifferenceImage extends BMPImage {
         }
 
         return image;
+    }
+
+    public static fromString(data: string): DifferenceImage {
+        const numberData: number[] = data.split(",").map(Number);
+        const array: Uint8Array = new Uint8Array(numberData);
+
+        return DifferenceImage.fromArray(array);
     }
 
     public getDifferenceAt(index: number): number[] {

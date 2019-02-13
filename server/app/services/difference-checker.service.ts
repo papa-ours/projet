@@ -2,8 +2,8 @@ import Axios, { AxiosResponse } from "axios";
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { Message } from "../../../common/communication/message";
-import { BMPImage } from "./utils/bmp-image";
-import { Pixel } from "./utils/pixel";
+import { BMPImage } from "../../../common/images/bmp-image";
+import { Pixel } from "../../../common/images/pixel";
 
 @injectable()
 export class DifferenceCheckerService {
