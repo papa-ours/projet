@@ -8,10 +8,11 @@ export class GameSheetGenerationController {
     public get router(): Router {
         const router: Router = Router();
 
-        router.post("/",
+        router.post("/:name",
                     (req: Request, res: Response, next: NextFunction) => {
                         const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
-
+                        const name: string = req.params.name;
+                        console.log(name);
                         res.send(message);
                     });
 
