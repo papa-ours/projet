@@ -25,6 +25,9 @@ export class GameSheetGenerationService {
         @inject(Types.GetGameService) private getGameService: GetGameService,
     ) {}
 
+    public createGameSheet(name: string): void {
+    }
+
     public createGame(name: string, differenceImage: DifferenceImage): void {
         const id: string = this.generateId();
         const game: Game = new Game(id, this.imagesData[ImageType.Original], this.imagesData[ImageType.Modified], differenceImage);
