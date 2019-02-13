@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { DBConnectionService } from "./dbconnection.service";
+// import { DBConnectionService } from "./dbconnection.service";
 
 import "reflect-metadata";
 import { GameSheet } from "../../../common/communication/game-description";
@@ -19,7 +19,7 @@ export class GameSheetGenerationService {
     private imagesData: Uint8Array[];
 
     public constructor(
-        @inject(Types.DBConnectionService) private dbConnection: DBConnectionService,
+        // @inject(Types.DBConnectionService) private dbConnection: DBConnectionService,
         @inject(Types.GetGameService) private getGameService: GetGameService,
     ) {}
 
