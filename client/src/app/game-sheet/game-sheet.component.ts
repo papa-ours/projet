@@ -11,7 +11,7 @@ import { Privilege } from "../privilege";
 export class GameSheetComponent implements OnInit {
     public constructor(private router: Router) {}
     public source: string = "";
-    public medalColors: string[] = [
+    public readonly medalColors: string[] = [
         "#FFD700",
         "#C0C0C0",
         "#CD7F32",
