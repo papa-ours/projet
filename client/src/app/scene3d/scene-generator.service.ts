@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
-import { GeometryMessage } from "../../../../common/communication/geometryMessage";
+import { GeometryData } from "../../../../common/communication/geometryMessage";
 import { RandomGeometryService } from "./random-geometry.service";
 
 @Injectable({
@@ -14,7 +14,7 @@ export class SceneGeneratorService {
     private changeBackgroundScene(): void {
         this.scene.background = new THREE.Color(this.backgroundColor);
     }
-    private addGeometry(sceneData: GeometryMessage[]): void {
+    private addGeometry(sceneData: GeometryData[]): void {
         for (const data of sceneData) {
             const material: THREE.MeshStandardMaterial = new THREE.MeshStandardMaterial({
                 color: data.color,
@@ -27,7 +27,7 @@ export class SceneGeneratorService {
             this.scene.add(randomShape);
         }
     }
-    public createScene(sceneData: GeometryMessage[]): THREE.Scene {
+    public createScene(sceneData: GeometryData[]): THREE.Scene {
         this.changeBackgroundScene();
         this.addGeometry(sceneData);
 

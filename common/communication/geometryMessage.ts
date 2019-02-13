@@ -1,6 +1,6 @@
 import { Vector } from "./position";
 
-export interface GeometryMessage {
+export interface GeometryData {
    position: Vector;
    rotation: Vector;
    color:    number;
