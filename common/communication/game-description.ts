@@ -20,6 +20,12 @@ export interface GameSheetDescription {
     topScores: TopScoresInterface[];
 }
 
+export interface GameSheet {
+    id: string;
+    name: string;
+    topScores: TopScoresInterface[];
+}
+
 export interface GameLists {
     list2d: GameSheetDescription[];
     list3d: GameSheetDescription[];
