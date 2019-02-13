@@ -69,6 +69,10 @@ input {
     text-align: center;
 }
 
+.modification-object{
+    margin-top: 50px;
+}
+
 button {
     font-family: 'Helvetica';
     font-size: 18px;
