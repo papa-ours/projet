@@ -41,7 +41,8 @@ export class SceneDataGeneratorService {
             const randomRotation: Vector = this.getRandomRotation();
             const randomColor: number = this.getRandomColor();
             const randomSize: number = this.getRandomSize();
-            geometryMessage.push({ position: randomPosition, rotation: randomRotation, color: randomColor, size: randomSize});
+            geometryMessage.push({ position: randomPosition, rotation: randomRotation,
+                                   color: randomColor, size: randomSize, isModified: false});
         }
 
         return geometryMessage;

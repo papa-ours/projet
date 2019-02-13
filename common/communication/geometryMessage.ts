@@ -5,6 +5,7 @@ export interface GeometryData {
    rotation: Vector;
    color:    number;
    size :    number;
+   isModified: boolean;
 }
 
 export interface SceneData {
