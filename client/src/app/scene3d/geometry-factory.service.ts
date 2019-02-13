@@ -4,7 +4,7 @@ import { GeometryGeneratorService } from "./geometry-generator.service";
 @Injectable({
     providedIn: "root",
 })
-export class RandomGeometryService {
+export class GeometryFactoryService {
     private geometryGeneratorService: GeometryGeneratorService = new GeometryGeneratorService() ;
     private functionList: Function[] = [];
     // private randomNumber: RandomNumber = new RandomNumber();

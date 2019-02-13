@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
 import { GeometryData } from "../../../../common/communication/geometryMessage";
-import { RandomGeometryService } from "./random-geometry.service";
+import { GeometryFactoryService } from "./random-geometry.service";
 
 @Injectable({
     providedIn: "root",
@@ -9,7 +9,7 @@ import { RandomGeometryService } from "./random-geometry.service";
 export class SceneGeneratorService {
     private backgroundColor: number = 0x515151;
     private scene: THREE.Scene;
-    public constructor(private randomGeometryService: RandomGeometryService) { }
+    public constructor(private randomGeometryService: GeometryFactoryService) { }
 
     private changeBackgroundScene(): void {
         this.scene.background = new THREE.Color(this.backgroundColor);

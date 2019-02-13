@@ -1,14 +1,14 @@
 import { TestBed } from "@angular/core/testing";
 import * as THREE from "three";
-import { RandomGeometryService } from "./random-geometry.service";
+import { GeometryFactoryService } from "./random-geometry.service";
 
 describe("RandomGeometryService", () => {
-    let randomGeometryService: RandomGeometryService;
+    let randomGeometryService: GeometryFactoryService;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [RandomGeometryService],
+            providers: [GeometryFactoryService],
         });
-        randomGeometryService = TestBed.get(RandomGeometryService);
+        randomGeometryService = TestBed.get(GeometryFactoryService);
     });
     it("should be created", () => {
         expect(randomGeometryService).toBeTruthy();
