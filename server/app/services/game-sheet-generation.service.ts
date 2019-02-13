@@ -2,7 +2,7 @@ import { inject, injectable } from "inversify";
 import { DBConnectionService } from "./dbconnection.service";
 
 import "reflect-metadata";
-import { GameSheetDescription } from "../../../common/communication/game-description";
+import { GameSheetDescription, GameSheet } from "../../../common/communication/game-description";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import Types from "../types";
 import { Game } from "./game";
@@ -26,6 +26,12 @@ export class GameSheetGenerationService {
     ) {}
 
     public createGameSheet(name: string): void {
+        const id: string = this.generateId();
+        const gameSheet: GameSheet = {
+            id: id,
+            name: name,
+            topScores: this.generateTopScores(),
+        };
     }
 
     public createGame(name: string, differenceImage: DifferenceImage): void {
