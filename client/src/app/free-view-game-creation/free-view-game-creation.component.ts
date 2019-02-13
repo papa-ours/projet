@@ -33,6 +33,12 @@ export class FreeViewGameCreationComponent implements OnInit {
         return allValuesEntered;
     }
 
+    private submitForm(): void {
+        if (this.allValuesEntered) {
+            this.sendForm();
+        }
+    }
+
     private sendForm(){
         const formData: FormData = new FormData();
         formData.append("name", this.name);
