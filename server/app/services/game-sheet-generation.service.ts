@@ -32,6 +32,7 @@ export class GameSheetGenerationService {
             name: name,
             topScores: this.generateTopScores(),
         };
+        this.getGameService.addGameSheet(gameSheet);
     }
 
     public createGame(name: string, differenceImage: DifferenceImage): void {
