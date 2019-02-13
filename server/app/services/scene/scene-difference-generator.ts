@@ -15,6 +15,10 @@ export class SceneDataDifference {
         const numberOfDeletion: number = 1;
         geometryDataDifference.splice(index, numberOfDeletion);
     }
+    public changeColorGeometryData(geometryDataDifference: GeometryData[], index: number): void {
+        const newColor: number = this.sceneDataGeneratorService.getRandomColor();
+        geometryDataDifference[index].color = newColor;
+    }
     public getDifference(geometryData: GeometryData[]): GeometryData[] {
         // create a copy of object
         const geometryDataDifference: GeometryData[] = geometryData.map((data: GeometryData) => data);
