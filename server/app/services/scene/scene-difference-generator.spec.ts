@@ -11,7 +11,7 @@ describe("SceneDataDifference", () => {
         sceneDataDifference = new SceneDataDifference( new SceneDataGeneratorService());
         sceneDataGeneratorService = new SceneDataGeneratorService()
     });
-    it("should have greater length on addGeometry", () => {
+    it("should have a greater length on addGeometry", () => {
         const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
         const lenghtBeforeAdd: number = geometryData.length;
         sceneDataDifference.addGeometryData(geometryData);
@@ -22,5 +22,12 @@ describe("SceneDataDifference", () => {
         const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
         sceneDataDifference.addGeometryData(geometryData);
         expect(geometryData[geometryData.length - 1].isModified).to.equal(true);
+    });
+    it("should have a lower length on addGeometry", () => {
+        const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
+        const lenghtBeforeAdd: number = geometryData.length;
+        sceneDataDifference.deleteGeometryData(geometryData, 0);
+        const lenghtAfterAdd: number = geometryData.length;
+        expect(lenghtAfterAdd).to.be.lessThan(lenghtBeforeAdd);
     });
 });
