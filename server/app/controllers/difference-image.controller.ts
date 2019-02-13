@@ -6,7 +6,7 @@ import { GameSheetGenerationService } from "../services/game-sheet-generation.se
 import Types from "../types";
 
 @injectable()
-export class GameSheetGenerationController {
+export class DifferenceImageController {
 
     public constructor(@inject(Types.GameSheetGenerationService) private gameSheetGenerationService: GameSheetGenerationService) { }
 
