@@ -8,7 +8,7 @@ import { RandomGeometryService } from "./random-geometry.service";
 })
 export class SceneGeneratorService {
     private backgroundColor: number = 0x515151;
-    private scene: THREE.Scene = new THREE.Scene();
+    private scene: THREE.Scene;
     public constructor(private randomGeometryService: RandomGeometryService) { }
 
     private changeBackgroundScene(): void {
@@ -28,6 +28,7 @@ export class SceneGeneratorService {
         }
     }
     public createScene(sceneData: GeometryData[]): THREE.Scene {
+        this.scene = new THREE.Scene();
         this.changeBackgroundScene();
         this.addGeometry(sceneData);
 
