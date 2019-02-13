@@ -42,7 +42,8 @@ describe("GetGameService", () => {
 
     it("should return the game images", () => {
         const expected: string[] = [BMPImage.fromArray(originalImage).toArray().toString(),
-                                    BMPImage.fromArray(modifiedImage).toArray().toString()];
+                                    BMPImage.fromArray(modifiedImage).toArray().toString(),
+                                    differenceImage.toArray().toString()];
         const result: string[] = getGameService.getGameImages(carID);
         expect(result).to.deep.equal(expected);
     });
