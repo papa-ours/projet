@@ -7,23 +7,20 @@ import { SceneDataGeneratorService } from "./scene-data-generator";
 export class SceneDataDifference {
     public constructor(private sceneDataGeneratorService: SceneDataGeneratorService) { }
 
-    public addGeometryData(geometryDataDifference: GeometryData[]): GeometryData[] {
+    public addGeometryData(geometryDataDifference: GeometryData[]): void {
         geometryDataDifference.push(this.sceneDataGeneratorService.getGeometryData());
-
-        return geometryDataDifference;
+        geometryDataDifference[geometryDataDifference.length - 1].isModified = true;
     }
-    public deleteGeometryData(geometryDataDifference: GeometryData[], index: number): GeometryData[] {
+    public deleteGeometryData(geometryDataDifference: GeometryData[], index: number): void {
         const numberOfDeletion: number = 1;
         geometryDataDifference.splice(index, numberOfDeletion);
-
-        return geometryDataDifference;
     }
     public getDifference(geometryData: GeometryData[]): GeometryData[] {
         // create a copy of object
-        let geometryDataDifference: GeometryData[] = geometryData.map((data: GeometryData) => data);
-        geometryDataDifference = this.addGeometryData(geometryDataDifference);
+        const geometryDataDifference: GeometryData[] = geometryData.map((data: GeometryData) => data);
+        this.addGeometryData(geometryDataDifference);
         const randomIndex: number = Math.floor(Math.random() * geometryDataDifference.length);
-        geometryDataDifference = this.deleteGeometryData(geometryDataDifference, randomIndex);
+        this.deleteGeometryData(geometryDataDifference, randomIndex);
 
         return geometryDataDifference;
     }
