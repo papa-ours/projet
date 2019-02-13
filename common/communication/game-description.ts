@@ -27,6 +27,6 @@ export interface GameSheet {
 }
 
 export interface GameLists {
-    list2d: GameSheetDescription[];
-    list3d: GameSheetDescription[];
+    list2d: GameSheet[];
+    list3d: GameSheet[];
 }
