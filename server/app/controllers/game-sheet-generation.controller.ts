@@ -1,14 +1,10 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 import * as multer from "multer";
 import { Message, MessageType } from "../../../common/communication/message";
-import { GameSheetGenerationService } from "../services/game-sheet-generation.service";
-import Types from "../types";
 
 @injectable()
 export class GameSheetGenerationController {
-
-    public constructor(@inject(Types.GameSheetGenerationService) private gameSheetGenerationService: GameSheetGenerationService) { }
 
     public get router(): Router {
         const router: Router = Router();
@@ -20,11 +16,6 @@ export class GameSheetGenerationController {
                                     { name: "modifiedImage", maxCount: 1 } ]),
                     (req: Request, res: Response, next: NextFunction) => {
                         const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
-
-                        this.gameSheetGenerationService
-                            .generateGameSheet( req.body.name,
-                                                ["uploads/" + req.body.name + "-" + "originalImage.bmp",
-                                                 "uploads/" + req.body.name + "-" + "modifiedImage.bmp"]);
 
                         res.send(message);
                     });
