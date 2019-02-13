@@ -6,4 +6,5 @@ export interface Message {
 export enum MessageType {
     USERNAME_VALIDATION,
     GAME_SHEET_GENERATION,
+    GAME_FREE_VIEW_GENERATION
 }
