@@ -9,6 +9,10 @@ export class DifferenceImageGenerator {
     private originalImage: BMPImage;
     private modifiedImage: BMPImage;
 
+    public generateDifferenceImage(imageFiles: File[]): DifferenceImage {
+        return new DifferenceImage([], new Uint8Array([]), 0, 0);
+    }
+
     public generate(originalImageData: Uint8Array, modifiedImageData: Uint8Array): DifferenceImage | undefined {
         if (BMPImage.isBMP(originalImageData) && BMPImage.isBMP(modifiedImageData)) {
             this.originalImage = BMPImage.fromArray(originalImageData);
