@@ -4,7 +4,7 @@ import { GeometryData } from "../../../../common/communication/geometryMessage";
 import { SceneDataGeneratorService } from "./scene-data-generator";
 
 @injectable()
-export class SceneDataDifference {
+export class SceneDataDifferenceService {
     private sceneDataGeneratorService: SceneDataGeneratorService;
     public constructor() { this.sceneDataGeneratorService = new SceneDataGeneratorService(); }
 
