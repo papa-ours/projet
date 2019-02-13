@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import * as fs from "fs";
+import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "./difference-image-generator.service";
 import { Game } from "./game";
 import { Position } from "./utils/circle-area";
-import { DifferenceImage } from "./utils/difference-image";
 
 describe("Game", () => {
     const originalImage: Uint8Array = Uint8Array.from(fs.readFileSync("../client/src/assets/img/car_original.bmp"));
