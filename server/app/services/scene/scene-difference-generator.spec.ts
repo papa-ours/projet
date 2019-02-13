@@ -37,4 +37,8 @@ describe("SceneDataDifference", () => {
         const colorAfter: number = geometryData[0].color;
         expect(colorBefore).to.be.not.equal(colorAfter);
     });
+    it("should not change the geometry data injected it should make a copie instead", () => {
+        const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
+        expect(sceneDataDifference.getDifference(geometryData)).to.be.not.equal(geometryData);
+    });
 });
