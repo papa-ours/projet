@@ -33,7 +33,7 @@ export class GetGameService {
                         : [];
     }
 
-    public getGameDescriptions(): GameSheetDescription[] {
+    public getGameDescriptions(): GameSheet[] {
         return GetGameService.gameSheets;
     }
 }
