@@ -1,3 +1,4 @@
+import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as multer from "multer";
@@ -41,6 +42,7 @@ export class DifferenceImageController {
 
                             if (numberOfDifferences === REQUIRED_DIFFERENCES) {
                                 FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, differenceImage.toArray());
+                                Axios.post("http://localhost:3000/gamesheet/" + name);
                             }
                         }
 
