@@ -18,6 +18,7 @@ export class SceneDataDifference {
     public changeColorGeometryData(geometryDataDifference: GeometryData[], index: number): void {
         const newColor: number = this.sceneDataGeneratorService.getRandomColor();
         geometryDataDifference[index].color = newColor;
+        geometryDataDifference[index].isModified = true;
     }
     public getDifference(geometryData: GeometryData[]): GeometryData[] {
         // create a copy of object
