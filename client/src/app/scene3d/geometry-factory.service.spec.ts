@@ -1,6 +1,6 @@
 import { TestBed } from "@angular/core/testing";
 import * as THREE from "three";
-import { GeometryFactoryService } from "./random-geometry.service";
+import { GeometryFactoryService } from "./geometry-factory.service";
 
 describe("RandomGeometryService", () => {
     let randomGeometryService: GeometryFactoryService;
