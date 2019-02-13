@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import * as fs from "fs";
-import { BMPImage } from "./bmp-image";
-import { DifferenceImage } from "./difference-image";
-import { Pixel } from "./pixel";
+import { BMPImage } from "../../../../common/images/bmp-image";
+import { DifferenceImage } from "../../../../common/images/difference-image";
+import { Pixel } from "../../../../common/images/pixel";
 
 describe("difference-image", () => {
 

@@ -1,5 +1,5 @@
 import { readLittleEndianBytes } from "./binary";
-import { BMPImage } from "./bmp-image";
+import { BMPImage } from "../images/bmp-image";
 import { Position } from "./position";
 import { Pixel } from "./pixel";
 

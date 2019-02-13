@@ -1,11 +1,11 @@
 import { expect } from "chai";
 import * as fs from "fs";
 import { GameSheetDescription, TopScoresInterface } from "../../../common/communication/game-description";
+import { BMPImage } from "../../../common/images/bmp-image";
+import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "./difference-image-generator.service";
 import { Game } from "./game";
 import { GetGameService } from "./get-game.service";
-import { BMPImage } from "./utils/bmp-image";
-import { DifferenceImage } from "./utils/difference-image";
 
 describe("GetGameService", () => {
 
