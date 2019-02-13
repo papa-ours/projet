@@ -21,7 +21,7 @@ export class SceneGeneratorService {
                 metalness: 0.7,
                 roughness: 0.2,
             });
-            const randomShape: THREE.Mesh = this.randomGeometryService.getRandomShape(data.size, material);
+            const randomShape: THREE.Mesh = this.randomGeometryService.createShape(data.size, material, data.type);
             randomShape.rotation.set(data.rotation.x, data.rotation.y, data.rotation.z);
             randomShape.position.set(data.position.x, data.position.y, data.position.z);
             this.scene.add(randomShape);

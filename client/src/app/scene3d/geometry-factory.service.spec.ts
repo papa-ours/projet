@@ -16,16 +16,16 @@ describe("RandomGeometryService", () => {
     it("should generate a random shape", () => {
         const size: number = 100;
         const material: THREE.Material = new THREE.Material();
-        expect(randomGeometryService.getRandomShape(size, material)).toEqual(jasmine.any(THREE.Mesh));
+        expect(randomGeometryService.createShape(size, material)).toEqual(jasmine.any(THREE.Mesh));
     });
     it("should generate a random location for the shape", () => {
         const size: number = 100;
         const material: THREE.Material = new THREE.Material();
-        expect(randomGeometryService.getRandomShape(size, material).position).not.toEqual(new THREE.Mesh().position);
+        expect(randomGeometryService.createShape(size, material).position).not.toEqual(new THREE.Mesh().position);
     });
     it("should generate a random rotation for the shape", () => {
         const size: number = 100;
         const material: THREE.Material = new THREE.Material();
-        expect(randomGeometryService.getRandomShape(size, material).rotation).not.toEqual(new THREE.Mesh().rotation);
+        expect(randomGeometryService.createShape(size, material).rotation).not.toEqual(new THREE.Mesh().rotation);
     });
 });

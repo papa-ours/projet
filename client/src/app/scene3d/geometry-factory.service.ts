@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
+import { GeometryType } from "../../../../common/communication/geometryMessage";
 import { GeometryGeneratorService } from "./geometry-generator.service";
 @Injectable({
     providedIn: "root",
@@ -15,9 +16,7 @@ export class GeometryFactoryService {
         this.functionList.push(this.geometryGeneratorService.createCylinder);
         this.functionList.push(this.geometryGeneratorService.createPyramid);
     }
-    public getRandomShape(size: number, material: THREE.Material): THREE.Mesh {
-        const functionSelector: number = Math.floor(Math.random() * this.functionList.length);
-
-        return this.functionList[functionSelector](size, material);
+    public createShape(size: number, material: THREE.Material, type: GeometryType): THREE.Mesh {
+        return this.functionList[type](size, material);
     }
 }
