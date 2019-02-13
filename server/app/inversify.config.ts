@@ -12,6 +12,7 @@ import { GameSheetGenerationService } from "./services/game-sheet-generation.ser
 import { GetGameListService } from "./services/get-game-list.service";
 import { GetGameService } from "./services/get-game.service";
 import { SceneDataGeneratorService } from "./services/scene/scene-data-generator";
+import { SceneDataDifferenceService } from "./services/scene/scene-difference-generator";
 import { UsernameValidatorService } from "./services/username-validator.service";
 import { Socket } from "./socket";
 import Types from "./types";
@@ -33,4 +34,5 @@ container.bind(Types.GetGameController).to(GetGameController);
 container.bind(Types.GetGameService).to(GetGameService);
 container.bind(Types.SceneDataGeneratorService).to(SceneDataGeneratorService);
 container.bind(Types.SceneDataControler).to(SceneDataControler);
+container.bind(Types.SceneDataDifferenceService).to(SceneDataDifferenceService);
 export { container };
