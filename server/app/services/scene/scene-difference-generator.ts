@@ -23,7 +23,7 @@ export class SceneDataDifferenceService {
     }
     public getDifference(geometryData: GeometryData[]): GeometryData[] {
         // create a copy of object
-        const geometryDataDifference: GeometryData[] = geometryData.map((data: GeometryData) => data);
+        const geometryDataDifference: GeometryData[] = JSON.parse(JSON.stringify(geometryData));
         this.addGeometryData(geometryDataDifference);
         const randomIndex: number = Math.floor(Math.random() * geometryDataDifference.length);
         this.deleteGeometryData(geometryDataDifference, randomIndex);
