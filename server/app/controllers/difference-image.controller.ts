@@ -42,7 +42,7 @@ export class DifferenceImageController {
 
                             if (numberOfDifferences === REQUIRED_DIFFERENCES) {
                                 FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, differenceImage.toArray());
-                                Axios.post("http://localhost:3000/gamesheet/" + name);
+                                Axios.post("http://localhost:3000/api/gamesheet/", {name: name});
                             }
                         }
 
