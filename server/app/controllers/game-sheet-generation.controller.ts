@@ -1,19 +1,20 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { injectable } from "inversify";
-import { Message, MessageType } from "../../../common/communication/message";
+import { inject, injectable } from "inversify";
+import { GameSheetGenerationService } from "../services/game-sheet-generation.service";
+import Types from "../types";
 
 @injectable()
 export class GameSheetGenerationController {
+
+    public constructor(@inject(Types.GameSheetGenerationService) private gameSheetGenerationService: GameSheetGenerationService) {}
 
     public get router(): Router {
         const router: Router = Router();
 
         router.post("/",
                     (req: Request, res: Response, next: NextFunction) => {
-                        const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
                         const name: string = req.body.name;
-                        console.log(name);
-                        res.send(message);
+                        this.gameSheetGenerationService.createGameSheet(name);
                     });
 
         return router;
