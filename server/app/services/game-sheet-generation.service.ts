@@ -42,17 +42,17 @@ export class GameSheetGenerationService {
         });
     }
 
-    public saveGameSheet(gameSheetDescription: GameSheetDescription): void {
-        this.dbConnection.connect()
-            .then(() => {
-                this.dbConnection.saveGameSheet2D(gameSheetDescription)
-                    .catch((err: Error) => {
-                        console.error(err);
-                    });
-            }).catch((err: Error) => {
-                console.error(err);
-            });
-    }
+    // public saveGameSheet(gameSheetDescription: GameSheet): void {
+    //     this.dbConnection.connect()
+    //         .then(() => {
+    //             this.dbConnection.saveGameSheet2D(gameSheetDescription)
+    //                 .catch((err: Error) => {
+    //                     console.error(err);
+    //                 });
+    //         }).catch((err: Error) => {
+    //             console.error(err);
+    //         });
+    // }
 
     private generateId(): string {
         const POSSIBLE_VALUES: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
