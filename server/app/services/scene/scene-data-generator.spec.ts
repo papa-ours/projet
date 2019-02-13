@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { SceneDataGeneratorService } from "./scene-data-generator";
 
-describe("Differences finder", () => {
+describe("scenceDataGenerator", () => {
     // @ts-ignore a enlever
     let sceneDataGeneratorService: SceneDataGeneratorService;
 
