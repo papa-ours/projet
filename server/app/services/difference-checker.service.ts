@@ -3,6 +3,7 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 import { Message } from "../../../common/communication/message";
 import { BMPImage } from "../../../common/images/bmp-image";
+import { DifferenceImage } from "../../../common/images/difference-image";
 import { Pixel } from "../../../common/images/pixel";
 
 @injectable()
@@ -11,9 +12,7 @@ export class DifferenceCheckerService {
         return Axios.get<Message>("http://localhost:3000/api/game/" + id + "/differenceImage").then(
             // tslint:disable-next-line:no-any
             (response: AxiosResponse<any>) => {
-                const rawData: number[] = response.data.body.split(",").map(Number);
-                const imageData: Uint8Array = new Uint8Array(rawData);
-                const differenceImage: BMPImage = BMPImage.fromArray(imageData);
+                const differenceImage: BMPImage = DifferenceImage.fromString(response.data.body);
 
                 return this.checkDifference(x, y, differenceImage);
             },
