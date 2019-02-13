@@ -34,15 +34,19 @@ export class SceneDataGeneratorService {
 
         return this.randomNumber.randomInteger(this.geometryBaseSize * MIN_FACTOR, this.geometryBaseSize * MAX_FACTOR);
     }
+    public getGeometryData(): GeometryData {
+        const randomPosition: Vector = this.getRandomPosition();
+        const randomRotation: Vector = this.getRandomRotation();
+        const randomColor: number = this.getRandomColor();
+        const randomSize: number = this.getRandomSize();
+
+        return { position: randomPosition, rotation: randomRotation,
+                 color: randomColor, size: randomSize, isModified: false};
+    }
     public getSceneData(numberOfObjects: number): GeometryData [] {
         const geometryMessage: GeometryData [] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
-            const randomPosition: Vector = this.getRandomPosition();
-            const randomRotation: Vector = this.getRandomRotation();
-            const randomColor: number = this.getRandomColor();
-            const randomSize: number = this.getRandomSize();
-            geometryMessage.push({ position: randomPosition, rotation: randomRotation,
-                                   color: randomColor, size: randomSize, isModified: false});
+            geometryMessage.push(this.getGeometryData());
         }
 
         return geometryMessage;
