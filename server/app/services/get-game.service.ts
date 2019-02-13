@@ -1,16 +1,20 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { GameSheetDescription } from "../../../common/communication/game-description";
+import { GameSheetDescription, GameSheet } from "../../../common/communication/game-description";
 import { Game } from "./game";
 
 @injectable()
 export class GetGameService {
 
     private static games: Game[] = [];
-    private static gameSheets: GameSheetDescription[] = [];
+    private static gameSheets: GameSheet[] = [];
 
     public addGame(gameSheet: GameSheetDescription, game: Game): void {
         GetGameService.games.push(game);
+        GetGameService.gameSheets.push(gameSheet);
+    }
+
+    public addGameSheet(gameSheet: GameSheet): void {
         GetGameService.gameSheets.push(gameSheet);
     }
 
