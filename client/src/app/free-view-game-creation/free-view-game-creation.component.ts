@@ -32,7 +32,7 @@ export class FreeViewGameCreationComponent implements OnInit {
         allValuesEntered = this.formValidationFreeViewService.isFormValid(this.name,this.nbObjectsInt);
         return allValuesEntered;
     }
-
+    //@ts-ignore
     private submitForm(): void {
         if (this.allValuesEntered) {
             this.sendForm();
