@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { GeometryMessage } from "../../../../common/communication/geometryMessage";
+import { GeometryData } from "../../../../common/communication/geometryMessage";
 import { Vector } from "../../../../common/communication/position";
 import { SKYBOX_MAX, SKYBOX_MIN } from "../../../../common/communication/skybox";
 import { RandomNumber } from "../utils/random-number";
@@ -34,8 +34,8 @@ export class SceneDataGeneratorService {
 
         return this.randomNumber.randomInteger(this.geometryBaseSize * MIN_FACTOR, this.geometryBaseSize * MAX_FACTOR);
     }
-    public getSceneData(numberOfObjects: number): GeometryMessage [] {
-        const geometryMessage: GeometryMessage [] = [];
+    public getSceneData(numberOfObjects: number): GeometryData [] {
+        const geometryMessage: GeometryData [] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
             const randomPosition: Vector = this.getRandomPosition();
             const randomRotation: Vector = this.getRandomRotation();
