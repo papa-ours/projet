@@ -37,6 +37,7 @@ export class Application {
         this.app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
         this.app.use(cookieParser());
         this.app.use(cors());
+        this.app.use(express.static("uploads"));
     }
 
     public bindRoutes(): void {
