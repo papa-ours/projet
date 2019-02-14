@@ -1,25 +1,18 @@
-import Axios, { AxiosResponse } from "axios";
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { Message } from "../../../common/communication/message";
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { Pixel } from "../../../common/images/pixel";
+import { FileReaderUtil } from "./utils/file-reader.util";
 
 @injectable()
 export class DifferenceCheckerService {
-    public async isPositionDifference(x: number, y: number, id: string): Promise<boolean> {
-        return Axios.get<Message>("http://localhost:3000/api/game/" + id + "/differenceImage").then(
-            // tslint:disable-next-line:no-any
-            (response: AxiosResponse<any>) => {
-                const differenceImage: BMPImage = DifferenceImage.fromString(response.data.body);
+    public async isPositionDifference(x: number, y: number, name: string): Promise<boolean> {
+        return new Promise(async (resolve: Function, reject: Function) => {
+            const data: Uint8Array = await FileReaderUtil.readFile(`uploads/${name}-differenceImage.bmp`)
+            const differenceImage: BMPImage = DifferenceImage.fromArray(data);
 
-                return this.checkDifference(x, y, differenceImage);
-            },
-        ).catch((error: Error) => {
-            console.error("ERROR !", error.message);
-
-            return false;
+            return this.checkDifference(x, y, differenceImage);
         });
     }
 
