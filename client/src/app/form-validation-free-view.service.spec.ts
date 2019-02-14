@@ -25,4 +25,8 @@ describe('FormValidationFreeViewService', () => {
     it("should return true with a name between 5 and 15 characters ", () => {
         expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeTruthy();;
     });
+    it("should return false with a number of objects below 10", () => {
+        nbObjects = 8;
+        expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();;
+    });
 });
