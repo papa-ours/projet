@@ -1,15 +1,13 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { BMPImage } from "../../../common/images/bmp-image";
-import { DifferenceImage } from "../../../common/images/difference-image";
 import { Pixel } from "../../../common/images/pixel";
-import { FileReaderUtil } from "./utils/file-reader.util";
+import { Game } from "./game";
 
 @injectable()
 export class DifferenceCheckerService {
-    public async isPositionDifference(x: number, y: number, name: string): Promise<boolean> {
-            const data: Uint8Array = await FileReaderUtil.readFile(`uploads/${name}-differenceImage.bmp`);
-            const differenceImage: BMPImage = DifferenceImage.fromArray(data);
+    public async isPositionDifference(x: number, y: number, game: Game): Promise<boolean> {
+            const differenceImage: BMPImage = game.differenceImage;
 
             return this.checkDifference(x, y, differenceImage);
     }
