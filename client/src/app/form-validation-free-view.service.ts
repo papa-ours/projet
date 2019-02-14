@@ -14,8 +14,12 @@ export class FormValidationFreeViewService {
     }
 
     private validateNbObjects(nbObjects: number): boolean{
-        return true;
+        if (nbObjects < 10){
+            return false;
+        }
+        else return true;
     }
+
     public isFormValid(name: string, nbObjects: number): boolean {
         return (this.validateName(name) && this.validateNbObjects(nbObjects));
     }
