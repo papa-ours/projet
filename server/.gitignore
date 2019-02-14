@@ -7,6 +7,9 @@ false/
 # Exclusion des fichiers Javascripts
 out/
 
+# The file created in the test for FileWriterUtil
+test/test.bmp
+
 # NPM Debug Log
 npm-debug.log
 
