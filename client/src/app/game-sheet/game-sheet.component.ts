@@ -33,7 +33,7 @@ export class GameSheetComponent implements OnInit {
 
     // @ts-ignore
     private play(): void {
-        this.router.navigateByUrl("/gameplaySimplePOV/" + this.description.name)
+        this.router.navigateByUrl(`/gameplaySimplePOV/${this.description.name}/${this.description.id}`)
         .catch((err: Error) => {
             console.error(err);
         });
