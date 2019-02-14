@@ -2,8 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { DifferenceCheckerService } from "../difference-checker.service";
-import { GameplayService } from "../gameplay.service";
-import { Game } from "./game";
 
 @Component({
   selector: "app-gameplay-view",
@@ -15,8 +13,6 @@ export class GameplayViewComponent implements OnInit {
     public hourglassIcon: IconDefinition = faHourglassHalf;
     public foundDifferencesCounter: number = 0;
     private name: string;
-    private id: string;
-    private game: Game;
     public images: string[] = [];
 
     public constructor( private route: ActivatedRoute,
@@ -26,7 +22,6 @@ export class GameplayViewComponent implements OnInit {
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
-            this.id = params["id"];
             this.setupImages();
         });
     }
