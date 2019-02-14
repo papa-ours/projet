@@ -16,8 +16,6 @@ export class GameFreeViewGenerationService {
     public postGenerate(formData: FormData): Observable<Message> {
         return this.http.post<Message>(this.URL, {
             name: formData.get("name"),
-            originalImage: formData.get("originalImage"),
-            modifiedImage: formData.get("modifiedImage"),
             nbObjects: formData.get("nbObjects"),
             ajout: formData.get("ajout"),
             suppression: formData.get("suppression"),
