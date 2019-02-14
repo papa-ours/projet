@@ -1,30 +1,41 @@
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { Pixel } from "../../../common/images/pixel";
+import { FileReaderUtil } from "./utils/file-reader.util";
+import { FileWriterUtil } from "./utils/file-writer.util";
 
 export class Game {
-    public originalImage: BMPImage;
-    public modifiedImage: BMPImage;
+    public images: BMPImage[] = [];
     public differenceImage: DifferenceImage;
+    public constructor( public id: string, name: string) {
+        this.setupImages(name);
+    }
 
-    public constructor( public id: string,
-                        originalImageData: Uint8Array,
-                        modifiedImageData: Uint8Array,
-                        differenceImage: DifferenceImage) {
-
-                            this.differenceImage = DifferenceImage.fromBMPImage(differenceImage);
-                            this.originalImage = BMPImage.fromArray(originalImageData);
-                            this.modifiedImage = BMPImage.fromArray(modifiedImageData);
-
-                        }
+    private setupImages(name: string): void {
+        const imageTypes: string[] = [ "original", "modified", "difference" ];
+        imageTypes.forEach(async (type: string, index: number) => {
+            const data: Uint8Array = await FileReaderUtil.readFile(`uploads/${name}-${type}Image.bmp`);
+            if (index === 2) {
+                this.differenceImage = DifferenceImage.fromArray(data);
+            } else {
+                this.images[index] = BMPImage.fromArray(data);
+            }
+        });
+    }
 
     public restoreModifiedImage(x: number, y: number): void {
         const index: number = this.differenceImage.getIndex({ i: x, j: y });
         const difference: number[] = this.differenceImage.getDifferenceAt(index);
 
         difference.forEach((differenceIndex: number) => {
-            this.modifiedImage.setPixelAt(differenceIndex, this.originalImage.pixelAt(differenceIndex));
+            this.images[1].setPixelAt(differenceIndex, this.images[0].pixelAt(differenceIndex));
             this.differenceImage.setPixelAt(differenceIndex, Pixel.WHITE_PIXEL);
         });
+
+        this.saveModifiedImage();
+    }
+
+    private saveModifiedImage(): void {
+        FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, this.images[1].toArray());
     }
 }
