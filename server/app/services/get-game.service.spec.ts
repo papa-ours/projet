@@ -1,13 +1,12 @@
 import { expect } from "chai";
 import { GameSheet, TopScoresInterface } from "../../../common/communication/game-description";
-import { Game } from "./game";
 import { GetGameService } from "./get-game.service";
 
-describe("GetGameService", () => {
+// tslint:disable-next-line:max-func-body-length
+describe.only("GetGameService", () => {
 
     let getGameService: GetGameService;
     const carID: string = "0";
-    const game: Game = new Game(carID, "pringles");
     const topScoreInterface: TopScoresInterface[] = [];
     const gameSheet: GameSheet = {id: carID, name: "car", topScores: topScoreInterface};
 
@@ -28,7 +27,7 @@ describe("GetGameService", () => {
 
     it("should add the game in the GameService properly", () => {
         getGameService.addGameSheet(gameSheet);
-        expect(getGameService.getGame(carID)).to.equal(game);
+        expect(getGameService.getGameSheet(carID)).to.equal(gameSheet);
     });
 
     it("should return the GameSheetDescription properly", () => {
