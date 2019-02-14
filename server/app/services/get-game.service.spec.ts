@@ -17,7 +17,7 @@ describe("GetGameService", () => {
     const carID: string = "0";
     const game: Game = new Game(carID, originalImage, modifiedImage, differenceImage);
     const topScoreInterface: TopScoresInterface[] = [];
-    const preview: string = originalImage.toString() + modifiedImage.toString();
+    const preview: string = originalImage.toString();
     const gameSheetDescription: GameSheetDescription = {id: carID, name: "car", preview: preview, topScores: topScoreInterface};
 
     beforeEach(() => {
