@@ -15,6 +15,7 @@ export class GameplayViewComponent implements OnInit {
     public hourglassIcon: IconDefinition = faHourglassHalf;
     public foundDifferencesCounter: number = 0;
     private name: string;
+    private id: string;
     private game: Game;
     public images: string[] = [];
 
@@ -25,6 +26,7 @@ export class GameplayViewComponent implements OnInit {
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
+            this.id = params["id"];
             this.setupImages();
         });
     }
