@@ -17,6 +17,8 @@ export class GameplayViewComponent implements OnInit {
     private id: string;
     public images: string[] = [];
     private readonly SERVER_URL: string = "http://localhost:3000";
+    public readonly nbPlayers: number = 1;
+    public requiredDifferences: number = this.nbPlayers === 1 ? 7 : 4;
 
     public constructor( private route: ActivatedRoute,
                         private differenceCheckerService: DifferenceCheckerService,
