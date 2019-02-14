@@ -4,29 +4,25 @@ import { FormValidationFreeViewService } from './form-validation-free-view.servi
 
 describe('FormValidationFreeViewService', () => {
     const formValidationFreeViewService: FormValidationFreeViewService = new FormValidationFreeViewService();
-
+    let name: string = "abcdefghijklmno";
+    let nbObjects = 20;
     it('should be created', () => {
         const service: FormValidationFreeViewService = TestBed.get(FormValidationFreeViewService);
         expect(service).toBeTruthy();
     });
     it("should return false with an empty name ", () => {
-        const name: string = "";
-        const nbObjects = 10;
+        name = "";
         expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();
     });
     it("should return false with a name shorter than 5 characters  ", () => {
-        const name: string = "abc";
-        const nbObjects = 10;
+        name = "abc";
         expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();
     });
     it("should return false with a name longer than 15 characters ", () => {
-        const name: string = "abcdefghijklmnoq";
-        const nbObjects = 10;
+        name = "abcdefghijklmnoq";
         expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();;
     });
     it("should return true with a name between 5 and 15 characters ", () => {
-        const name: string = "abcdefghijklmno";
-        const nbObjects = 10;
-        expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();;
+        expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeTruthy();;
     });
 });
