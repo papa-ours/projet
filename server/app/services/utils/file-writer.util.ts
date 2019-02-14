@@ -1,11 +1,13 @@
 import * as fs from "fs";
 
 export class FileWriterUtil {
-    public static writeFile(path: string, data: Uint8Array): void {
-        fs.writeFile(path, data, (err: Error) => {
-            if (err) {
-                console.error("An error occured while writing the file at " + path);
-            }
+    public static async writeFile(path: string, data: Uint8Array): Promise<{}> {
+        return new Promise((reject: Function) => {
+            fs.writeFile(path, data, (err: Error) => {
+                if (err) {
+                    reject(err);
+                }
+            });
         });
     }
 }
