@@ -24,15 +24,6 @@ export class GetGameService {
         });
     }
 
-    public getGameImages(id: string): string[] {
-        const game: Game | undefined = this.getGame(id);
-
-        return game ? [ game.originalImage.toArray().toString(),
-                        game.modifiedImage.toArray().toString(),
-                        game.differenceImage.toArray().toString()]
-                        : [];
-    }
-
     public getGameDescriptions(): GameSheet[] {
         return GetGameService.gameSheets;
     }
