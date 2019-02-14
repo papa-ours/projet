@@ -14,30 +14,31 @@ export class GameplayViewComponent implements OnInit {
 
     public hourglassIcon: IconDefinition = faHourglassHalf;
     public foundDifferencesCounter: number = 0;
-    private id: string;
+    private name: string;
     private game: Game;
     public images: string[] = [];
 
     public constructor( private route: ActivatedRoute,
-                        private differenceCheckerService: DifferenceCheckerService) { }
+                        // private differenceCheckerService: DifferenceCheckerService
+                        ) { }
 
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
-            this.id = params["id"];
+            this.name = params["name"];
         });
     }
 
-    public checkDifference(position: [number, number]): void {
-        this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
-            .subscribe((isDifference: boolean) => {
-                if (isDifference) {
-                    this.foundDifferencesCounter++;
-                    this.game.restoreModifiedImage(position[0], position[1]);
-                    const sound: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
-                    sound.play();
+    // public checkDifference(position: [number, number]): void {
+    //     this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
+    //         .subscribe((isDifference: boolean) => {
+    //             if (isDifference) {
+    //                 this.foundDifferencesCounter++;
+    //                 this.game.restoreModifiedImage(position[0], position[1]);
+    //                 const sound: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
+    //                 sound.play();
 
-                    this.images[1] = this.game.modifiedImage.encode();
-                }
-            });
-    }
+    //                 this.images[1] = this.game.modifiedImage.encode();
+    //             }
+    //         });
+    // }
 }
