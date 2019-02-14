@@ -18,7 +18,7 @@ describe("Game", () => {
         game.restoreModifiedImage(468, 333);
         const position: Position = {i: 468, j: 333};
         const index: number = game.originalImage.getIndex(position);
-        expect(game.originalImage.pixelAt(index)).to.equal(game.modifiedImage.pixelAt(index));
+        expect(game.originalImage.pixelAt(index)).to.deep.equal(game.modifiedImage.pixelAt(index));
     });
     it("should not restore something in the modified image if not a difference", () => {
         // tslint:disable:no-magic-numbers
