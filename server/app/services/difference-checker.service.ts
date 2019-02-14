@@ -8,12 +8,10 @@ import { FileReaderUtil } from "./utils/file-reader.util";
 @injectable()
 export class DifferenceCheckerService {
     public async isPositionDifference(x: number, y: number, name: string): Promise<boolean> {
-        return new Promise(async (resolve: Function, reject: Function) => {
-            const data: Uint8Array = await FileReaderUtil.readFile(`uploads/${name}-differenceImage.bmp`)
+            const data: Uint8Array = await FileReaderUtil.readFile(`uploads/${name}-differenceImage.bmp`);
             const differenceImage: BMPImage = DifferenceImage.fromArray(data);
 
             return this.checkDifference(x, y, differenceImage);
-        });
     }
 
     private checkDifference(x: number, y: number, image: BMPImage): boolean {
