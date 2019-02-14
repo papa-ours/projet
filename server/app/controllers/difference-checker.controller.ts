@@ -16,7 +16,7 @@ export class DifferenceCheckerController {
         const router: Router = Router();
 
         router.get( "/:id/:x/:y",
-                    async (req: Request, res: Response, next: NextFunction) => {
+                    (req: Request, res: Response, next: NextFunction) => {
                         const getGameService: GetGameService = new GetGameService();
                         const x: number = parseInt(req.params.x, 10);
                         const y: number = parseInt(req.params.y, 10);
@@ -25,7 +25,7 @@ export class DifferenceCheckerController {
 
                         let isDifference: boolean = false;
                         if (game) {
-                            isDifference = await this.differenceChecker.isPositionDifference(x, y, game);
+                            isDifference = this.differenceChecker.isPositionDifference(x, y, game);
 
                             if (isDifference) {
                                 game.restoreModifiedImage(x, y);

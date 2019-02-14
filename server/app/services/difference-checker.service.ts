@@ -6,10 +6,10 @@ import { Game } from "./game";
 
 @injectable()
 export class DifferenceCheckerService {
-    public async isPositionDifference(x: number, y: number, game: Game): Promise<boolean> {
-            const differenceImage: BMPImage = game.differenceImage;
+    public isPositionDifference(x: number, y: number, game: Game): boolean {
+        const differenceImage: BMPImage = game.differenceImage;
 
-            return this.checkDifference(x, y, differenceImage);
+        return this.checkDifference(x, y, differenceImage);
     }
 
     private checkDifference(x: number, y: number, image: BMPImage): boolean {
