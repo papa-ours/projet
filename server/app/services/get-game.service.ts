@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { GameSheetDescription, GameSheet } from "../../../common/communication/game-description";
+import { GameSheet, GameSheetDescription } from "../../../common/communication/game-description";
 import { Game } from "./game";
 
 @injectable()
