@@ -2,8 +2,7 @@ import { expect } from "chai";
 import { GameSheet, TopScoresInterface } from "../../../common/communication/game-description";
 import { GetGameService } from "./get-game.service";
 
-// tslint:disable-next-line:max-func-body-length
-describe.only("GetGameService", () => {
+describe("GetGameService", () => {
 
     let getGameService: GetGameService;
     const carID: string = "0";

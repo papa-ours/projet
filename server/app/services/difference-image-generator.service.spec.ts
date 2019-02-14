@@ -3,7 +3,7 @@ import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImageGenerator } from "./difference-image-generator.service";
 
 // tslint:disable:max-func-body-length
-describe.only("Differences finder", () => {
+describe("Differences finder", () => {
     let differenceImageService: DifferenceImageGenerator;
 
     beforeEach(() => {
