@@ -15,7 +15,7 @@ export class GameplayService {
 
     public getGameId(name: string): Observable<string> {
         return this.http.get<Message>(this.URL + name)
-            .pipe(map((message: Message) => message.body),
+            .pipe(map((message: Message) => JSON.parse(message.body)),
         );
     }
 }
