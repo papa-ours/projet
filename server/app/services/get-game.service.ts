@@ -9,13 +9,14 @@ export class GetGameService {
     private static games: Game[] = [];
     private static gameSheets: GameSheet[] = [];
 
-    public addGame(gameSheet: GameSheetDescription, game: Game): void {
-        GetGameService.games.push(game);
+    public addGameSheet(gameSheet: GameSheet): void {
         GetGameService.gameSheets.push(gameSheet);
     }
 
-    public addGameSheet(gameSheet: GameSheet): void {
-        GetGameService.gameSheets.push(gameSheet);
+    public getGameSheet(id: string): GameSheet | undefined {
+        return GetGameService.gameSheets.find((gameSheet: GameSheet) => {
+            return gameSheet.id === id;
+        });
     }
 
     public getGame(id: string): Game | undefined {
