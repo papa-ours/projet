@@ -4,7 +4,7 @@ import { FormValidationFreeViewService } from './form-validation-free-view.servi
 
 describe('FormValidationFreeViewService', () => {
     const formValidationFreeViewService: FormValidationFreeViewService = new FormValidationFreeViewService();
-    let name: string = "abcdefghijklm";
+    let name: string = "abcdefghijklmno";
     let nbObjects = 20;
     it('should be created', () => {
         const service: FormValidationFreeViewService = TestBed.get(FormValidationFreeViewService);
@@ -18,11 +18,12 @@ describe('FormValidationFreeViewService', () => {
         name = "abc";
         expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();
     });
-    it("should return false with a name longer or equal to 15 characters ", () => {
-        name = "abcdefghijklmno";
+    it("should return false with a name longer than 15 characters ", () => {
+        name = "abcdefghijklmnoq";
         expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();;
     });
     it("should return true with a name between 5 and 15 characters ", () => {
+        name = "abcdefghijklmno";
         expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeTruthy();;
     });
     it("should return false with a number of objects below 10", () => {
