@@ -3,7 +3,7 @@ import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImageGenerator } from "./difference-image-generator.service";
 
 // tslint:disable:max-func-body-length
-describe("Differences finder", () => {
+describe("Difference Image Generator", () => {
     let differenceImageService: DifferenceImageGenerator;
 
     beforeEach(() => {
@@ -15,5 +15,14 @@ describe("Differences finder", () => {
                                                         .generateDifferenceImage("testing", ["assets/car_test.jpg", "assets/car_test.jpg"]);
 
         expect(result).to.equals(undefined);
+    });
+
+    it("should generate the difference image correctly", async () => {
+        const result: BMPImage | undefined = await differenceImageService
+                                                        .generateDifferenceImage("testing",
+                                                                                 ["assets/voiture-originalImage.bmp",
+                                                                                  "assets/voiture-modifiedImage.bmp"]);
+
+        expect(result).not.to.equals(undefined);
     });
 });
