@@ -24,9 +24,8 @@ export class GameSheetGenerationService {
     ) {}
 
     public createGameSheet(name: string): void {
-        const id: string = this.generateId();
         const gameSheet: GameSheet = {
-            id: id,
+            id: "",
             name: name,
             topScores: this.generateTopScores(),
         };
@@ -53,16 +52,4 @@ export class GameSheetGenerationService {
     //             console.error(err);
     //         });
     // }
-
-    private generateId(): string {
-        const POSSIBLE_VALUES: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        const ID_LENGTH: number = 25;
-        const id: string[] = [...Array(ID_LENGTH)].map(() => {
-            const index: number = Math.floor(Math.random() * POSSIBLE_VALUES.length - 1);
-
-            return POSSIBLE_VALUES.charAt(index);
-        });
-
-        return id.join("");
-    }
 }
