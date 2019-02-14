@@ -23,7 +23,7 @@ export class Game {
         });
     }
 
-    public restoreModifiedImage(x: number, y: number): void {
+    public async restoreModifiedImage(x: number, y: number): Promise<{}> {
         const index: number = this.differenceImage.getIndex({ i: x, j: y });
         const difference: number[] = this.differenceImage.getDifferenceAt(index);
 
@@ -32,10 +32,10 @@ export class Game {
             this.differenceImage.setPixelAt(differenceIndex, Pixel.WHITE_PIXEL);
         });
 
-        this.saveModifiedImage();
+        return this.saveModifiedImage();
     }
 
-    private saveModifiedImage(): void {
-        FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, this.images[1].toArray());
+    private async saveModifiedImage(): Promise<{}> {
+        return FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, this.images[1].toArray());
     }
 }
