@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { GameSheetDescription, GameSheet } from "../../../../common/communication/game-description";
+import { GameSheet } from "../../../../common/communication/game-description";
 import { GameListService } from "../game-list-getter.service";
 import { Privilege } from "../privilege";
 
