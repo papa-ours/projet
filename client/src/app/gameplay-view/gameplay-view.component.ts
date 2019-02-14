@@ -16,6 +16,7 @@ export class GameplayViewComponent implements OnInit {
     private name: string;
     private id: string;
     public images: string[] = [];
+    private readonly SERVER_URL: string = "http://localhost:3000";
 
     public constructor( private route: ActivatedRoute,
                         private differenceCheckerService: DifferenceCheckerService,
@@ -33,13 +34,12 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private setupImages(): void {
-        const SERVER_URL: string = "http://localhost:3000";
-        this.images[0] = `${SERVER_URL}/${this.name}-originalImage.bmp`;
-        this.images[1] = `${SERVER_URL}/${this.name}-modifiedImage.bmp`;
+        this.images[0] = `${this.SERVER_URL}/${this.name}-originalImage.bmp`;
+        this.images[1] = `${this.SERVER_URL}/${this.name}-modifiedImage.bmp`;
     }
 
     public checkDifference(position: [number, number]): void {
-        this.differenceCheckerService.isPositionDifference(this.name, position[0], position[1])
+        this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
             .subscribe((isDifference: boolean) => {
                 if (isDifference) {
                     this.foundDifferencesCounter++;
@@ -47,7 +47,7 @@ export class GameplayViewComponent implements OnInit {
                     const sound: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
                     sound.play();
 
-                    // this.images[1] = this.game.modifiedImage.encode();
+                    this.images[1] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}` ;
                 }
             });
     }
