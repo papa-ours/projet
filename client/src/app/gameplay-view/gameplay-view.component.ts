@@ -38,7 +38,7 @@ export class GameplayViewComponent implements OnInit {
     }
 
     public checkDifference(position: [number, number]): void {
-        this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
+        this.differenceCheckerService.isPositionDifference(this.name, position[0], position[1])
             .subscribe((isDifference: boolean) => {
                 if (isDifference) {
                     this.foundDifferencesCounter++;
