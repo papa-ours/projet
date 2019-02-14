@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { GameSheetDescription } from "../../../../common/communication/game-description";
+import { GameSheet } from "../../../../common/communication/game-description";
 import { GameListService } from "../game-list-getter.service";
 import { Privilege } from "../privilege";
 
@@ -19,7 +19,7 @@ export class AdminViewComponent implements OnInit {
     //@ts-ignore
     public Privilege: enum = Privilege;
 
-    private games: GameSheetDescription[][] = [];
+    private games: GameSheet[][] = [];
 
     public constructor(private gameListService: GameListService) {
     }

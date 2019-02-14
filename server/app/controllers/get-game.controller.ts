@@ -32,7 +32,7 @@ export class GetGameController {
                     (req: Request, res: Response, next: NextFunction) => {
                             const game: Game | undefined = this.getGameService.getGame(req.params.id);
                             const imageData: string = game ?
-                                                        game.originalImage.toArray().toString() :
+                                                        game.images[0].toArray().toString() :
                                                         "";
                             const message: Message = {
                                 type: MessageType.GAME_SHEET_GENERATION,
@@ -46,7 +46,7 @@ export class GetGameController {
                     (req: Request, res: Response, next: NextFunction) => {
                             const game: Game | undefined = this.getGameService.getGame(req.params.id);
                             const imageData: string = game ?
-                                                        game.modifiedImage.toArray().toString() :
+                                                        game.images[1].toArray().toString() :
                                                         "";
                             const message: Message = {
                                 type: MessageType.GAME_SHEET_GENERATION,
@@ -56,15 +56,15 @@ export class GetGameController {
                             res.send(message);
                     });
 
-        router.get( "/:id",
+        router.get( "/:name",
                     (req: Request, res: Response, next: NextFunction) => {
-                            const images: string[] = this.getGameService.getGameImages(req.params.id);
-                            const message: Message = {
-                                type: MessageType.GAME_SHEET_GENERATION,
-                                body: JSON.stringify(images),
-                            };
+                        const id: string = this.getGameService.createGame(req.params.name);
+                        const message: Message = {
+                            type: MessageType.GAME_SHEET_GENERATION,
+                            body: JSON.stringify(id),
+                        };
 
-                            res.send(message);
+                        res.send(message);
                     });
 
         return router;

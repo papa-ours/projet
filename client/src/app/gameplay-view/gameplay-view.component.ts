@@ -3,7 +3,6 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { DifferenceCheckerService } from "../difference-checker.service";
 import { GameplayService } from "../gameplay.service";
-import { Game } from "./game";
 
 @Component({
   selector: "app-gameplay-view",
@@ -14,29 +13,29 @@ export class GameplayViewComponent implements OnInit {
 
     public hourglassIcon: IconDefinition = faHourglassHalf;
     public foundDifferencesCounter: number = 0;
+    private name: string;
     private id: string;
-    private game: Game;
     public images: string[] = [];
+    private readonly SERVER_URL: string = "http://localhost:3000";
 
-    public constructor( private route: ActivatedRoute, 
+    public constructor( private route: ActivatedRoute,
+                        private differenceCheckerService: DifferenceCheckerService,
                         private gameplayService: GameplayService,
-                        private differenceCheckerService: DifferenceCheckerService) { }
+                        ) { }
 
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
-            this.id = params["id"];
-            this.getGameplayImages();
+            this.name = params["name"];
+            this.gameplayService.getGameId(this.name).subscribe((id: string) => {
+                this.id = id;
+            });
+            this.setupImages();
         });
     }
 
-    private getGameplayImages(): void {
-        this.gameplayService.getGameplayImages(this.id).subscribe((images: string[]) => {
-            if (images.length) {
-                this.game = new Game(images);
-                this.images[0] = this.game.originalImage.encode();
-                this.images[1] = this.game.modifiedImage.encode();
-            }
-        });
+    private setupImages(): void {
+        this.images[0] = `${this.SERVER_URL}/${this.name}-originalImage.bmp`;
+        this.images[1] = `${this.SERVER_URL}/${this.name}-modifiedImage.bmp`;
     }
 
     public checkDifference(position: [number, number]): void {
@@ -44,11 +43,11 @@ export class GameplayViewComponent implements OnInit {
             .subscribe((isDifference: boolean) => {
                 if (isDifference) {
                     this.foundDifferencesCounter++;
-                    this.game.restoreModifiedImage(position[0], position[1]);
+                    // this.game.restoreModifiedImage(position[0], position[1]);
                     const sound: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
                     sound.play();
 
-                    this.images[1] = this.game.modifiedImage.encode();
+                    this.images[1] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}` ;
                 }
             });
     }
