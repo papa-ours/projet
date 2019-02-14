@@ -25,7 +25,14 @@ export class GameplayViewComponent implements OnInit {
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
+            this.setupImages();
         });
+    }
+
+    private setupImages(): void {
+        const SERVER_URL: string = "http://localhost:3000";
+        this.images[0] = `${SERVER_URL}/${this.name}-originalImage.bmp`;
+        this.images[1] = `${SERVER_URL}/${this.name}-modifiedImage.bmp`;
     }
 
     // public checkDifference(position: [number, number]): void {
