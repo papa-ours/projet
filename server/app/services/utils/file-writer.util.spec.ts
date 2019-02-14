@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { FileReaderUtil } from "./file-reader.util";
 import { FileWriterUtil } from "./file-writer.util";
 
-describe.only("FileWriterUtil", () => {
+describe("FileWriterUtil", () => {
     it("should reject if the directory doesn't exist", async () => {
         try {
             const data: Uint8Array = new Uint8Array([]);
