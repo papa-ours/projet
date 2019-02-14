@@ -10,6 +10,7 @@ export class GetGameService {
     private static gameSheets: GameSheet[] = [];
 
     public addGameSheet(gameSheet: GameSheet): void {
+        gameSheet.id = this.generateId();
         GetGameService.gameSheets.push(gameSheet);
     }
 
