@@ -38,7 +38,11 @@ export class GetGameService {
     }
 
     public createGame(name: string): string {
-        return this.generateId();
+        const id: string = this.generateId();
+        const game: Game = new Game(id, name);
+        GetGameService.games.push(game);
+
+        return id;
     }
 
     private generateId(): string {
