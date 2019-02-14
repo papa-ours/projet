@@ -30,4 +30,8 @@ describe('FormValidationFreeViewService', () => {
         nbObjects = 8;
         expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();;
     });
+    it("should return false with a number of objects over 200", () => {
+        nbObjects = 210;
+        expect(formValidationFreeViewService.isFormValid(name,nbObjects)).toBeFalsy();;
+    });
 });
