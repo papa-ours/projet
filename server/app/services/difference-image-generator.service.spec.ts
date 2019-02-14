@@ -11,7 +11,8 @@ describe.only("Differences finder", () => {
     });
 
     it("should return undefined if it is passed a non bmp image", async () => {
-        const result: BMPImage | undefined = await differenceImageService.generateDifferenceImage("", ["", ""]);
+        const result: BMPImage | undefined = await differenceImageService
+                                                        .generateDifferenceImage("testing", ["assets/car_test.jpg", "assets/car_test.jpg"]);
 
         expect(result).to.equals(undefined);
     });
