@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { DifferenceCheckerService } from "../difference-checker.service";
+import { GameplayService } from "../gameplay.service";
 
 @Component({
   selector: "app-gameplay-view",
@@ -17,6 +18,7 @@ export class GameplayViewComponent implements OnInit {
 
     public constructor( private route: ActivatedRoute,
                         private differenceCheckerService: DifferenceCheckerService,
+                        private gameplayService: GameplayService,
                         ) { }
 
     public ngOnInit(): void {
