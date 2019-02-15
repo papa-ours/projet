@@ -20,6 +20,10 @@ export class FormValidationFreeViewService {
         else return true;
     }
 
+    private static validateModifications(): boolean{
+        return false;
+    }
+
     public static isFormValid(name: string, nbObjects: number): boolean {
         return (this.validateName(name) && this.validateNbObjects(nbObjects));
     }
