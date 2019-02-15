@@ -4,24 +4,24 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class FormValidationFreeViewService {
-    private readonly NAME_MIN_SIZE: number = 5;
-    private readonly NAME_MAX_SIZE: number = 15;
+    private static readonly NAME_MIN_SIZE: number = 5;
+    private static readonly NAME_MAX_SIZE: number = 15;
 
-    private validateName(name: string): boolean {
+    private static validateName(name: string): boolean {
         return  name !== undefined &&
                 name.length >= this.NAME_MIN_SIZE &&
                 name.length <= this.NAME_MAX_SIZE;
     }
 
-    private validateNbObjects(nbObjects: number): boolean{
+    private static validateNbObjects(nbObjects: number): boolean{
         if (nbObjects < 10 || nbObjects > 200){
             return false;
         }
         else return true;
     }
 
-    public isFormValid(name: string, nbObjects: number): boolean {
+    public static isFormValid(name: string, nbObjects: number): boolean {
         return (this.validateName(name) && this.validateNbObjects(nbObjects));
     }
-    constructor() { }
+
 }
