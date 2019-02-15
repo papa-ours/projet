@@ -14,7 +14,7 @@ export class FormValidationFreeViewService {
     }
 
     private validateNbObjects(nbObjects: number): boolean{
-        if (nbObjects < 10){
+        if (nbObjects < 10 || nbObjects > 200){
             return false;
         }
         else return true;
