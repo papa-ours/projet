@@ -20,6 +20,7 @@ export class GameplayViewComponent implements OnInit {
     private readonly SERVER_URL: string = "http://localhost:3000";
     public readonly nbPlayers: number = 1;
     public requiredDifferences: number;
+    private sound: HTMLAudioElement;
 
     public constructor( private route: ActivatedRoute,
                         private differenceCheckerService: DifferenceCheckerService,
@@ -30,6 +31,10 @@ export class GameplayViewComponent implements OnInit {
                             this.requiredDifferences = this.nbPlayers === 1 ?
                                                     ONE_PLAYER_REQUIRED_DIFFERENCES :
                                                     TWO_PLAYERS_REQUIRED_DIFFERENCES;
+
+                            const soundUrl: string = "../../../assets/sound/Correct-answer.ogg";
+                            this.sound = new Audio(soundUrl);
+
                          }
 
     public ngOnInit(): void {
@@ -52,11 +57,13 @@ export class GameplayViewComponent implements OnInit {
             .subscribe((isDifference: boolean) => {
                 if (isDifference) {
                     this.foundDifferencesCounter++;
-                    const sound: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
-                    sound.play();
-
                     this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}` ;
+                    this.playSound();
                 }
             });
+    }
+
+    private playSound(): void {
+        this.sound.play();
     }
 }
