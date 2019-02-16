@@ -24,8 +24,8 @@ export class FormValidationFreeViewService {
         return false;
     }
 
-    public static isFormValid(name: string, nbObjects: number): boolean {
-        return (this.validateName(name) && this.validateNbObjects(nbObjects));
+    public static isFormValid(name: string, nbObjects: number, ajout: boolean, modification: boolean, suppression: boolean): boolean {
+        return (this.validateName(name) && this.validateNbObjects(nbObjects) && this.validateModifications(ajout,modification,suppression));
     }
 
 }
