@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
 import { GameplayService } from "../gameplay.service";
 
@@ -42,8 +43,8 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private setupImages(): void {
-        this.images[0] = `${this.SERVER_URL}/${this.name}-originalImage.bmp`;
-        this.images[1] = `${this.SERVER_URL}/${this.name}-modifiedImage.bmp`;
+        this.images[ImageType.Original] = `${this.SERVER_URL}/${this.name}-originalImage.bmp`;
+        this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.name}-modifiedImage.bmp`;
     }
 
     public checkDifference(position: [number, number]): void {
@@ -55,7 +56,7 @@ export class GameplayViewComponent implements OnInit {
                     const sound: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
                     sound.play();
 
-                    this.images[1] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}` ;
+                    this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}` ;
                 }
             });
     }
