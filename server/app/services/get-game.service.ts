@@ -30,10 +30,16 @@ export class GetGameService {
         return gameSheet;
     }
 
-    public getGame(id: string): Game | undefined {
-        return GetGameService.games.find((game: Game) => {
-            return game.id === id;
+    public getGame(id: string): Game {
+        const game: Game | undefined = GetGameService.games.find((currentGame: Game) => {
+            return currentGame.id === id;
         });
+
+        if (!game) {
+            throw new RangeError("Aucune Game n'a le id " + id);
+        }
+
+        return game;
     }
 
     public getGameDescriptions(): GameSheet[] {
