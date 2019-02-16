@@ -41,7 +41,9 @@ export class BMPImage {
     public encode(): string {
         const numberData: number[] = Array.from(this.toArray());
         const encodedString: string[] = numberData.map(Number).map((val: number) => String.fromCharCode(val));
-        return "data:image/bmp;base64," + btoa(encodedString.join(""));
+        const bmpDataPrefix: string = "data:image/bmp;base64,";
+        
+        return bmpDataPrefix + btoa(encodedString.join(""));
     }
 
     public static isBMP(array: Uint8Array): boolean {
