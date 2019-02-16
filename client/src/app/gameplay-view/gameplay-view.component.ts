@@ -52,7 +52,6 @@ export class GameplayViewComponent implements OnInit {
             .subscribe((isDifference: boolean) => {
                 if (isDifference) {
                     this.foundDifferencesCounter++;
-                    // this.game.restoreModifiedImage(position[0], position[1]);
                     const sound: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
                     sound.play();
 
