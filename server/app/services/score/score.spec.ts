@@ -36,7 +36,7 @@ describe("Score", () => {
         const seconds: number = 0;
         score.seconds = seconds;
         const scoreString: string = score.toString();
-        const result: string = scoreString.slice(scoreString.length - 2, scoreString.length - 1);
+        const result: string = scoreString.slice(scoreString.length - 2);
         expect(result).to.equals("00");
     });
 });
