@@ -36,5 +36,10 @@ describe('FormValidationFreeViewService', () => {
         nbObjects = 210;
         expect(FormValidationFreeViewService.isFormValid(name,nbObjects,ajout,modification,suppression)).toBeFalsy();;
     });
-    
+    it("should return false when none of the modification options are selected", () =>{
+        ajout = false;
+        suppression = false;
+        modification = false;
+        expect(FormValidationFreeViewService.isFormValid(name,nbObjects,ajout,modification,suppression)).toBeFalsy();;
+    });
 });
