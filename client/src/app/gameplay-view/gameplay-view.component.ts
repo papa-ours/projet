@@ -18,12 +18,18 @@ export class GameplayViewComponent implements OnInit {
     public images: string[] = [];
     private readonly SERVER_URL: string = "http://localhost:3000";
     public readonly nbPlayers: number = 1;
-    public requiredDifferences: number = this.nbPlayers === 1 ? 7 : 4;
+    public requiredDifferences: number;
 
     public constructor( private route: ActivatedRoute,
                         private differenceCheckerService: DifferenceCheckerService,
                         private gameplayService: GameplayService,
-                        ) { }
+                        ) {
+                            const ONE_PLAYER_REQUIRED_DIFFERENCES: number = 7;
+                            const TWO_PLAYERS_REQUIRED_DIFFERENCES: number = 4;
+                            this.requiredDifferences = this.nbPlayers === 1 ?
+                                                    ONE_PLAYER_REQUIRED_DIFFERENCES :
+                                                    TWO_PLAYERS_REQUIRED_DIFFERENCES;
+                         }
 
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
