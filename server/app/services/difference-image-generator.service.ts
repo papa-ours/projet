@@ -33,8 +33,8 @@ export class DifferenceImageGenerator {
             throw new TypeError("L'image modifiée n'est pas de type BMP");
         }
 
-        const originalImage: BMPImage = BMPImage.fromArray(this.imagesData[0]);
-        const modifiedImage: BMPImage = BMPImage.fromArray(this.imagesData[1]);
+        const originalImage: BMPImage = BMPImage.fromArray(this.imagesData[ImageType.Original]);
+        const modifiedImage: BMPImage = BMPImage.fromArray(this.imagesData[ImageType.Modified]);
 
         const bmpDifference: BMPImage = originalImage.compare(modifiedImage);
         const differenceImage: DifferenceImage = DifferenceImage.fromBMPImage(bmpDifference);
