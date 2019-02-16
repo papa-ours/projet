@@ -21,7 +21,7 @@ export class FormValidationFreeViewService {
     }
 
     private static validateModifications(ajout: boolean, modification: boolean, suppression: boolean): boolean{
-        return false;
+        return ajout || modification || suppression;
     }
 
     public static isFormValid(name: string, nbObjects: number, ajout: boolean, modification: boolean, suppression: boolean): boolean {
