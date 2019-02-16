@@ -20,7 +20,7 @@ export class FormValidationFreeViewService {
         else return true;
     }
 
-    private static validateModifications(): boolean{
+    private static validateModifications(ajout: boolean, modification: boolean, suppression: boolean): boolean{
         return false;
     }
 
