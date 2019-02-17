@@ -25,16 +25,16 @@ export class DifferenceImageController {
                                     { name: "modifiedImage", maxCount: 1 } ]),
                     async (req: Request, res: Response, next: NextFunction) => {
                         const name: string = req.body.name;
-                        const differenceImage: DifferenceImage | undefined =
-                        await this.differenceImageGenerator.generateDifferenceImage(name,
-                                                                                    [
-                                                                                        `uploads/${name}-originalImage.bmp`,
-                                                                                        `uploads/${name}-modifiedImage.bmp`,
-                                                                                    ]);
-
                         const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
 
-                        if (differenceImage) {
+                        try {
+                            const differenceImage: DifferenceImage =
+                            await this.differenceImageGenerator.generateDifferenceImage(name,
+                                                                                        [
+                                                                                            `uploads/${name}-originalImage.bmp`,
+                                                                                            `uploads/${name}-modifiedImage.bmp`,
+                                                                                        ]);
+
                             const REQUIRED_DIFFERENCES: number = 7;
                             const numberOfDifferences: number = this.differencesFinder.getNumberOfDifferences(differenceImage);
                             message.body = numberOfDifferences === REQUIRED_DIFFERENCES ?
@@ -42,8 +42,11 @@ export class DifferenceImageController {
 
                             if (numberOfDifferences === REQUIRED_DIFFERENCES) {
                                 FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, differenceImage.toArray());
-                                Axios.post("http://localhost:3000/api/gamesheet/", {name: name});
+                                const GAMESHEET_URL: string = "http://localhost:3000/api/gamesheet/";
+                                Axios.post(GAMESHEET_URL, {name: name});
                             }
+                        } catch (err) {
+                            message.body = err.message;
                         }
 
                         res.send(message);

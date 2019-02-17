@@ -9,11 +9,7 @@ describe("Difference Checker", () => {
     beforeEach((done: MochaDone) => {
         const ONE_SECOND: number = 1000;
         game = new Game("0", "voiture");
-        setTimeout(
-            () => {
-                done();
-            },
-            ONE_SECOND);
+        setTimeout(done, ONE_SECOND);
     });
 
     it("should return false if there is no difference at the position", () => {

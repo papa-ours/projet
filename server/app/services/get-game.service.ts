@@ -18,16 +18,28 @@ export class GetGameService {
         GetGameService.gameSheets.push(gameSheet);
     }
 
-    public getGameSheet(id: string): GameSheet | undefined {
-        return GetGameService.gameSheets.find((gameSheet: GameSheet) => {
-            return gameSheet.id === id;
+    public getGameSheet(id: string): GameSheet {
+        const gameSheet: GameSheet | undefined = GetGameService.gameSheets.find((sheet: GameSheet) => {
+            return sheet.id === id;
         });
+
+        if (!gameSheet) {
+            throw new RangeError("Aucune GameSheet n'a le id " + id);
+        }
+
+        return gameSheet;
     }
 
-    public getGame(id: string): Game | undefined {
-        return GetGameService.games.find((game: Game) => {
-            return game.id === id;
+    public getGame(id: string): Game {
+        const game: Game | undefined = GetGameService.games.find((currentGame: Game) => {
+            return currentGame.id === id;
         });
+
+        if (!game) {
+            throw new RangeError("Aucune Game n'a le id " + id);
+        }
+
+        return game;
     }
 
     public getGameDescriptions(): GameSheet[] {
