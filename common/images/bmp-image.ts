@@ -51,6 +51,13 @@ export class BMPImage {
         return (array[0] === B_CODE && array[1] === M_CODE);
     }
 
+    public static isBitFormatValid(array: Uint8Array): boolean {
+        const BIT_FORMAT_OFFSET: number = 28;
+        const BIT_FORMAT: number = 24;
+
+        return (array[BIT_FORMAT_OFFSET] === BIT_FORMAT);
+    }
+
     public compare(other: BMPImage): BMPImage {
         const image: BMPImage = new BMPImage(Array.from(this.pixels), this.header, this.width, this.height);
         image.pixels = this.pixels.map((pixel: Pixel, index: number) => {
