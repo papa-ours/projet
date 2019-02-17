@@ -14,13 +14,13 @@ describe("SceneDataDifference", () => {
     it("should have a greater length on addGeometryData", () => {
         const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
         const lenghtBeforeAdd: number = geometryData.length;
-        sceneDataDifference.addGeometryData(geometryData);
+        sceneDataDifference.addGeometryData(geometryData, 0);
         const lenghtAfterAdd: number = geometryData.length;
         expect(lenghtAfterAdd).to.be.greaterThan(lenghtBeforeAdd);
     });
     it("should set proprety is modified to true on addGeometryData", () => {
         const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
-        sceneDataDifference.addGeometryData(geometryData);
+        sceneDataDifference.addGeometryData(geometryData, 0);
         expect(geometryData[geometryData.length - 1].isModified).to.equal(true);
     });
     it("should have a lower length on deleteGeometryData", () => {
