@@ -9,6 +9,7 @@ import { AppComponent } from "./app.component";
 import { ChatMessagesComponent } from "./chat-messages/chat-messages.component";
 import { DifferenceCheckerService } from "./difference-checker.service";
 import { DifferenceImageService } from "./difference-image.service";
+import { FreeViewGameCreationComponent } from "./free-view-game-creation/free-view-game-creation.component";
 import { GameImageComponent } from "./game-image/game-image.component";
 import { GameListViewComponent } from "./game-list-view/game-list-view.component";
 import { GameListComponent } from "./game-list/game-list.component";
@@ -31,6 +32,7 @@ import { UsernameValidationService } from "./username-validation-service.service
         AdminViewComponent,
         SimpleGameCreationComponent,
         Scene3dComponent,
+        FreeViewGameCreationComponent,
         GameplayViewComponent,
         ChatMessagesComponent,
         GameImageComponent,
