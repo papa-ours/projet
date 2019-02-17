@@ -5,8 +5,4 @@ import { GameFreeViewGenerationService } from './game-free-view-generation.servi
 describe('GameFreeViewGenerationService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
-    const service: GameFreeViewGenerationService = TestBed.get(GameFreeViewGenerationService);
-    expect(service).toBeTruthy();
-  });
 });
