@@ -1,39 +1,31 @@
-// import { expect } from "chai";
-// import * as fs from "fs";
-// import { DBConnectionService } from "./dbconnection.service";
-// import { DifferenceImageGenerator } from "./difference-image-generator.service";
-// import { DifferencesFinderService } from "./differences-finder.service";
-// import { GameSheetGenerationService } from "./game-sheet-generation.service";
-// import { GetGameService } from "./get-game.service";
+import { expect } from "chai";
+import { GameSheet } from "../../../common/communication/game-description";
+import { GameSheetGenerationService } from "./game-sheet-generation.service";
+import { GetGameService } from "./get-game.service";
 
-// describe("game sheet generation", () => {
-//     let gameSheetGenerator: GameSheetGenerationService;
+describe.only("game sheet generation", () => {
+    let gameSheetGenerator: GameSheetGenerationService;
+    const getGameService: GetGameService = new GetGameService();
 
-//     beforeEach(() => {
-//         gameSheetGenerator = new GameSheetGenerationService(
-//             new DifferenceImageGenerator(),
-//             new DifferencesFinderService(),
-//             new DBConnectionService(),
-//             new GetGameService());
-//     });
+    beforeEach(() => {
+        gameSheetGenerator = new GameSheetGenerationService(getGameService);
+    });
 
-//     it("should return the correct error message if the images don't have 7 differences", () => {
-//         let imageData: Uint8Array;
-//         fs.readFile("../client/src/assets/img/dog.bmp", (err: NodeJS.ErrnoException, fileData: Buffer) => {
-//             imageData = Uint8Array.from(fileData);
-//             const result: string = gameSheetGenerator.generateGameSheet("Doggo", imageData, imageData).body;
-//             expect(result).to.equals("Les images n'ont pas exactement 7 différences, la création a été annulée");
-//         });
-//     });
-
-//     it.skip("should return an empty body message if the images have 7 differences", () => {
-//         const originalImageBuffer: Buffer = fs.readFileSync("../client/src/assets/img/dog.bmp");
-//         const modifiedImageBuffer: Buffer = fs.readFileSync("../client/src/assets/img/dog_7_diff.bmp");
-
-//         const originalImageData: Uint8Array = Uint8Array.from(originalImageBuffer);
-//         const modifiedImageData: Uint8Array = Uint8Array.from(modifiedImageBuffer);
-
-//         const result: string = gameSheetGenerator.generateGameSheet("Doggo", originalImageData, modifiedImageData).body;
-//         expect(result).to.equals("");
-//     });
-// });
+    it("should create a gamesheet and put it in the getGameService", () => {
+        const name: string = "nom";
+        gameSheetGenerator.createGameSheet(name);
+        const expected: GameSheet | undefined = getGameService.getGameDescriptions().find((gamesheet: GameSheet) => {
+            return gamesheet.name === name;
+        });
+        expected ? expect(true).to.equals(true) : expect(true).to.equals(false);
+    });
+    it("should create a topscore with the correct length", () => {
+        const name: string = "name";
+        const topscoreLength: number = 2;
+        gameSheetGenerator.createGameSheet(name);
+        const expected: GameSheet | undefined = getGameService.getGameDescriptions().find((gamesheet: GameSheet) => {
+            return gamesheet.name === name;
+        });
+        expected ? expect(expected.topScores.length).to.equals(topscoreLength) : expect(true).to.equals(false);
+    });
+});
