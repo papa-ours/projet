@@ -67,4 +67,16 @@ describe("bmp image", () => {
         expect(image).to.not.deep.equal(BMPImage.fromArray(data));
     });
 
+    it("should return true if the image is format BMP 24 bit", () => {
+        expect(BMPImage.isBitFormatValid(data)).to.equal(true);
+    });
+
+    it("should return false if the image is NOT format BMP 24 bit", (done: Mocha.Func) => {
+        fs.readFile("./test/car_original_32bit.bmp", (err: NodeJS.ErrnoException, fileData: Buffer) => {
+            const whiteImage: Uint8Array = Uint8Array.from(fileData);
+            expect(BMPImage.isBitFormatValid(whiteImage)).to.equal(false);
+            setTimeout(done, 0);
+        });
+    });
+
 });
