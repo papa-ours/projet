@@ -1,5 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
+import { Message, MessageType } from "../../../common/communication/message";
 import { GameFreeViewGenerationService } from './game-free-view-generation.service';
 
 describe('GameFreeViewGenerationService', () => {
@@ -15,4 +16,16 @@ describe('GameFreeViewGenerationService', () => {
         httpMock = TestBed.get(HttpTestingController);
     });
 
+    it("should be a POST REQUEST", () => {
+        const response: Message = {
+            type: MessageType.GAME_SHEET_GENERATION,
+            body: "this is the body",
+        };
+        gameFreeViewGenerationService.postGenerate(new FormData()).subscribe(
+            (data: Message) => { expect(data).toBeDefined(); },
+        );
+        const request: TestRequest = httpMock.expectOne(`${gameFreeViewGenerationService.URL}`);
+        expect(request.request.method).toBe("POST");
+        request.flush(response);
+    });
 });
