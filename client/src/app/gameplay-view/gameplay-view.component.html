@@ -1,0 +1,22 @@
+
+<div class="instruction-container">Trouvez les 7 différences</div>
+
+<div class="container">
+    <div class="title-container">Nom du jeu</div>
+    
+    <div class="info-container">
+        <span class="time-container">
+            <fa-icon [icon]="hourglassIcon" class="info-label"></fa-icon>
+            <span>00:00</span>
+        </span>
+        <span class="differences-count">
+            <span>{{foundDifferencesCounter}}/7</span>
+        </span>
+    </div>
+
+    <div class="images-chat-container">
+        <app-game-image *ngFor="let src of images" [source]="src" (checkDifference)="checkDifference($event)"></app-game-image>
+        <app-chat-messages></app-chat-messages>
+    </div>
+
+</div>

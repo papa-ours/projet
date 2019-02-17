@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
-import { Message } from "../../../common/communication/message";
+import * as multer from "multer";
+import { Message, MessageType } from "../../../common/communication/message";
 import { GameSheetGenerationService } from "../services/game-sheet-generation.service";
 import Types from "../types";
 
@@ -11,19 +12,36 @@ export class GameSheetGenerationController {
 
     public get router(): Router {
         const router: Router = Router();
+        const upload: multer.Instance = this.createMulterObject();
 
         router.post("/",
+                    upload.fields([ { name: "name", maxCount: 1 },
+                                    { name: "originalImage", maxCount: 1 },
+                                    { name: "modifiedImage", maxCount: 1 } ]),
                     (req: Request, res: Response, next: NextFunction) => {
-                        const name: string = req.body.name;
-                        const originalImageData: Uint8Array = JSON.parse("[" + req.body.originalImage + "]");
-                        const modifiedImageData: Uint8Array = JSON.parse("[" + req.body.modifiedImage + "]");
+                        const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
 
-                        const message: Message =
-                            this.gameSheetGenerationService.generateGameSheet(name, originalImageData, modifiedImageData);
+                        this.gameSheetGenerationService
+                            .generateGameSheet( req.body.name,
+                                                ["uploads/" + req.body.name + "-" + "originalImage.bmp",
+                                                 "uploads/" + req.body.name + "-" + "modifiedImage.bmp"]);
 
                         res.send(message);
                     });
 
         return router;
+    }
+
+    private createMulterObject(): multer.Instance {
+        const storage: multer.StorageEngine = multer.diskStorage({
+            destination: (req: Request, file: Express.Multer.File, callback: Function) => {
+                callback(null, "uploads/");
+            },
+            filename: (req: Request, file: Express.Multer.File, callback: Function) => {
+                callback(null, req.body.name + "-" + file.fieldname + ".bmp");
+            },
+        });
+
+        return multer({ storage: storage });
     }
 }

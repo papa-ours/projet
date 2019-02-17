@@ -1,0 +1,30 @@
+.chat-container {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    min-width: 350px;
+    height: 350px;
+    padding: 10px;
+    background: #FFF;
+    overflow: scroll auto;
+    margin-right: 30px;
+    border-radius: 8px;
+}
+
+.title {
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.message-container {
+    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: 50px 280px;
+}
+
+.time {
+    color: #999;
+}
+
+.message {
+    font-size: 16px;
+    text-align: justify;
+}
