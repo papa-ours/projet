@@ -15,8 +15,7 @@ export class FreeViewGameCreationComponent implements OnInit {
     public nbObjects: string = "";
     public nbObjectsInt: number;
     public sceneType: string;
-    constructor(private formValidationFreeViewService: FormValidationFreeViewService,
-                private gameFreeViewGenerationService: GameFreeViewGenerationService) { }
+    constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { }
 
     public isAInt(): boolean {
             this.nbObjectsInt = parseInt(this.nbObjects);
@@ -29,7 +28,7 @@ export class FreeViewGameCreationComponent implements OnInit {
 
     public get allValuesEntered(): boolean {
         let allValuesEntered: boolean = false;
-        allValuesEntered = this.formValidationFreeViewService.isFormValid(this.name,this.nbObjectsInt);
+        allValuesEntered = FormValidationFreeViewService.isFormValid(this.name,this.nbObjectsInt,this.ajout,this.suppression,this.changementCouleur);
         return allValuesEntered;
     }
     //@ts-ignore
