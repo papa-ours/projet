@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormValidationFreeViewService } from '../form-validation-free-view.service';
 import { GameFreeViewGenerationService } from '../game-free-view-generation.service';
 import { Message } from "../../../../common/communication/message";
@@ -15,6 +15,7 @@ export class FreeViewGameCreationComponent implements OnInit {
     public nbObjects: string = "";
     public nbObjectsInt: number;
     public sceneType: string;
+    @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
     constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { }
 
     public isAInt(): boolean {
@@ -26,6 +27,10 @@ export class FreeViewGameCreationComponent implements OnInit {
         
     }
 
+    public close(): void {
+        this.closeForm.emit(false);
+    }
+    
     public get allValuesEntered(): boolean {
         let allValuesEntered: boolean = false;
         allValuesEntered = FormValidationFreeViewService.isFormValid(this.name,this.nbObjectsInt,this.ajout,this.suppression,this.changementCouleur);
