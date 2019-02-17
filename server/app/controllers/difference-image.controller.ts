@@ -46,7 +46,7 @@ export class DifferenceImageController {
                                 Axios.post(GAMESHEET_URL, {name: name});
                             }
                         } catch (err) {
-                            message.body = err.message();
+                            message.body = err.message;
                         }
 
                         res.send(message);
