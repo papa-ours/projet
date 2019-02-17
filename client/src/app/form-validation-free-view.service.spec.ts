@@ -42,7 +42,7 @@ describe('FormValidationFreeViewService', () => {
         modification = false;
         expect(FormValidationFreeViewService.isFormValid(name,nbObjects,ajout,modification,suppression)).toBeFalsy();;
     });
-    it("should return true when one of the modifications are selected", () =>{
+    it("should return true when at least one of the modifications are selected", () =>{
         ajout = true;
         suppression = false;
         modification = false;
