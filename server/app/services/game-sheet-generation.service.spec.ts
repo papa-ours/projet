@@ -3,7 +3,7 @@ import { GameSheet } from "../../../common/communication/game-description";
 import { GameSheetGenerationService } from "./game-sheet-generation.service";
 import { GetGameService } from "./get-game.service";
 
-describe.only("game sheet generation", () => {
+describe("game sheet generation", () => {
     let gameSheetGenerator: GameSheetGenerationService;
     const getGameService: GetGameService = new GetGameService();
 
