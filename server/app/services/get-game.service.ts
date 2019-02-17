@@ -18,6 +18,12 @@ export class GetGameService {
         });
     }
 
+    public getGameImages(id: string): string[] {
+        const game: Game | undefined = this.getGame(id);
+
+        return game ? [game.preview, game.modifiedImage] : [];
+    }
+
     public getGameDescriptions(): GameSheetDescription[] {
         return GetGameService.games.map((game: Game) => {
             return game as GameSheetDescription;

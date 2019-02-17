@@ -17,4 +17,6 @@ export default {
         SceneDataGeneratorService: Symbol("SceneDataGeneratorService"),
         SceneDataControler: Symbol("SceneDataControler"),
         SceneDataDifferenceService: Symbol("SceneDataDifferenceService"),
+        DifferenceCheckerService: Symbol("DifferenceCheckerService"),
+        DifferenceCheckerController: Symbol("DifferenceCheckerController"),
 };

@@ -35,7 +35,7 @@ export class GameSheetGenerationService {
     }
 
     public generateGameSheet(name: string, paths: string[]): void {
-        const readFiles: Promise<Uint8Array>[] = paths.map((path: string) => {
+        const readFiles: Promise<Buffer>[] = paths.map((path: string) => {
             return FileReaderUtil.readFile(path);
         });
 

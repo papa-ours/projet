@@ -22,9 +22,9 @@ export class GameSheetGenerationController {
                         const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
 
                         this.gameSheetGenerationService
-                            .generateGameSheet(req.body.name,
-                                               ["uploads/" + req.body.name + "-" + "originalImage.bmp",
-                                                "uploads/" + req.body.name + "-" + "modifiedImage.bmp"]);
+                            .generateGameSheet( req.body.name,
+                                                ["uploads/" + req.body.name + "-" + "originalImage.bmp",
+                                                 "uploads/" + req.body.name + "-" + "modifiedImage.bmp"]);
 
                         res.send(message);
                     });
@@ -34,11 +34,11 @@ export class GameSheetGenerationController {
 
     private createMulterObject(): multer.Instance {
         const storage: multer.StorageEngine = multer.diskStorage({
-            destination: (req: Request, file: Express.Multer.File, cb: Function) => {
-                cb(null, "uploads/");
+            destination: (req: Request, file: Express.Multer.File, callback: Function) => {
+                callback(null, "uploads/");
             },
-            filename: (req: Request, file: Express.Multer.File, cb: Function) => {
-                cb(null, req.body.name + "-" + file.fieldname);
+            filename: (req: Request, file: Express.Multer.File, callback: Function) => {
+                callback(null, req.body.name + "-" + file.fieldname + ".bmp");
             },
         });
 

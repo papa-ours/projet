@@ -7,8 +7,9 @@ import { AdminViewComponent } from "./admin-view/admin-view.component";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { AppComponent } from "./app.component";
 import { ChatMessagesComponent } from "./chat-messages/chat-messages.component";
+import { DifferenceCheckerService } from "./difference-checker.service";
 import { DifferenceImageService } from "./difference-image.service";
-import { GameImagesComponent } from "./game-images/game-images.component";
+import { GameImageComponent } from "./game-image/game-image.component";
 import { GameListViewComponent } from "./game-list-view/game-list-view.component";
 import { GameListComponent } from "./game-list/game-list.component";
 import { GameSheetComponent } from "./game-sheet/game-sheet.component";
@@ -32,7 +33,7 @@ import { UsernameValidationService } from "./username-validation-service.service
         Scene3dComponent,
         GameplayViewComponent,
         ChatMessagesComponent,
-        GameImagesComponent,
+        GameImageComponent,
     ],
     imports: [
         BrowserModule,
@@ -44,6 +45,7 @@ import { UsernameValidationService } from "./username-validation-service.service
     providers: [
         UsernameValidationService,
         DifferenceImageService,
+        DifferenceCheckerService,
         FileReaderUtil,
         RenderService,
     ],
