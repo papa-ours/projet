@@ -17,9 +17,9 @@ export class GameFreeViewGenerationService {
         return this.http.post<Message>(this.URL, {
             name: formData.get("name"),
             nbObjects: formData.get("nbObjects"),
-            ajout: formData.get("ajout"),
-            suppression: formData.get("suppression"),
-            changementCouleur: formData.get("changementCouleur"),
+            adding: formData.get("adding"),
+            removal: formData.get("removal"),
+            colorChange: formData.get("colorChange"),
             objectType: formData.get("objectType")
         }).pipe(catchError(this.handleError<Message>("postGenerateFreeViewData")),
         );
