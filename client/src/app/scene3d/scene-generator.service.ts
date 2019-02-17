@@ -9,21 +9,21 @@ import { GeometryFactoryService } from "./geometry-factory.service";
 export class SceneGeneratorService {
     private backgroundColor: number = 0x515151;
     private scene: THREE.Scene;
-    public constructor(private randomGeometryService: GeometryFactoryService) { }
+    public constructor(private geometryFactoryService: GeometryFactoryService) { }
 
     private changeBackgroundScene(): void {
         this.scene.background = new THREE.Color(this.backgroundColor);
     }
     private addGeometry(sceneData: GeometryData[]): void {
-        for (const data of sceneData) {
+        for (const shape of sceneData) {
             const material: THREE.MeshStandardMaterial = new THREE.MeshStandardMaterial({
-                color: data.color,
+                color: shape.color,
                 metalness: 0.7,
                 roughness: 0.2,
             });
-            const randomShape: THREE.Mesh = this.randomGeometryService.createShape(data.size, material, data.type);
-            randomShape.rotation.set(data.rotation.x, data.rotation.y, data.rotation.z);
-            randomShape.position.set(data.position.x, data.position.y, data.position.z);
+            const randomShape: THREE.Mesh = this.geometryFactoryService.createShape(shape.size, material, shape.type);
+            randomShape.rotation.set(shape.rotation.x, shape.rotation.y, shape.rotation.z);
+            randomShape.position.set(shape.position.x, shape.position.y, shape.position.z);
             this.scene.add(randomShape);
         }
     }
