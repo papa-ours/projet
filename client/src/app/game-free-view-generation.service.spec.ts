@@ -28,4 +28,7 @@ describe('GameFreeViewGenerationService', () => {
         expect(request.request.method).toBe("POST");
         request.flush(response);
     });
+    it("should return a proper message body on POST request", () => {
+        
+    });
 });
