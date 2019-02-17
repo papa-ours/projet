@@ -14,9 +14,9 @@ describe("GetGameService", () => {
         getGameService = new GetGameService();
     });
 
-    it("should return undefined if there's no corresponding id", () => {
+    it("should return throw an error if there's no corresponding id", () => {
         const id: string = "1";
-        expect(getGameService.getGame(id)).to.equal(undefined);
+        expect(getGameService.getGame.bind(getGameService, id)).to.throw(new RangeError("Aucune Game n'a le id " + id));
     });
 
     it("should return the GameSheetDescription properly if it's empty", () => {
