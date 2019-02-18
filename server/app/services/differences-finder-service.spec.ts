@@ -16,14 +16,6 @@ describe("Differences finder", () => {
     const blank: BMPImage = BMPImage.fromArray(fs.readFileSync("./test/blank.bmp"));
     const text: BMPImage = BMPImage.fromArray(fs.readFileSync("./test/image-difference-test.bmp"));
 
-    it("should throw an error if it is passed undefined", () => {
-        // @ts-ignore
-        // tslint:disable-next-line:prefer-const
-        let image: DifferenceImage;
-        // @ts-ignore
-        expect(differencesFinder.getNumberOfDifferences.bind(image)).to.throw("Image must be defined");
-    });
-
     it("should return 1 if it is passed an image with two black pixels", () => {
         const header: Uint8Array = new Uint8Array(0);
         const pixels: Pixel[] = [Pixel.BLACK_PIXEL, Pixel.BLACK_PIXEL];
