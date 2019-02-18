@@ -17,20 +17,20 @@ export class SceneDataDifferenceService {
         this.modificationMap.set(ModificationType.CHANGE_COLOR, this.changeColorGeometryData);
     }
 
-    public addGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
+    private addGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
         geometryDataDifference.push(this.sceneDataGeneratorService.getRandomGeometryData());
         geometryDataDifference[geometryDataDifference.length - 1].isModified = true;
     }
-    public deleteGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
+    private deleteGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
         const numberOfDeletion: number = 1;
         geometryDataDifference.splice(index, numberOfDeletion);
     }
-    public changeColorGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
+    private changeColorGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
         const newColor: number = this.sceneDataGeneratorService.getRandomColor();
         geometryDataDifference[index].color = newColor;
         geometryDataDifference[index].isModified = true;
     }
-    public applyRandomChange(geometryDataDifference: GeometryData[], randomIndex: number): void {
+    private applyRandomChange(geometryDataDifference: GeometryData[], randomIndex: number): void {
         const randomModificationIndex: number = Math.floor(Math.random() * this.modifications.length);
         const randomModificationType: ModificationType = this.modifications[randomModificationIndex].type;
         const randomFunction: Function = this.modificationMap.get(randomModificationType) as Function;
