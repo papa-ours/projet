@@ -14,17 +14,21 @@ export class SceneDataGeneratorService {
 
     public getRandomPosition(): Vector {
 
-        return {x:  this.randomNumber.randomInteger(SKYBOX_MIN.x, SKYBOX_MAX.x),
-                y: this.randomNumber.randomInteger(SKYBOX_MIN.y , SKYBOX_MAX.y),
-                z: this.randomNumber.randomInteger(SKYBOX_MIN.z , SKYBOX_MAX.z)};
+        return {
+            x: this.randomNumber.randomInteger(SKYBOX_MIN.x, SKYBOX_MAX.x),
+            y: this.randomNumber.randomInteger(SKYBOX_MIN.y , SKYBOX_MAX.y),
+            z: this.randomNumber.randomInteger(SKYBOX_MIN.z , SKYBOX_MAX.z),
+        };
     }
 
     public getRandomRotation(): Vector {
         const maxAngle: number = Math.PI;
 
-        return {x:  this.randomNumber.randomFloat(0, maxAngle),
-                y: this.randomNumber.randomFloat(0, maxAngle),
-                z: this.randomNumber.randomFloat(0, maxAngle)};
+        return {
+            x:  this.randomNumber.randomFloat(0, maxAngle),
+            y: this.randomNumber.randomFloat(0, maxAngle),
+            z: this.randomNumber.randomFloat(0, maxAngle),
+        };
     }
 
     public getRandomColor(): number {
@@ -39,9 +43,12 @@ export class SceneDataGeneratorService {
     }
 
     public getRandomGeometrieType(): GeometryType {
-        const geometrieTypes: GeometryType[] = [GeometryType.SPHERE, GeometryType.CONE,
-                                                GeometryType.CUBE, GeometryType.CYLINDER,
-                                                GeometryType.PYRAMID];
+        const geometrieTypes: GeometryType[] =
+         [
+          GeometryType.SPHERE, GeometryType.CONE,
+          GeometryType.CUBE, GeometryType.CYLINDER,
+          GeometryType.PYRAMID,
+        ];
 
         return geometrieTypes[Math.floor(Math.random() * geometrieTypes.length)];
     }
@@ -52,8 +59,11 @@ export class SceneDataGeneratorService {
         const randomColor: number = this.getRandomColor();
         const randomSize: number = this.getRandomSize();
 
-        return { position: randomPosition, rotation: randomRotation,
-                 color: randomColor, size: randomSize, isModified: false, type: this.getRandomGeometrieType() };
+        return {
+            position: randomPosition, rotation: randomRotation,
+            color: randomColor, size: randomSize, isModified: false,
+            type: this.getRandomGeometrieType(),
+        };
     }
 
     public getSceneData(numberOfObjects: number): GeometryData [] {
