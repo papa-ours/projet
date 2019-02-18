@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { Message } from "../../../../common/communication/message";
 import { FormValidationFreeViewService } from "../form-validation-free-view.service";
 import { GameFreeViewGenerationService } from "../game-free-view-generation.service";
 @Component({
@@ -7,7 +6,7 @@ import { GameFreeViewGenerationService } from "../game-free-view-generation.serv
   templateUrl: "./free-view-game-creation.component.html",
   styleUrls: ["./free-view-game-creation.component.css"],
 })
-export class FreeViewGameCreationComponent implements OnInit {
+export class FreeViewGameCreationComponent {
     public name: string = "";
     public adding: boolean = false;
     public removal: boolean = false;
@@ -51,16 +50,7 @@ export class FreeViewGameCreationComponent implements OnInit {
         formData.append("colorChange", String(this.colorChange));
         formData.append("objectType", this.sceneType);
 
-        this.gameFreeViewGenerationService.postGenerate(formData)
-            .subscribe((message: Message) => {
-                if (message.body !== "") {
-
-                } else {
-
-                }
-            });
-    }
-    public ngOnInit() {
+        this.gameFreeViewGenerationService.postGenerate(formData);
     }
 
 }
