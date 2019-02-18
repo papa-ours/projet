@@ -28,7 +28,7 @@ export class DifferenceImageController {
                             { name: "modifiedImage", maxCount: 1 } ]),
             async (req: Request, res: Response, next: NextFunction) => {
                 const name: string = req.body.name;
-                const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
+                const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: "" };
 
                 try {
                     const differenceImage: DifferenceImage =
