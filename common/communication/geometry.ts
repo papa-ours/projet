@@ -14,6 +14,7 @@ export interface SceneData {
     originalScene: GeometryData [];
     modifiedScene: GeometryData [];
 }
+
 export enum GeometryType {
     SPHERE,
     CUBE,
@@ -21,11 +22,13 @@ export enum GeometryType {
     CYLINDER,
     PYRAMID,
 }
+
 export enum ModificationType {
     ADD,
     DELETE,
     CHANGE_COLOR,
 }
+
 export interface Modification {
     type: ModificationType;
     isActive: boolean;
