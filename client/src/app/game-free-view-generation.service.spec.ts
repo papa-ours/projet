@@ -22,9 +22,7 @@ describe("GameFreeViewGenerationService", () => {
             type: MessageType.GAME_SHEET_GENERATION,
             body: "this is the body",
         };
-        gameFreeViewGenerationService.postGenerate(new FormData()).subscribe(
-            (data: Message) => { expect(data).toBeDefined(); },
-        );
+        gameFreeViewGenerationService.postGenerate(new FormData());
         const request: TestRequest = httpMock.expectOne(`${gameFreeViewGenerationService.URL}`);
         expect(request.request.method).toBe("POST");
         request.flush(response);
@@ -35,9 +33,7 @@ describe("GameFreeViewGenerationService", () => {
             type: MessageType.GAME_SHEET_GENERATION,
             body: "this is the body",
         };
-        gameFreeViewGenerationService.postGenerate(new FormData()).subscribe(
-            (data: Message) => { expect(data.body).toBe(response.body); },
-        );
+        gameFreeViewGenerationService.postGenerate(new FormData());
         const request: TestRequest = httpMock.expectOne(`${gameFreeViewGenerationService.URL}`);
         request.flush(response);
         expect(request.request.method).toBe("POST");
