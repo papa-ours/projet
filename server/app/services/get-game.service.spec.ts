@@ -14,10 +14,20 @@ describe("GetGameService", () => {
         getGameService = new GetGameService();
     });
 
-    it("should return undefined if there's no corresponding id", () => {
+    it("should return undefined if there's no corresponding game with id", () => {
         const id: string = "1";
         try {
             getGameService.getGame(id);
+            expect(true).to.equals(false);
+        } catch {
+            expect(true).to.equals(true);
+        }
+    });
+
+    it("should return undefined if there's no corresponding gamesheet with id", () => {
+        const id: string = "1";
+        try {
+            getGameService.getGameSheet(id);
             expect(true).to.equals(false);
         } catch {
             expect(true).to.equals(true);
