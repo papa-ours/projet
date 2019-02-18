@@ -60,6 +60,15 @@ export class BMPImage {
         return (array[BIT_FORMAT_OFFSET] === BIT_FORMAT);
     }
 
+    public static isDimensionValid(array: Uint8Array): boolean {
+        const WIDTH_OFFSET: number = 18;
+        const HEIGHT_OFFSET: number = 22;
+        const WIDTH_CODE: number = 128
+        const HEIGTH_CODE: number = 224;
+
+        return (array[WIDTH_OFFSET] === WIDTH_CODE && array[HEIGHT_OFFSET] === HEIGTH_CODE);
+    }
+
     public compare(other: BMPImage): BMPImage {
         const image: BMPImage = new BMPImage(Array.from(this.pixels), this.header, this.width, this.height);
         image.pixels = this.pixels.map((pixel: Pixel, index: number) => {
