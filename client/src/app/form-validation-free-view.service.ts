@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class FormValidationFreeViewService {
     private static readonly NAME_MIN_SIZE: number = 5;
     private static readonly NAME_MAX_SIZE: number = 15;
+    private static readonly NB_OBJECT_MIN: number = 10;
+    private static readonly NB_OBJECT_MAX: number = 200;
 
     private static validateName(name: string): boolean {
         return  name !== undefined &&
@@ -14,7 +16,7 @@ export class FormValidationFreeViewService {
     }
 
     private static validateNbObjects(nbObjects: number): boolean{
-        return (nbObjects >= 10 && nbObjects <= 200);
+        return (nbObjects >= this.NB_OBJECT_MIN && nbObjects <= this.NB_OBJECT_MAX);
     }
 
     private static validateModifications(adding: boolean, colorChange: boolean, removal: boolean): boolean{
