@@ -41,7 +41,7 @@ export class SceneDataGeneratorService {
 
         return geometrieTypes[Math.floor(Math.random() * geometrieTypes.length)];
     }
-    public getGeometryData(): GeometryData {
+    public getRandomGeometryData(): GeometryData {
         const randomPosition: Vector = this.getRandomPosition();
         const randomRotation: Vector = this.getRandomRotation();
         const randomColor: number = this.getRandomColor();
@@ -53,7 +53,7 @@ export class SceneDataGeneratorService {
     public getSceneData(numberOfObjects: number): GeometryData [] {
         const geometryMessage: GeometryData [] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
-            geometryMessage.push(this.getGeometryData());
+            geometryMessage.push(this.getRandomGeometryData());
         }
 
         return geometryMessage;
