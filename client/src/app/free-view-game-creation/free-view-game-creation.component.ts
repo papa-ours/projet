@@ -28,8 +28,8 @@ export class FreeViewGameCreationComponent {
     public get allValuesEntered(): boolean {
         return FormValidationFreeViewService.isFormValid(this.name, this.nbObjects, this.isAdding, this.isRemoval, this.isColorChange);
     }
-    // @ts-ignore
-    private submitForm(): void {
+
+    public submitForm(): void {
         if (this.allValuesEntered) {
             this.sendForm();
         }
