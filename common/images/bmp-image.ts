@@ -53,6 +53,22 @@ export class BMPImage {
         return (array[0] === B_CODE && array[1] === M_CODE);
     }
 
+    public static isBitFormatValid(array: Uint8Array): boolean {
+        const BIT_FORMAT_OFFSET: number = 28;
+        const BIT_FORMAT: number = 24;
+
+        return (array[BIT_FORMAT_OFFSET] === BIT_FORMAT);
+    }
+
+    public static isDimensionValid(array: Uint8Array): boolean {
+        const WIDTH_OFFSET: number = 18;
+        const HEIGHT_OFFSET: number = 22;
+        const WIDTH_CODE: number = 128
+        const HEIGTH_CODE: number = 224;
+
+        return (array[WIDTH_OFFSET] === WIDTH_CODE && array[HEIGHT_OFFSET] === HEIGTH_CODE);
+    }
+
     public compare(other: BMPImage): BMPImage {
         const image: BMPImage = new BMPImage(Array.from(this.pixels), this.header, this.width, this.height);
         image.pixels = this.pixels.map((pixel: Pixel, index: number) => {
@@ -122,9 +138,5 @@ export class BMPImage {
             i: (index % this.width),
             j: Math.floor(index / this.width),
         };
-    }
-
-    public setPixelAt(index: number, pixel: Pixel): void {
-        this.pixels[index] = pixel;
     }
 }

@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { GameImageComponent } from './game-image.component';
+import { GameImageComponent } from "./game-image.component";
 
-describe('GameImageComponent', () => {
+describe("GameImageComponent", () => {
   let component: GameImageComponent;
   let fixture: ComponentFixture<GameImageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GameImageComponent ]
+      declarations: [ GameImageComponent ],
     })
     .compileComponents();
   }));
@@ -19,7 +19,7 @@ describe('GameImageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -11,18 +11,29 @@ describe("difference-image", () => {
 
     let differenceImage: DifferenceImage;
 
-    before(() => {
-        differenceImage =  new DifferenceImage(pixels, header, width, height);
-    });
     const imageArray: Uint8Array = fs.readFileSync("../client/src/assets/img/dog.bmp");
-    const imageBMP: BMPImage = BMPImage.fromArray(fs.readFileSync("../client/src/assets/img/dog.bmp"));
+
+    const imageBMP: BMPImage = BMPImage.fromArray(imageArray);
     const pixels: Pixel[] = imageBMP.pixels;
     const header: Uint8Array = imageBMP.header;
 
-    it.skip("should convert from BMPImage to DifferenceImage properly", () => {
-        expect(DifferenceImage.fromBMPImage(imageBMP)).to.be.equal(differenceImage);
+    before(() => {
+        differenceImage =  new DifferenceImage(pixels, header, width, height);
     });
-    it.skip("should convert from Array to DifferenceImage properly", () => {
-        expect(DifferenceImage.fromArray(imageArray)).to.be.equal(differenceImage);
+
+    it("should test something", () => {
+        expect(true).to.be.equal(true);
+    });
+
+    it("should convert from BMPImage to DifferenceImage properly", () => {
+        const expected: DifferenceImage = differenceImage;
+        const result: DifferenceImage = DifferenceImage.fromBMPImage(imageBMP);
+        expect(result).to.be.equal(expected);
+    });
+
+    it("should convert from Array to DifferenceImage properly", () => {
+        const expected: DifferenceImage = differenceImage;
+        const result: DifferenceImage = DifferenceImage.fromArray(imageArray);
+        expect(expected).to.be.equal(result);
     });
 });

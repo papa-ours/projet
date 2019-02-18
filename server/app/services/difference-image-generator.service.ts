@@ -25,14 +25,7 @@ export class DifferenceImageGenerator {
     }
 
     public generate(): DifferenceImage {
-        if (!BMPImage.isBMP(this.imagesData[ImageType.Original])) {
-            throw new TypeError("L'image originale n'est pas de type BMP");
-        }
-
-        if (!BMPImage.isBMP(this.imagesData[ImageType.Modified])) {
-            throw new TypeError("L'image modifiée n'est pas de type BMP");
-        }
-
+        this.imagesValidation();
         const originalImage: BMPImage = BMPImage.fromArray(this.imagesData[ImageType.Original]);
         const modifiedImage: BMPImage = BMPImage.fromArray(this.imagesData[ImageType.Modified]);
 
@@ -42,5 +35,40 @@ export class DifferenceImageGenerator {
         differenceImage.augmentBlackPixels();
 
         return differenceImage;
+    }
+    private imagesValidation(): void {
+        this.imagesBMPValidation();
+        this.imagesDimensionValidation();
+        this.bitFormatValidation();
+    }
+
+    private imagesBMPValidation(): void {
+        if (!BMPImage.isBMP(this.imagesData[ImageType.Original])) {
+            throw new TypeError("L'image originale n'est pas de type BMP");
+        }
+
+        if (!BMPImage.isBMP(this.imagesData[ImageType.Modified])) {
+            throw new TypeError("L'image modifiée n'est pas de type BMP");
+        }
+    }
+
+    private imagesDimensionValidation(): void {
+        if (!BMPImage.isDimensionValid(this.imagesData[ImageType.Original])) {
+            throw new SyntaxError("L'image originale n'est pas de dimension 640px x 480px");
+        }
+
+        if (!BMPImage.isDimensionValid(this.imagesData[ImageType.Modified])) {
+            throw new SyntaxError("L'image modifiée n'est pas de dimension 640px x 480px");
+        }
+    }
+
+    private bitFormatValidation(): void {
+        if (!BMPImage.isBitFormatValid(this.imagesData[ImageType.Original])) {
+            throw new SyntaxError("L'image originale n'est pas en format 24 bit");
+        }
+
+        if (!BMPImage.isBitFormatValid(this.imagesData[ImageType.Modified])) {
+            throw new SyntaxError("L'image modifiée n'est pas en format 24 bit");
+        }
     }
 }

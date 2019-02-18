@@ -80,4 +80,12 @@ export class GetGameService {
 
         return id;
     }
+
+    public emptyGameSheets(): void {
+        GetGameService.gameSheets = [];
+    }
+
+    public emptyGames(): void {
+        GetGameService.games = [];
+    }
 }

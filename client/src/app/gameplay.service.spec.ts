@@ -20,8 +20,8 @@ describe("GameplayService", () => {
     });
 
     it("should be a GET REQUEST", () => {
-        gameplayService.getGameplayImages("0").subscribe(
-            (data: string[]) => { expect(data).toBeDefined();
+        gameplayService.getGameId("0").subscribe(
+            (data: string) => { expect(data).toBeDefined();
         });
         const request: TestRequest = httpMock.expectOne(`${gameplayService.URL + "0"}`);
         expect(request.request.method).toBe("GET");
