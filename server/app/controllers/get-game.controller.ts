@@ -52,16 +52,20 @@ export class GetGameController {
 
         router.get( "/:id/modifiedImage",
                     (req: Request, res: Response, next: NextFunction) => {
-                            const game: Game | undefined = this.getGameService.getGame(req.params.id);
-                            const imageData: string = game ?
-                                                        game.images[1].toArray().toString() :
-                                                        "";
-                            const message: Message = {
-                                type: MessageType.GAME_SHEET_GENERATION,
-                                body: imageData,
-                            };
+                        const message: Message = {
+                            type: MessageType.GAME_SHEET_GENERATION,
+                            body: "",
+                        };
 
-                            res.send(message);
+                        try {
+                            const game: Game = this.getGameService.getGame(req.params.id);
+                            const imageData: string = game.image[ImageType.Modified].toArray().toString();
+                            message.body = imageData;
+                        } catch (err) {
+                            message.body = err.message;
+                        }
+
+                        res.send(message);
                     });
 
         router.get( "/:name",
