@@ -1,11 +1,11 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormValidationFreeViewService } from '../form-validation-free-view.service';
-import { GameFreeViewGenerationService } from '../game-free-view-generation.service';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Message } from "../../../../common/communication/message";
+import { FormValidationFreeViewService } from "../form-validation-free-view.service";
+import { GameFreeViewGenerationService } from "../game-free-view-generation.service";
 @Component({
-  selector: 'app-free-view-game-creation',
-  templateUrl: './free-view-game-creation.component.html',
-  styleUrls: ['./free-view-game-creation.component.css']
+  selector: "app-free-view-game-creation",
+  templateUrl: "./free-view-game-creation.component.html",
+  styleUrls: ["./free-view-game-creation.component.css"],
 })
 export class FreeViewGameCreationComponent implements OnInit {
     public name: string = "";
@@ -16,15 +16,14 @@ export class FreeViewGameCreationComponent implements OnInit {
     public nbObjectsInt: number;
     public sceneType: string;
     @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
-    constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { }
+    public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { }
 
     public isAInt(): boolean {
             this.nbObjectsInt = parseInt(this.nbObjects);
-            if (Number.isNaN(this.nbObjectsInt)){
+            if (Number.isNaN(this.nbObjectsInt)) {
                 return false;
-            }
-            else return true;
-        
+            } else { return true; }
+
     }
 
     public close(): void {
@@ -33,17 +32,17 @@ export class FreeViewGameCreationComponent implements OnInit {
 
     public get allValuesEntered(): boolean {
         let allValuesEntered: boolean = false;
-        allValuesEntered = FormValidationFreeViewService.isFormValid(this.name,this.nbObjectsInt,this.adding,this.removal,this.colorChange);
+        allValuesEntered = FormValidationFreeViewService.isFormValid(this.name, this.nbObjectsInt, this.adding, this.removal, this.colorChange);
         return allValuesEntered;
     }
-    //@ts-ignore
+    // @ts-ignore
     private submitForm(): void {
         if (this.allValuesEntered) {
             this.sendForm();
         }
     }
 
-    private sendForm(){
+    private sendForm() {
         const formData: FormData = new FormData();
         formData.append("name", this.name);
         formData.append("nbObjects", this.nbObjects);
@@ -55,13 +54,13 @@ export class FreeViewGameCreationComponent implements OnInit {
         this.gameFreeViewGenerationService.postGenerate(formData)
             .subscribe((message: Message) => {
                 if (message.body !== "") {
-                    
+
                 } else {
-                    
+
                 }
             });
     }
-    ngOnInit() {
+    public ngOnInit() {
     }
 
 }
