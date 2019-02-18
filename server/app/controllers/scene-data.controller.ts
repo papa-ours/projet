@@ -6,7 +6,7 @@ import { SceneDataDifferenceService } from "../services/scene/scene-difference-g
 import Types from "../types";
 
 @injectable()
-export class SceneDataControler {
+export class SceneDataController {
 
     public constructor(@inject(Types.SceneDataDifferenceService) private sceneDataDifferenceService: SceneDataDifferenceService,
                        @inject(Types.SceneDataGeneratorService) private sceneDataGeneratorService: SceneDataGeneratorService) { }
