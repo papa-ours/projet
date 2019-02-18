@@ -9,6 +9,7 @@ import { DifferenceImageController } from "./controllers/difference-image.contro
 import { GameSheetGenerationController } from "./controllers/game-sheet-generation.controller";
 import { GetGameListController } from "./controllers/get-game-list.controller";
 import { GetGameController } from "./controllers/get-game.controller";
+import { SceneDataControler } from "./controllers/scene-data.controler";
 import Types from "./types";
 
 @injectable()
@@ -22,6 +23,7 @@ export class Application {
             @inject(Types.GetGameController) private getGameController: GetGameController,
             @inject(Types.GameSheetGenerationController) private gameSheetGenerationController: GameSheetGenerationController,
             @inject(Types.DifferenceImageController) private differenceImageController: DifferenceImageController,
+            @inject(Types.SceneDataControler) private sceneDataControler: SceneDataControler,
             @inject(Types.DifferenceCheckerController) private differenceCheckerController: DifferenceCheckerController) {
         this.app = express();
 
@@ -47,6 +49,7 @@ export class Application {
         this.app.use("/api/gamelist", this.getGameListController.router);
         this.app.use("/api/difference_image", this.differenceImageController.router);
         this.app.use("/api/game", this.getGameController.router);
+        this.app.use("/api/scene", this.sceneDataControler.router);
         this.errorHandeling();
     }
 

@@ -1,0 +1,46 @@
+<div class="form">
+
+    <div class="title">
+        Créer un jeu point de vue libre
+    </div>
+
+    <div class="info">
+        Nom du jeu :
+        <input class="name-input" placeholder="7 differences" [(ngModel)]="name"><br>
+        <div  class="error-message" *ngIf="(name.length < 5  || name.length > 15)">
+            Le nom du jeu doit comporter entre 5 et 15 caractères
+        </div>
+    </div>
+
+    <div class="info type-section">
+        Type des objets :
+        <select class="type-input">
+                <option value="géométrique" [(ngModel)]="sceneType" ngDefaultControl>Géométrique</option>
+                <option value="thématique" [(ngModel)]="sceneType" ngDefaultControl>Thématique</option>
+        </select>
+    </div>
+
+    <div class="info">
+            Nombre d'objets :
+            <input class="nbObjects-input" type="number" [(ngModel)]="nbObjects"><br>
+            <div  class="error-message" *ngIf="!isAInt()">
+                La valeur doit être un nombre
+            </div>
+    </div>
+
+    <div class="input modification-object">
+            Modifications aux objets :
+            <input type="checkbox" name="ajout" value="ajout" [(ngModel)]="ajout">ajout<br>
+            <input type="checkbox" name="suppression" value="suppression" [(ngModel)]="suppression">suppression<br>
+            <input type="checkbox" name="changementCouleur" value="changementCouleur" [(ngModel)]="changementCouleur">changement de couleur<br>
+            <div  class="error-message" *ngIf="!(ajout || suppression || changementCouleur)">
+                Au moins un type de modification doit être choisit
+            </div>
+    </div>
+    
+    <div class="button-section"> 
+        <button class="cancel-btn" (click)="close()">Annuler</button>
+        <button class="create-btn" (click)="submitForm()">Créer</button>
+    </div>
+</div>
+

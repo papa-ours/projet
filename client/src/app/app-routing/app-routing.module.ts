@@ -5,6 +5,7 @@ import { AdminViewComponent } from "../admin-view/admin-view.component";
 import { GameListViewComponent } from "../game-list-view/game-list-view.component";
 import { GameplayViewComponent } from "../gameplay-view/gameplay-view.component";
 import { InitialViewComponent } from "../initial-view/initial-view.component";
+import { Scene3dComponent } from "../scene3d/scene3d.component";
 
 const ROUTES: Routes = [
     { path: "", redirectTo: "/login", pathMatch: "full" },
@@ -13,6 +14,7 @@ const ROUTES: Routes = [
     { path: "gamelist", redirectTo: "/login", pathMatch: "full" },
     { path: "gamelist/:username", component: GameListViewComponent },
     { path: "gameplaySimplePOV/:name", component: GameplayViewComponent},
+    { path: "scene3d", component: Scene3dComponent },
 ];
 
 @NgModule({
