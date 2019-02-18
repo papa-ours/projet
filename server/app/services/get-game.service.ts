@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { GameSheet } from "../../../common/communication/game-description";
+import { GameSheet, HasId } from "../../../common/communication/game-description";
 import { Game } from "./game";
 
 @injectable()
@@ -10,7 +10,7 @@ export class GetGameService {
     private static gameSheets: GameSheet[] = [];
 
     public addGameSheet(gameSheet: GameSheet): void {
-        gameSheet.id = this.generateId();
+        gameSheet.id = this.generateUniqueId(GetGameService.gameSheets);
         GetGameService.gameSheets.push(gameSheet);
     }
 
@@ -42,9 +42,9 @@ export class GetGameService {
         return GetGameService.gameSheets;
     }
 
-    public createGame(name: string): string {
-        const id: string = this.generateId();
 
+    public createGame(name: string): string {
+        const id: string = this.generateUniqueId(GetGameService.games);
         const game: Game = new Game(id, name);
         GetGameService.games.push(game);
 
@@ -61,5 +61,23 @@ export class GetGameService {
         });
 
         return id.join("");
+    }
+
+    private isIdTaken(list: HasId[], id: string): boolean {
+        const objectWithId: HasId | undefined = list.find((value: HasId) => {
+            return value.id === id;
+        });
+
+        return objectWithId !== undefined;
+    }
+
+    private generateUniqueId(list: HasId[]): string {
+        let id: string = this.generateId();
+
+        while (this.isIdTaken(list, id)) {
+            id = this.generateId();
+        }
+
+        return id;
     }
 }
