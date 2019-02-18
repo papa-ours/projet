@@ -12,7 +12,7 @@ export class SceneDataGeneratorService {
     private readonly randomNumber: RandomNumber =  new RandomNumber();
     public constructor () {}
 
-    public getRandomPosition(): Vector {
+    private getRandomPosition(): Vector {
 
         return {
             x: this.randomNumber.randomInteger(SKYBOX_MIN.x, SKYBOX_MAX.x),
@@ -21,7 +21,7 @@ export class SceneDataGeneratorService {
         };
     }
 
-    public getRandomRotation(): Vector {
+    private getRandomRotation(): Vector {
         const maxAngle: number = Math.PI;
 
         return {
@@ -31,18 +31,18 @@ export class SceneDataGeneratorService {
         };
     }
 
-    public getRandomColor(): number {
+    private getRandomColor(): number {
         return  this.randomNumber.randomInteger(0, this.baseColor);
     }
 
-    public getRandomSize(): number {
+    private getRandomSize(): number {
         const MIN_FACTOR: number = 0.5;
         const MAX_FACTOR: number = 1.5;
 
         return this.randomNumber.randomInteger(this.geometryBaseSize * MIN_FACTOR, this.geometryBaseSize * MAX_FACTOR);
     }
 
-    public getRandomGeometrieType(): GeometryType {
+    private getRandomGeometrieType(): GeometryType {
         const geometrieTypes: GeometryType[] =
          [
           GeometryType.SPHERE, GeometryType.CONE,
