@@ -21,10 +21,6 @@ describe("difference-image", () => {
         differenceImage =  new DifferenceImage(pixels, header, width, height);
     });
 
-    it("should test something", () => {
-        expect(true).to.be.equal(true);
-    });
-
     it("should convert from BMPImage to DifferenceImage properly", () => {
         const expected: DifferenceImage = differenceImage;
         const result: DifferenceImage = DifferenceImage.fromBMPImage(imageBMP);
