@@ -11,8 +11,8 @@ export interface GeometryData {
 
 export interface SceneData {
     name: string;
-    originalScene:GeometryData [];
-    modifiedScene:GeometryData [];
+    originalScene: GeometryData [];
+    modifiedScene: GeometryData [];
 }
 export enum GeometryType {
     SPHERE,
@@ -27,6 +27,6 @@ export enum ModificationType {
     CHANGE_COLOR,
 }
 export interface Modification {
-    type : ModificationType;
+    type: ModificationType;
     isActive: boolean;
 }

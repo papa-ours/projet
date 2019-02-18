@@ -11,10 +11,11 @@ import { SceneGeneratorService } from "./scene-generator.service";
 })
 export class Scene3dComponent implements AfterViewInit {
 
-    public constructor(private renderService: RenderService,
-                       private getSceneData: GetSceneDataService,
-                       private sceneGeneratorService: SceneGeneratorService) {
-    }
+    public constructor(
+        private renderService: RenderService,
+        private getSceneData: GetSceneDataService,
+        private sceneGeneratorService: SceneGeneratorService,
+    ) {}
 
     private get container(): HTMLDivElement {
         return this.containerRef.nativeElement;
