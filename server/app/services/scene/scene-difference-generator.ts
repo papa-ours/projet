@@ -9,6 +9,7 @@ export class SceneDataDifferenceService {
     private readonly MAX_DIFFERENCE: number = 7;
     private modificationMap: Map<ModificationType, Function>;
     private modifications: Modification[];
+
     public constructor() {
         this.sceneDataGeneratorService = new SceneDataGeneratorService();
         this.modificationMap = new Map();
@@ -21,15 +22,18 @@ export class SceneDataDifferenceService {
         geometryDataDifference.push(this.sceneDataGeneratorService.getRandomGeometryData());
         geometryDataDifference[geometryDataDifference.length - 1].isModified = true;
     }
+
     private deleteGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
         const numberOfDeletion: number = 1;
         geometryDataDifference.splice(index, numberOfDeletion);
     }
+
     private changeColorGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
         const newColor: number = this.sceneDataGeneratorService.getRandomColor();
         geometryDataDifference[index].color = newColor;
         geometryDataDifference[index].isModified = true;
     }
+
     private applyRandomChange(geometryDataDifference: GeometryData[], randomIndex: number): void {
         const randomModificationIndex: number = Math.floor(Math.random() * this.modifications.length);
         const randomModificationType: ModificationType = this.modifications[randomModificationIndex].type;
@@ -37,7 +41,8 @@ export class SceneDataDifferenceService {
 
         randomFunction(geometryDataDifference, randomIndex);
     }
-    public getDifference(geometryData: GeometryData[], modifications: Modification[] ): GeometryData[] {
+
+    public getDifference(geometryData: GeometryData[], modifications: Modification[]): GeometryData[] {
         // create a copy of object
         const geometryDataDifference: GeometryData[] = JSON.parse(JSON.stringify(geometryData));
         this.modifications = modifications;
@@ -52,4 +57,5 @@ export class SceneDataDifferenceService {
 
         return geometryDataDifference;
     }
+
 }
