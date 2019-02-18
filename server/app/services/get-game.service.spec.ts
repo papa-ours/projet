@@ -14,6 +14,11 @@ describe("GetGameService", () => {
         getGameService = new GetGameService();
     });
 
+    after(() => {
+        getGameService.emptyGameSheets();
+        getGameService.emptyGames();
+    });
+
     it("should return throw an error if there's no corresponding id", () => {
         const id: string = "1";
         try {

@@ -11,6 +11,11 @@ describe("game sheet generation", () => {
         gameSheetGenerator = new GameSheetGenerationService(getGameService);
     });
 
+    after(() => {
+        getGameService.emptyGameSheets();
+        getGameService.emptyGames();
+    });
+
     it("should create a gamesheet and put it in the getGameService", () => {
         const name: string = "nom";
         gameSheetGenerator.createGameSheet(name);

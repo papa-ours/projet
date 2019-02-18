@@ -62,4 +62,12 @@ export class GetGameService {
 
         return id.join("");
     }
+
+    public emptyGameSheets(): void {
+        GetGameService.gameSheets = [];
+    }
+
+    public emptyGames(): void {
+        GetGameService.games = [];
+    }
 }
