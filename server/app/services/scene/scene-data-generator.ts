@@ -67,12 +67,12 @@ export class SceneDataGeneratorService {
     }
 
     public getSceneData(numberOfObjects: number): GeometryData [] {
-        const geometryMessage: GeometryData [] = [];
+        const geometryData: GeometryData [] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
-            geometryMessage.push(this.getRandomGeometryData());
+            geometryData.push(this.getRandomGeometryData());
         }
 
-        return geometryMessage;
+        return geometryData;
     }
 
 }
