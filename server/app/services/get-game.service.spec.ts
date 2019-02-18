@@ -21,12 +21,9 @@ describe("GetGameService", () => {
 
     it("should return throw an error if there's no corresponding id", () => {
         const id: string = "1";
-        try {
-            getGameService.getGame(id);
-            expect(true).to.equals(false);
-        } catch {
-            expect(true).to.equals(true);
-        }
+        expect(() => {
+            return getGameService.getGame(id);
+        }).to.throws("Aucune Game n'a le id 1");
     });
 
     it("should return undefined if there's no corresponding gamesheet with id", () => {
