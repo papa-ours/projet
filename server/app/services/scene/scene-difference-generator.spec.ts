@@ -54,7 +54,9 @@ describe("SceneDataDifference", () => {
     });
 
     it("should not change the geometry data injected it should make a copie instead", () => {
-        const geometryData: GeometryData[] = [sceneDataGeneratorService.getRandomGeometryData()];
+        const minObject: number = 10;
+        const geometryData: GeometryData[] = new Array(minObject);
+        geometryData.fill(sceneDataGeneratorService.getRandomGeometryData());
         const modifications: Modification[] =
         [{type: ModificationType.ADD, isActive: true},
          {type: ModificationType.DELETE, isActive: true},
