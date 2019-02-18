@@ -8,12 +8,13 @@ import { RandomNumber } from "../utils/random-number";
 @injectable()
 export class SceneDataGeneratorService {
     private readonly baseColor: number = 0xFFFFFF;
+    private readonly minObject: number = 10;
+    private readonly maxObject: number = 200;
     private readonly geometryBaseSize: number = 65;
     private readonly randomNumber: RandomNumber =  new RandomNumber();
     public constructor () {}
 
     private getRandomPosition(): Vector {
-
         return {
             x: this.randomNumber.randomInteger(SKYBOX_MIN.x, SKYBOX_MAX.x),
             y: this.randomNumber.randomInteger(SKYBOX_MIN.y , SKYBOX_MAX.y),
@@ -53,6 +54,16 @@ export class SceneDataGeneratorService {
         return geometrieTypes[Math.floor(Math.random() * geometrieTypes.length)];
     }
 
+    private checkNumberOfObjects (numberOfObjects: number): boolean {
+        return  this.minObject <= numberOfObjects  &&  numberOfObjects <= this.maxObject;
+    }
+
+    private validateNumberOfObjects(numberOfObjects: number): void {
+        if (!this.checkNumberOfObjects(numberOfObjects)) {
+            throw new Error(`Number should be beetwen ${this.minObject} and ${this.maxObject} `);
+        }
+    }
+
     public getRandomGeometryData(): GeometryData {
         const randomPosition: Vector = this.getRandomPosition();
         const randomRotation: Vector = this.getRandomRotation();
@@ -67,6 +78,7 @@ export class SceneDataGeneratorService {
     }
 
     public getSceneData(numberOfObjects: number): GeometryData [] {
+        this.validateNumberOfObjects(numberOfObjects);
         const geometryData: GeometryData [] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
             geometryData.push(this.getRandomGeometryData());
