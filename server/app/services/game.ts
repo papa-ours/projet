@@ -1,5 +1,6 @@
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
+import { ImageType } from "../../../common/images/image-type";
 import { Pixel } from "../../../common/images/pixel";
 import { FileReaderUtil } from "./utils/file-reader.util";
 import { FileWriterUtil } from "./utils/file-writer.util";
@@ -15,7 +16,7 @@ export class Game {
         const imageTypes: string[] = [ "original", "modified", "difference" ];
         imageTypes.forEach(async (type: string, index: number) => {
             const data: Uint8Array = await FileReaderUtil.readFile(`uploads/${name}-${type}Image.bmp`);
-            if (index === 2) {
+            if (index === ImageType.Difference) {
                 this.differenceImage = DifferenceImage.fromArray(data);
             } else {
                 this.images[index] = BMPImage.fromArray(data);
@@ -28,7 +29,7 @@ export class Game {
         const difference: number[] = this.differenceImage.getDifferenceAt(index);
 
         difference.forEach((differenceIndex: number) => {
-            this.images[1].setPixelAt(differenceIndex, this.images[0].pixelAt(differenceIndex));
+            this.images[ImageType.Modified].setPixelAt(differenceIndex, this.images[ImageType.Original].pixelAt(differenceIndex));
             this.differenceImage.setPixelAt(differenceIndex, Pixel.WHITE_PIXEL);
         });
 
@@ -36,6 +37,6 @@ export class Game {
     }
 
     private async saveModifiedImage(): Promise<{}> {
-        return FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, this.images[1].toArray());
+        return FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, this.images[ImageType.Modified].toArray());
     }
 }

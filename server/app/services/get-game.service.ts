@@ -10,11 +10,7 @@ export class GetGameService {
     private static gameSheets: GameSheet[] = [];
 
     public addGameSheet(gameSheet: GameSheet): void {
-        let id: string = this.generateId();
-        while (this.getGame(id)) {
-            id = this.generateId();
-        }
-        gameSheet.id = id;
+        gameSheet.id = this.generateId();
         GetGameService.gameSheets.push(gameSheet);
     }
 
@@ -47,10 +43,7 @@ export class GetGameService {
     }
 
     public createGame(name: string): string {
-        let id: string = this.generateId();
-        while (this.getGame(id)) {
-            id = this.generateId();
-        }
+        const id: string = this.generateId();
 
         const game: Game = new Game(id, name);
         GetGameService.games.push(game);

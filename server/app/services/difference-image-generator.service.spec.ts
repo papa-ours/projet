@@ -1,5 +1,4 @@
 import { expect } from "chai";
-import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImageGenerator } from "./difference-image-generator.service";
 
 // tslint:disable:max-func-body-length
@@ -19,11 +18,13 @@ describe("Difference Image Generator", () => {
     });
 
     it("should generate the difference image correctly", async () => {
-        const result: BMPImage | undefined = await differenceImageService
-                                                        .generateDifferenceImage("testing",
-                                                                                 ["assets/voiture-originalImage.bmp",
-                                                                                  "assets/voiture-modifiedImage.bmp"]);
-
-        expect(result).not.to.equals(undefined);
+        try {
+            await differenceImageService.generateDifferenceImage("testing",
+                                                                 ["assets/voiture-originalImage.bmp",
+                                                                  "assets/voiture-modifiedImage.bmp"]);
+            expect(true).to.equals(true);
+        } catch {
+            expect(false).to.equals(true);
+        }
     });
 });

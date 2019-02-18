@@ -16,7 +16,12 @@ describe("GetGameService", () => {
 
     it("should return throw an error if there's no corresponding id", () => {
         const id: string = "1";
-        expect(getGameService.getGame.bind(getGameService, id)).to.throw(new RangeError("Aucune Game n'a le id " + id));
+        try {
+            getGameService.getGame(id);
+            expect(true).to.equals(false);
+        } catch {
+            expect(true).to.equals(true);
+        }
     });
 
     it("should return the GameSheetDescription properly if it's empty", () => {
