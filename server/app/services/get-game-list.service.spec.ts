@@ -12,7 +12,7 @@ describe("get game list", () => {
         const expected: GameLists = { list2d: [], list3d: [] };
 
         const GAMELIST_URL: string = "http://localhost:3000/api/gamelist/";
-        await Axios.get(GAMELIST_URL)
+        Axios.get(GAMELIST_URL)
         .then((res: AxiosResponse) => {
             const result: GameLists = JSON.parse(res.data.body);
             expect(expected).to.deep.equals(result);
