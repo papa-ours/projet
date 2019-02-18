@@ -35,16 +35,11 @@ export class DifferenceImageController {
                                                                                             `uploads/${name}-modifiedImage.bmp`,
                                                                                         ]);
 
-                            const REQUIRED_DIFFERENCES: number = 7;
-                            const numberOfDifferences: number = this.differencesFinder.getNumberOfDifferences(differenceImage);
-                            message.body = numberOfDifferences === REQUIRED_DIFFERENCES ?
-                                "" : "Les images n'ont pas exactement " + REQUIRED_DIFFERENCES + " différences, la création a été annulée";
+                            this.verifyNumberOfDifferences(differenceImage);
 
-                            if (numberOfDifferences === REQUIRED_DIFFERENCES) {
-                                FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, differenceImage.toArray());
-                                const GAMESHEET_URL: string = "http://localhost:3000/api/gamesheet/";
-                                Axios.post(GAMESHEET_URL, {name: name});
-                            }
+                            FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, differenceImage.toArray());
+                            const GAMESHEET_URL: string = "http://localhost:3000/api/gamesheet/";
+                            await Axios.post(GAMESHEET_URL, {name: name});
                         } catch (err) {
                             message.body = err.message;
                         }
@@ -66,5 +61,13 @@ export class DifferenceImageController {
         });
 
         return multer({ storage: storage });
+    }
+
+    private verifyNumberOfDifferences(image: DifferenceImage): void {
+        const REQUIRED_DIFFERENCES: number = 7;
+        const numberOfDifferences: number = this.differencesFinder.getNumberOfDifferences(image);
+        if (numberOfDifferences !== REQUIRED_DIFFERENCES) {
+            throw new Error("Les images n'ont pas exactement " + REQUIRED_DIFFERENCES + " différences, la création a été annulée");
+        }
     }
 }
