@@ -54,7 +54,7 @@ export class FormValidationService {
         const isImageBitFormatRespected: boolean = (imageBitFormat === this.BIT_FORMAT);
 
         if (!isImageBitFormatRespected) {
-            throw (Error(`Les images doivent être en format bitmap ${this.BIT_FORMAT} bit`));
+            throw new SyntaxError(`Les images doivent être en format bitmap ${this.BIT_FORMAT} bit`);
         }
 
         return isImageBitFormatRespected;
