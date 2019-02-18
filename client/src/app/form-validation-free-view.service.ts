@@ -17,12 +17,12 @@ export class FormValidationFreeViewService {
         return (nbObjects >= 10 && nbObjects <= 200);
     }
 
-    private static validateModifications(ajout: boolean, modification: boolean, suppression: boolean): boolean{
-        return (ajout || modification || suppression);
+    private static validateModifications(adding: boolean, colorChange: boolean, removal: boolean): boolean{
+        return (adding || colorChange || removal);
     }
 
-    public static isFormValid(name: string, nbObjects: number, ajout: boolean, modification: boolean, suppression: boolean): boolean {
-        return (this.validateName(name) && this.validateNbObjects(nbObjects) && this.validateModifications(ajout,modification,suppression));
+    public static isFormValid(name: string, nbObjects: number, adding: boolean, colorChange: boolean, removal: boolean): boolean {
+        return (this.validateName(name) && this.validateNbObjects(nbObjects) && this.validateModifications(adding,colorChange,removal));
     }
 
 }

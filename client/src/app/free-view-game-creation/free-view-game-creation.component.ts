@@ -9,9 +9,9 @@ import { Message } from "../../../../common/communication/message";
 })
 export class FreeViewGameCreationComponent implements OnInit {
     public name: string = "";
-    public ajout: boolean = false;
-    public suppression: boolean = false;
-    public changementCouleur: boolean = false;
+    public adding: boolean = false;
+    public removal: boolean = false;
+    public colorChange: boolean = false;
     public nbObjects: string = "";
     public nbObjectsInt: number;
     public sceneType: string;
@@ -30,10 +30,10 @@ export class FreeViewGameCreationComponent implements OnInit {
     public close(): void {
         this.closeForm.emit(false);
     }
-    
+
     public get allValuesEntered(): boolean {
         let allValuesEntered: boolean = false;
-        allValuesEntered = FormValidationFreeViewService.isFormValid(this.name,this.nbObjectsInt,this.ajout,this.suppression,this.changementCouleur);
+        allValuesEntered = FormValidationFreeViewService.isFormValid(this.name,this.nbObjectsInt,this.adding,this.removal,this.colorChange);
         return allValuesEntered;
     }
     //@ts-ignore
@@ -47,9 +47,9 @@ export class FreeViewGameCreationComponent implements OnInit {
         const formData: FormData = new FormData();
         formData.append("name", this.name);
         formData.append("nbObjects", this.nbObjects);
-        formData.append("ajout", String(this.ajout));
-        formData.append("suppression", String(this.suppression));
-        formData.append("changementCouleur", String(this.changementCouleur));
+        formData.append("adding", String(this.adding));
+        formData.append("removal", String(this.removal));
+        formData.append("colorChange", String(this.colorChange));
         formData.append("objectType", this.sceneType);
 
         this.gameFreeViewGenerationService.postGenerate(formData)
