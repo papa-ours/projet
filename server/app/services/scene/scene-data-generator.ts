@@ -28,7 +28,7 @@ export class SceneDataGeneratorService {
     }
 
     public getRandomColor(): number {
-        return  Math.floor(Math.random() * this.baseColor);
+        return  this.randomNumber.randomInteger(0, this.baseColor);
     }
 
     public getRandomSize(): number {
