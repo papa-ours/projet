@@ -39,7 +39,7 @@ export class DifferenceImageController {
 
                             FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, differenceImage.toArray());
                             const GAMESHEET_URL: string = "http://localhost:3000/api/gamesheet/";
-                            await Axios.post(GAMESHEET_URL, {name: name});
+                            Axios.post(GAMESHEET_URL, {name: name});
                         } catch (err) {
                             message.body = err.message;
                         }
