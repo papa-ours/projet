@@ -24,7 +24,7 @@ export interface HasId {
     id: string;
 }
 
-export interface GameSheet {
+export interface GameSheet extends HasId {
     id: string;
     name: string;
     topScores: TopScoresInterface[];
