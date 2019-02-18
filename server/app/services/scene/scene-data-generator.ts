@@ -20,7 +20,7 @@ export class SceneDataGeneratorService {
 
     private validateNumberOfObjects(numberOfObjects: number): void {
         if (!this.checkNumberOfObjects(numberOfObjects)) {
-            throw new Error(`Number should be beetwen ${this.minObject} and ${this.maxObject} `);
+            throw new Error(`Number should be beetwen ${this.minObject} and ${this.maxObject}`);
         }
     }
 
