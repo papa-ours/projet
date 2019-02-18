@@ -7,7 +7,7 @@
     <div class="info">
         Nom du jeu :
         <input class="name-input" placeholder="7 differences" [(ngModel)]="name"><br>
-        <div  class="error-message" *ngIf="(name.length < 5  || name.length > 15)">
+        <div class="error-message" *ngIf="(name.length < 5  || name.length > 15)">
             Le nom du jeu doit comporter entre 5 et 15 caractères
         </div>
     </div>
@@ -23,7 +23,7 @@
     <div class="info">
             Nombre d'objets :
             <input class="nbObjects-input" type="number" [(ngModel)]="nbObjects"><br>
-            <div  class="error-message" *ngIf="!isAInt()">
+            <div class="error-message" *ngIf="!isAInt()">
                 La valeur doit être un nombre
             </div>
     </div>
@@ -33,7 +33,7 @@
             <input type="checkbox" [(ngModel)]="isAdding">ajout<br>
             <input type="checkbox" [(ngModel)]="isRemoval">suppression<br>
             <input type="checkbox" [(ngModel)]="isColorChange">changement de couleur<br>
-            <div  class="error-message" *ngIf="!(isAdding || isRemoval || isColorChange)">
+            <div class="error-message" *ngIf="!(isAdding || isRemoval || isColorChange)">
                 Au moins un type de modification doit être choisit
             </div>
     </div>
