@@ -12,40 +12,43 @@ import Types from "../types";
 @injectable()
 export class DifferenceImageController {
 
-    public constructor( @inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator,
-                        @inject(Types.DifferencesFinderService) private differencesFinder: DifferencesFinderService) { }
+    public constructor(
+        @inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator,
+        @inject(Types.DifferencesFinderService) private differencesFinder: DifferencesFinderService,
+    ) { }
 
     public get router(): Router {
         const router: Router = Router();
         const upload: multer.Instance = this.createMulterObject();
 
-        router.post("/",
-                    upload.fields([ { name: "name", maxCount: 1 },
-                                    { name: "originalImage", maxCount: 1 },
-                                    { name: "modifiedImage", maxCount: 1 } ]),
-                    async (req: Request, res: Response, next: NextFunction) => {
-                        const name: string = req.body.name;
-                        const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
+        router.post(
+            "/",
+            upload.fields([ { name: "name", maxCount: 1 },
+                            { name: "originalImage", maxCount: 1 },
+                            { name: "modifiedImage", maxCount: 1 } ]),
+            async (req: Request, res: Response, next: NextFunction) => {
+                const name: string = req.body.name;
+                const message: Message = { type: MessageType.GAME_SHEET_GENERATION, body: ""};
 
-                        try {
-                            const differenceImage: DifferenceImage =
-                            await this.differenceImageGenerator.generateDifferenceImage(name,
-                                                                                        [
-                                                                                            `uploads/${name}-originalImage.bmp`,
-                                                                                            `uploads/${name}-modifiedImage.bmp`,
-                                                                                        ]);
+                try {
+                    const differenceImage: DifferenceImage =
+                    await this.differenceImageGenerator.generateDifferenceImage(
+                        name,
+                        [`uploads/${name}-originalImage.bmp`, `uploads/${name}-modifiedImage.bmp`],
+                    );
 
-                            this.verifyNumberOfDifferences(differenceImage);
+                    this.verifyNumberOfDifferences(differenceImage);
 
-                            FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, differenceImage.toArray());
-                            const GAMESHEET_URL: string = "http://localhost:3000/api/gamesheet/";
-                            Axios.post(GAMESHEET_URL, {name: name});
-                        } catch (err) {
-                            message.body = err.message;
-                        }
+                    FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, differenceImage.toArray());
+                    const GAMESHEET_URL: string = "http://localhost:3000/api/gamesheet/";
+                    Axios.post(GAMESHEET_URL, {name: name});
+                } catch (err) {
+                    message.body = err.message;
+                }
 
-                        res.send(message);
-                    });
+                res.send(message);
+            },
+        );
 
         return router;
     }
