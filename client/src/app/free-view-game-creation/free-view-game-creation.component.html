@@ -30,9 +30,9 @@
 
     <div class="input modification-object">
             Modifications aux objets :
-            <input type="checkbox" name="ajout" value="ajout" [(ngModel)]="adding">ajout<br>
-            <input type="checkbox" name="suppression" value="suppression" [(ngModel)]="removal">suppression<br>
-            <input type="checkbox" name="changementCouleur" value="changementCouleur" [(ngModel)]="colorChange">changement de couleur<br>
+            <input type="checkbox" value="ajout" [(ngModel)]="adding">ajout<br>
+            <input type="checkbox" value="suppression" [(ngModel)]="removal">suppression<br>
+            <input type="checkbox" value="changementCouleur" [(ngModel)]="colorChange">changement de couleur<br>
             <div  class="error-message" *ngIf="!(adding || removal || colorChange)">
                 Au moins un type de modification doit être choisit
             </div>
