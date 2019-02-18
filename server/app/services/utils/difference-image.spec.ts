@@ -19,9 +19,6 @@ describe("difference-image", () => {
     const pixels: Pixel[] = imageBMP.pixels;
     const header: Uint8Array = imageBMP.header;
 
-    it("should test something", () => {
-        expect(true).to.be.equal(true);
-    });
     it.skip("should convert from BMPImage to DifferenceImage properly", () => {
         expect(DifferenceImage.fromBMPImage(imageBMP)).to.be.equal(differenceImage);
     });
