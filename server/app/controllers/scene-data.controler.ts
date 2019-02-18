@@ -14,23 +14,27 @@ export class SceneDataControler {
     public get router(): Router {
         const router: Router = Router();
 
-        router.post("/",
-                    (req: Request, res: Response, next: NextFunction) => {
-                       // Send the request to the service and send the response
-                      let modifications: Modification[] =
-                       [{type: ModificationType.ADD, isActive: JSON.parse(req.body.isAdding)},
-                        {type: ModificationType.DELETE, isActive: JSON.parse(req.body.isRemoval)},
-                        {type: ModificationType.CHANGE_COLOR, isActive: JSON.parse(req.body.isColorChange)},
-                       ];
-                      modifications = modifications.filter( (modification: Modification) => modification.isActive);
-                      const originalGeometry: GeometryData [] = this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects));
-                      const modifiedGeometry: GeometryData [] = this.sceneDataDifferenceService.
-                                                                getDifference(originalGeometry, modifications);
+        router.post("/", (req: Request, res: Response, next: NextFunction) => {
+                let modifications: Modification[] =
+                    [
+                        { type: ModificationType.ADD, isActive: JSON.parse(req.body.isAdding) },
+                        { type: ModificationType.DELETE, isActive: JSON.parse(req.body.isRemoval) },
+                        { type: ModificationType.CHANGE_COLOR, isActive: JSON.parse(req.body.isColorChange) },
+                    ];
 
-                      const scene: SceneData = {name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry};
-                      // TODO : sauvegarder la scene
-                      console.log(scene);
-                   });
+                modifications = modifications.filter((modification: Modification) => modification.isActive);
+
+                const originalGeometry: GeometryData[] =
+                    this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects));
+
+                const modifiedGeometry: GeometryData[] =
+                    this.sceneDataDifferenceService.getDifference(originalGeometry, modifications);
+
+                const scene: SceneData = { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry };
+
+                // TODO : sauvegarder la scene
+                console.log(scene);
+            });
 
         return router;
     }
