@@ -21,3 +21,12 @@ export enum GeometryType {
     CYLINDER,
     PYRAMID,
 }
+export enum ModificationType {
+    ADD,
+    DELETE,
+    CHANGE_COLOR,
+}
+export interface Modification {
+    type : ModificationType;
+    isActive: boolean;
+}
