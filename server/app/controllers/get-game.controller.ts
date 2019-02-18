@@ -59,7 +59,7 @@ export class GetGameController {
 
                         try {
                             const game: Game = this.getGameService.getGame(req.params.id);
-                            const imageData: string = game.image[ImageType.Modified].toArray().toString();
+                            const imageData: string = game.images[ImageType.Modified].toArray().toString();
                             message.body = imageData;
                         } catch (err) {
                             message.body = err.message;
