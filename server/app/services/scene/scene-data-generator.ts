@@ -14,7 +14,17 @@ export class SceneDataGeneratorService {
     private readonly randomNumber: RandomNumber =  new RandomNumber();
     public constructor () {}
 
-    private getRandomPosition(): Vector {
+    private checkNumberOfObjects (numberOfObjects: number): boolean {
+        return  this.minObject <= numberOfObjects  &&  numberOfObjects <= this.maxObject;
+    }
+
+    private validateNumberOfObjects(numberOfObjects: number): void {
+        if (!this.checkNumberOfObjects(numberOfObjects)) {
+            throw new Error(`Number should be beetwen ${this.minObject} and ${this.maxObject} `);
+        }
+    }
+
+    public getRandomPosition(): Vector {
         return {
             x: this.randomNumber.randomInteger(SKYBOX_MIN.x, SKYBOX_MAX.x),
             y: this.randomNumber.randomInteger(SKYBOX_MIN.y , SKYBOX_MAX.y),
@@ -22,7 +32,7 @@ export class SceneDataGeneratorService {
         };
     }
 
-    private getRandomRotation(): Vector {
+    public getRandomRotation(): Vector {
         const maxAngle: number = Math.PI;
 
         return {
@@ -32,18 +42,18 @@ export class SceneDataGeneratorService {
         };
     }
 
-    private getRandomColor(): number {
+    public getRandomColor(): number {
         return  this.randomNumber.randomInteger(0, this.baseColor);
     }
 
-    private getRandomSize(): number {
+    public getRandomSize(): number {
         const MIN_FACTOR: number = 0.5;
         const MAX_FACTOR: number = 1.5;
 
         return this.randomNumber.randomInteger(this.geometryBaseSize * MIN_FACTOR, this.geometryBaseSize * MAX_FACTOR);
     }
 
-    private getRandomGeometrieType(): GeometryType {
+    public getRandomGeometrieType(): GeometryType {
         const geometrieTypes: GeometryType[] =
          [
           GeometryType.SPHERE, GeometryType.CONE,
@@ -52,16 +62,6 @@ export class SceneDataGeneratorService {
         ];
 
         return geometrieTypes[Math.floor(Math.random() * geometrieTypes.length)];
-    }
-
-    private checkNumberOfObjects (numberOfObjects: number): boolean {
-        return  this.minObject <= numberOfObjects  &&  numberOfObjects <= this.maxObject;
-    }
-
-    private validateNumberOfObjects(numberOfObjects: number): void {
-        if (!this.checkNumberOfObjects(numberOfObjects)) {
-            throw new Error(`Number should be beetwen ${this.minObject} and ${this.maxObject} `);
-        }
     }
 
     public getRandomGeometryData(): GeometryData {
