@@ -12,9 +12,9 @@ export class GameFreeViewGenerationService {
         this.http.post(this.URL, {
             name: formData.get("name"),
             nbObjects: formData.get("nbObjects"),
-            adding: formData.get("adding"),
-            removal: formData.get("removal"),
-            colorChange: formData.get("colorChange"),
+            isAdding: formData.get("isAdding"),
+            isRemoval: formData.get("isRemoval"),
+            isColorChange: formData.get("isColorChange"),
             objectType: formData.get("objectType"),
         }).toPromise().catch(console.error);
     }

@@ -8,9 +8,9 @@ import { GameFreeViewGenerationService } from "../game-free-view-generation.serv
 })
 export class FreeViewGameCreationComponent {
     public name: string = "";
-    public adding: boolean = false;
-    public removal: boolean = false;
-    public colorChange: boolean = false;
+    public isAdding: boolean = false;
+    public isRemoval: boolean = false;
+    public isColorChange: boolean = false;
     public nbObjects: number;
     public sceneType: string;
     @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
@@ -26,7 +26,7 @@ export class FreeViewGameCreationComponent {
     }
 
     public get allValuesEntered(): boolean {
-        return FormValidationFreeViewService.isFormValid(this.name, this.nbObjects, this.adding, this.removal, this.colorChange);
+        return FormValidationFreeViewService.isFormValid(this.name, this.nbObjects, this.isAdding, this.isRemoval, this.isColorChange);
     }
     // @ts-ignore
     private submitForm(): void {
@@ -39,9 +39,9 @@ export class FreeViewGameCreationComponent {
         const formData: FormData = new FormData();
         formData.append("name", this.name);
         formData.append("nbObjects", String(this.nbObjects));
-        formData.append("adding", String(this.adding));
-        formData.append("removal", String(this.removal));
-        formData.append("colorChange", String(this.colorChange));
+        formData.append("isAdding", String(this.isAdding));
+        formData.append("isRemoval", String(this.isRemoval));
+        formData.append("isColorChange", String(this.isColorChange));
         formData.append("objectType", this.sceneType);
 
         this.gameFreeViewGenerationService.postGenerate(formData);
