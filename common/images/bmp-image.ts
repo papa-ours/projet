@@ -130,8 +130,4 @@ export class BMPImage {
             j: Math.floor(index / this.width),
         };
     }
-
-    public setPixelAt(index: number, pixel: Pixel): void {
-        this.pixels[index] = pixel;
-    }
 }
