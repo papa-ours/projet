@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class FormValidationFreeViewService {
     private static readonly NAME_MIN_SIZE: number = 5;
@@ -15,16 +15,18 @@ export class FormValidationFreeViewService {
                 name.length <= this.NAME_MAX_SIZE;
     }
 
-    private static validateNbObjects(nbObjects: number): boolean{
+    private static validateNbObjects(nbObjects: number): boolean {
         return (nbObjects >= this.NB_OBJECT_MIN && nbObjects <= this.NB_OBJECT_MAX);
     }
 
-    private static validateModifications(isAdding: boolean, isColorChange: boolean, isRemoval: boolean): boolean{
+    private static validateModifications(isAdding: boolean, isColorChange: boolean, isRemoval: boolean): boolean {
         return (isAdding || isColorChange || isRemoval);
     }
 
     public static isFormValid(name: string, nbObjects: number, isAdding: boolean, isColorChange: boolean, removal: boolean): boolean {
-        return (this.validateName(name) && this.validateNbObjects(nbObjects) && this.validateModifications(isAdding,isColorChange,removal));
+        return (this.validateName(name) &&
+                this.validateNbObjects(nbObjects) &&
+                this.validateModifications(isAdding, isColorChange, removal));
     }
 
 }
