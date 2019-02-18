@@ -18,9 +18,9 @@ export class SceneDataControler {
                     (req: Request, res: Response, next: NextFunction) => {
                        // Send the request to the service and send the response
                       let modifications: Modification[] =
-                       [{type: ModificationType.ADD, isActive: JSON.parse(req.body.ajout)},
-                        {type: ModificationType.DELETE, isActive: JSON.parse(req.body.suppression)},
-                        {type: ModificationType.CHANGE_COLOR, isActive: JSON.parse(req.body.changementCouleur)},
+                       [{type: ModificationType.ADD, isActive: JSON.parse(req.body.adding)},
+                        {type: ModificationType.DELETE, isActive: JSON.parse(req.body.removal)},
+                        {type: ModificationType.CHANGE_COLOR, isActive: JSON.parse(req.body.colorChange)},
                        ];
                       modifications = modifications.filter( (modification: Modification) => modification.isActive);
                       const originalGeometry: GeometryData [] = this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects));
