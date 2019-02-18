@@ -7,6 +7,8 @@ import { GameFreeViewGenerationService } from "../game-free-view-generation.serv
     styleUrls: ["./free-view-game-creation.component.css"],
 })
 export class FreeViewGameCreationComponent {
+    public readonly OPTION_MIN_NAME_LENGTH: number = 5;
+    public readonly OPTION_MAX_NAME_LENGTH: number = 15;
     public name: string = "";
     public isAdding: boolean = false;
     public isRemoval: boolean = false;
