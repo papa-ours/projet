@@ -16,7 +16,12 @@ describe("GetGameService", () => {
 
     it("should return undefined if there's no corresponding id", () => {
         const id: string = "1";
-        expect(getGameService.getGame(id)).to.equal(undefined);
+        try {
+            getGameService.getGame(id);
+            expect(true).to.equals(false);
+        } catch {
+            expect(true).to.equals(true);
+        }
     });
 
     it("should return the GameSheetDescription properly if it's empty", () => {
