@@ -9,9 +9,6 @@ export class DifferencesFinderService {
     private image: DifferenceImage;
 
     public getNumberOfDifferences(image: DifferenceImage): number {
-        if (!image) {
-            throw Error("Image must be defined");
-        }
         this.image = image;
 
         for (let i: number = 0; i < this.image.size(); i++) {
