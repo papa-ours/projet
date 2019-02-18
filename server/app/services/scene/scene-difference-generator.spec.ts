@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { GeometryData, Modification, ModificationType } from "../../../../common/communication/geometryMessage";
+import { GeometryData, Modification, ModificationType } from "../../../../common/communication/geometry";
 import { SceneDataGeneratorService } from "./scene-data-generator";
 import { SceneDataDifferenceService } from "./scene-difference-generator";
 
