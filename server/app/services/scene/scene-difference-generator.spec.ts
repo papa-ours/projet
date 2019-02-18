@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { GeometryData } from "../../../../common/communication/geometryMessage";
+import { GeometryData, Modification, ModificationType } from "../../../../common/communication/geometryMessage";
 import { SceneDataGeneratorService } from "./scene-data-generator";
 import { SceneDataDifferenceService } from "./scene-difference-generator";
 
@@ -44,6 +44,11 @@ describe("SceneDataDifference", () => {
     });
     it("should not change the geometry data injected it should make a copie instead", () => {
         const geometryData: GeometryData[] = [sceneDataGeneratorService.getGeometryData()];
-        expect(sceneDataDifference.getDifference(geometryData)).to.be.not.equal(geometryData);
+        const modifications: Modification[] =
+        [{type: ModificationType.ADD, isActive: true},
+         {type: ModificationType.DELETE, isActive: true},
+         {type: ModificationType.CHANGE_COLOR, isActive: true},
+        ];
+        expect(sceneDataDifference.getDifference(geometryData, modifications)).to.be.not.equal(geometryData);
     });
 });
