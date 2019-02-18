@@ -19,12 +19,12 @@ export class FormValidationFreeViewService {
         return (nbObjects >= this.NB_OBJECT_MIN && nbObjects <= this.NB_OBJECT_MAX);
     }
 
-    private static validateModifications(adding: boolean, colorChange: boolean, removal: boolean): boolean{
-        return (adding || colorChange || removal);
+    private static validateModifications(isAdding: boolean, isColorChange: boolean, isRemoval: boolean): boolean{
+        return (isAdding || isColorChange || isRemoval);
     }
 
-    public static isFormValid(name: string, nbObjects: number, adding: boolean, colorChange: boolean, removal: boolean): boolean {
-        return (this.validateName(name) && this.validateNbObjects(nbObjects) && this.validateModifications(adding,colorChange,removal));
+    public static isFormValid(name: string, nbObjects: number, isAdding: boolean, isColorChange: boolean, removal: boolean): boolean {
+        return (this.validateName(name) && this.validateNbObjects(nbObjects) && this.validateModifications(isAdding,isColorChange,removal));
     }
 
 }
