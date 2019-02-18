@@ -20,6 +20,10 @@ export interface GameSheetDescription {
     topScores: TopScoresInterface[];
 }
 
+export interface HasId {
+    id: string;
+}
+
 export interface GameSheet {
     id: string;
     name: string;
