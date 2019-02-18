@@ -15,15 +15,18 @@ export class GetGameController {
 
         router.get( "/:id/differenceImage",
                     (req: Request, res: Response, next: NextFunction) => {
-                        const game: Game | undefined = this.getGameService.getGame(req.params.id);
-                        const imageData: string = game ?
-                                                    game.differenceImage.toArray().toString() :
-                                                    "";
-
                         const message: Message = {
                             type: MessageType.GAME_SHEET_GENERATION,
-                            body: imageData,
+                            body: "",
                         };
+
+                        try {
+                            const game: Game = this.getGameService.getGame(req.params.id);
+                            const imageData: string = game.differenceImage.toArray().toString();
+                            message.body = imageData;
+                        } catch (err) {
+                            message.body = err.message;
+                        }
 
                         res.send(message);
                     });
