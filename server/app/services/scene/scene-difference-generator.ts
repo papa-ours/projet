@@ -2,6 +2,7 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 import { GeometryData, Modification, ModificationType } from "../../../../common/communication/geometryMessage";
 import { SceneDataGeneratorService } from "./scene-data-generator";
+import { DeepCloner } from "../utils/deep-cloner";
 
 @injectable()
 export class SceneDataDifferenceService {
@@ -43,8 +44,7 @@ export class SceneDataDifferenceService {
     }
 
     public getDifference(geometryData: GeometryData[], modifications: Modification[]): GeometryData[] {
-        // create a copy of object
-        const geometryDataDifference: GeometryData[] = JSON.parse(JSON.stringify(geometryData));
+        const geometryDataDifference: GeometryData[] = DeepCloner.clone(geometryData);
         this.modifications = modifications;
         let differenceCounter: number = 0;
         while (differenceCounter < this.MAX_DIFFERENCE) {
