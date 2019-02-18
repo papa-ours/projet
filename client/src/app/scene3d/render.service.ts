@@ -59,6 +59,7 @@ export class RenderService {
 
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
     }
+
     private addLight(): void {
         const lowIntensity: number = 0.3;
         const highIntensity: number = 2;
