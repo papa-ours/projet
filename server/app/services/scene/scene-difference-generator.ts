@@ -1,18 +1,20 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { GeometryData } from "../../../../common/communication/geometryMessage";
+import { GeometryData, Modification, ModificationType } from "../../../../common/communication/geometryMessage";
 import { SceneDataGeneratorService } from "./scene-data-generator";
 
 @injectable()
 export class SceneDataDifferenceService {
     private sceneDataGeneratorService: SceneDataGeneratorService;
     private readonly MAX_DIFFERENCE: number = 7;
-    private functionList: Function [] = [];
+    private modificationMap: Map<ModificationType, Function>;
+    private modifications: Modification[];
     public constructor() {
         this.sceneDataGeneratorService = new SceneDataGeneratorService();
-        this.functionList.push(this.addGeometryData);
-        this.functionList.push(this.deleteGeometryData);
-        this.functionList.push(this.changeColorGeometryData);
+        this.modificationMap = new Map();
+        this.modificationMap.set(ModificationType.ADD, this.addGeometryData);
+        this.modificationMap.set(ModificationType.DELETE, this.deleteGeometryData);
+        this.modificationMap.set(ModificationType.CHANGE_COLOR, this.changeColorGeometryData);
     }
 
     public addGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
@@ -29,12 +31,16 @@ export class SceneDataDifferenceService {
         geometryDataDifference[index].isModified = true;
     }
     public applyRandomChange(geometryDataDifference: GeometryData[], randomIndex: number): void {
-        const randomIndexFunction: number = Math.floor(Math.random() * this.functionList.length);
-        this.functionList[randomIndexFunction](geometryDataDifference, randomIndex);
+        const randomModificationIndex: number = Math.floor(Math.random() * this.modifications.length);
+        const randomModificationType: ModificationType = this.modifications[randomModificationIndex].type;
+        const randomFunction: Function = this.modificationMap.get(randomModificationType) as Function;
+
+        randomFunction(geometryDataDifference, randomIndex);
     }
-    public getDifference(geometryData: GeometryData[]): GeometryData[] {
+    public getDifference(geometryData: GeometryData[], modifications: Modification[] ): GeometryData[] {
         // create a copy of object
-        const geometryDataDifference: GeometryData[] = Array.from(geometryData);
+        const geometryDataDifference: GeometryData[] = JSON.parse(JSON.stringify(geometryData));
+        this.modifications = modifications;
         let differenceCounter: number = 0;
         while (differenceCounter < this.MAX_DIFFERENCE) {
             const randomIndex: number = Math.floor(Math.random() * geometryDataDifference.length);
