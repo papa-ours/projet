@@ -10,7 +10,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class GameFreeViewGenerationService {
     
-    public readonly URL: string = "http://localhost:3000/api/gamefreeview";
+    public readonly URL: string = "http://localhost:3000/api/scene";
     public constructor(private http: HttpClient) { }
 
     public postGenerate(formData: FormData): Observable<Message> {
@@ -20,7 +20,7 @@ export class GameFreeViewGenerationService {
             ajout: formData.get("ajout"),
             suppression: formData.get("suppression"),
             changementCouleur: formData.get("changementCouleur"),
-            objectType: formData.get("objectType")
+            objectType: formData.get("objectType"),
         }).pipe(catchError(this.handleError<Message>("postGenerateFreeViewData")),
         );
     }
