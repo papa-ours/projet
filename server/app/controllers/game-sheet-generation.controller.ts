@@ -13,8 +13,7 @@ export class GameSheetGenerationController {
 
         router.post("/",
                     (req: Request, res: Response, next: NextFunction) => {
-                        const name: string = req.body.name;
-                        this.gameSheetGenerationService.createGameSheet(name);
+                        this.gameSheetGenerationService.createGameSheet(req.body.name);
                     });
 
         return router;
