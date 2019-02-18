@@ -21,21 +21,26 @@ export class DifferenceCheckerController {
                         const x: number = parseInt(req.params.x, 10);
                         const y: number = parseInt(req.params.y, 10);
                         const id: string = req.params.id;
-                        const game: Game | undefined = getGameService.getGame(id);
 
-                        let isDifference: boolean = false;
-                        if (game) {
+                        const message: Message = {
+                            type: MessageType.GAME_SHEET_GENERATION,
+                            body: "",
+                        };
+
+                        try {
+                            const game: Game = getGameService.getGame(id);
+
+                            let isDifference: boolean = false;
                             isDifference = this.differenceChecker.isPositionDifference(x, y, game);
 
                             if (isDifference) {
                                 await game.restoreModifiedImage(x, y);
                             }
-                        }
 
-                        const message: Message = {
-                            type: MessageType.GAME_SHEET_GENERATION,
-                            body: isDifference.toString(),
-                        };
+                            message.body = isDifference.toString();
+                        } catch (err) {
+                            message.body = err.message;
+                        }
 
                         res.send(message);
                     });
