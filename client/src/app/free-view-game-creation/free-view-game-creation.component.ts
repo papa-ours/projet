@@ -1,27 +1,23 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { FormValidationFreeViewService } from "../form-validation-free-view.service";
 import { GameFreeViewGenerationService } from "../game-free-view-generation.service";
 @Component({
-  selector: "app-free-view-game-creation",
-  templateUrl: "./free-view-game-creation.component.html",
-  styleUrls: ["./free-view-game-creation.component.css"],
+    selector: "app-free-view-game-creation",
+    templateUrl: "./free-view-game-creation.component.html",
+    styleUrls: ["./free-view-game-creation.component.css"],
 })
 export class FreeViewGameCreationComponent {
     public name: string = "";
     public adding: boolean = false;
     public removal: boolean = false;
     public colorChange: boolean = false;
-    public nbObjects: string = "";
-    public nbObjectsInt: number;
+    public nbObjects: number;
     public sceneType: string;
     @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
     public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { }
 
     public isAInt(): boolean {
-            this.nbObjectsInt = parseInt(this.nbObjects);
-            if (Number.isNaN(this.nbObjectsInt)) {
-                return false;
-            } else { return true; }
+        return (!Number.isNaN(this.nbObjects));
 
     }
 
@@ -30,9 +26,7 @@ export class FreeViewGameCreationComponent {
     }
 
     public get allValuesEntered(): boolean {
-        let allValuesEntered: boolean = false;
-        allValuesEntered = FormValidationFreeViewService.isFormValid(this.name, this.nbObjectsInt, this.adding, this.removal, this.colorChange);
-        return allValuesEntered;
+        return FormValidationFreeViewService.isFormValid(this.name, this.nbObjects, this.adding, this.removal, this.colorChange);
     }
     // @ts-ignore
     private submitForm(): void {
@@ -41,10 +35,10 @@ export class FreeViewGameCreationComponent {
         }
     }
 
-    private sendForm() {
+    private sendForm(): void {
         const formData: FormData = new FormData();
         formData.append("name", this.name);
-        formData.append("nbObjects", this.nbObjects);
+        formData.append("nbObjects", String(this.nbObjects));
         formData.append("adding", String(this.adding));
         formData.append("removal", String(this.removal));
         formData.append("colorChange", String(this.colorChange));
