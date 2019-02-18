@@ -11,10 +11,11 @@ export class GameSheetGenerationController {
     public get router(): Router {
         const router: Router = Router();
 
-        router.post("/",
-                    (req: Request, res: Response, next: NextFunction) => {
-                        this.gameSheetGenerationService.createGameSheet(req.body.name);
-                    });
+        router.post(
+            "/",
+            (req: Request, res: Response, next: NextFunction) => {
+                this.gameSheetGenerationService.createGameSheet(req.body.name);
+            });
 
         return router;
     }
