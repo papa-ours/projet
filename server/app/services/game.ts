@@ -1,5 +1,6 @@
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
+import { ImageType } from "../../../common/images/image-type";
 import { Pixel } from "../../../common/images/pixel";
 import { FileReaderUtil } from "./utils/file-reader.util";
 import { FileWriterUtil } from "./utils/file-writer.util";
@@ -15,7 +16,7 @@ export class Game {
         const imageTypes: string[] = [ "original", "modified", "difference" ];
         imageTypes.forEach(async (type: string, index: number) => {
             const data: Uint8Array = await FileReaderUtil.readFile(`uploads/${name}-${type}Image.bmp`);
-            if (index === 2) {
+            if (index === ImageType.Difference) {
                 this.differenceImage = DifferenceImage.fromArray(data);
             } else {
                 this.images[index] = BMPImage.fromArray(data);
