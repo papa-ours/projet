@@ -63,7 +63,7 @@ export class DifferenceImageController {
             },
         });
 
-        return multer({ storage: storage });
+        return multer({storage: storage});
     }
 
     private verifyNumberOfDifferences(image: DifferenceImage): void {
