@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { GeometryData, Modification, ModificationType } from "../../../../common/communication/geometryMessage";
+import { GeometryData, Modification, ModificationType } from "../../../../common/communication/geometry";
 import { DeepCloner } from "../utils/deep-cloner";
 import { SceneDataGeneratorService } from "./scene-data-generator";
 
