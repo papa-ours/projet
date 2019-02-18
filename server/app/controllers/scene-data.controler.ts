@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
-import { GeometryData, Modification, ModificationType, SceneData } from "../../../common/communication/geometryMessage";
+import { GeometryData, Modification, ModificationType, SceneData } from "../../../common/communication/geometry";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
 import Types from "../types";

@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 
 import * as THREE from "three";
-import { GeometryData } from "../../../../common/communication/geometryMessage";
+import { GeometryData } from "../../../../common/communication/geometry";
 import { SceneGeneratorService } from "./scene-generator.service";
 
 describe("SceneGeneratorService", () => {

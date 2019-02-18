@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
-import { GeometryData } from "../../../../common/communication/geometryMessage";
+import { GeometryData } from "../../../../common/communication/geometry";
 import { GeometryFactoryService } from "./geometry-factory.service";
 
 @Injectable({
