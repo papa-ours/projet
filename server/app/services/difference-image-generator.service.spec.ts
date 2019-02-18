@@ -9,12 +9,12 @@ describe("Difference Image Generator", () => {
         differenceImageService = new DifferenceImageGenerator();
     });
 
-    it("should return undefined if it is passed a non bmp original image", async () => {
-        try {
-            await differenceImageService.generateDifferenceImage("testing", ["assets/car_test.jpg", "assets/pringles-modifiedImage.bmp"]);
-        } catch {
-            expect(true).to.equals(true);
-        }
+    it("should return undefined if it is passed a non bmp original image", () => {
+        differenceImageService.generateDifferenceImage("testing", ["assets/car_test.jpg", "assets/pringles-modifiedImage.bmp"])
+            .catch((err: Error) => {
+                expect(err.message).to.equals("L'image originale n'est pas de type BMP");
+            });
+
     });
 
     it("should return undefined if it is passed a non bmp modified image", async () => {
