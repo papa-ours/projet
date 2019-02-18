@@ -18,7 +18,7 @@ export class SceneDataDifferenceService {
     }
 
     public addGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
-        geometryDataDifference.push(this.sceneDataGeneratorService.getGeometryData());
+        geometryDataDifference.push(this.sceneDataGeneratorService.getRandomGeometryData());
         geometryDataDifference[geometryDataDifference.length - 1].isModified = true;
     }
     public deleteGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
