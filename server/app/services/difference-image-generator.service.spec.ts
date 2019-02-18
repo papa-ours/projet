@@ -9,9 +9,17 @@ describe("Difference Image Generator", () => {
         differenceImageService = new DifferenceImageGenerator();
     });
 
-    it("should return undefined if it is passed a non bmp image", async () => {
+    it("should return undefined if it is passed a non bmp original image", async () => {
         try {
-            await differenceImageService.generateDifferenceImage("testing", ["assets/car_test.jpg", "assets/car_test.jpg"]);
+            await differenceImageService.generateDifferenceImage("testing", ["assets/car_test.jpg", "assets/pringles-modifiedImage.bmp"]);
+        } catch {
+            expect(true).to.equals(true);
+        }
+    });
+
+    it("should return undefined if it is passed a non bmp modified image", async () => {
+        try {
+            await differenceImageService.generateDifferenceImage("testing", ["assets/pringles-originalImage.bmp", "assets/car_test.jpg"]);
         } catch {
             expect(true).to.equals(true);
         }
