@@ -29,7 +29,7 @@ export class Game {
         const difference: number[] = this.differenceImage.getDifferenceAt(index);
 
         difference.forEach((differenceIndex: number) => {
-            this.images[1].setPixelAt(differenceIndex, this.images[0].pixelAt(differenceIndex));
+            this.images[ImageType.Modified].setPixelAt(differenceIndex, this.images[ImageType.Original].pixelAt(differenceIndex));
             this.differenceImage.setPixelAt(differenceIndex, Pixel.WHITE_PIXEL);
         });
 
@@ -37,6 +37,6 @@ export class Game {
     }
 
     private async saveModifiedImage(): Promise<{}> {
-        return FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, this.images[1].toArray());
+        return FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, this.images[ImageType.Modified].toArray());
     }
 }
