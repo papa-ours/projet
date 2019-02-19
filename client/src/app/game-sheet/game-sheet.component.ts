@@ -23,7 +23,7 @@ export class GameSheetComponent implements OnInit {
     @ViewChild("btn2") private btn2: ElementRef;
 
     public ngOnInit(): void {
-        const SERVER_URL: string = "http://localhost:3000";
+        const SERVER_URL: string = "http://132.207.12.131:5001";
         this.source = `${SERVER_URL}/${this.description.name}-originalImage.bmp`;
         // === doesn't work, even with explicit type conversions.
         // tslint:disable-next-line:triple-equals

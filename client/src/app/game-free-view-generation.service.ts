@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 })
 export class GameFreeViewGenerationService {
 
-    public readonly URL: string = "http://localhost:3000/api/scene";
+    public readonly URL: string = "http://132.207.12.131:5001/api/scene";
     public constructor(private http: HttpClient) { }
 
     public postGenerate(formData: FormData): void {

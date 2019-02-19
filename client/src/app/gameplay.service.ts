@@ -10,7 +10,7 @@ import { Message } from "../../../common/communication/message";
 
 export class GameplayService {
 
-    public readonly URL: string = "http://localhost:3000/api/game/";
+    public readonly URL: string = "http://132.207.12.131:5001/api/game/";
     public constructor(private http: HttpClient) { }
 
     public getGameId(name: string): Observable<string> {

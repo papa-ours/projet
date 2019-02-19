@@ -11,7 +11,7 @@ describe("get game list", () => {
     it("should return the game list properly", async () => {
         const expected: GameLists = { list2d: [], list3d: [] };
 
-        const GAMELIST_URL: string = "http://localhost:3000/api/gamelist/";
+        const GAMELIST_URL: string = "http://132.207.12.131:5001/api/gamelist/";
         Axios.get(GAMELIST_URL)
         .then((res: AxiosResponse) => {
             const result: GameLists = JSON.parse(res.data.body);

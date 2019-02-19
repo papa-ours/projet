@@ -10,7 +10,7 @@ import { Message } from "../../../common/communication/message";
 })
 export class GameListService {
 
-    private readonly BASE_URL: string = "http://localhost:3000/api/gamelist/";
+    private readonly BASE_URL: string = "http://132.207.12.131:5001/api/gamelist/";
     public constructor(private http: HttpClient) { }
 
     public getGameList(): Observable<GameLists> {

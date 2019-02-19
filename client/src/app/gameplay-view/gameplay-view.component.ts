@@ -18,7 +18,7 @@ export class GameplayViewComponent implements OnInit {
     private name: string;
     private id: string;
     public images: string[] = [];
-    private readonly SERVER_URL: string = "http://localhost:3000";
+    private readonly SERVER_URL: string = "http://132.207.12.131:5001";
     public readonly nbPlayers: number = 1;
     public requiredDifferences: number;
     private sound: HTMLAudioElement;

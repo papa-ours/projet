@@ -9,7 +9,7 @@ export class UsernameValidationService {
     private socket: SocketIOClient.Socket;
     public connected: boolean = false;
     public username: string = "";
-    private readonly BASE_URL: string = "http://localhost:3000";
+    private readonly BASE_URL: string = "http://132.207.12.131:5001";
 
     public constructor() {
         this.socket = io(this.BASE_URL);

@@ -9,7 +9,7 @@ import { SceneData } from "../../../../common/communication/geometryMessage";
 })
 export class GetSceneDataService {
 
-    public readonly URL: string = "http://localhost:3000";
+    public readonly URL: string = "http://132.207.12.131:5001";
     public constructor(private http: HttpClient) { }
 
     public getSceneData(name: string): Observable<SceneData> {
