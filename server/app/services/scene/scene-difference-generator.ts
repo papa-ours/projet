@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { GeometryData, Modification, ModificationType } from "../../../../common/communication/geometryMessage";
+import { DeepCloner } from "../utils/deep-cloner";
 import { SceneDataGeneratorService } from "./scene-data-generator";
 
 @injectable()
@@ -9,6 +10,7 @@ export class SceneDataDifferenceService {
     private readonly MAX_DIFFERENCE: number = 7;
     private modificationMap: Map<ModificationType, Function>;
     private modifications: Modification[];
+
     public constructor() {
         this.sceneDataGeneratorService = new SceneDataGeneratorService();
         this.modificationMap = new Map();
@@ -17,29 +19,32 @@ export class SceneDataDifferenceService {
         this.modificationMap.set(ModificationType.CHANGE_COLOR, this.changeColorGeometryData);
     }
 
-    public addGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
-        geometryDataDifference.push(this.sceneDataGeneratorService.getGeometryData());
+    private addGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
+        geometryDataDifference.push(this.sceneDataGeneratorService.getRandomGeometryData());
         geometryDataDifference[geometryDataDifference.length - 1].isModified = true;
     }
-    public deleteGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
+
+    private deleteGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
         const numberOfDeletion: number = 1;
         geometryDataDifference.splice(index, numberOfDeletion);
     }
-    public changeColorGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
+
+    private changeColorGeometryData = (geometryDataDifference: GeometryData[], index: number): void => {
         const newColor: number = this.sceneDataGeneratorService.getRandomColor();
         geometryDataDifference[index].color = newColor;
         geometryDataDifference[index].isModified = true;
     }
-    public applyRandomChange(geometryDataDifference: GeometryData[], randomIndex: number): void {
+
+    private applyRandomChange(geometryDataDifference: GeometryData[], randomIndex: number): void {
         const randomModificationIndex: number = Math.floor(Math.random() * this.modifications.length);
         const randomModificationType: ModificationType = this.modifications[randomModificationIndex].type;
         const randomFunction: Function = this.modificationMap.get(randomModificationType) as Function;
 
         randomFunction(geometryDataDifference, randomIndex);
     }
-    public getDifference(geometryData: GeometryData[], modifications: Modification[] ): GeometryData[] {
-        // create a copy of object
-        const geometryDataDifference: GeometryData[] = JSON.parse(JSON.stringify(geometryData));
+
+    public getDifference(geometryData: GeometryData[], modifications: Modification[]): GeometryData[] {
+        const geometryDataDifference: GeometryData[] = DeepCloner.clone(geometryData);
         this.modifications = modifications;
         let differenceCounter: number = 0;
         while (differenceCounter < this.MAX_DIFFERENCE) {
@@ -52,4 +57,5 @@ export class SceneDataDifferenceService {
 
         return geometryDataDifference;
     }
+
 }

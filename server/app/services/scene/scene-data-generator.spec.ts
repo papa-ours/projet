@@ -8,6 +8,7 @@ describe("scenceDataGenerator", () => {
     beforeEach(() => {
         sceneDataGeneratorService = new SceneDataGeneratorService();
     });
+
     it("test bidon", () => {
         expect(true).to.equal(true);
     });
