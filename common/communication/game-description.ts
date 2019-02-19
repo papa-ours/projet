@@ -9,8 +9,8 @@ export interface TopScoresInterface {
 }
 
 export enum GameType {
-    Solo,
-    Pvp,
+    Simple,
+    Free,
 }
 
 export interface GameSheetDescription {
