@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import * as mongoose from "mongoose";
 import "reflect-metadata";
-import { GameSheetDescription } from "../../../common/communication/game-description";
+import { GameSheetDescription, GameType } from "../../../common/communication/game-description";
 
 @injectable()
 export class DBConnectionService {
@@ -40,7 +40,7 @@ export class DBConnectionService {
         return gameSheet.save();
     }
 
-    public async getGameSheets2D(): Promise<mongoose.Document[]> {
+    public async getGameSheets(type: GameType): Promise<mongoose.Document[]> {
         return mongoose.models.GameSheet2D.find({}).exec();
     }
 }
