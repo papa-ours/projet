@@ -12,4 +12,16 @@ export class FileWriterUtil {
             });
         });
     }
+
+    public static async writeJSON(path: string, data: string): Promise<{}> {
+        return new Promise((resolve: Function, reject: Function) => {
+            fs.writeFile(path, data, (err: Error) => {
+                if (err) {
+                    reject(err);
+                }
+
+                resolve();
+            });
+        });
+    }
 }
