@@ -42,6 +42,7 @@ export class GameplayViewComponent implements OnInit {
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
+            this.type = params["type"];
             this.gameplayService.getGameId(this.name).subscribe((id: string) => {
                 this.id = id;
             });
