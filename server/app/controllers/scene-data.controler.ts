@@ -5,6 +5,7 @@ import { SceneDataGeneratorService } from "../services/scene/scene-data-generato
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
 import Types from "../types";
 import { FileWriterUtil } from "../services/utils/file-writer.util";
+import Axios from "axios";
 
 @injectable()
 export class SceneDataControler {
@@ -31,7 +32,8 @@ export class SceneDataControler {
                       const scene: SceneData = {name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry};
                       // TODO : sauvegarder la scene
                       FileWriterUtil.writeJSON(`uploads/${scene.name}-data.json`, JSON.stringify(scene));
-                   });
+                      Axios.post("http://localhost:3000/api/gamesheet/free/", scene.name);
+                    });
 
         return router;
     }
