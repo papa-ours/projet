@@ -12,6 +12,8 @@ import Types from "../types";
 @injectable()
 export class DifferenceImageController {
 
+    private readonly FILES_DIRECTORY: string = "uploads/sets";
+
     public constructor(
         @inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator,
         @inject(Types.DifferencesFinderService) private differencesFinder: DifferencesFinderService,
@@ -34,7 +36,7 @@ export class DifferenceImageController {
                     const differenceImage: DifferenceImage =
                     await this.differenceImageGenerator.generateDifferenceImage(
                         name,
-                        [`uploads/${name}-originalImage.bmp`, `uploads/${name}-modifiedImage.bmp`],
+                        [`${this.FILES_DIRECTORY}/${name}-originalImage.bmp`, `uploads/${name}-modifiedImage.bmp`],
                     );
 
                     this.verifyNumberOfDifferences(differenceImage);
@@ -56,7 +58,7 @@ export class DifferenceImageController {
     private createMulterObject(): multer.Instance {
         const storage: multer.StorageEngine = multer.diskStorage({
             destination: (req: Request, file: Express.Multer.File, callback: Function) => {
-                callback(null, "uploads/");
+                callback(null, this.FILES_DIRECTORY);
             },
             filename: (req: Request, file: Express.Multer.File, callback: Function) => {
                 callback(null, req.body.name + "-" + file.fieldname + ".bmp");
