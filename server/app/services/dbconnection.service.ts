@@ -5,6 +5,8 @@ import { GameSheetDescription } from "../../../common/communication/game-descrip
 
 @injectable()
 export class DBConnectionService {
+    private static instance: DBConnectionService;
+
     private readonly uri: string = "mongodb+srv://ving34:pass123@cluster0-m1gwf.mongodb.net/test?retryWrites=true";
     private readonly gameSheetSchema: mongoose.Schema = new mongoose.Schema({
         name: String,
@@ -17,6 +19,14 @@ export class DBConnectionService {
         if (!mongoose.models.GameSheet2D) {
             mongoose.model("GameSheet2D", this.gameSheetSchema);
         }
+    }
+
+    public static getInstance(): DBConnectionService {
+        if (!DBConnectionService.instance) {
+            DBConnectionService.instance = new DBConnectionService();
+        }
+
+        return DBConnectionService.instance;
     }
 
     public async connect(): Promise<typeof mongoose> {
