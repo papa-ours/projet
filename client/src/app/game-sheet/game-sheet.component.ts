@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import { GameSheet } from "../../../../common/communication/game-description";
+import { GameSheet, GameType } from "../../../../common/communication/game-description";
 import { Privilege } from "../privilege";
 
 @Component({
@@ -16,6 +16,7 @@ export class GameSheetComponent implements OnInit {
         "#C0C0C0",
         "#CD7F32",
     ];
+    @Input() public type: GameType;
     @Input() public description: GameSheet;
     @Input() private privilege: Privilege = Privilege.USER;
     @ViewChild("btn1") private btn1: ElementRef;
