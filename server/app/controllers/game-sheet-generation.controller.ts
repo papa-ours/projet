@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
+import { GameType } from "../../../common/communication/game-description";
 import { GameSheetGenerationService } from "../services/game-sheet-generation.service";
 import Types from "../types";
 
@@ -14,7 +15,7 @@ export class GameSheetGenerationController {
         router.post(
             "/",
             (req: Request, res: Response, next: NextFunction) => {
-                this.gameSheetGenerationService.createGameSheet(req.body.name);
+                this.gameSheetGenerationService.createGameSheet(req.body.name, GameType.Simple);
             });
 
         return router;
