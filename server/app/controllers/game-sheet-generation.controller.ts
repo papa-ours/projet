@@ -18,6 +18,12 @@ export class GameSheetGenerationController {
                 this.gameSheetGenerationService.createGameSheet(req.body.name, GameType.Simple);
             });
 
+        router.post(
+            "/free/",
+            (req: Request, res: Response, next: NextFunction) => {
+                this.gameSheetGenerationService.createGameSheet(req.body.name, GameType.Free);
+            });
+
         return router;
     }
 }
