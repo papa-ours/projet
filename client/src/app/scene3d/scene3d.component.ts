@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
-import { SceneData } from "../../../../common/communication/geometryMessage";
+import { SceneData, GeometryData } from "../../../../common/communication/geometryMessage";
 import { GetSceneDataService } from "./get-scene-data.service";
 import { RenderService } from "./render.service";
 import { SceneGeneratorService } from "./scene-generator.service";
@@ -14,6 +14,7 @@ export class Scene3dComponent implements AfterViewInit {
     @Input() private name: string = "";
     @Input() public width: number;
     @Input() public height: number;
+    @Input() public type: number;
     public constructor(private renderService: RenderService,
                        private getSceneData: GetSceneDataService,
                        private sceneGeneratorService: SceneGeneratorService) {
@@ -33,7 +34,8 @@ export class Scene3dComponent implements AfterViewInit {
 
     public ngAfterViewInit(): void {
         this.getSceneData.getSceneData(this.name).subscribe((sceneData: SceneData) => {
-            this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(sceneData.originalScene));
+            const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
+            this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
         });
     }
 
