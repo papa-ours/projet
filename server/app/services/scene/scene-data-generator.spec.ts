@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { SceneDataGeneratorService } from "./scene-data-generator";
 
 describe("scenceDataGenerator", () => {
-    // @ts-ignore a enlever
+
     let sceneDataGeneratorService: SceneDataGeneratorService;
 
     beforeEach(() => {
@@ -33,4 +33,5 @@ describe("scenceDataGenerator", () => {
         const nGeometry: number = 200;
         expect(() => sceneDataGeneratorService.getSceneData(nGeometry)).to.not.throw("Number should be beetwen 10 and 200");
     });
+
 });

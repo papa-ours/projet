@@ -1,26 +1,19 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
 
-// import Stats = require('stats.js');
-
 @Injectable()
 export class RenderService {
 
     private container: HTMLDivElement;
-
     private camera: THREE.PerspectiveCamera;
-
     private renderer: THREE.WebGLRenderer;
-
     private scene: THREE.Scene;
 
-    private cameraZ: number = 400;
+    private readonly cameraZ: number = 400;
+    private readonly fieldOfView: number = 45;
 
-    private fieldOfView: number = 45;
-
-    private nearClippingPane: number = 1;
-
-    private farClippingPane: number = 10000;
+    private readonly nearClippingPane: number = 1;
+    private readonly farClippingPane: number = 1000;
 
     public constructor() { }
 
@@ -76,4 +69,5 @@ export class RenderService {
         this.addLight();
         this.startRenderingLoop();
     }
+
 }

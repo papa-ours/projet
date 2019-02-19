@@ -13,7 +13,10 @@ export class GetSceneDataService {
     public constructor(private http: HttpClient) { }
 
     public postSceneData(nGeometry: number): Observable<Message> {
-        const message: Message = {type: MessageType.SCENE_DATA, body: nGeometry.toString()};
+        const message: Message = {
+            type: MessageType.SCENE_DATA,
+            body: nGeometry.toString(),
+        };
 
         return this.http.post<Message>(this.URL, message)
             .pipe(catchError(this.handleError<Message>("postSceneData")),

@@ -6,6 +6,7 @@ import { SceneDataGeneratorService } from "./scene-data-generator";
 
 @injectable()
 export class SceneDataDifferenceService {
+
     private sceneDataGeneratorService: SceneDataGeneratorService;
     private readonly MAX_DIFFERENCE: number = 7;
     private modificationMap: Map<ModificationType, Function>;

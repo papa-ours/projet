@@ -30,6 +30,7 @@ export class Scene3dComponent implements AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
+        // TODO: Appeller le bon scene data avec le id du fichier
         this.getSceneData.postSceneData(200).subscribe((data) => {
             const sceneData: SceneData = JSON.parse( data.body);
             this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(sceneData.originalScene));

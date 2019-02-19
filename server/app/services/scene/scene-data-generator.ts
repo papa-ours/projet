@@ -12,6 +12,7 @@ export class SceneDataGeneratorService {
     private readonly maxObject: number = 200;
     private readonly geometryBaseSize: number = 65;
     private readonly randomNumber: RandomNumber;
+
     public constructor () {
       this.randomNumber = new RandomNumber();
     }

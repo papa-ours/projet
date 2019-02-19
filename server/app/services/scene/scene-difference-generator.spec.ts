@@ -4,7 +4,7 @@ import { SceneDataGeneratorService } from "./scene-data-generator";
 import { SceneDataDifferenceService } from "./scene-difference-generator";
 
 describe("SceneDataDifference", () => {
-    // @ts-ignore a enlever
+
     let sceneDataDifference: SceneDataDifferenceService;
     let sceneDataGeneratorService: SceneDataGeneratorService;
 
