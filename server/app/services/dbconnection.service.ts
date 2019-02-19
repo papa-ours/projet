@@ -8,7 +8,7 @@ export class DBConnectionService {
     private static instance: DBConnectionService;
 
     private readonly uri: string = "mongodb+srv://ving34:pass123@cluster0-m1gwf.mongodb.net/test?retryWrites=true";
-    private readonly gameSheetSchema: mongoose.Schema = new mongoose.Schema({
+    public readonly gameSheetSchema: mongoose.Schema = new mongoose.Schema({
         name: String,
         id: String,
         topScores: Array,
