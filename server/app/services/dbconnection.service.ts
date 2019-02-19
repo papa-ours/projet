@@ -12,6 +12,7 @@ export class DBConnectionService {
         name: String,
         id: String,
         topScores: Array,
+        type: Number,
     });
     public connected: boolean = false;
 
