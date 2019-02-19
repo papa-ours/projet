@@ -1,6 +1,7 @@
 <div class="game-sheet">
     <div class="game-preview">
-        <img class="game-preview-image" src={{source}}>
+        <img *ngIf="type==0; else scene" class="game-preview-image" src={{source}}>
+        <app-scene3d #scene class="game-preview-image"></app-scene3d>
     </div>
     
     <div class="header">
