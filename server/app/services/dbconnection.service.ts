@@ -16,9 +16,7 @@ export class DBConnectionService {
     public connected: boolean = false;
 
     public constructor() {
-        if (!mongoose.models.GameSheet2D) {
-            mongoose.model("GameSheet2D", this.gameSheetSchema);
-        }
+        this.connect();
     }
 
     public static getInstance(): DBConnectionService {
