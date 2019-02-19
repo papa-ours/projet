@@ -12,6 +12,8 @@ import { SceneGeneratorService } from "./scene-generator.service";
 export class Scene3dComponent implements AfterViewInit {
 
     @Input() private name: string = "";
+    @Input() public width: number;
+    @Input() public height: number;
     public constructor(private renderService: RenderService,
                        private getSceneData: GetSceneDataService,
                        private sceneGeneratorService: SceneGeneratorService) {
