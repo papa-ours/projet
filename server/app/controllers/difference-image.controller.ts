@@ -12,7 +12,7 @@ import Types from "../types";
 @injectable()
 export class DifferenceImageController {
 
-    private readonly FILES_DIRECTORY: string = "uploads/sets";
+    private readonly FILES_DIRECTORY: string = "uploads/";
 
     public constructor(
         @inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator,
@@ -36,7 +36,7 @@ export class DifferenceImageController {
                     const differenceImage: DifferenceImage =
                     await this.differenceImageGenerator.generateDifferenceImage(
                         name,
-                        [`${this.FILES_DIRECTORY}/${name}-originalImage.bmp`, `uploads/${name}-modifiedImage.bmp`],
+                        [`${this.FILES_DIRECTORY}/${name}-originalImage.bmp`, `${this.FILES_DIRECTORY}/${name}-modifiedImage.bmp`],
                     );
 
                     this.verifyNumberOfDifferences(differenceImage);
