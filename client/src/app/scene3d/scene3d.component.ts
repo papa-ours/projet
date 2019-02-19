@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
 import { SceneData } from "../../../../common/communication/geometryMessage";
 import { GetSceneDataService } from "./get-scene-data.service";
 import { RenderService } from "./render.service";
@@ -11,6 +11,7 @@ import { SceneGeneratorService } from "./scene-generator.service";
 })
 export class Scene3dComponent implements AfterViewInit {
 
+    @Input() private name: string = "";
     public constructor(private renderService: RenderService,
                        private getSceneData: GetSceneDataService,
                        private sceneGeneratorService: SceneGeneratorService) {
@@ -29,7 +30,7 @@ export class Scene3dComponent implements AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        this.getSceneData.getSceneData("testTXT").subscribe((sceneData: SceneData) => {
+        this.getSceneData.getSceneData(this.name).subscribe((sceneData: SceneData) => {
             this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(sceneData.originalScene));
         });
     }
