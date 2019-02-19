@@ -4,6 +4,7 @@ import { GeometryData, Modification, ModificationType, SceneData } from "../../.
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
 import Types from "../types";
+import { FileWriterUtil } from "../services/utils/file-writer.util";
 
 @injectable()
 export class SceneDataControler {
@@ -29,7 +30,7 @@ export class SceneDataControler {
 
                       const scene: SceneData = {name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry};
                       // TODO : sauvegarder la scene
-                      console.log(scene);
+                      FileWriterUtil.writeJSON(`uploads/${scene.name}-data.json`, JSON.stringify(scene));
                    });
 
         return router;
