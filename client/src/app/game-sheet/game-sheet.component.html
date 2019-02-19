@@ -2,7 +2,7 @@
     <div class="game-preview">
         <img *ngIf="type==0; else scene" class="game-preview-image" src={{source}}>
         <ng-template #scene class="game-preview-image">
-            <app-scene3d [name]="description.name"></app-scene3d>
+            <app-scene3d [name]="description.name" [width]="240" [height]="180"></app-scene3d>
         </ng-template>
     </div>
     
