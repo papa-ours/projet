@@ -13,7 +13,7 @@ export class GameSheetGenerationController {
         const router: Router = Router();
 
         router.post(
-            "/",
+            "/simple/",
             (req: Request, res: Response, next: NextFunction) => {
                 this.gameSheetGenerationService.createGameSheet(req.body.name, GameType.Simple);
             });
