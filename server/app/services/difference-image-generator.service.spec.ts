@@ -2,7 +2,6 @@ import { expect } from "chai";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "./difference-image-generator.service";
 
-// tslint:disable:max-func-body-length
 describe("Difference Image Generator", () => {
     let differenceImageService: DifferenceImageGenerator;
 
