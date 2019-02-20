@@ -3,7 +3,7 @@ import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "./difference-image-generator.service";
 
 // tslint:disable:max-func-body-length
-describe("Difference Image Generator", () => {
+describe.only("Difference Image Generator", () => {
     let differenceImageService: DifferenceImageGenerator;
 
     beforeEach(() => {
@@ -22,6 +22,13 @@ describe("Difference Image Generator", () => {
         differenceImageService.generateDifferenceImage("testing", ["assets/pringles-originalImage.bmp", "assets/car_test.jpg"])
             .catch((err: Error) => {
                 expect(err.message).to.equals("L'image modifiée n'est pas de type BMP");
+            });
+    });
+
+    it("should return undefined if the dimension of the original image is not 640px x 480px", () => {
+        differenceImageService.generateDifferenceImage("testing", ["./test/blank_smallDimension.bmp", "assets/pringles-modifiedImage.bmp"])
+            .catch((err: Error) => {
+                expect(err.message).to.equals("L'image originale n'est pas de dimension 640px x 480px");
             });
     });
 
