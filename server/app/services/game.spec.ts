@@ -2,7 +2,6 @@ import { expect } from "chai";
 import { Game } from "./game";
 import { Position } from "./utils/circle-area";
 
-// tslint:disable:no-magic-numbers
 describe("Game", () => {
     const game: Game = new Game("0", "voiture");
     const ONE_SECOND: number = 1000;
@@ -29,4 +28,3 @@ describe("Game", () => {
             ONE_SECOND);
     });
 });
-// tslint:enable:no-mage-numbers
