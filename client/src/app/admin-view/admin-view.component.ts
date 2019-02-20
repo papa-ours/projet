@@ -29,6 +29,10 @@ export class AdminViewComponent implements OnInit {
         this.showForm2D = !this.showForm2D;
         this.showForm3D = false;
     }
+    public changeShowForm3D(): void {
+        this.showForm3D = !this.showForm3D;
+        this.showForm2D = false;
+    }
 
     public ngOnInit(): void {
         this.gameListService.getGameList().subscribe((lists) => {
