@@ -8,6 +8,7 @@ describe("binary", () => {
             const val: number = 0;
             const expected: Uint8Array = new Uint8Array([0]);
             const result: Uint8Array = numberToLittleEndinanByteArray(val, 1);
+
             expect(result).to.deep.equals(expected);
         });
 
@@ -16,6 +17,7 @@ describe("binary", () => {
             const val: number = 0x010203;
             const expected: Uint8Array = new Uint8Array([3, 2, 1]);
             const result: Uint8Array = numberToLittleEndinanByteArray(val, byteCount);
+
             expect(result).to.deep.equals(expected);
         });
 
@@ -24,6 +26,7 @@ describe("binary", () => {
             const val: number = 0x01020304;
             const expected: Uint8Array = new Uint8Array([4, 3, 2, 1]);
             const result: Uint8Array = numberToLittleEndinanByteArray(val, byteCount);
+
             expect(result).to.deep.equals(expected);
         });
     });
@@ -33,6 +36,7 @@ describe("binary", () => {
             const expected: number = 0;
             const val: Uint8Array = new Uint8Array([0]);
             const result: number = readLittleEndianBytes(val, 1, 0);
+
             expect(result).to.equals(expected);
         });
 
@@ -41,6 +45,7 @@ describe("binary", () => {
             const expected: number = 0x030201;
             const val: Uint8Array = new Uint8Array([1, 2, 3]);
             const result: number = readLittleEndianBytes(val, byteCount, 0);
+
             expect(result).to.equals(expected);
         });
 
@@ -49,6 +54,7 @@ describe("binary", () => {
             const expected: number = 0x04030201;
             const val: Uint8Array = new Uint8Array([1, 2, 3, 4]);
             const result: number = readLittleEndianBytes(val, byteCount, 0);
+
             expect(result).to.equals(expected);
         });
 
@@ -57,6 +63,7 @@ describe("binary", () => {
             const expected: number = 0x04030201;
             const val: Uint8Array = new Uint8Array([1, 2, 3, 4, 255, 255]);
             const result: number = readLittleEndianBytes(val, byteCount, 0);
+
             expect(result).to.equals(expected);
         });
 
@@ -66,6 +73,7 @@ describe("binary", () => {
             const expected: number = 0x04030201;
             const val: Uint8Array = new Uint8Array([255, 255, 1, 2, 3, 4]);
             const result: number = readLittleEndianBytes(val, byteCount, offset);
+
             expect(result).to.equals(expected);
         });
 
@@ -75,6 +83,7 @@ describe("binary", () => {
             const expected: number = 0x04030201;
             const val: Uint8Array = new Uint8Array([255, 255, 1, 2, 3, 4, 255, 255]);
             const result: number = readLittleEndianBytes(val, byteCount, offset);
+
             expect(result).to.equals(expected);
         });
     });
