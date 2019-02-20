@@ -23,7 +23,7 @@ describe("game sheet generation", () => {
         const expected: GameSheet | undefined = getGameService.getGameDescriptions().find((gamesheet: GameSheet) => {
             return gamesheet.name === name;
         });
-        expected ? expect(true).to.equals(true) : expect(true).to.equals(false);
+        expect(expected).to.not.equal(undefined);
     });
 
     it("should create a topscore with the correct length", () => {
