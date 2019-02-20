@@ -32,6 +32,13 @@ describe.only("Difference Image Generator", () => {
             });
     });
 
+    it("should return undefined if the dimension of the modified image is not 640px x 480px", () => {
+        differenceImageService.generateDifferenceImage("testing", ["assets/pringles-originalImage.bmp", "./test/blank_smallDimension.bmp"])
+            .catch((err: Error) => {
+                expect(err.message).to.equals("L'image modifiée n'est pas de dimension 640px x 480px");
+            });
+    });
+
     it("should generate the difference image correctly", () => {
         differenceImageService.generateDifferenceImage(
             "testing",
