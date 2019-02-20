@@ -46,6 +46,13 @@ describe.only("Difference Image Generator", () => {
         });
     });
 
+    it("should return undefined if the modified image is not in 24 bit format", () => {
+        differenceImageService.generateDifferenceImage("testing", ["assets/pringles-originalImage.bmp", "./test/car_original_32bit.bmp"])
+            .catch((err: Error) => {
+            expect(err.message).to.equals("L'image modifiée n'est pas en format 24 bit");
+        });
+    });
+
     it("should generate the difference image correctly", () => {
         differenceImageService.generateDifferenceImage(
             "testing",
