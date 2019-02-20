@@ -7,8 +7,6 @@ export class FormValidationService {
     private readonly NAME_MIN_SIZE: number = 5;
     private readonly NAME_MAX_SIZE: number = 15;
     private readonly FILE_TYPE: string = "image/bmp";
-    private readonly IMAGE_WIDTH: number = 640;
-    private readonly IMAGE_HEIGHT: number = 480;
     private readonly BIT_FORMAT: number = 24;
 
     private validateName(name: string): boolean {
@@ -27,23 +25,6 @@ export class FormValidationService {
         }
 
         return file.type === this.FILE_TYPE;
-    }
-
-    public isImageDimensionValid(imageData: Uint8Array): boolean {
-        const dataView: DataView = new DataView(imageData.buffer);
-        const WIDTH_OFFSET: number = 18;
-        const HEIGHT_OFFSET: number = 22;
-
-        const imageWidth: number = dataView.getUint16(WIDTH_OFFSET, true);
-        const imageHeight: number = dataView.getUint16(HEIGHT_OFFSET, true);
-        const isImageDimensionRespected: boolean = (imageWidth === this.IMAGE_WIDTH &&
-            imageHeight === this.IMAGE_HEIGHT);
-
-        if (!isImageDimensionRespected) {
-            throw (Error(`Les images doivent être ${this.IMAGE_WIDTH}px par ${this.IMAGE_HEIGHT}px`));
-        }
-
-        return isImageDimensionRespected;
     }
 
     public isBitFormatValid(imageData: Uint8Array): boolean {
