@@ -13,6 +13,7 @@ describe("Score", () => {
         const MAX: number = 14;
         const val: number = score.getNumberBetween(MIN, MAX);
         const result: boolean = (val <= MAX) && (val >= MIN);
+
         expect(result).to.equals(true);
     });
 
@@ -21,6 +22,7 @@ describe("Score", () => {
         const MAX: number = 20;
         const val: number = score.getNumberBetween(MAX, MIN);
         const result: boolean = (val <= MAX) && (val >= MIN);
+
         expect(result).to.equals(true);
     });
 
@@ -29,6 +31,7 @@ describe("Score", () => {
         const MAX: number = 12;
         const username: string = score.username;
         const result: boolean = (username.length <= MAX) && (username.length >= MIN);
+
         expect(result).to.equals(true);
     });
 
@@ -38,6 +41,7 @@ describe("Score", () => {
         const scoreString: string = score.toString();
         // tslint:disable-next-line:no-magic-numbers
         const result: string = scoreString.slice(scoreString.length - 2);
+
         expect(result).to.equals("00");
     });
 });
