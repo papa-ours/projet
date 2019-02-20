@@ -9,8 +9,10 @@ describe("Game", () => {
     it("should restore the difference like the original image", () => {
         setTimeout(
             () => {
-                game.restoreModifiedImage(35, 193);
-                const position: Position = {i: 35, j: 193 };
+                const x: number = 35;
+                const y: number = 193;
+                game.restoreModifiedImage(x, y);
+                const position: Position = {i: x, j: y };
                 const index: number = game.images[0].getIndex(position);
                 expect(game.images[0].pixelAt(index)).to.equals(game.images[1].pixelAt(index));
             },
