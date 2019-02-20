@@ -66,6 +66,7 @@ describe("Differences finder", () => {
         bmp.augmentBlackPixels();
         const difference: DifferenceImage = DifferenceImage.fromBMPImage(bmp);
         const count: number = differencesFinder.getNumberOfDifferences(difference);
+
         expect(count).to.equal(1);
     });
 
