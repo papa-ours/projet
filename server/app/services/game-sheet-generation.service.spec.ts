@@ -4,6 +4,7 @@ import { GameSheetGenerationService } from "./game-sheet-generation.service";
 import { GetGameService } from "./get-game.service";
 
 describe("game sheet generation", () => {
+
     let gameSheetGenerator: GameSheetGenerationService;
     const getGameService: GetGameService = new GetGameService();
 
@@ -24,6 +25,7 @@ describe("game sheet generation", () => {
         });
         expected ? expect(true).to.equals(true) : expect(true).to.equals(false);
     });
+
     it("should create a topscore with the correct length", () => {
         const name: string = "name";
         const topscoreLength: number = 2;
