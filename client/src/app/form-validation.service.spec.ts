@@ -44,20 +44,4 @@ describe("FormValidationService", () => {
         expect(() => formValidationService.isFormValid(name, file1, file2))
             .toThrow(new Error("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
     });
-
-    it("should return true if the bmp format is 24 bit", () => {
-        const image: Uint8Array = new Uint8Array(
-            [66, 77, 58, 254, 5, 0, 0, 0, 0, 0, 54, 4, 0, 0, 40, 0,
-             0, 0, 40, 0, 0, 0, 30, 0, 0, 0, 1, 0, 24, 0, 0, 0, 0, 0,
-             4, 250, 5, 0, 19, 11, 0, 0, 19, 11, 0, 0, 0, 0]);
-        expect(() => formValidationService.isBitFormatValid(image)).toBeTruthy();
-    });
-    it("should return true if the bmp format is 24 bit", () => {
-        const image: Uint8Array = new Uint8Array(
-            [66, 77, 58, 254, 5, 0, 0, 0, 0, 0, 54, 4, 0, 0, 40, 0,
-             0, 0, 40, 0, 0, 0, 30, 0, 0, 0, 1, 0, 8, 0, 0, 0, 0, 0,
-             4, 250, 5, 0, 19, 11, 0, 0, 19, 11, 0, 0, 0, 0]);
-        expect(() => formValidationService.isBitFormatValid(image))
-            .toThrow(new Error("Les images doivent être en format bitmap 24 bit"));
-    });
 });
