@@ -3,10 +3,12 @@ import { FileReaderUtil } from "./file-reader.util";
 import { FileWriterUtil } from "./file-writer.util";
 
 describe("FileWriterUtil", () => {
+
     it("should reject if the directory doesn't exist", () => {
         const data: Uint8Array = new Uint8Array([]);
         FileWriterUtil.writeFile("fakeDire/fakeFile.out", data)
             .catch((err: Error) => {
+
                 expect(err.message).to.equals("ENOENT: no such file or directory, open 'fakeDire/fakeFile.out'");
             });
     });
