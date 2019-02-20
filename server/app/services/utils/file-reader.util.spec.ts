@@ -15,11 +15,9 @@ describe("file-reader.util", () => {
     });
 
     it("should reject if the image doesn't exist", async () => {
-        try {
-            await FileReaderUtil.readFile("");
-        } catch {
+        await FileReaderUtil.readFile("").catch((err: Error) => {
 
-            expect(true).to.equals(true);
-        }
+            expect(err.message).to.equals("ENOENT: no such file or directory, open ''");
+        });
     });
 });
