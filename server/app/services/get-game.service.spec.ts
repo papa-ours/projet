@@ -3,7 +3,6 @@ import { GameSheet, TopScoresInterface } from "../../../common/communication/gam
 import { Game } from "./game";
 import { GetGameService } from "./get-game.service";
 
-// tslint:disable-next-line:max-func-body-length
 describe("GetGameService", () => {
     let getGameService: GetGameService;
     const topScoreInterface: TopScoresInterface[] = [];
