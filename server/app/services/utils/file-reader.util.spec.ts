@@ -10,6 +10,7 @@ describe("file-reader.util", () => {
 
     it("should resolve", async () => {
         const result: Buffer = await FileReaderUtil.readFile("../client/src/assets/img/car_original.bmp");
+
         expect(result).to.deep.equal(data);
     });
 
@@ -17,6 +18,7 @@ describe("file-reader.util", () => {
         try {
             await FileReaderUtil.readFile("");
         } catch {
+
             expect(true).to.equals(true);
         }
     });
