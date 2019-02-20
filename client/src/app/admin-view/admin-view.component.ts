@@ -16,7 +16,7 @@ enum GameType {
 
 export class AdminViewComponent implements OnInit {
 
-    //@ts-ignore
+    // @ts-ignore
     public Privilege: enum = Privilege;
 
     private games: GameSheet[][] = [];
