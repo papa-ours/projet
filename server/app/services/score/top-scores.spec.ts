@@ -12,14 +12,9 @@ describe("Top Scores", () => {
     it("should be sorted", () => {
         const scoreOneNumber: number = topScores.scores[0].toNumber();
         const scoreTwoNumber: number = topScores.scores[1].toNumber();
-
-        expect(scoreOneNumber).to.be.at.most(scoreTwoNumber);
-    });
-
-    it("should be sorted", () => {
-        const scoreTwoNumber: number = topScores.scores[1].toNumber();
         const scoreThreeNumber: number = topScores.scores[2].toNumber();
+        const result: boolean = (scoreOneNumber <= scoreTwoNumber || scoreTwoNumber <= scoreThreeNumber);
 
-        expect(scoreTwoNumber).to.be.at.most(scoreThreeNumber);
+        expect(result).to.be.equals(true);
     });
 });
