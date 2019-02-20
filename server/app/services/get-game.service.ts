@@ -54,7 +54,7 @@ export class GetGameService {
         const POSSIBLE_VALUES: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         const ID_LENGTH: number = 25;
         const id: string[] = [...Array(ID_LENGTH)].map(() => {
-            const index: number = Math.floor(Math.random() * POSSIBLE_VALUES.length - 1);
+            const index: number = Math.floor(Math.random() * POSSIBLE_VALUES.length);
 
             return POSSIBLE_VALUES.charAt(index);
         });
