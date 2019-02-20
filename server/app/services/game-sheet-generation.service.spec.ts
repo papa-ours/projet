@@ -4,7 +4,6 @@ import { GameSheetGenerationService } from "./game-sheet-generation.service";
 import { GetGameService } from "./get-game.service";
 
 describe("game sheet generation", () => {
-
     let gameSheetGenerator: GameSheetGenerationService;
     const getGameService: GetGameService = new GetGameService();
 
@@ -23,6 +22,7 @@ describe("game sheet generation", () => {
         const expected: GameSheet | undefined = getGameService.getGameDescriptions().find((gamesheet: GameSheet) => {
             return gamesheet.name === name;
         });
+
         expect(expected).to.not.equal(undefined);
     });
 
@@ -33,6 +33,7 @@ describe("game sheet generation", () => {
         const expected: GameSheet | undefined = getGameService.getGameDescriptions().find((gamesheet: GameSheet) => {
             return gamesheet.name === name;
         });
+
         expected ? expect(expected.topScores.length).to.equals(topscoreLength) : expect(true).to.equals(false);
     });
 });
