@@ -6,9 +6,9 @@ import { DifferenceCheckerService } from "../difference-checker.service";
 import { GameplayService } from "../gameplay.service";
 
 @Component({
-  selector: "app-gameplay-view",
-  templateUrl: "./gameplay-view.component.html",
-  styleUrls: ["./gameplay-view.component.css"],
+    selector: "app-gameplay-view",
+    templateUrl: "./gameplay-view.component.html",
+    styleUrls: ["./gameplay-view.component.css"],
 })
 export class GameplayViewComponent implements OnInit {
 
@@ -60,7 +60,8 @@ export class GameplayViewComponent implements OnInit {
                     this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}` ;
                     this.playSound();
                 }
-            });
+            },
+        );
     }
 
     private playSound(): void {
