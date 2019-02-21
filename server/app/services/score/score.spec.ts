@@ -31,4 +31,13 @@ describe("Score", () => {
         const result: boolean = (username.length <= MAX) && (username.length >= MIN);
         expect(result).to.equals(true);
     });
+
+    it("should format seconds properly in string", () => {
+        const seconds: number = 0;
+        score.seconds = seconds;
+        const scoreString: string = score.toString();
+        // tslint:disable-next-line:no-magic-numbers
+        const result: string = scoreString.slice(scoreString.length - 2);
+        expect(result).to.equals("00");
+    });
 });

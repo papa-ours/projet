@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import { Message, MessageType } from "../../../common/communication/message";
-import { Game } from "../services/game-sheet";
+import { ImageType } from "../../../common/images/image-type";
+import { Game } from "../services/game";
 import { GetGameService } from "../services/get-game.service";
 import Types from "../types";
 
@@ -15,56 +16,67 @@ export class GetGameController {
 
         router.get( "/:id/differenceImage",
                     (req: Request, res: Response, next: NextFunction) => {
-                        const game: Game | undefined = this.getGameService.getGame(req.params.id);
-                        const imageData: string = game ?
-                                                    game.differenceImage.toArray().toString() :
-                                                    "";
-
                         const message: Message = {
                             type: MessageType.GAME_SHEET_GENERATION,
-                            body: imageData,
+                            body: "",
                         };
+
+                        try {
+                            const game: Game = this.getGameService.getGame(req.params.id);
+                            const imageData: string = game.differenceImage.toArray().toString();
+                            message.body = imageData;
+                        } catch (err) {
+                            message.body = err.message;
+                        }
 
                         res.send(message);
                     });
 
         router.get( "/:id/originalImage",
                     (req: Request, res: Response, next: NextFunction) => {
-                            const game: Game | undefined = this.getGameService.getGame(req.params.id);
-                            const imageData: string = game ?
-                                                        game.preview :
-                                                        "";
-                            const message: Message = {
-                                type: MessageType.GAME_SHEET_GENERATION,
-                                body: imageData,
-                            };
+                        const message: Message = {
+                            type: MessageType.GAME_SHEET_GENERATION,
+                            body: "",
+                        };
 
-                            res.send(message);
+                        try {
+                            const game: Game = this.getGameService.getGame(req.params.id);
+                            const imageData: string = game.images[ImageType.Original].toArray().toString();
+                            message.body = imageData;
+                        } catch (err) {
+                            message.body = err.message;
+                        }
+
+                        res.send(message);
                     });
 
         router.get( "/:id/modifiedImage",
                     (req: Request, res: Response, next: NextFunction) => {
-                            const game: Game | undefined = this.getGameService.getGame(req.params.id);
-                            const imageData: string = game ?
-                                                        game.modifiedImage :
-                                                        "";
-                            const message: Message = {
-                                type: MessageType.GAME_SHEET_GENERATION,
-                                body: imageData,
-                            };
+                        const message: Message = {
+                            type: MessageType.GAME_SHEET_GENERATION,
+                            body: "",
+                        };
 
-                            res.send(message);
+                        try {
+                            const game: Game = this.getGameService.getGame(req.params.id);
+                            const imageData: string = game.images[ImageType.Modified].toArray().toString();
+                            message.body = imageData;
+                        } catch (err) {
+                            message.body = err.message;
+                        }
+
+                        res.send(message);
                     });
 
-        router.get( "/:id",
+        router.get( "/:name",
                     (req: Request, res: Response, next: NextFunction) => {
-                            const images: string[] = this.getGameService.getGameImages(req.params.id);
-                            const message: Message = {
-                                type: MessageType.GAME_SHEET_GENERATION,
-                                body: JSON.stringify(images),
-                            };
+                        const id: string = this.getGameService.createGame(req.params.name);
+                        const message: Message = {
+                            type: MessageType.GAME_SHEET_GENERATION,
+                            body: JSON.stringify(id),
+                        };
 
-                            res.send(message);
+                        res.send(message);
                     });
 
         return router;

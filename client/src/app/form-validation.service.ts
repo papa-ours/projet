@@ -9,6 +9,7 @@ export class FormValidationService {
     private readonly FILE_TYPE: string = "image/bmp";
     private readonly IMAGE_WIDTH: number = 640;
     private readonly IMAGE_HEIGHT: number = 480;
+    private readonly BIT_FORMAT: number = 24;
 
     private validateName(name: string): boolean {
         return name !== undefined &&
@@ -43,6 +44,21 @@ export class FormValidationService {
         }
 
         return isImageDimensionRespected;
+    }
+
+    public isBitFormatValid(imageData: Uint8Array): boolean {
+        const dataView: DataView = new DataView(imageData.buffer);
+        const BIT_FORMAT_OFFSET: number = 28;
+
+        const imageBitFormat: number = dataView.getUint16(BIT_FORMAT_OFFSET, true);
+        const isImageBitFormatRespected: boolean = (imageBitFormat === this.BIT_FORMAT);
+
+        if (!isImageBitFormatRespected) {
+            throw new SyntaxError(`Les images doivent être en format bitmap ${this.BIT_FORMAT} bit`);
+        }
+
+        return isImageBitFormatRespected;
+
     }
 
     public isFormValid(name: string, originalImage: File, modifiedImage: File): boolean {

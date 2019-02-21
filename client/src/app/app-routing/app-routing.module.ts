@@ -14,7 +14,7 @@ const ROUTES: Routes = [
     { path: "gamelist", redirectTo: "/login", pathMatch: "full" },
     { path: "gamelist/:username", component: GameListViewComponent },
     { path: "scene3d", component: Scene3dComponent },
-    { path: "gameplaySimplePOV/:id", component: GameplayViewComponent},
+    { path: "gameplaySimplePOV/:name", component: GameplayViewComponent},
 ];
 
 @NgModule({

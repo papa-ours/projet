@@ -20,7 +20,17 @@ export interface GameSheetDescription {
     topScores: TopScoresInterface[];
 }
 
+export interface HasId {
+    id: string;
+}
+
+export interface GameSheet extends HasId {
+    id: string;
+    name: string;
+    topScores: TopScoresInterface[];
+}
+
 export interface GameLists {
-    list2d: GameSheetDescription[];
-    list3d: GameSheetDescription[];
+    list2d: GameSheet[];
+    list3d: GameSheet[];
 }

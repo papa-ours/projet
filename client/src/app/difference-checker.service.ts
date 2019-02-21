@@ -9,7 +9,7 @@ import { Message } from "../../../common/communication/message";
 })
 export class DifferenceCheckerService {
 
-    private readonly BASE_URL: string = "http://localhost:3000/api/difference/";
+    public readonly BASE_URL: string = "http://localhost:3000/api/difference/";
     public constructor(private http: HttpClient) { }
 
     public isPositionDifference(id: string, x: number, y: number): Observable<boolean> {

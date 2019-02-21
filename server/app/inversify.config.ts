@@ -1,6 +1,7 @@
 import { Container } from "inversify";
 import { Application } from "./app";
 import { DifferenceCheckerController } from "./controllers/difference-checker.controller";
+import { DifferenceImageController } from "./controllers/difference-image.controller";
 import { GameSheetGenerationController } from "./controllers/game-sheet-generation.controller";
 import { GetGameListController } from "./controllers/get-game-list.controller";
 import { GetGameController } from "./controllers/get-game.controller";
@@ -28,6 +29,7 @@ container.bind(Types.UsernameValidatorService).to(UsernameValidatorService);
 container.bind(Types.GetGameListService).to(GetGameListService);
 container.bind(Types.GetGameListController).to(GetGameListController);
 container.bind(Types.DifferenceImageGenerator).to(DifferenceImageGenerator);
+container.bind(Types.DifferenceImageController).to(DifferenceImageController);
 container.bind(Types.GameSheetGenerationController).to(GameSheetGenerationController);
 container.bind(Types.DifferencesFinderService).to(DifferencesFinderService);
 container.bind(Types.DBConnectionService).to(DBConnectionService);

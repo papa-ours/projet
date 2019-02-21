@@ -1,5 +1,6 @@
 import { readLittleEndianBytes } from "./binary";
-import { CHUNK_RELATIVE_POSITIONS, Position } from "./circle-area";
+import { Position } from "./position";
+import { CHUNK_RELATIVE_POSITIONS } from "../../server/app/services/utils/circle-area";
 import { Pixel } from "./pixel";
 
 export class BMPImage {
@@ -8,8 +9,8 @@ export class BMPImage {
     public static readonly HEIGHT: number = 480;
 
     public constructor(
-            private pixels: Pixel[],
-            private readonly header: Uint8Array,
+            public pixels: Pixel[],
+            public readonly header: Uint8Array,
             public readonly width: number,
             public readonly height: number,
         ) {}
@@ -30,11 +31,42 @@ export class BMPImage {
         return image;
     }
 
+    public static fromString(data: string): BMPImage {
+        const numberData: number[] = data.split(",").map(Number);
+        const array: Uint8Array = new Uint8Array(numberData);
+
+        return BMPImage.fromArray(array);
+    }
+
+    public encode(): string {
+        const numberData: number[] = Array.from(this.toArray());
+        const encodedString: string[] = numberData.map(Number).map((val: number) => String.fromCharCode(val));
+        const bmpDataPrefix: string = "data:image/bmp;base64,";
+        
+        return bmpDataPrefix + btoa(encodedString.join(""));
+    }
+
     public static isBMP(array: Uint8Array): boolean {
         const B_CODE: number = "B".charCodeAt(0);
         const M_CODE: number = "M".charCodeAt(0);
 
         return (array[0] === B_CODE && array[1] === M_CODE);
+    }
+
+    public static isBitFormatValid(array: Uint8Array): boolean {
+        const BIT_FORMAT_OFFSET: number = 28;
+        const BIT_FORMAT: number = 24;
+
+        return (array[BIT_FORMAT_OFFSET] === BIT_FORMAT);
+    }
+
+    public static isDimensionValid(array: Uint8Array): boolean {
+        const WIDTH_OFFSET: number = 18;
+        const HEIGHT_OFFSET: number = 22;
+        const WIDTH_CODE: number = 128
+        const HEIGTH_CODE: number = 224;
+
+        return (array[WIDTH_OFFSET] === WIDTH_CODE && array[HEIGHT_OFFSET] === HEIGTH_CODE);
     }
 
     public compare(other: BMPImage): BMPImage {

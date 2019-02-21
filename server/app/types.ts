@@ -8,6 +8,7 @@ export default {
         GetGameListService: Symbol("GetGameListService"),
         GetGameListController: Symbol("GetGameListController"),
         DifferenceImageGenerator: Symbol("DifferenceImageGenerator"),
+        DifferenceImageController: Symbol("DifferenceImageController"),
         GameSheetGenerationController: Symbol("GameSheetGenerationController"),
         DifferencesFinderService: Symbol("DifferenceFinderService"),
         DBConnectionService: Symbol("DBConnectionService"),

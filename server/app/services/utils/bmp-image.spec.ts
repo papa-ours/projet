@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import * as fs from "fs";
-import { readLittleEndianBytes } from "./binary";
-import { BMPImage } from "./bmp-image";
-import { Pixel } from "./pixel";
+import { readLittleEndianBytes } from "../../../../common/images/binary";
+import { BMPImage } from "../../../../common/images/bmp-image";
+import { Pixel } from "../../../../common/images/pixel";
 
 /* tslint:disable:no-magic-numbers */
 describe("bmp image", () => {
@@ -65,6 +65,30 @@ describe("bmp image", () => {
         const image: BMPImage = BMPImage.fromArray(data);
         image.placePixel(1, new Pixel(0x123456));
         expect(image).to.not.deep.equal(BMPImage.fromArray(data));
+    });
+
+    it("should return true if the image is format BMP 24 bit", () => {
+        expect(BMPImage.isBitFormatValid(data)).to.equal(true);
+    });
+
+    it("should return false if the image is NOT format BMP 24 bit", (done: Mocha.Func) => {
+        fs.readFile("./test/car_original_32bit.bmp", (err: NodeJS.ErrnoException, fileData: Buffer) => {
+            const whiteImage: Uint8Array = Uint8Array.from(fileData);
+            expect(BMPImage.isBitFormatValid(whiteImage)).to.equal(false);
+            setTimeout(done, 0);
+        });
+    });
+
+    it("should return true if the dimension is 640 x 480px", () => {
+        expect(BMPImage.isDimensionValid(data)).to.be.equals(true);
+    });
+
+    it("should return false if the dimension is not 640 x 480px", (done: Mocha.Func) => {
+        fs.readFile("./test/blank_smallDimension.bmp", (err: NodeJS.ErrnoException, fileData: Buffer) => {
+            const image: Uint8Array = Uint8Array.from(fileData);
+            expect(BMPImage.isDimensionValid(image)).to.equal(false);
+            setTimeout(done, 0);
+        });
     });
 
 });
