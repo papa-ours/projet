@@ -16,11 +16,11 @@ export class FormValidationService {
 
     private isBMP(file: File): boolean {
         if (file === undefined) {
-            throw (Error("Les fichiers ne doivent pas être vide"));
+            throw (TypeError("Les fichiers ne doivent pas être vide"));
         }
 
         if (file.type !== this.FILE_TYPE) {
-            throw (Error("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
+            throw (TypeError("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
         }
 
         return file.type === this.FILE_TYPE;

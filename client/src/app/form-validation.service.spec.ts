@@ -35,14 +35,14 @@ describe("FormValidationService", () => {
         const file: File = new File([""], "./assets/img/logo.png", { lastModified: 1, type: "image/png" });
         const name: string = "Hello";
         expect(() => formValidationService.isFormValid(name, file, file))
-            .toThrow(new Error("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
+            .toThrow(new TypeError("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
     });
     it("should throw an error if one of both files is not a bitmap image", () => {
         const file1: File = new File([""], "./assets/img/dog.bmp", { lastModified: 1, type: "image/bmp" });
         const file2: File = new File([""], "./assets/img/logo.png", { lastModified: 1, type: "image/png" });
         const name: string = "Hello";
         expect(() => formValidationService.isFormValid(name, file1, file2))
-            .toThrow(new Error("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
+            .toThrow(new TypeError("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
     });
     it("should throw an error if one of both files is undefined", () => {
         const file2: File = new File([""], "./assets/img/logo.png", { lastModified: 1, type: "image/png" });
@@ -51,6 +51,6 @@ describe("FormValidationService", () => {
             // The file needs to be undefined in order to throw the desired error
             // @ts-ignore
             formValidationService.isFormValid(name, undefined, file2);
-        }).toThrow(new Error("Les fichiers ne doivent pas être vide"));
+        }).toThrow(new TypeError("Les fichiers ne doivent pas être vide"));
     });
 });
