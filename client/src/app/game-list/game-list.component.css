@@ -7,7 +7,7 @@
 .list-title{
     padding-top: 10px;
     margin-top:70px;
-    background: #525286;
+    background: var(--primary-color);
     color: #FFFFFF;
     font-weight: 600;
     font-family: 'Trebuchet MS';

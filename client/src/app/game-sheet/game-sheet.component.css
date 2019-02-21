@@ -1,24 +1,32 @@
 .game-sheet {
     padding-top: 20px;
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 214px 300px;
     grid-template-rows: 10% 90%;
     border-radius: 10px;
     font-family: 'Helvetica';
-    background: #ffffff20;
+    background-image: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     margin-bottom: 20px;
     height: 220px;
     padding: 10px;
     width: 80%;
     margin-left: 10%;
     color: white;
-    box-shadow: 2px 2px 8px #00000044;
+    box-shadow: 2px 2px 8px #00000077;
+    transition: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+.game-sheet:hover {
+    transform: scale(1.05);
 }
 
 .game-preview-image {
+    border: solid 4px #fff;
+    border-radius: 12px;
     width: 80%;
-    margin-top: 6%;
-    margin-left: 4%;
+    margin-top: 20px;
+    margin-left: 8px;
 }
 
 .game-preview {
@@ -30,7 +38,7 @@
 }
 
 .header {
-    margin-left: 12%;
+    margin-left: 50px;
     display: grid;
     grid-template-rows: 40px 20px 20px;
     grid-template-columns: 20px 140px 140px;
@@ -64,7 +72,7 @@
     display: grid;
     grid-template-columns: 20px repeat(2, 140px);
     grid-template-rows: repeat(3, 24px);
-    margin-left: 12%;
+    margin-left: 50px;
     font-size: 14px;
 }
 
@@ -94,26 +102,28 @@
 
 .buttons {
     grid-column: 2;
-    margin-left: 16%;
+    margin-left: 70px;
     margin-top: -50px;
     display: grid;
     grid-template-columns: 140px 140px;
 }
 
 button {
-    background: #08A037;
+    background: #fff;
+    color: var(--primary-color);
     border: none;
-    color: #fff;
     font-size: 18px;
-    border-radius: 8px;
+    border-radius: 30px;
     cursor: pointer;
     width: 90%;
     margin-left: 5%;
     height: 35px;
+    transition-duration: 0.5s;
 }
 
 button:hover {
-    background: #10ab37;
+    background: var(--success-color);
+    color: #fff;
 }
 
 button div {
