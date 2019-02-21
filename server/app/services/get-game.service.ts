@@ -71,11 +71,11 @@ export class GetGameService {
     }
 
     private generateUniqueId(list: HasId[]): string {
-        let id: string = this.generateId();
+        let id: string;
 
-        while (this.isIdTaken(list, id)) {
+        do {
             id = this.generateId();
-        }
+        } while (this.isIdTaken(list, id));
 
         return id;
     }
