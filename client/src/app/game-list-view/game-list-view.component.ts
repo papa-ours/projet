@@ -24,10 +24,12 @@ export class GameListViewComponent implements OnInit {
     public username: string = "";
     private games: GameSheet[][] = [];
 
-    public constructor(private route: ActivatedRoute,
-                       private router: Router,
-                       private usernameValidationService: UsernameValidationService,
-                       private gameListService: GameListService) { }
+    public constructor(
+        private route: ActivatedRoute,
+        private router: Router,
+        private usernameValidationService: UsernameValidationService,
+        private gameListService: GameListService,
+    ) {}
 
     public ngOnInit(): void {
         if (this.route.snapshot.url[0].path === "gamelist") {
@@ -41,15 +43,16 @@ export class GameListViewComponent implements OnInit {
         this.gameListService.getGameList().subscribe((lists) => {
             this.games[GameType.Simple] = lists.list2d;
             this.games[GameType.Free] = lists.list3d;
-         });
-  }
+        });
+    }
 
     private checkUserConnection(): void {
         if (!this.usernameValidationService.connected) {
             this.router.navigateByUrl("/login")
                 .catch((err: Error) => {
                     console.error(err);
-                });
+                },
+            );
         }
     }
 }

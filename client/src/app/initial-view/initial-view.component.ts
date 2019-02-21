@@ -4,9 +4,9 @@ import { Message } from "../../../../common/communication/message";
 import { UsernameValidationService } from "../username-validation-service.service";
 
 @Component({
-  selector: "app-initial-view",
-  templateUrl: "./initial-view.component.html",
-  styleUrls: ["./initial-view.component.css"],
+    selector: "app-initial-view",
+    templateUrl: "./initial-view.component.html",
+    styleUrls: ["./initial-view.component.css"],
 })
 export class InitialViewComponent implements OnInit {
     private username: string = "";
@@ -23,15 +23,16 @@ export class InitialViewComponent implements OnInit {
         }
 
         this.usernameValidationService.getUsernameValidation().subscribe((message: Message) => {
-        this.usernameValidationMessage = message.body;
-        if (this.usernameValidationMessage === "") {
-            this.usernameValidationService.connected = true;
-            this.usernameValidationService.username = this.username;
-            this.router.navigateByUrl("/gamelist/" + this.username)
-            .catch((err: Error) => {
-                console.error(err);
-            });
-        }
+            this.usernameValidationMessage = message.body;
+            if (this.usernameValidationMessage === "") {
+                this.usernameValidationService.connected = true;
+                this.usernameValidationService.username = this.username;
+                this.router.navigateByUrl("/gamelist/" + this.username)
+                    .catch((err: Error) => {
+                        console.error(err);
+                    },
+                );
+            }
         });
     }
 
@@ -40,8 +41,7 @@ export class InitialViewComponent implements OnInit {
         this.usernameValidationService.connected = false;
     }
 
-    // @ts-ignore
-    private validateUsername(): void {
+    public validateUsername(): void {
         this.usernameValidationService.sendUsername(this.username);
     }
 }

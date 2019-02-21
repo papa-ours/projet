@@ -1,6 +1,6 @@
 .form {
     padding: 30px;
-    background-color: #fff;
+    background-color: #FFFFFF;
     width: auto;
     color: var(--primary-color);
     font-family: 'Helvetica';
@@ -64,25 +64,25 @@ button {
 }
 
 button.cancel-btn {
-    background: #fff;
+    background: #FFFFFF;
     color: var(--danger-color);
     transition-duration: 0.5s;
 }
 
 button.create-btn {
     color: var(--success-color);
-    background: #fff;
+    background: #FFFFFF;
     transition-duration: 0.5s;
 }
 
 button.cancel-btn:hover {
     background: var(--danger-color);
-    color: #fff;
+    color: #FFFFFF;
 }
 
 button.create-btn:hover {
     background: var(--success-color);
-    color: #fff;
+    color: #FFFFFF;
 }
 .error-message {
     line-break: auto;
