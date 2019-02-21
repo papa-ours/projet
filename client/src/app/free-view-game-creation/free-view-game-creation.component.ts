@@ -21,7 +21,7 @@ export class FreeViewGameCreationComponent {
     public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { }
 
     public isAIntInRange(): boolean {
-        return !Number.isNaN(this.nbObjects) && 
+        return !Number.isNaN(this.nbObjects) &&
                 Number(this.nbObjects) <= this.NB_OBJECTS_MAX &&
                 Number(this.nbObjects) >= this.NB_OBJECTS_MIN;
 
