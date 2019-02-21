@@ -8,4 +8,23 @@ export class VectorImpl implements Vector {
         public z: number,
     ) {}
 
+    public size2(): number {
+        return this.dot(this);
+    }
+
+    public size(): number {
+        return Math.sqrt(this.size2());
+    }
+
+    public mul(k: number): VectorImpl {
+        return new VectorImpl(k * this.x, k * this.y, k * this.z);
+    }
+
+    public add(other: Vector): VectorImpl {
+        return new VectorImpl(this.x + other.x, this.y + other.y, this.z + other.z);
+    }
+
+    public dot(other: Vector): number {
+        return this.x * other.x + this.y * other.y + this.z * other.z;
+    }
 }
