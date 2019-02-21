@@ -24,6 +24,10 @@ export class VectorImpl implements Vector {
         return new VectorImpl(this.x + other.x, this.y + other.y, this.z + other.z);
     }
 
+    public sub(other: Vector): VectorImpl {
+        return this.add((other as VectorImpl).mul(-1));
+    }
+
     public dot(other: Vector): number {
         return this.x * other.x + this.y * other.y + this.z * other.z;
     }
