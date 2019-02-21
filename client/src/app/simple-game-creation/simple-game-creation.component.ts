@@ -24,18 +24,25 @@ enum ImageType {
 })
 
 export class SimpleGameCreationComponent {
-    private name: string = "";
+
     private readonly N_IMAGES: number = 2;
-    private imageFiles: File[] = new Array<File>(this.N_IMAGES);
-    public errorMessage: string = "";
+
+    private name: string;
+    private imageFiles: File[];
+    public errorMessage: string;
 
     @Output()
-    public closeForm: EventEmitter<boolean> = new EventEmitter();
+    public closeForm: EventEmitter<boolean>;
 
     public constructor(
         private differenceImageService: DifferenceImageService,
         private formValidationService: FormValidationService,
-    ) {}
+    ) {
+        this.name = "";
+        this.imageFiles = new Array<File>(this.N_IMAGES);
+        this.errorMessage = "";
+        this.closeForm = new EventEmitter();
+    }
 
     public close(): void {
         this.closeForm.emit(false);
