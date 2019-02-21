@@ -30,6 +30,8 @@ export class SceneDataController {
                 const modifiedGeometry: GeometryData[] =
                     this.sceneDataDifferenceService.getDifference(originalGeometry, modifications);
 
+                // TODO
+                // @ts-ignore
                 const scene: SceneData = { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry };
 
             });
