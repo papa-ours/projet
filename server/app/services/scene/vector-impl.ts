@@ -1,6 +1,6 @@
-import { Vector } from "../../../../common/communication/position";
+import { VectorInterface } from "../../../../common/communication/position";
 
-export class VectorImpl implements Vector {
+export class VectorImpl implements VectorInterface {
 
     public constructor(
         public x: number,
@@ -8,7 +8,7 @@ export class VectorImpl implements Vector {
         public z: number,
     ) {}
 
-    public static fromVector(other: Vector): VectorImpl {
+    public static fromVector(other: VectorInterface): VectorImpl {
         return new VectorImpl(other.x, other.y, other.z);
     }
 
@@ -20,15 +20,15 @@ export class VectorImpl implements Vector {
         return new VectorImpl(k * this.x, k * this.y, k * this.z);
     }
 
-    public add(other: Vector): VectorImpl {
+    public add(other: VectorInterface): VectorImpl {
         return new VectorImpl(this.x + other.x, this.y + other.y, this.z + other.z);
     }
 
-    public sub(other: Vector): VectorImpl {
+    public sub(other: VectorInterface): VectorImpl {
         return this.add(VectorImpl.fromVector(other).mul(-1));
     }
 
-    public dot(other: Vector): number {
+    public dot(other: VectorInterface): number {
         return this.x * other.x + this.y * other.y + this.z * other.z;
     }
 }
