@@ -81,11 +81,11 @@
     position: relative;
     text-align: center;
     display: flex;
-    background: red;
+    background: #FF0000;
     width: 18px;
     height: 18px;
     border-radius: 9px;
-    color: #000;
+    color: #000000;
 }
 
 .medals .value {
