@@ -13,7 +13,7 @@ export class RenderService {
     private readonly fieldOfView: number = 45;
 
     private readonly nearClippingPane: number = 1;
-    private readonly farClippingPane: number = 1000;
+    private readonly farClippingPane: number = 10000;
 
     public constructor() { }
 
