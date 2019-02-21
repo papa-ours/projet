@@ -1,5 +1,5 @@
 import { GeometryData } from "../../../../common/communication/geometry";
-import { Vector } from "./vector-impl";
+import { Vector } from "./vector";
 
 export class GeometryIntersection {
 
