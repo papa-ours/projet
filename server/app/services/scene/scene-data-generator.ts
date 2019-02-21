@@ -96,7 +96,7 @@ export class SceneDataGeneratorService {
         this.validateNumberOfObjects(numberOfObjects);
         const geometryData: GeometryData[] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
-            geometryData.push(this.getRandomGeometryData());
+            geometryData.push(this.getRandomNonIntersectingGeometryData(geometryData));
         }
 
         return geometryData;
