@@ -30,10 +30,12 @@ export class GameSheetComponent implements OnInit {
 
     // @ts-ignore
     private play(): void {
-        this.router.navigateByUrl(`/game/${this.description.name}/${this.type}`)
-        .catch((err: Error) => {
-            console.error(err);
-        });
+        if (!this.isAdmin) {
+            this.router.navigateByUrl(`/game/${this.description.name}/${this.type}`)
+            .catch((err: Error) => {
+                console.error(err);
+            });
+        }
     }
 
 }
