@@ -21,8 +21,7 @@ export class GameImageComponent {
     private checkDifference: EventEmitter<[number, number]> = new EventEmitter();
 
     @HostListener("click", ["$event"])
-    // tslint:disable-next-line:no-any
-    public mouseClicked(event: any): void {
+    public mouseClicked(event: MouseEvent): void {
         const imageRectangle: DOMRect = this.imageElement.nativeElement.getBoundingClientRect();
         const x: number = event.x - imageRectangle.left;
         const y: number = event.y - imageRectangle.top;
