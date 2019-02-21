@@ -1,6 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-color: #8AC4FF;
+    --secondary-color: #379bff;
+    --success-color: #08A037;
+    --danger-color: #ff5757;
+}
+
 body {
-    background: #00427B;
+    background-image: linear-gradient(#c8c8c8, #eee);
     padding: 0;
     margin: 0;
+    height: 100vh;
+}
+
+input:focus, button:focus {
+    outline: none;
 }

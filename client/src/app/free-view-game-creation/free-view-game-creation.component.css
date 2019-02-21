@@ -1,8 +1,8 @@
 .form {
     padding: 30px;
-    background-color: #122237;
+    background-color: #fff;
     width: auto;
-    color: #FFF;
+    color: var(--primary-color);
     font-family: 'Helvetica';
     height: auto;
     border-radius: 10px;
@@ -81,25 +81,32 @@ button {
     width: 100px;
     height: 35px;
     margin: 10px;
-    border-radius: 6px;
+    border-radius: 30px;
     cursor: pointer;
 }
 
 button.cancel-btn {
-    background: #ff5757;
+    background: #fff;
+    color: var(--danger-color);
+    transition-duration: 0.5s;
 }
 
 button.create-btn {
-    background: #08A037;
+    color: var(--success-color);
+    background: #fff;
+    transition-duration: 0.5s;
 }
 
 button.cancel-btn:hover {
-    background: #f57575;
+    background: var(--danger-color);
+    color: #fff;
 }
 
 button.create-btn:hover {
-    background: #10ab37;
+    background: var(--success-color);
+    color: #fff;
 }
+
 .error-message {
     line-break: auto;
     max-width: 365px;
