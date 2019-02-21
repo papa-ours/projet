@@ -12,7 +12,6 @@ describe("GameFreeViewGenerationService", () => {
             imports: [HttpClientTestingModule],
             providers: [GameFreeViewGenerationService],
         });
-        // tslint:disable-next-line:no-any
         gameFreeViewGenerationService = TestBed.get(GameFreeViewGenerationService);
         httpMock = TestBed.get(HttpTestingController);
     });
