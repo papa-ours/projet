@@ -4,13 +4,7 @@ import { Vector } from "./vector";
 export class GeometryIntersection {
 
     public static intersectsWithCollection(g: GeometryData, geometries: GeometryData[]): boolean {
-        for (const geometry of geometries) {
-            if (GeometryIntersection.intersects(g, geometry)) {
-                return true;
-            }
-        }
-
-        return false;
+        return geometries.find((geometry: GeometryData) => GeometryIntersection.intersects(geometry, g)) !== undefined;
     }
 
     public static intersects(g1: GeometryData, g2: GeometryData): boolean {
