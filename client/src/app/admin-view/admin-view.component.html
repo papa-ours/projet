@@ -6,5 +6,5 @@
     <app-game-list *ngFor="let game of games" [descriptions]="game" [privilege]=Privilege.ADMIN></app-game-list>
 </div>
 <div class="form-area" *ngIf="showForm2D">
-    <app-simple-game-creation (closeForm)="showForm2D= $event"></app-simple-game-creation>
+    <app-simple-game-creation (closeForm)="showForm2D=$event"></app-simple-game-creation>
 </div>
