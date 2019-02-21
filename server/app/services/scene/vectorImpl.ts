@@ -16,10 +16,6 @@ export class VectorImpl implements Vector {
         return this.dot(this);
     }
 
-    public size(): number {
-        return Math.sqrt(this.size2());
-    }
-
     public mul(k: number): VectorImpl {
         return new VectorImpl(k * this.x, k * this.y, k * this.z);
     }
