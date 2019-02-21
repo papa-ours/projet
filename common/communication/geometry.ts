@@ -1,4 +1,4 @@
-import { VectorInterface } from "./position";
+import { VectorInterface } from "./vector-interface";
 
 export interface GeometryData {
    position: VectorInterface;

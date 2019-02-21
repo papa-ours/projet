@@ -1,4 +1,4 @@
-import { VectorInterface } from "../../../../common/communication/position";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
 
 export class VectorImpl implements VectorInterface {
 
