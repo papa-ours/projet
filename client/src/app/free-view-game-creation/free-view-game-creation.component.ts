@@ -9,6 +9,8 @@ import { GameFreeViewGenerationService } from "../game-free-view-generation.serv
 export class FreeViewGameCreationComponent {
     public readonly OPTION_MIN_NAME_LENGTH: number = 5;
     public readonly OPTION_MAX_NAME_LENGTH: number = 15;
+    private readonly NB_OBJECTS_MIN: number = 10;
+    private readonly NB_OBJECTS_MAX: number = 200;
     public name: string = "";
     public isAdding: boolean = false;
     public isRemoval: boolean = false;
@@ -20,8 +22,8 @@ export class FreeViewGameCreationComponent {
 
     public isAIntInRange(): boolean {
         return !Number.isNaN(this.nbObjects) && 
-                Number(this.nbObjects) <= 200 &&
-                Number(this.nbObjects) >= 10;
+                Number(this.nbObjects) <= this.NB_OBJECTS_MAX &&
+                Number(this.nbObjects) >= this.NB_OBJECTS_MIN;
 
     }
 
