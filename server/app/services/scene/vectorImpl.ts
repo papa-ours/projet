@@ -8,6 +8,10 @@ export class VectorImpl implements Vector {
         public z: number,
     ) {}
 
+    public static fromVector(other: Vector): VectorImpl {
+        return new VectorImpl(other.x, other.y, other.z);
+    }
+
     public size2(): number {
         return this.dot(this);
     }
@@ -25,7 +29,7 @@ export class VectorImpl implements Vector {
     }
 
     public sub(other: Vector): VectorImpl {
-        return this.add((other as VectorImpl).mul(-1));
+        return this.add(VectorImpl.fromVector(other).mul(-1));
     }
 
     public dot(other: Vector): number {
