@@ -22,8 +22,8 @@ export class Application {
             @inject(Types.GetGameListController) private getGameListController: GetGameListController,
             @inject(Types.GetGameController) private getGameController: GetGameController,
             @inject(Types.GameSheetGenerationController) private gameSheetGenerationController: GameSheetGenerationController,
-            @inject(Types.DifferenceImageController) private differenceImageController: DifferenceImageController,
             @inject(Types.SceneDataController) private sceneDataController: SceneDataController,
+            @inject(Types.DifferenceImageController) private differenceImageController: DifferenceImageController,
             @inject(Types.DifferenceCheckerController) private differenceCheckerController: DifferenceCheckerController) {
         this.app = express();
 

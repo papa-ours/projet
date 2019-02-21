@@ -16,12 +16,12 @@ enum GameType {
 
 export class AdminViewComponent implements OnInit {
 
-    //@ts-ignore
+    // @ts-ignore
     public Privilege: enum = Privilege;
-
-    private games: GameSheet[][] = [];
     public showForm2D: boolean = false;
     public showForm3D: boolean = false;
+
+    private games: GameSheet[][] = [];
 
     public constructor(private gameListService: GameListService) {
     }

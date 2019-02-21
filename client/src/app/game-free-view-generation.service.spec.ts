@@ -12,7 +12,6 @@ describe("GameFreeViewGenerationService", () => {
             imports: [HttpClientTestingModule],
             providers: [GameFreeViewGenerationService],
         });
-        // tslint:disable-next-line:no-any
         gameFreeViewGenerationService = TestBed.get(GameFreeViewGenerationService);
         httpMock = TestBed.get(HttpTestingController);
     });
@@ -36,7 +35,7 @@ describe("GameFreeViewGenerationService", () => {
         gameFreeViewGenerationService.postGenerate(new FormData());
         const request: TestRequest = httpMock.expectOne(`${gameFreeViewGenerationService.URL}`);
         request.flush(response);
-        expect(request.request.method).toBe("POST");
+        expect(request.request.body).toBe("this is the body");
     });
 
 });

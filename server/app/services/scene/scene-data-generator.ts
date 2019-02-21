@@ -56,14 +56,14 @@ export class SceneDataGeneratorService {
         return this.randomNumber.randomInteger(this.geometryBaseSize * MIN_FACTOR, this.geometryBaseSize * MAX_FACTOR);
     }
 
-    public getRandomGeometrieType(): GeometryType {
-        const geometrieTypes: GeometryType[] = [
+    public getRandomGeometryType(): GeometryType {
+        const geometryTypes: GeometryType[] = [
             GeometryType.SPHERE, GeometryType.CONE,
             GeometryType.CUBE, GeometryType.CYLINDER,
             GeometryType.PYRAMID,
         ];
 
-        return geometrieTypes[Math.floor(Math.random() * geometrieTypes.length)];
+        return geometryTypes[Math.floor(Math.random() * geometryTypes.length)];
     }
 
     public getRandomGeometryData(): GeometryData {
@@ -78,7 +78,7 @@ export class SceneDataGeneratorService {
             color: randomColor,
             size: randomSize,
             isModified: false,
-            type: this.getRandomGeometrieType(),
+            type: this.getRandomGeometryType(),
         };
     }
 
