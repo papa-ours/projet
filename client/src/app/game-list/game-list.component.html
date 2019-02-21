@@ -3,6 +3,6 @@
 
 <div class="game-list-container">
     <div class="game-list" *ngFor="let description of descriptions">
-        <app-game-sheet [description]="description" [type]="is3D" privilege={{privilege}}></app-game-sheet>
+        <app-game-sheet [description]="description" [type]="is3D" isAdmin="isAdmin"></app-game-sheet>
     </div>
 </div>

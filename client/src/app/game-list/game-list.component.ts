@@ -2,7 +2,6 @@ import { Component, Input } from "@angular/core";
 import { GameSheet } from "../../../../common/communication/game-description";
 // @ts-ignore
 import { GameListService } from "../game-list-getter.service";
-import { Privilege } from "../privilege";
 
 @Component({
   selector: "app-game-list",
@@ -13,6 +12,6 @@ export class GameListComponent {
 
     @Input() public is3D: boolean;
     @Input() public descriptions: GameSheet[];
-    @Input() public privilege: Privilege;
+    @Input() public isAdmin: boolean;
 
 }
