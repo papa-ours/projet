@@ -1,12 +1,12 @@
 #login-container {
     font-family: 'Helvetica Neue';
-    margin: 100px auto;
+    margin: auto;
     width: 500px;
     text-align: center;
 }
 
 h2 {
-    color: #FFF;
+    color: #fff;
     font-size: 36px;
     font-style: italic;
 }
@@ -20,8 +20,8 @@ img {
 #login-box {
     margin-top: -80px;
     border-radius: 14px;
-    background: #FFFFFF20;
-    padding: 120px 0px 90px 90px;
+    background-image: linear-gradient(-30deg, var(--primary-color), var(--secondary-color));
+    padding: 160px 0px 90px 100px;
 }
 
 label {
@@ -49,13 +49,14 @@ input[type="text"] {
 }
 
 #error-message {
-    background: #ffffff55;
-    border-radius: 10px;
+    background: #ff0000;
+    border-radius: 20px;
     padding: 10px;
+    margin-left: -15px;
     margin-top: 10px;
     font-weight: 600;
     font-size: 18px;
-    color: #A33114;
+    color: #fff;
     width: 300px;
     display: flex;
     float: left;
@@ -67,16 +68,18 @@ button {
     margin-top: 200px;
     margin-left: 60px;
     font-weight: 600;
-    color: #FFF;
     border: none;
-    border-radius: 6px;
-    background: #08a037;
+    border-radius: 50px;
+    background-color: #ffffff;
+    color: var(--primary-color);
     width: 160px;
     height: 60px;
     font-size: 24px;
     cursor: pointer;
+    transition-duration: 0.5s;
 }
 
 button:hover {
-    background: #10ab37;
+    color: #fff;
+    background: var(--success-color);
 }
