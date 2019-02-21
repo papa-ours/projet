@@ -17,7 +17,7 @@ export class GeometryIntersection {
         const distance: Vector = Vector.fromVector(geometry1.position).sub(geometry2.position);
         const radius: number = LONGEST_LINE_IN_A_BOX * (geometry1.size + geometry2.size);
 
-        return distance.size2() + TOLERANCE <= radius * radius;
+        return distance.sizeSquared() + TOLERANCE <= radius * radius;
     }
 
 }

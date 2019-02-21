@@ -12,7 +12,7 @@ export class Vector implements VectorInterface {
         return new Vector(other.x, other.y, other.z);
     }
 
-    public size2(): number {
+    public sizeSquared(): number {
         return this.dot(this);
     }
 
