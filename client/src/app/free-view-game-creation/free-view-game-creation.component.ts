@@ -18,8 +18,10 @@ export class FreeViewGameCreationComponent {
     @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
     public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { }
 
-    public isAInt(): boolean {
-        return (!Number.isNaN(this.nbObjects));
+    public isAIntInRange(): boolean {
+        return !Number.isNaN(this.nbObjects) && 
+                Number(this.nbObjects) <= 200 &&
+                Number(this.nbObjects) >= 10;
 
     }
 
