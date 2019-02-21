@@ -28,10 +28,14 @@ export class SimpleGameCreationComponent {
     private readonly N_IMAGES: number = 2;
     private imageFiles: File[] = new Array<File>(this.N_IMAGES);
     public errorMessage: string = "";
-    @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
 
-    public constructor(private differenceImageService: DifferenceImageService,
-                       private formValidationService: FormValidationService) { }
+    @Output()
+    public closeForm: EventEmitter<boolean> = new EventEmitter();
+
+    public constructor(
+        private differenceImageService: DifferenceImageService,
+        private formValidationService: FormValidationService,
+    ) {}
 
     public close(): void {
         this.closeForm.emit(false);
