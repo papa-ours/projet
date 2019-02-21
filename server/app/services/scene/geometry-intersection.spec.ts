@@ -6,11 +6,11 @@ import { GeometryIntersection } from "./geometry-intersection";
 // tslint:disable:no-magic-numbers
 describe("scenceDataGenerator", () => {
 
-    let g1: GeometryData;
-    let g2: GeometryData;
+    let geometry1: GeometryData;
+    let geometry2: GeometryData;
 
     beforeEach(() => {
-        g1 = {
+        geometry1 = {
             position: {
                 x: 10,
                 y: 10,
@@ -27,7 +27,7 @@ describe("scenceDataGenerator", () => {
             isModified: false,
         };
 
-        g2 = {
+        geometry2 = {
             position: {
                 x: 10,
                 y: 10,
@@ -46,27 +46,27 @@ describe("scenceDataGenerator", () => {
     });
 
     it("should not report intersection of distant objects", () => {
-        g2.position.y = 100000;
-        expect(GeometryIntersection.intersects(g1, g2)).to.equal(false);
+        geometry2.position.y = 100000;
+        expect(GeometryIntersection.intersects(geometry1, geometry2)).to.equal(false);
     });
 
     it("should report intersection of two objects with same center", () => {
-        expect(GeometryIntersection.intersects(g1, g2)).to.equal(true);
+        expect(GeometryIntersection.intersects(geometry1, geometry2)).to.equal(true);
     });
 
     it("should report intersection of two touching objects", () => {
-        g2.position.y += g2.size;
-        expect(GeometryIntersection.intersects(g1, g2)).to.equal(true);
+        geometry2.position.y += geometry2.size;
+        expect(GeometryIntersection.intersects(geometry1, geometry2)).to.equal(true);
     });
 
     it("should report intersection of two sufficiently near objects", () => {
-        g2.position.y += g2.size + 1;
-        expect(GeometryIntersection.intersects(g1, g2)).to.equal(true);
+        geometry2.position.y += geometry2.size + 1;
+        expect(GeometryIntersection.intersects(geometry1, geometry2)).to.equal(true);
     });
 
     it("should not report intersection of two sufficiently far objects", () => {
-        g2.position.y += g2.size + 10;
-        expect(GeometryIntersection.intersects(g1, g2)).to.equal(false);
+        geometry2.position.y += geometry2.size + 10;
+        expect(GeometryIntersection.intersects(geometry1, geometry2)).to.equal(false);
     });
 
 });
