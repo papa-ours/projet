@@ -19,7 +19,6 @@ export class DifferenceCheckerService {
 
     public isPositionDifference(id: string, x: number, y: number): Observable<boolean> {
         x = Math.floor(this.mapValue(x, 0, this.HTML_IMAGE_WIDTH, 0, this.IMAGE_WIDTH));
-        // We have to flip the y since the pixels are stored in bottom-up format
         y = Math.floor(this.mapValue(y, 0, this.HTML_IMAGE_HEIGHT, this.IMAGE_HEIGHT, 0));
 
         return this.http.get<Message>(this.BASE_URL + id + "/" + x + "/" + y)
