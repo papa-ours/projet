@@ -107,3 +107,7 @@ button.create-btn:hover {
     font-size: 16px;
     font-weight: bold;
 }
+
+.checkbox {
+    margin-left:50%;
+}
