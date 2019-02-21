@@ -3,8 +3,8 @@ import { Vector } from "./vector";
 
 export class GeometryIntersection {
 
-    public static intersectsWithCollection(g: GeometryData, geometries: GeometryData[]): boolean {
-        return geometries.find((geometry: GeometryData) => GeometryIntersection.intersects(geometry, g)) !== undefined;
+    public static intersectsWithCollection(newGeometry: GeometryData, geometries: GeometryData[]): boolean {
+        return geometries.find((geometry: GeometryData) => GeometryIntersection.intersects(geometry, newGeometry)) !== undefined;
     }
 
     public static intersects(geometry1: GeometryData, geometry2: GeometryData): boolean {
