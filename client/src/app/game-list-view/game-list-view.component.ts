@@ -17,7 +17,7 @@ enum GameType {
 
 export class GameListViewComponent implements OnInit {
 
-    @Input() public isAdmin: boolean;
+    @Input() public isAdmin: boolean = false;
     public username: string = "";
     private games: GameSheet[][] = [];
 
