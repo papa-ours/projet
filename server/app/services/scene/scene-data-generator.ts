@@ -4,6 +4,7 @@ import { GeometryData, GeometryType } from "../../../../common/communication/geo
 import { Vector } from "../../../../common/communication/position";
 import { SKYBOX_MAX, SKYBOX_MIN } from "../../../../common/communication/skybox";
 import { RandomNumber } from "../utils/random-number";
+import { GeometryIntersection } from "./geometry-intersection";
 
 @injectable()
 export class SceneDataGeneratorService {
@@ -80,6 +81,15 @@ export class SceneDataGeneratorService {
             isModified: false,
             type: this.getRandomGeometrieType(),
         };
+    }
+
+    public getRandomNonIntersectingGeometryData(collection: GeometryData[]): GeometryData {
+        let geometry: GeometryData;
+        do {
+            geometry = this.getRandomGeometryData();
+        } while (!GeometryIntersection.intersectsWithCollection(geometry, collection));
+
+        return geometry;
     }
 
     public getSceneData(numberOfObjects: number): GeometryData[] {
