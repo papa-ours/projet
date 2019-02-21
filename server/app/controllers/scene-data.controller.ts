@@ -32,8 +32,6 @@ export class SceneDataController {
 
                 const scene: SceneData = { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry };
 
-                // TODO : sauvegarder la scene
-                console.log(scene);
             });
 
         return router;
