@@ -1,33 +1,23 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
 
-// import Stats = require('stats.js');
-
 @Injectable()
 export class RenderService {
 
     private container: HTMLDivElement;
-
     private camera: THREE.PerspectiveCamera;
-
     private renderer: THREE.WebGLRenderer;
-
     private scene: THREE.Scene;
 
-    private cameraZ: number = 400;
+    private readonly cameraZ: number = 400;
+    private readonly fieldOfView: number = 45;
 
-    private fieldOfView: number = 45;
-
-    private nearClippingPane: number = 1;
-
-    private farClippingPane: number = 10000;
+    private readonly nearClippingPane: number = 1;
+    private readonly farClippingPane: number = 1000;
 
     public constructor() { }
 
-    private createScene(): void {
-        /* Scene */
-
-        /* Camera */
+    private createCamera(): void {
         const aspectRatio: number = this.getAspectRatio();
         this.camera = new THREE.PerspectiveCamera(
             this.fieldOfView,
@@ -55,10 +45,6 @@ export class RenderService {
         requestAnimationFrame(() => this.render());
         this.renderer.render(this.scene, this.camera);
     }
-    private changeBackgroundScene(): void {
-        const backgroundColor: number = 0x515151;
-        this.scene.background = new THREE.Color(backgroundColor);
-    }
 
     public onResize(): void {
         this.camera.aspect = this.getAspectRatio();
@@ -66,6 +52,7 @@ export class RenderService {
 
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
     }
+
     private addLight(): void {
         const lowIntensity: number = 0.3;
         const highIntensity: number = 2;
@@ -75,12 +62,12 @@ export class RenderService {
         this.camera.add(new THREE.PointLight(lightColor, highIntensity));
     }
 
-    public initialize(container: HTMLDivElement, scene: THREE.Scene ): void {
+    public initialize(container: HTMLDivElement, scene: THREE.Scene): void {
         this.container = container;
         this.scene = scene;
-        this.createScene();
-        this.changeBackgroundScene();
+        this.createCamera();
         this.addLight();
         this.startRenderingLoop();
     }
+
 }

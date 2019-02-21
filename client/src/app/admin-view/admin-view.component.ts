@@ -20,8 +20,19 @@ export class AdminViewComponent implements OnInit {
     public Privilege: enum = Privilege;
 
     private games: GameSheet[][] = [];
+    public showForm2D: boolean = false;
+    public showForm3D: boolean = false;
 
     public constructor(private gameListService: GameListService) {
+    }
+
+    public changeShowForm2D(): void {
+        this.showForm2D = !this.showForm2D;
+        this.showForm3D = false;
+    }
+    public changeShowForm3D(): void {
+        this.showForm3D = !this.showForm3D;
+        this.showForm2D = false;
     }
 
     public ngOnInit(): void {

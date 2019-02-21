@@ -11,7 +11,7 @@ export class FormValidationFreeViewService {
 
     private static validateName(name: string): boolean {
         return  name !== undefined &&
-                name.length >= this.NAME_MIN_SIZE &&
+                this.NAME_MIN_SIZE <= name.length &&
                 name.length <= this.NAME_MAX_SIZE;
     }
 

@@ -15,16 +15,16 @@
     <div class="info type-section">
         Type des objets :
         <select class="type-input" [(ngModel)]="sceneType">
-                <option value="geometric" >Géométrique</option>
-                <option value="thematic" >Thématique</option>
+                <option value="geometric">Géométrique</option>
+                <option value="thematic">Thématique</option>
         </select>
     </div>
 
     <div class="info">
             Nombre d'objets :
             <input class="nbObjects-input" type="number" [(ngModel)]="nbObjects"><br>
-            <div class="error-message" *ngIf="!isAInt()">
-                La valeur doit être un nombre
+            <div class="error-message" *ngIf="!isAIntInRange()">
+                La valeur doit être un nombre entre 10 et 200
             </div>
     </div>
 

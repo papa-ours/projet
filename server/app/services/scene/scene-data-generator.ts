@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { GeometryData, GeometryType } from "../../../../common/communication/geometryMessage";
+import { GeometryData, GeometryType } from "../../../../common/communication/geometry";
 import { Vector } from "../../../../common/communication/position";
 import { SKYBOX_MAX, SKYBOX_MIN } from "../../../../common/communication/skybox";
 import { RandomNumber } from "../utils/random-number";
@@ -11,16 +11,19 @@ export class SceneDataGeneratorService {
     private readonly minObject: number = 10;
     private readonly maxObject: number = 200;
     private readonly geometryBaseSize: number = 65;
-    private readonly randomNumber: RandomNumber =  new RandomNumber();
-    public constructor () {}
+    private readonly randomNumber: RandomNumber;
 
-    private checkNumberOfObjects (numberOfObjects: number): boolean {
-        return  this.minObject <= numberOfObjects  &&  numberOfObjects <= this.maxObject;
+    public constructor() {
+        this.randomNumber = new RandomNumber();
+    }
+
+    private checkNumberOfObjects(numberOfObjects: number): boolean {
+        return this.minObject <= numberOfObjects && numberOfObjects <= this.maxObject;
     }
 
     private validateNumberOfObjects(numberOfObjects: number): void {
         if (!this.checkNumberOfObjects(numberOfObjects)) {
-            throw new Error(`Number should be beetwen ${this.minObject} and ${this.maxObject} `);
+            throw new Error(`Number should be beetwen ${this.minObject} and ${this.maxObject}`);
         }
     }
 
@@ -36,14 +39,14 @@ export class SceneDataGeneratorService {
         const maxAngle: number = Math.PI;
 
         return {
-            x:  this.randomNumber.randomFloat(0, maxAngle),
+            x: this.randomNumber.randomFloat(0, maxAngle),
             y: this.randomNumber.randomFloat(0, maxAngle),
             z: this.randomNumber.randomFloat(0, maxAngle),
         };
     }
 
     public getRandomColor(): number {
-        return  this.randomNumber.randomInteger(0, this.baseColor);
+        return this.randomNumber.randomInteger(0, this.baseColor);
     }
 
     public getRandomSize(): number {
@@ -54,11 +57,10 @@ export class SceneDataGeneratorService {
     }
 
     public getRandomGeometrieType(): GeometryType {
-        const geometrieTypes: GeometryType[] =
-         [
-          GeometryType.SPHERE, GeometryType.CONE,
-          GeometryType.CUBE, GeometryType.CYLINDER,
-          GeometryType.PYRAMID,
+        const geometrieTypes: GeometryType[] = [
+            GeometryType.SPHERE, GeometryType.CONE,
+            GeometryType.CUBE, GeometryType.CYLINDER,
+            GeometryType.PYRAMID,
         ];
 
         return geometrieTypes[Math.floor(Math.random() * geometrieTypes.length)];
@@ -71,15 +73,18 @@ export class SceneDataGeneratorService {
         const randomSize: number = this.getRandomSize();
 
         return {
-            position: randomPosition, rotation: randomRotation,
-            color: randomColor, size: randomSize, isModified: false,
+            position: randomPosition,
+            rotation: randomRotation,
+            color: randomColor,
+            size: randomSize,
+            isModified: false,
             type: this.getRandomGeometrieType(),
         };
     }
 
-    public getSceneData(numberOfObjects: number): GeometryData [] {
+    public getSceneData(numberOfObjects: number): GeometryData[] {
         this.validateNumberOfObjects(numberOfObjects);
-        const geometryData: GeometryData [] = [];
+        const geometryData: GeometryData[] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
             geometryData.push(this.getRandomGeometryData());
         }

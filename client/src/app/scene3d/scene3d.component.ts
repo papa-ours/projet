@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
-import { SceneData, GeometryData } from "../../../../common/communication/geometryMessage";
+import { GeometryData, SceneData } from "../../../../common/communication/geometryMessage";
 import { GetSceneDataService } from "./get-scene-data.service";
 import { RenderService } from "./render.service";
 import { SceneGeneratorService } from "./scene-generator.service";

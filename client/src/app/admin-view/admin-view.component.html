@@ -1,6 +1,6 @@
 <div class="admin-fixed-bar">
-    <button class="button" (click)="showForm2D= !showForm2D">Créer un jeu 2D</button>
-    <button class="button" (click)="showForm3D= !showForm3D">Créer un jeu 3D</button>
+    <button class="button" (click)="changeShowForm2D()">Créer un jeu 2D</button>
+    <button class="button" (click)="changeShowForm3D()">Créer un jeu 3D</button>
 </div>
 <app-game-list-view></app-game-list-view>
 <div class="form-area" *ngIf="showForm2D">
