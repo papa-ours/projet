@@ -1,4 +1,4 @@
-.admin-fixed-bar{
+.admin-fixed-bar {
     z-index: 3;
     background-color: #122237;
     text-align: center;
@@ -21,7 +21,7 @@
     background: #0f4980;
 }
 
-.form-area{
+.form-area {
     position:absolute;
     z-index:100;
     left:28%;
