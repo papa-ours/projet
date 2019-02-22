@@ -6,6 +6,13 @@ import { FreeViewForm } from "./freeViewForm";
 describe("FormValidationFreeViewService", () => {
     let freeViewForm: FreeViewForm;
     // tslint:disable:no-magic-numbers
+    beforeEach(() => {
+        freeViewForm.name = "abcdefghijklmn";
+        freeViewForm.nbObjects = 20;
+        freeViewForm.isAdding = true;
+        freeViewForm.isColorChange = true;
+        freeViewForm.isRemoval = true;
+    });
     it("should be created", () => {
         const service: FormValidationFreeViewService = TestBed.get(FormValidationFreeViewService);
         expect(service).toBeTruthy();
