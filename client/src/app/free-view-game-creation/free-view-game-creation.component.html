@@ -6,15 +6,15 @@
 
     <div class="info">
         Nom du jeu :
-        <input class="name-input" placeholder="7 differences" [(ngModel)]="name"><br>
-        <div class="error-message" *ngIf="(name.length < OPTION_MIN_NAME_LENGTH  || name.length > OPTION_MAX_NAME_LENGTH)">
+        <input class="name-input" placeholder="7 differences" [(ngModel)]="freeViewForm.name"><br>
+        <div class="error-message" *ngIf="(freeViewForm.name.length < OPTION_MIN_NAME_LENGTH  || freeViewForm.name.length > OPTION_MAX_NAME_LENGTH)">
             Le nom du jeu doit comporter entre 5 et 15 caractères
         </div>
     </div>
 
     <div class="info type-section">
         Type des objets :
-        <select class="type-input" [(ngModel)]="sceneType">
+        <select class="type-input" [(ngModel)]="freeViewForm.sceneType">
                 <option value="geometric">Géométrique</option>
                 <option value="thematic">Thématique</option>
         </select>
@@ -22,7 +22,7 @@
 
     <div class="info">
             Nombre d'objets :
-            <input class="nbObjects-input" type="number" [(ngModel)]="nbObjects"><br>
+            <input class="nbObjects-input" type="number" [(ngModel)]="freeViewForm.nbObjects"><br>
             <div class="error-message" *ngIf="!isAIntInRange()">
                 La valeur doit être un nombre entre 10 et 200
             </div>
@@ -30,10 +30,10 @@
 
     <div class="input modification-object">
             Modifications aux objets :
-            <input type="checkbox" class="checkbox"[(ngModel)]="isAdding">ajout<br>
-            <input type="checkbox" class="checkbox"[(ngModel)]="isRemoval">suppression<br>
-            <input type="checkbox" class="checkbox"[(ngModel)]="isColorChange">changement de couleur<br>
-            <div class="error-message" *ngIf="!(isAdding || isRemoval || isColorChange)">
+            <input type="checkbox" class="checkbox"[(ngModel)]="freeViewForm.isAdding">ajout<br>
+            <input type="checkbox" class="checkbox"[(ngModel)]="freeViewForm.isRemoval">suppression<br>
+            <input type="checkbox" class="checkbox"[(ngModel)]="freeViewForm.isColorChange">changement de couleur<br>
+            <div class="error-message" *ngIf="!(freeViewForm.isAdding || freeViewForm.isRemoval || freeViewForm.isColorChange)">
                 Au moins un type de modification doit être choisit
             </div>
     </div>
