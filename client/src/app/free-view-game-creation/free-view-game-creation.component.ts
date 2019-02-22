@@ -21,7 +21,12 @@ export class FreeViewGameCreationComponent {
     public sceneType: string;
     public freeViewForm: FreeViewForm;
     @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
-    public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { }
+    public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { 
+        this.freeViewForm.name = "";
+        this.isAdding = false;
+        this.isRemoval = false;
+        this.isColorChange = false;
+    }
 
     public isAIntInRange(): boolean {
         return !Number.isNaN(this.nbObjects) &&
