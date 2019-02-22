@@ -4,15 +4,14 @@ import { FreeViewForm } from "./freeViewForm";
 
 // ts-lint:disable:no-magic-numbers
 describe("FormValidationFreeViewService", () => {
-    let freeViewForm: FreeViewForm;
+    let freeViewForm: FreeViewForm = { name: "abcdefghijklmn",
+                                       nbObjects: 20,
+                                       isAdding: true,
+                                       isRemoval: true,
+                                       isColorChange: true,
+                                       sceneType: "geometric",
+                                     };
     // tslint:disable:no-magic-numbers
-    beforeEach(() => {
-        freeViewForm.name = "abcdefghijklmn";
-        freeViewForm.nbObjects = 20;
-        freeViewForm.isAdding = true;
-        freeViewForm.isColorChange = true;
-        freeViewForm.isRemoval = true;
-    });
     it("should be created", () => {
         const service: FormValidationFreeViewService = TestBed.get(FormValidationFreeViewService);
         expect(service).toBeTruthy();
