@@ -27,7 +27,7 @@ export class FormValidationFreeViewService {
     public static isFormValid(freeViewForm: FreeViewForm): boolean {
         return (this.validateName(freeViewForm.name) &&
                 this.validateNbObjects(freeViewForm.nbObjects) &&
-                this.validateModifications(freeViewForm.isAdding, freeViewForm.isColorChange, freeViewForm.removal));
+                this.validateModifications(freeViewForm.isAdding, freeViewForm.isColorChange, freeViewForm.isRemoval));
     }
 
 }
