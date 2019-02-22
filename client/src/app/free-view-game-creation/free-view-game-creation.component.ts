@@ -13,12 +13,6 @@ export class FreeViewGameCreationComponent {
     public readonly OPTION_MAX_NAME_LENGTH: number = 15;
     private readonly NB_OBJECTS_MIN: number = 10;
     private readonly NB_OBJECTS_MAX: number = 200;
-    public name: string = "";
-    public isAdding: boolean = false;
-    public isRemoval: boolean = false;
-    public isColorChange: boolean = false;
-    public nbObjects: number;
-    public sceneType: string;
     public freeViewForm: FreeViewForm;
     @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
     public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { 
