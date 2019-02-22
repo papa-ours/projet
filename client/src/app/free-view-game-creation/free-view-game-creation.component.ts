@@ -23,9 +23,9 @@ export class FreeViewGameCreationComponent {
     @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
     public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { 
         this.freeViewForm.name = "";
-        this.isAdding = false;
-        this.isRemoval = false;
-        this.isColorChange = false;
+        this.freeViewForm.isAdding = false;
+        this.freeViewForm.isRemoval = false;
+        this.freeViewForm.isColorChange = false;
     }
 
     public isAIntInRange(): boolean {
