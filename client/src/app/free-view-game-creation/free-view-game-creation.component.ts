@@ -40,7 +40,7 @@ export class FreeViewGameCreationComponent {
     }
 
     public get allValuesEntered(): boolean {
-        return FormValidationFreeViewService.isFormValid(this.name, this.nbObjects, this.isAdding, this.isRemoval, this.isColorChange);
+        return FormValidationFreeViewService.isFormValid(this.freeViewForm);
     }
 
     public submitForm(): void {
