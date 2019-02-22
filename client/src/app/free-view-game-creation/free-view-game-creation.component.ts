@@ -29,9 +29,9 @@ export class FreeViewGameCreationComponent {
     }
 
     public isAIntInRange(): boolean {
-        return !Number.isNaN(this.nbObjects) &&
-                Number(this.nbObjects) <= this.NB_OBJECTS_MAX &&
-                Number(this.nbObjects) >= this.NB_OBJECTS_MIN;
+        return !Number.isNaN(this.freeViewForm.nbObjects) &&
+                Number(this.freeViewForm.nbObjects) <= this.NB_OBJECTS_MAX &&
+                Number(this.freeViewForm.nbObjects) >= this.NB_OBJECTS_MIN;
 
     }
 
@@ -51,12 +51,12 @@ export class FreeViewGameCreationComponent {
 
     private sendForm(): void {
         const formData: FormData = new FormData();
-        formData.append("name", this.name);
-        formData.append("nbObjects", String(this.nbObjects));
-        formData.append("isAdding", String(this.isAdding));
-        formData.append("isRemoval", String(this.isRemoval));
-        formData.append("isColorChange", String(this.isColorChange));
-        formData.append("objectType", this.sceneType);
+        formData.append("name", this.freeViewForm.name);
+        formData.append("nbObjects", String(this.freeViewForm.nbObjects));
+        formData.append("isAdding", String(this.freeViewForm.isAdding));
+        formData.append("isRemoval", String(this.freeViewForm.isRemoval));
+        formData.append("isColorChange", String(this.freeViewForm.isColorChange));
+        formData.append("objectType", this.freeViewForm.sceneType);
 
         this.gameFreeViewGenerationService.postGenerate(formData);
     }
