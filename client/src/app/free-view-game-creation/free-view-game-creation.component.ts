@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 import { FormValidationFreeViewService } from "../form-validation-free-view.service";
 import { GameFreeViewGenerationService } from "../game-free-view-generation.service";
+import { FreeViewForm } from "../freeViewForm";
+
 @Component({
     selector: "app-free-view-game-creation",
     templateUrl: "./free-view-game-creation.component.html",
@@ -17,6 +19,7 @@ export class FreeViewGameCreationComponent {
     public isColorChange: boolean = false;
     public nbObjects: number;
     public sceneType: string;
+    public freeViewForm: FreeViewForm;
     @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
     public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { }
 
