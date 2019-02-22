@@ -15,7 +15,7 @@ export class FreeViewGameCreationComponent {
     private readonly NB_OBJECTS_MAX: number = 200;
     public freeViewForm: FreeViewForm;
     @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
-    public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { 
+    public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) {
         this.freeViewForm.name = "";
         this.freeViewForm.isAdding = false;
         this.freeViewForm.isRemoval = false;
