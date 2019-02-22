@@ -2,7 +2,6 @@ import { TestBed } from "@angular/core/testing";
 import { FormValidationFreeViewService } from "./form-validation-free-view.service";
 import { FreeViewForm } from "./freeViewForm";
 
-// ts-lint:disable:no-magic-numbers
 describe("FormValidationFreeViewService", () => {
     let freeViewForm: FreeViewForm = { name: "abcdefghijklmn",
                                        nbObjects: 20,
