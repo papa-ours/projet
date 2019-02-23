@@ -64,8 +64,12 @@ export class GameplayViewComponent implements OnInit {
 
     private differenceFound(): void {
         this.foundDifferencesCounter++;
-        this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}` ;
+        this.updateDifferenceImage();
         this.playSound();
+    }
+
+    private updateDifferenceImage(): void {
+        this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}`;
     }
 
     private playSound(): void {
