@@ -1,22 +1,31 @@
 import { injectable } from "inversify";
 import * as mongoose from "mongoose";
 import "reflect-metadata";
-import { GameSheetDescription } from "../../../common/communication/game-description";
+import { GameSheetDescription, GameType } from "../../../common/communication/game-description";
 
 @injectable()
 export class DBConnectionService {
+    private static instance: DBConnectionService;
+
     private readonly uri: string = "mongodb+srv://ving34:pass123@cluster0-m1gwf.mongodb.net/test?retryWrites=true";
-    private readonly gameSheetSchema: mongoose.Schema = new mongoose.Schema({
+    public readonly gameSheetSchema: mongoose.Schema = new mongoose.Schema({
         name: String,
-        preview: Buffer,
+        id: String,
         topScores: Array,
+        type: Number,
     });
     public connected: boolean = false;
 
     public constructor() {
-        if (!mongoose.models.GameSheet2D) {
-            mongoose.model("GameSheet2D", this.gameSheetSchema);
+        this.connect();
+    }
+
+    public static getInstance(): DBConnectionService {
+        if (!DBConnectionService.instance) {
+            DBConnectionService.instance = new DBConnectionService();
         }
+
+        return DBConnectionService.instance;
     }
 
     public async connect(): Promise<typeof mongoose> {
@@ -31,7 +40,7 @@ export class DBConnectionService {
         return gameSheet.save();
     }
 
-    public async getGameSheets2D(): Promise<mongoose.Document[]> {
+    public async getGameSheets(type: GameType): Promise<mongoose.Document[]> {
         return mongoose.models.GameSheet2D.find({}).exec();
     }
 }

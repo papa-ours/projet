@@ -10,14 +10,13 @@ describe("file-reader.util", () => {
 
     it("should resolve", async () => {
         const result: Buffer = await FileReaderUtil.readFile("../client/src/assets/img/car_original.bmp");
+
         expect(result).to.deep.equal(data);
     });
 
-    it("should reject if the image doesn't exist", async () => {
-        try {
-            await FileReaderUtil.readFile("");
-        } catch {
-            expect(true).to.equals(true);
-        }
+    it("should reject if the image doesn't exist", async (done: MochaDone) => {
+        await FileReaderUtil.readFile("")
+        .then(() => done(new Error("Promise should not resolve")))
+        .catch(done);
     });
 });

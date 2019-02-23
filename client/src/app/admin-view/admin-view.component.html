@@ -2,9 +2,7 @@
     <button class="button" (click)="changeShowForm2D()">Créer un jeu 2D</button>
     <button class="button" (click)="changeShowForm3D()">Créer un jeu 3D</button>
 </div>
-<div class="game-lists">
-    <app-game-list *ngFor="let game of games" [descriptions]="game" [privilege]=Privilege.ADMIN></app-game-list>
-</div>
+<app-game-list-view [isAdmin]="true"></app-game-list-view>
 <div class="form-area" *ngIf="showForm2D">
     <app-simple-game-creation (closeForm)="showForm2D=$event"></app-simple-game-creation>
 </div>

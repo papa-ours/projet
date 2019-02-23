@@ -18,19 +18,22 @@ describe("game sheet generation", () => {
 
     it("should create a gamesheet and put it in the getGameService", () => {
         const name: string = "nom";
-        gameSheetGenerator.createGameSheet(name);
-        const expected: GameSheet | undefined = getGameService.getGameDescriptions().find((gamesheet: GameSheet) => {
+        gameSheetGenerator.createGameSheet(name, 0);
+        const expected: GameSheet | undefined = getGameService.getGameDescriptions(0).find((gamesheet: GameSheet) => {
             return gamesheet.name === name;
         });
-        expected ? expect(true).to.equals(true) : expect(true).to.equals(false);
+
+        expect(expected).to.not.equal(undefined);
     });
+
     it("should create a topscore with the correct length", () => {
         const name: string = "name";
         const topscoreLength: number = 2;
-        gameSheetGenerator.createGameSheet(name);
-        const expected: GameSheet | undefined = getGameService.getGameDescriptions().find((gamesheet: GameSheet) => {
+        gameSheetGenerator.createGameSheet(name, 0);
+        const expected: GameSheet | undefined = getGameService.getGameDescriptions(0).find((gamesheet: GameSheet) => {
             return gamesheet.name === name;
         });
+
         expected ? expect(expected.topScores.length).to.equals(topscoreLength) : expect(true).to.equals(false);
     });
 });

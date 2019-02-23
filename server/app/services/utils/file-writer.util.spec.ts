@@ -3,17 +3,17 @@ import { FileReaderUtil } from "./file-reader.util";
 import { FileWriterUtil } from "./file-writer.util";
 
 describe("FileWriterUtil", () => {
-    it("should reject if the directory doesn't exist", () => {
+
+    it("should reject if the directory doesn't exist", (done: MochaDone) => {
         const data: Uint8Array = new Uint8Array([]);
-        FileWriterUtil.writeFile("fakeDire/fakeFile.out", data)
-            .catch((err: Error) => {
-                expect(err.message).to.equals("ENOENT: no such file or directory, open 'fakeDire/fakeFile.out'");
-            });
+        FileWriterUtil.writeFile("fakeDire/fakeFile.out", new Buffer(data))
+            .then(() => done(new Error("Promise should not resolve")))
+            .catch(done);
     });
 
     it("should resolve if the directory exists", async () => {
         const data: Uint8Array = new Uint8Array([0, 1, 0, 1]);
-        await FileWriterUtil.writeFile("test/test.bmp", data);
+        await FileWriterUtil.writeFile("test/test.bmp", new Buffer(data));
         const readData: Buffer = await FileReaderUtil.readFile("test/test.bmp");
         const readArray: Uint8Array = new Uint8Array(readData);
 

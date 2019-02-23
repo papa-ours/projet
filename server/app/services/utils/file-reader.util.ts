@@ -6,9 +6,8 @@ export class FileReaderUtil {
             fs.readFile(path, (err: Error, data: Buffer) => {
                 if (err) {
                     reject(err);
-                } else {
-                    resolve(data);
                 }
+                resolve(data);
             });
         });
     }

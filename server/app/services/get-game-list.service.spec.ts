@@ -1,6 +1,7 @@
-import Axios, { AxiosResponse } from "axios";
 import { expect } from "chai";
 import { GameLists } from "../../../common/communication/game-description";
+import { GetGameListService } from "./get-game-list.service";
+import { GetGameService } from "./get-game.service";
 
 describe("get game list", () => {
 
@@ -11,11 +12,10 @@ describe("get game list", () => {
     it("should return the game list properly", async () => {
         const expected: GameLists = { list2d: [], list3d: [] };
 
-        const GAMELIST_URL: string = "http://localhost:3000/api/gamelist/";
-        Axios.get(GAMELIST_URL)
-        .then((res: AxiosResponse) => {
-            const result: GameLists = JSON.parse(res.data.body);
-            expect(expected).to.deep.equals(result);
-        });
+        const getGameListService: GetGameListService = new GetGameListService(
+            new GetGameService(),
+        );
+        const result: GameLists = getGameListService.getGameList();
+        expect(expected).to.deep.equals(result);
     });
 });

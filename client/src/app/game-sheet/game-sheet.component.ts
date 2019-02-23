@@ -1,7 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import { GameSheet } from "../../../../common/communication/game-description";
-import { Privilege } from "../privilege";
+import { GameSheet, GameType } from "../../../../common/communication/game-description";
 
 @Component({
     selector: "app-game-sheet",
@@ -16,27 +15,28 @@ export class GameSheetComponent implements OnInit {
         "#C0C0C0",
         "#CD7F32",
     ];
+    @Input() public type: GameType;
     @Input() public description: GameSheet;
-    @Input() private privilege: Privilege = Privilege.USER;
+    @Input() private isAdmin: boolean = false;
     @ViewChild("btn1") private btn1: ElementRef;
     @ViewChild("btn2") private btn2: ElementRef;
 
     public ngOnInit(): void {
         const SERVER_URL: string = "http://localhost:3000";
-        this.source = `${SERVER_URL}/${this.description.name}-originalImage.bmp`;
-        // === doesn't work, even with explicit type conversions.
-        // tslint:disable-next-line:triple-equals
-        const isUser: boolean = this.privilege == Privilege.USER;
-        this.btn1.nativeElement.textContent = isUser ? "Jouer" : "Supprimer";
-        this.btn2.nativeElement.textContent = isUser ? "Créer" : "Réinitialiser";
+        if (this.type === GameType.Simple) {
+            this.source = `${SERVER_URL}/${this.description.name}-originalImage.bmp`;
+        }
+        this.btn1.nativeElement.textContent = this.isAdmin ? "Supprimer" : "Jouer";
+        this.btn2.nativeElement.textContent = this.isAdmin ? "Réinitialiser" : "Créer";
     }
 
-    // @ts-ignore
-    private play(): void {
-        this.router.navigateByUrl(`/gameplaySimplePOV/${this.description.name}`)
-        .catch((err: Error) => {
-            console.error(err);
-        });
+    public play(): void {
+        if (!this.isAdmin) {
+            this.router.navigateByUrl(`/game/${this.description.name}/${this.type}`)
+            .catch((err: Error) => {
+                console.error(err);
+            });
+        }
     }
 
 }

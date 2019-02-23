@@ -13,8 +13,8 @@ const ROUTES: Routes = [
     { path: "admin", component: AdminViewComponent },
     { path: "gamelist", redirectTo: "/login", pathMatch: "full" },
     { path: "gamelist/:username", component: GameListViewComponent },
+    { path: "game/:name/:type", component: GameplayViewComponent},
     { path: "scene3d", component: Scene3dComponent },
-    { path: "gameplaySimplePOV/:name", component: GameplayViewComponent},
 ];
 
 @NgModule({

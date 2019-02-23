@@ -1,8 +1,10 @@
+import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import { GeometryData, Modification, ModificationType, SceneData } from "../../../common/communication/geometry";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
+import { FileWriterUtil } from "../services/utils/file-writer.util";
 import Types from "../types";
 
 @injectable()
@@ -34,6 +36,9 @@ export class SceneDataController {
                 // @ts-ignore
                 const scene: SceneData = { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry };
 
+                FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, new Buffer(JSON.stringify(scene)));
+                const SERVER_URL: string = "http://localhost:3000/api/gamesheet/free/";
+                Axios.post(SERVER_URL, {name: scene.name});
             });
 
         return router;

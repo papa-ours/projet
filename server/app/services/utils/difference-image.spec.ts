@@ -5,7 +5,6 @@ import { DifferenceImage } from "../../../../common/images/difference-image";
 import { Pixel } from "../../../../common/images/pixel";
 
 describe("difference-image", () => {
-
     const width: number = 640;
     const height: number = 480;
 
@@ -18,18 +17,20 @@ describe("difference-image", () => {
     const header: Uint8Array = imageBMP.header;
 
     before(() => {
-        differenceImage =  new DifferenceImage(pixels, header, width, height);
+        differenceImage = new DifferenceImage(pixels, header, width, height);
     });
 
-    it.skip("should convert from BMPImage to DifferenceImage properly", () => {
+    it("should convert from BMPImage to DifferenceImage properly", () => {
         const expected: DifferenceImage = differenceImage;
         const result: DifferenceImage = DifferenceImage.fromBMPImage(imageBMP);
-        expect(result).to.be.equal(expected);
+
+        expect(result).to.deep.equal(expected);
     });
 
-    it.skip("should convert from Array to DifferenceImage properly", () => {
+    it("should convert from Array to DifferenceImage properly", () => {
         const expected: DifferenceImage = differenceImage;
         const result: DifferenceImage = DifferenceImage.fromArray(imageArray);
-        expect(expected).to.be.equal(result);
+
+        expect(expected).to.deep.equal(result);
     });
 });

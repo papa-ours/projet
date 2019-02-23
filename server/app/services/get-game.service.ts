@@ -1,21 +1,21 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
-import { GameSheet, HasId } from "../../../common/communication/game-description";
+import { GameSheet, HasId, GameType } from "../../../common/communication/game-description";
 import { Game } from "./game";
 
 @injectable()
 export class GetGameService {
 
     private static games: Game[] = [];
-    private static gameSheets: GameSheet[] = [];
+    private static gameSheets: [GameSheet[], GameSheet[]] = [[], []];
 
-    public addGameSheet(gameSheet: GameSheet): void {
-        gameSheet.id = this.generateUniqueId(GetGameService.gameSheets);
-        GetGameService.gameSheets.push(gameSheet);
+    public addGameSheet(gameSheet: GameSheet, type: GameType): void {
+        gameSheet.id = this.generateUniqueId(GetGameService.gameSheets[type]);
+        GetGameService.gameSheets[type].push(gameSheet);
     }
 
-    public getGameSheet(id: string): GameSheet {
-        const gameSheet: GameSheet | undefined = GetGameService.gameSheets.find((sheet: GameSheet) => {
+    public getGameSheet(id: string, type: GameType): GameSheet {
+        const gameSheet: GameSheet | undefined = GetGameService.gameSheets[type].find((sheet: GameSheet) => {
             return sheet.id === id;
         });
 
@@ -38,8 +38,8 @@ export class GetGameService {
         return game;
     }
 
-    public getGameDescriptions(): GameSheet[] {
-        return GetGameService.gameSheets;
+    public getGameDescriptions(type: GameType): GameSheet[] {
+        return GetGameService.gameSheets[type];
     }
 
     public createGame(name: string): string {
@@ -54,7 +54,7 @@ export class GetGameService {
         const POSSIBLE_VALUES: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         const ID_LENGTH: number = 25;
         const id: string[] = [...Array(ID_LENGTH)].map(() => {
-            const index: number = Math.floor(Math.random() * POSSIBLE_VALUES.length - 1);
+            const index: number = Math.floor(Math.random() * POSSIBLE_VALUES.length);
 
             return POSSIBLE_VALUES.charAt(index);
         });
@@ -71,17 +71,17 @@ export class GetGameService {
     }
 
     private generateUniqueId(list: HasId[]): string {
-        let id: string = this.generateId();
+        let id: string;
 
-        while (this.isIdTaken(list, id)) {
+        do {
             id = this.generateId();
-        }
+        } while (this.isIdTaken(list, id));
 
         return id;
     }
 
     public emptyGameSheets(): void {
-        GetGameService.gameSheets = [];
+        GetGameService.gameSheets = [[], []];
     }
 
     public emptyGames(): void {

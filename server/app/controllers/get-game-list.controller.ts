@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
+import { Message, MessageType } from "../../../common/communication/message";
 import { GetGameListService } from "../services/get-game-list.service";
 import Types from "../types";
 
@@ -13,8 +14,12 @@ export class GetGameListController {
 
         router.get("/",
                    (req: Request, res: Response, next: NextFunction) => {
-                       // Send the request to the service and send the response
-                       this.getGameListService.getGameList(res);
+                        const message: Message = {
+                            type: MessageType.USERNAME_VALIDATION,
+                            body: JSON.stringify(this.getGameListService.getGameList()),
+                        };
+
+                        res.send(message);
                    });
 
         return router;

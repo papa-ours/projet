@@ -12,6 +12,8 @@ import Types from "../types";
 @injectable()
 export class DifferenceImageController {
 
+    private readonly FILES_DIRECTORY: string = "uploads/";
+
     public constructor(
         @inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator,
         @inject(Types.DifferencesFinderService) private differencesFinder: DifferencesFinderService,
@@ -23,9 +25,11 @@ export class DifferenceImageController {
 
         router.post(
             "/",
-            upload.fields([ {name: "name", maxCount: 1},
-                            {name: "originalImage", maxCount: 1},
-                            {name: "modifiedImage", maxCount: 1} ]),
+            upload.fields([
+                {name: "name", maxCount: 1},
+                {name: "originalImage", maxCount: 1},
+                {name: "modifiedImage", maxCount: 1},
+            ]),
             async (req: Request, res: Response, next: NextFunction) => {
                 const name: string = req.body.name;
                 const message: Message = {type: MessageType.GAME_SHEET_GENERATION, body: ""};
@@ -34,13 +38,13 @@ export class DifferenceImageController {
                     const differenceImage: DifferenceImage =
                     await this.differenceImageGenerator.generateDifferenceImage(
                         name,
-                        [`uploads/${name}-originalImage.bmp`, `uploads/${name}-modifiedImage.bmp`],
+                        [`${this.FILES_DIRECTORY}/${name}-originalImage.bmp`, `${this.FILES_DIRECTORY}/${name}-modifiedImage.bmp`],
                     );
 
                     this.verifyNumberOfDifferences(differenceImage);
 
-                    FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, differenceImage.toArray());
-                    const GAMESHEET_URL: string = "http://localhost:3000/api/gamesheet/";
+                    FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, new Buffer(differenceImage.toArray()));
+                    const GAMESHEET_URL: string = "http://localhost:3000/api/gamesheet/simple/";
                     Axios.post(GAMESHEET_URL, {name: name});
                 } catch (err) {
                     message.body = err.message;
@@ -56,7 +60,7 @@ export class DifferenceImageController {
     private createMulterObject(): multer.Instance {
         const storage: multer.StorageEngine = multer.diskStorage({
             destination: (req: Request, file: Express.Multer.File, callback: Function) => {
-                callback(null, "uploads/");
+                callback(null, this.FILES_DIRECTORY);
             },
             filename: (req: Request, file: Express.Multer.File, callback: Function) => {
                 callback(null, req.body.name + "-" + file.fieldname + ".bmp");

@@ -20,10 +20,9 @@ describe("DifferenceCheckerService", () => {
     });
 
     it("should be a GET REQUEST", () => {
-        differenceCheckerService.isPositionDifference("0", 0, 0).subscribe(
-            (data: boolean) => { expect(data).toBeDefined();
-        });
-        const request: TestRequest = httpMock.expectOne(`${differenceCheckerService.BASE_URL + "0/0/0"}`);
+        differenceCheckerService.isPositionDifference("0", 0, 0)
+            .subscribe((data: boolean) => expect(data).toBeDefined());
+        const request: TestRequest = httpMock.expectOne(`${differenceCheckerService.BASE_URL}0/0/0`);
         expect(request.request.method).toBe("GET");
         httpMock.verify();
     });

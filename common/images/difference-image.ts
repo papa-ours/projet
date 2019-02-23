@@ -16,27 +16,20 @@ export class DifferenceImage extends BMPImage {
         return new DifferenceImage(Array.from(bmp.pixels), bmp.header, bmp.width, bmp.height);
     }
 
-    public static fromArray(array: Uint8Array, width: number = BMPImage.WIDTH, height: number = BMPImage.HEIGHT): DifferenceImage {
+    public static fromArray(imageData: Uint8Array, width: number = BMPImage.WIDTH, height: number = BMPImage.HEIGHT): DifferenceImage {
         const dataIndexIndex: number = 10;
         const dataIndexLength: number = 4;
-        const dataIndex: number = readLittleEndianBytes(array, dataIndexLength, dataIndexIndex);
+        const dataIndex: number = readLittleEndianBytes(imageData, dataIndexLength, dataIndexIndex);
 
         const pixels: Pixel[] = new Array<Pixel>(width * height);
-        const image: DifferenceImage = new DifferenceImage(pixels, array.slice(0, dataIndex), width, height);
+        const image: DifferenceImage = new DifferenceImage(pixels, imageData.slice(0, dataIndex), width, height);
 
         let index: number  = 0;
         for (let i: number = dataIndex; index < pixels.length; i += Pixel.BYTES_PER_PIXEL) {
-            pixels[index++] = Pixel.readPixelColor(array, i);
+            pixels[index++] = Pixel.readPixelColor(imageData, i);
         }
 
         return image;
-    }
-
-    public static fromString(data: string): DifferenceImage {
-        const numberData: number[] = data.split(",").map(Number);
-        const array: Uint8Array = new Uint8Array(numberData);
-
-        return DifferenceImage.fromArray(array);
     }
 
     public getDifferenceAt(index: number): number[] {

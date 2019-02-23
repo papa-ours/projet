@@ -4,10 +4,11 @@
     --secondary-color: #379bff;
     --success-color: #08A037;
     --danger-color: #ff5757;
+    --header-color: #332323;
 }
 
 body {
-    background-image: linear-gradient(#c8c8c8, #eee);
+    background-image: linear-gradient(#000000, #404040);
     padding: 0;
     margin: 0;
     height: 100vh;

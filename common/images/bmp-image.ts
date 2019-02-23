@@ -15,27 +15,20 @@ export class BMPImage {
             public readonly height: number,
         ) {}
 
-    public static fromArray(array: Uint8Array, width: number = BMPImage.WIDTH, height: number = BMPImage.HEIGHT): BMPImage {
+    public static fromArray(imageData: Uint8Array, width: number = BMPImage.WIDTH, height: number = BMPImage.HEIGHT): BMPImage {
         const dataIndexIndex: number = 10;
         const dataIndexLength: number = 4;
-        const dataIndex: number = readLittleEndianBytes(array, dataIndexLength, dataIndexIndex);
+        const dataIndex: number = readLittleEndianBytes(imageData, dataIndexLength, dataIndexIndex);
 
         const pixels: Pixel[] = new Array<Pixel>(width * height);
-        const image: BMPImage = new BMPImage(pixels, array.slice(0, dataIndex), width, height);
+        const image: BMPImage = new BMPImage(pixels, imageData.slice(0, dataIndex), width, height);
 
         let index: number  = 0;
         for (let i: number = dataIndex; index < pixels.length; i += Pixel.BYTES_PER_PIXEL) {
-            pixels[index++] = Pixel.readPixelColor(array, i);
+            pixels[index++] = Pixel.readPixelColor(imageData, i);
         }
 
         return image;
-    }
-
-    public static fromString(data: string): BMPImage {
-        const numberData: number[] = data.split(",").map(Number);
-        const array: Uint8Array = new Uint8Array(numberData);
-
-        return BMPImage.fromArray(array);
     }
 
     public encode(): string {
@@ -46,27 +39,27 @@ export class BMPImage {
         return bmpDataPrefix + btoa(encodedString.join(""));
     }
 
-    public static isBMP(array: Uint8Array): boolean {
+    public static isBMP(imageData: Uint8Array): boolean {
         const B_CODE: number = "B".charCodeAt(0);
         const M_CODE: number = "M".charCodeAt(0);
 
-        return (array[0] === B_CODE && array[1] === M_CODE);
+        return (imageData[0] === B_CODE && imageData[1] === M_CODE);
     }
 
-    public static isBitFormatValid(array: Uint8Array): boolean {
+    public static isBitFormatValid(imageData: Uint8Array): boolean {
         const BIT_FORMAT_OFFSET: number = 28;
         const BIT_FORMAT: number = 24;
 
-        return (array[BIT_FORMAT_OFFSET] === BIT_FORMAT);
+        return (imageData[BIT_FORMAT_OFFSET] === BIT_FORMAT);
     }
 
-    public static isDimensionValid(array: Uint8Array): boolean {
+    public static isDimensionValid(imageData: Uint8Array): boolean {
         const WIDTH_OFFSET: number = 18;
         const HEIGHT_OFFSET: number = 22;
         const WIDTH_CODE: number = 128
         const HEIGTH_CODE: number = 224;
 
-        return (array[WIDTH_OFFSET] === WIDTH_CODE && array[HEIGHT_OFFSET] === HEIGTH_CODE);
+        return (imageData[WIDTH_OFFSET] === WIDTH_CODE && imageData[HEIGHT_OFFSET] === HEIGTH_CODE);
     }
 
     public compare(other: BMPImage): BMPImage {
@@ -80,16 +73,16 @@ export class BMPImage {
 
     public toArray(): Uint8Array {
         const length: number = this.header.length + this.pixels.length * Pixel.BYTES_PER_PIXEL;
-        const array: Uint8Array = new Uint8Array(length);
-        array.set(this.header);
+        const imageData: Uint8Array = new Uint8Array(length);
+        imageData.set(this.header);
 
         const index: {val: number} = {val: this.header.length};
         this.pixels.forEach((pixel: Pixel) => {
-            array.set(pixel.toArray(), index.val);
+            imageData.set(pixel.toArray(), index.val);
             index.val += Pixel.BYTES_PER_PIXEL;
         });
 
-        return array;
+        return imageData;
     }
 
     public size(): number {
