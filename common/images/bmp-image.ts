@@ -15,17 +15,17 @@ export class BMPImage {
             public readonly height: number,
         ) {}
 
-    public static fromArray(array: Uint8Array, width: number = BMPImage.WIDTH, height: number = BMPImage.HEIGHT): BMPImage {
+    public static fromArray(imageData: Uint8Array, width: number = BMPImage.WIDTH, height: number = BMPImage.HEIGHT): BMPImage {
         const dataIndexIndex: number = 10;
         const dataIndexLength: number = 4;
-        const dataIndex: number = readLittleEndianBytes(array, dataIndexLength, dataIndexIndex);
+        const dataIndex: number = readLittleEndianBytes(imageData, dataIndexLength, dataIndexIndex);
 
         const pixels: Pixel[] = new Array<Pixel>(width * height);
-        const image: BMPImage = new BMPImage(pixels, array.slice(0, dataIndex), width, height);
+        const image: BMPImage = new BMPImage(pixels, imageData.slice(0, dataIndex), width, height);
 
         let index: number  = 0;
         for (let i: number = dataIndex; index < pixels.length; i += Pixel.BYTES_PER_PIXEL) {
-            pixels[index++] = Pixel.readPixelColor(array, i);
+            pixels[index++] = Pixel.readPixelColor(imageData, i);
         }
 
         return image;
