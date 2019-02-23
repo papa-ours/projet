@@ -31,13 +31,6 @@ export class BMPImage {
         return image;
     }
 
-    public static fromString(data: string): BMPImage {
-        const numberData: number[] = data.split(",").map(Number);
-        const array: Uint8Array = new Uint8Array(numberData);
-
-        return BMPImage.fromArray(array);
-    }
-
     public encode(): string {
         const numberData: number[] = Array.from(this.toArray());
         const encodedString: string[] = numberData.map(Number).map((val: number) => String.fromCharCode(val));
