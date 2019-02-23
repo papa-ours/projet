@@ -42,7 +42,7 @@ describe("FormValidationService", () => {
         const file: File = new File([""], "./assets/img/logo.png", { lastModified: 1, type: "image/png" });
         const name: string = "Hello";
         expect(() => formValidationService.isFormValid(name, file, file))
-            .toThrow(new Error("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
+            .toThrow(new TypeError("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
     });
 
     it("should throw an error if one of both files is not a bitmap image", () => {
@@ -50,48 +50,15 @@ describe("FormValidationService", () => {
         const file2: File = new File([""], "./assets/img/logo.png", { lastModified: 1, type: "image/png" });
         const name: string = "Hello";
         expect(() => formValidationService.isFormValid(name, file1, file2))
-            .toThrow(new Error("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
+            .toThrow(new TypeError("Les fichiers doivent etre dans le format Bitmap (.bmp)"));
     });
-
-    it("should throw an error if the format is not 640px by 480px", () => {
-        const image: Uint8Array = new Uint8Array(
-           [
-                66, 77, 58, 254, 5, 0, 0, 0, 0, 0, 54, 4, 0, 0, 40, 0,
-                0, 0, 48, 0, 0, 0, 39, 0, 0, 0, 1, 0, 8, 0, 0, 0, 0, 0,
-                4, 250, 5, 0, 19, 11, 0, 0, 19, 11, 0, 0, 0, 0
-            ]);
-        expect(() => formValidationService.isImageDimensionValid(image))
-            .toThrow(new Error("Les images doivent être 640px par 480px"));
-    });
-
-    it("should return true if the format is 640px by 480px", () => {
-        const image: Uint8Array = new Uint8Array(
-           [
-                66, 77, 58, 254, 5, 0, 0, 0, 0, 0, 54, 4, 0, 0, 40, 0,
-                0, 0, 40, 0, 0, 0, 30, 0, 0, 0, 1, 0, 8, 0, 0, 0, 0, 0,
-                4, 250, 5, 0, 19, 11, 0, 0, 19, 11, 0, 0, 0, 0
-            ]);
-        expect(() => formValidationService.isImageDimensionValid(image)).toBeTruthy();
-    });
-
-    it("should return true if the bmp format is 24 bit", () => {
-        const image: Uint8Array = new Uint8Array(
-            [
-                66, 77, 58, 254, 5, 0, 0, 0, 0, 0, 54, 4, 0, 0, 40, 0,
-                0, 0, 40, 0, 0, 0, 30, 0, 0, 0, 1, 0, 24, 0, 0, 0, 0, 0,
-                4, 250, 5, 0, 19, 11, 0, 0, 19, 11, 0, 0, 0, 0
-            ]);
-        expect(() => formValidationService.isBitFormatValid(image)).toBeTruthy();
-    });
-
-    it("should return true if the bmp format is 24 bit", () => {
-        const image: Uint8Array = new Uint8Array(
-            [
-                66, 77, 58, 254, 5, 0, 0, 0, 0, 0, 54, 4, 0, 0, 40, 0,
-                0, 0, 40, 0, 0, 0, 30, 0, 0, 0, 1, 0, 8, 0, 0, 0, 0, 0,
-                4, 250, 5, 0, 19, 11, 0, 0, 19, 11, 0, 0, 0, 0
-            ]);
-        expect(() => formValidationService.isBitFormatValid(image))
-            .toThrow(new Error("Les images doivent être en format bitmap 24 bit"));
+    it("should throw an error if one of both files is undefined", () => {
+        const file2: File = new File([""], "./assets/img/logo.png", { lastModified: 1, type: "image/png" });
+        const name: string = "Hello";
+        expect(() => {
+            // The file needs to be undefined in order to throw the desired error
+            // @ts-ignore
+            formValidationService.isFormValid(name, undefined, file2);
+        }).toThrow(new TypeError("Les fichiers ne doivent pas être vide"));
     });
 });

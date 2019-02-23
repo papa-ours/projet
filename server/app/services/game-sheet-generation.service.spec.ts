@@ -22,8 +22,10 @@ describe("game sheet generation", () => {
         const expected: GameSheet | undefined = getGameService.getGameDescriptions(0).find((gamesheet: GameSheet) => {
             return gamesheet.name === name;
         });
-        expected ? expect(true).to.equals(true) : expect(true).to.equals(false);
+
+        expect(expected).to.not.equal(undefined);
     });
+
     it("should create a topscore with the correct length", () => {
         const name: string = "name";
         const topscoreLength: number = 2;
@@ -31,6 +33,7 @@ describe("game sheet generation", () => {
         const expected: GameSheet | undefined = getGameService.getGameDescriptions(0).find((gamesheet: GameSheet) => {
             return gamesheet.name === name;
         });
+
         expected ? expect(expected.topScores.length).to.equals(topscoreLength) : expect(true).to.equals(false);
     });
 });

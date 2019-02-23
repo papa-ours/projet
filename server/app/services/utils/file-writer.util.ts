@@ -7,7 +7,6 @@ export class FileWriterUtil {
                 if (err) {
                     reject(err);
                 }
-
                 resolve();
             });
         });

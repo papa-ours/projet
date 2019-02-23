@@ -3,9 +3,7 @@ import { GameSheet, TopScoresInterface } from "../../../common/communication/gam
 import { Game } from "./game";
 import { GetGameService } from "./get-game.service";
 
-// tslint:disable-next-line:max-func-body-length
 describe("GetGameService", () => {
-
     let getGameService: GetGameService;
     const topScoreInterface: TopScoresInterface[] = [];
     const gameSheet: GameSheet = {id: "", name: "car", topScores: topScoreInterface};
@@ -21,6 +19,7 @@ describe("GetGameService", () => {
 
     it("should return throw an error if there's no corresponding id", () => {
         const id: string = "1";
+
         expect(() => {
             return getGameService.getGame(id);
         }).to.throws("Aucune Game n'a le id 1");
@@ -28,6 +27,7 @@ describe("GetGameService", () => {
 
     it("should return undefined if there's no corresponding gamesheet with id", () => {
         const id: string = "1";
+
         expect(() => {
             getGameService.getGameSheet(id, 0);
         }).to.throws("Aucune GameSheet n'a le id 1");
@@ -52,6 +52,7 @@ describe("GetGameService", () => {
 
     it("should create an id with the correct length", () => {
         const ID_LENGTH: number = 25;
+
         expect(gameSheet.id.length).to.equals(ID_LENGTH);
     });
 

@@ -3,10 +3,12 @@ import { UsernameValidatorService } from "./username-validator.service";
 
 describe("username validation", () => {
     const validator: UsernameValidatorService = new UsernameValidatorService();
+
     it("should return an empty message if the username is correct", () => {
         const username: string = "correctName";
         const users: string[] = [];
         const result: string = validator.getUsernameValidation(username, users).body;
+
         expect(result).to.equals("");
     });
 
@@ -14,6 +16,7 @@ describe("username validation", () => {
         const username: string = "username";
         const users: string[] = ["username"];
         const result: string = validator.getUsernameValidation(username, users).body;
+
         expect(result).to.equals("Le nom d'utilisateur existe déjà");
     });
 
@@ -21,6 +24,7 @@ describe("username validation", () => {
         const username: string = "A";
         const users: string[] = [];
         const result: string = validator.getUsernameValidation(username, users).body;
+
         expect(result).to.equals("Le nom d'utilisateur doit contenir entre 3 et 12 charactères");
     });
 
@@ -28,6 +32,7 @@ describe("username validation", () => {
         const username: string = "tooLongUsernamesAreForbidden";
         const users: string[] = [];
         const result: string = validator.getUsernameValidation(username, users).body;
+
         expect(result).to.equals("Le nom d'utilisateur doit contenir entre 3 et 12 charactères");
     });
 
@@ -35,6 +40,7 @@ describe("username validation", () => {
         const username: string = "Username!";
         const users: string[] = [];
         const result: string = validator.getUsernameValidation(username, users).body;
+
         expect(result).to.equals("Le nom d'utilisateur doit contenir que des lettres et des chiffres");
     });
 });
