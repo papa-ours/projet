@@ -2,14 +2,16 @@ import { expect } from "chai";
 import { FileReaderUtil } from "./file-reader.util";
 import { FileWriterUtil } from "./file-writer.util";
 
-describe("FileWriterUtil", () => {
+describe.only("FileWriterUtil", () => {
 
-    it("should reject if the directory doesn't exist", () => {
+    it("should reject if the directory doesn't exist", (done: MochaDone) => {
         const data: Uint8Array = new Uint8Array([]);
         FileWriterUtil.writeFile("fakeDire/fakeFile.out", data)
+            .then(() => {
+                done(new Error("Promise should not resolve"));
+            })
             .catch((err: Error) => {
-
-                expect(err.message).to.equals("ENOENT: no such file or directory, open 'fakeDire/fakeFile.out'");
+                done();
             });
     });
 
