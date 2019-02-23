@@ -16,8 +16,9 @@ npm-debug.log
 # Code Coverage Folder
 coverage/
 
-# Multer Uploads Folder
-uploads/
+# Files saved in Multer Uploads Folder
+uploads/*
+!uploads/.gitkeep   
 
 ##Typescrit compilation ##
 
