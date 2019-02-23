@@ -36,21 +36,21 @@ export class SceneDataGeneratorService {
         const maxAngle: number = Math.PI;
 
         return {
-            x: this.randomNumber.randomFloat(0, maxAngle),
-            y: this.randomNumber.randomFloat(0, maxAngle),
-            z: this.randomNumber.randomFloat(0, maxAngle),
+            x: RandomNumber.randomFloat(0, maxAngle),
+            y: RandomNumber.randomFloat(0, maxAngle),
+            z: RandomNumber.randomFloat(0, maxAngle),
         };
     }
 
     public getRandomColor(): number {
-        return this.randomNumber.randomInteger(0, this.baseColor);
+        return RandomNumber.randomInteger(0, this.baseColor);
     }
 
     public getRandomSize(): number {
         const MIN_FACTOR: number = 0.5;
         const MAX_FACTOR: number = 1.5;
 
-        return this.randomNumber.randomInteger(this.geometryBaseSize * MIN_FACTOR, this.geometryBaseSize * MAX_FACTOR);
+        return RandomNumber.randomInteger(this.geometryBaseSize * MIN_FACTOR, this.geometryBaseSize * MAX_FACTOR);
     }
 
     public getRandomGeometryType(): GeometryType {
