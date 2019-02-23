@@ -36,7 +36,7 @@ export class SceneDataController {
                 // @ts-ignore
                 const scene: SceneData = { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry };
 
-                FileWriterUtil.writeJSON(`uploads/${scene.name}-data.txt`, JSON.stringify(scene));
+                FileWriterUtil.writeString(`uploads/${scene.name}-data.txt`, JSON.stringify(scene));
                 const SERVER_URL: string = "http://localhost:3000/api/gamesheet/free/";
                 Axios.post(SERVER_URL, {name: scene.name});
             });
