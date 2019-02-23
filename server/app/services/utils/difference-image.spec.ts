@@ -18,7 +18,7 @@ describe("difference-image", () => {
     const header: Uint8Array = imageBMP.header;
 
     before(() => {
-        differenceImage =  new DifferenceImage(pixels, header, width, height);
+        differenceImage = new DifferenceImage(pixels, header, width, height);
     });
 
     it.skip("should convert from BMPImage to DifferenceImage properly", () => {
