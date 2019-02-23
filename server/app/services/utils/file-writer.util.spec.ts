@@ -7,12 +7,8 @@ describe("FileWriterUtil", () => {
     it("should reject if the directory doesn't exist", (done: MochaDone) => {
         const data: Uint8Array = new Uint8Array([]);
         FileWriterUtil.writeFile("fakeDire/fakeFile.out", new Buffer(data))
-            .then(() => {
-                done(new Error("Promise should not resolve"));
-            })
-            .catch((err: Error) => {
-                done();
-            });
+            .then(() => done(new Error("Promise should not resolve")))
+            .catch(done);
     });
 
     it("should resolve if the directory exists", async () => {
