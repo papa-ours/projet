@@ -87,7 +87,7 @@ export class SceneDataGeneratorService {
         let geometry: GeometryData;
         do {
             geometry = this.getRandomGeometryData();
-        } while (!GeometryIntersection.intersectsWithCollection(geometry, collection));
+        } while (GeometryIntersection.intersectsWithCollection(geometry, collection));
 
         return geometry;
     }
