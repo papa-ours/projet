@@ -31,9 +31,7 @@ export class GameplayViewComponent implements OnInit {
     ) {
         const ONE_PLAYER_REQUIRED_DIFFERENCES: number = 7;
         const TWO_PLAYERS_REQUIRED_DIFFERENCES: number = 4;
-        this.requiredDifferences = this.nbPlayers === 1 ?
-                                ONE_PLAYER_REQUIRED_DIFFERENCES :
-                                TWO_PLAYERS_REQUIRED_DIFFERENCES;
+        this.requiredDifferences = this.nbPlayers === 1 ? ONE_PLAYER_REQUIRED_DIFFERENCES : TWO_PLAYERS_REQUIRED_DIFFERENCES;
 
         const soundUrl: string = "../../../assets/sound/Correct-answer.ogg";
         this.sound = new Audio(soundUrl);
