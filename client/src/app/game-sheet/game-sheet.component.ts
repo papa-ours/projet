@@ -28,8 +28,7 @@ export class GameSheetComponent implements OnInit {
         this.btn2.nativeElement.textContent = this.isAdmin ? "Réinitialiser" : "Créer";
     }
 
-    // @ts-ignore
-    private play(): void {
+    public play(): void {
         if (!this.isAdmin) {
             this.router.navigateByUrl(`/game/${this.description.name}/${this.type}`)
             .catch((err: Error) => {
