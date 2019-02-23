@@ -25,9 +25,11 @@ export class DifferenceImageController {
 
         router.post(
             "/",
-            upload.fields([ {name: "name", maxCount: 1},
-                            {name: "originalImage", maxCount: 1},
-                            {name: "modifiedImage", maxCount: 1} ]),
+            upload.fields([
+                {name: "name", maxCount: 1},
+                {name: "originalImage", maxCount: 1},
+                {name: "modifiedImage", maxCount: 1},
+            ]),
             async (req: Request, res: Response, next: NextFunction) => {
                 const name: string = req.body.name;
                 const message: Message = {type: MessageType.GAME_SHEET_GENERATION, body: ""};
