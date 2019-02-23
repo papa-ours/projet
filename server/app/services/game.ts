@@ -14,7 +14,7 @@ export class Game implements HasId {
     }
 
     private setupImages(name: string): void {
-        const imageTypes: string[] = [ "original", "modified", "difference" ];
+        const imageTypes: string[] = ["original", "modified", "difference"];
         imageTypes.forEach(async (type: string, index: number) => {
             const data: Uint8Array = await FileReaderUtil.readFile(`uploads/${name}-${type}Image.bmp`);
             if (index === ImageType.Difference) {
