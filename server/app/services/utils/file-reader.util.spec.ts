@@ -14,10 +14,9 @@ describe("file-reader.util", () => {
         expect(result).to.deep.equal(data);
     });
 
-    it("should reject if the image doesn't exist", async () => {
-        await FileReaderUtil.readFile("").catch((err: Error) => {
-
-            expect(err.message).to.equals("ENOENT: no such file or directory, open ''");
-        });
+    it("should reject if the image doesn't exist", async (done: MochaDone) => {
+        await FileReaderUtil.readFile("")
+        .then(() => done(new Error("Promise should not resolve")))
+        .catch(done);
     });
 });
