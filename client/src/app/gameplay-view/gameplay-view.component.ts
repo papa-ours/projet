@@ -57,11 +57,15 @@ export class GameplayViewComponent implements OnInit {
         this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
             .subscribe((isDifference: boolean) => {
                 if (isDifference) {
-                    this.foundDifferencesCounter++;
-                    this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}` ;
-                    this.playSound();
+                    this.differenceFound();
                 }
             });
+    }
+
+    private differenceFound(): void {
+        this.foundDifferencesCounter++;
+        this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}` ;
+        this.playSound();
     }
 
     private playSound(): void {
