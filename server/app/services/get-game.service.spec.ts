@@ -57,8 +57,8 @@ describe("GetGameService", () => {
 
     it("should create a game properly", () => {
         const id: string = getGameService.createGame("voiture");
-        const game: Game | undefined = getGameService.getGame(id);
+        const game: Game = getGameService.getGame(id);
 
-        game ? expect(game.id).to.equals(id) : expect(false).to.equals(true);
+        expect(game.id).to.equals(id);
     });
 });
