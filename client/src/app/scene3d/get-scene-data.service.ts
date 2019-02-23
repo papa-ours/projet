@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { of, Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { SceneData } from "../../../../common/communication/geometryMessage";
+import { SceneData } from "../../../../common/communication/geometry";
 
 @Injectable({
     providedIn: "root",
