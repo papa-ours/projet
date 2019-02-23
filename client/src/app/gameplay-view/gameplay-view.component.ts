@@ -24,20 +24,20 @@ export class GameplayViewComponent implements OnInit {
     private sound: HTMLAudioElement;
     public type: GameType;
 
-    public constructor( private route: ActivatedRoute,
-                        private differenceCheckerService: DifferenceCheckerService,
-                        private gameplayService: GameplayService,
-                        ) {
-                            const ONE_PLAYER_REQUIRED_DIFFERENCES: number = 7;
-                            const TWO_PLAYERS_REQUIRED_DIFFERENCES: number = 4;
-                            this.requiredDifferences = this.nbPlayers === 1 ?
-                                                    ONE_PLAYER_REQUIRED_DIFFERENCES :
-                                                    TWO_PLAYERS_REQUIRED_DIFFERENCES;
+    public constructor(
+        private route: ActivatedRoute,
+        private differenceCheckerService: DifferenceCheckerService,
+        private gameplayService: GameplayService,
+    ) {
+        const ONE_PLAYER_REQUIRED_DIFFERENCES: number = 7;
+        const TWO_PLAYERS_REQUIRED_DIFFERENCES: number = 4;
+        this.requiredDifferences = this.nbPlayers === 1 ?
+                                ONE_PLAYER_REQUIRED_DIFFERENCES :
+                                TWO_PLAYERS_REQUIRED_DIFFERENCES;
 
-                            const soundUrl: string = "../../../assets/sound/Correct-answer.ogg";
-                            this.sound = new Audio(soundUrl);
-
-                         }
+        const soundUrl: string = "../../../assets/sound/Correct-answer.ogg";
+        this.sound = new Audio(soundUrl);
+    }
 
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
