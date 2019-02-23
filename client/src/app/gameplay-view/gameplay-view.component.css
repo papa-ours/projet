@@ -1,5 +1,5 @@
 .info-container {
-    color: white;
+    color: #FFFFFF;
     font-size: 50px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     max-height: 65px;
@@ -24,7 +24,7 @@
 }
 
 .info-label {
-    color: #fff;
+    color: #FFFFFF;
 }
 
 .images-chat-container {
@@ -47,7 +47,7 @@ app-chat-messages {
 }
 .instruction-container, .title-container {
     height: 75px;
-    color: #FFF;
+    color: #FFFFFF;
     width: 100%;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;

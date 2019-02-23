@@ -110,7 +110,7 @@ button.create-btn:hover {
 .error-message {
     line-break: auto;
     max-width: 365px;
-    color:#F00;
+    color:#FF0000;
     font-size: 16px;
     font-weight: bold;
 }

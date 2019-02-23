@@ -7,9 +7,9 @@ import { DifferenceCheckerService } from "../difference-checker.service";
 import { GameplayService } from "../gameplay.service";
 
 @Component({
-  selector: "app-gameplay-view",
-  templateUrl: "./gameplay-view.component.html",
-  styleUrls: ["./gameplay-view.component.css"],
+    selector: "app-gameplay-view",
+    templateUrl: "./gameplay-view.component.html",
+    styleUrls: ["./gameplay-view.component.css"],
 })
 export class GameplayViewComponent implements OnInit {
 
@@ -59,7 +59,8 @@ export class GameplayViewComponent implements OnInit {
                 if (isDifference) {
                     this.differenceFound();
                 }
-            });
+            },
+        );
     }
 
     private differenceFound(): void {

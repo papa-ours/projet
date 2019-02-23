@@ -1,4 +1,4 @@
-.admin-fixed-bar{
+.admin-fixed-bar {
     z-index: 3;
     background-color: var(--header-color);
     text-align: center;
@@ -27,7 +27,7 @@
     color: var(--header-color);
 }
 
-.form-area{
+.form-area {
     position:absolute;
     z-index:100;
     left:28%;

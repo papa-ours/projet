@@ -6,7 +6,7 @@
 }
 
 h2 {
-    color: #fff;
+    color: #FFFFFF;
     font-size: 36px;
     font-style: italic;
 }
@@ -26,7 +26,7 @@ img {
 
 label {
     float: left;
-    color: #FFF;
+    color: #FFFFFF;
     font-size: 24px;
     font-weight: 500;
 }
@@ -45,18 +45,18 @@ input[type="text"] {
 }
 
 ::placeholder {
-    color: #aaa;
+    color: #AAAAAA;
 }
 
 #error-message {
-    background: #ff0000;
+    background: #FF0000;
     border-radius: 20px;
     padding: 10px;
     margin-left: -15px;
     margin-top: 10px;
     font-weight: 600;
     font-size: 18px;
-    color: #fff;
+    color: #FFFFFF;
     width: 300px;
     display: flex;
     float: left;
@@ -70,7 +70,7 @@ button {
     font-weight: 600;
     border: none;
     border-radius: 50px;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
     color: var(--primary-color);
     width: 160px;
     height: 60px;
@@ -80,6 +80,6 @@ button {
 }
 
 button:hover {
-    color: #fff;
+    color: #FFFFFF;
     background: var(--success-color);
 }
