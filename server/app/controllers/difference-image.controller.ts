@@ -43,7 +43,7 @@ export class DifferenceImageController {
 
                     this.verifyNumberOfDifferences(differenceImage);
 
-                    FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, new Buffer(differenceImage.toArray()));
+                    FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, Buffer.from(differenceImage.toArray()));
                     const GAMESHEET_URL: string = "http://localhost:3000/api/gamesheet/simple/";
                     Axios.post(GAMESHEET_URL, {name: name});
                 } catch (err) {
