@@ -8,7 +8,14 @@ import { FileReaderUtil } from "./utils/file-reader.util";
 @injectable()
 export class DifferenceImageGenerator {
 
-    private imagesData: [Uint8Array, Uint8Array] = [new Uint8Array([]), new Uint8Array([])];
+    private imagesData: [Uint8Array, Uint8Array];
+
+    public constructor() {
+        this.imagesData = [
+            new Uint8Array([]),
+            new Uint8Array([]),
+        ];
+    }
 
     public async generateDifferenceImage(name: string, paths: string[]): Promise<DifferenceImage> {
         const readFiles: Promise<Buffer>[] = paths.map((path: string) => {
