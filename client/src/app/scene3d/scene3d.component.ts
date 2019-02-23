@@ -15,10 +15,11 @@ export class Scene3dComponent implements AfterViewInit {
     @Input() public width: number;
     @Input() public height: number;
     @Input() public type: number;
-    public constructor(private renderService: RenderService,
-                       private getSceneData: GetSceneDataService,
-                       private sceneGeneratorService: SceneGeneratorService) {
-    }
+    public constructor(
+        private renderService: RenderService,
+        private getSceneData: GetSceneDataService,
+        private sceneGeneratorService: SceneGeneratorService,
+    ) {}
 
     private get container(): HTMLDivElement {
         return this.containerRef.nativeElement;
