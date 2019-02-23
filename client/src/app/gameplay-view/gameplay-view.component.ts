@@ -44,11 +44,11 @@ export class GameplayViewComponent implements OnInit {
             this.gameplayService.getGameId(this.name).subscribe((id: string) => {
                 this.id = id;
             });
-            this.setupImages();
+            this.setImagesPath();
         });
     }
 
-    private setupImages(): void {
+    private setImagesPath(): void {
         this.images[ImageType.Original] = `${this.SERVER_URL}/${this.name}-originalImage.bmp`;
         this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.name}-modifiedImage.bmp`;
     }
