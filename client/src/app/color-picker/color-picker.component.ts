@@ -43,10 +43,23 @@ export class ColorPickerComponent {
     public changeTheme(): void {
         this.isDarkTheme = !this.isDarkTheme;
         const root: HTMLElement = document.documentElement;
-        console.log(this.isDarkTheme);
+        this.changeHeaderColor(root);
+        this.changeHeaderSecondaryColor(root);
+        this.changeHeaderTextColor(root);
+    }
+
+    private changeHeaderColor(root: HTMLElement): void {
         const headerColor: string = this.isDarkTheme ? "#332323" : "#DADADA";
-        const headerTextColor: string = this.isDarkTheme ? "#FFFFFF": "#000000";
         root.style.setProperty("--header-color", headerColor);
+    }
+
+    private changeHeaderTextColor(root: HTMLElement): void {
+        const headerTextColor: string = this.isDarkTheme ? "#FFFFFF": "#000000";
         root.style.setProperty("--header-text-color", headerTextColor);
+    }
+
+    private changeHeaderSecondaryColor(root: HTMLElement): void {
+        const headerSecondaryColor: string = this.isDarkTheme ? "#404040": "#ABABAB";
+        root.style.setProperty("--header-secondary-color", headerSecondaryColor);
     }
 }
