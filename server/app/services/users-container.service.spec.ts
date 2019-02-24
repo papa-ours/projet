@@ -19,4 +19,12 @@ describe.only("UsersContainerService", () => {
 
         expect(result).to.equals(0);
     });
+
+    it("should delete the user by name if he exists", () => {
+        usersContainerService.addUser({name: name, socketId: id});
+        usersContainerService.deleteUserByName(name);
+        const result: number = UsersContainerService.usernames.length;
+
+        expect(result).to.equals(0);
+    });
 });
