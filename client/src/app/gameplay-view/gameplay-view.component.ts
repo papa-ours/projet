@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { LOCAL_HOST_PORT, REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
+import { SERVER_ADDRESS, REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
@@ -48,8 +48,8 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private setImagesPath(): void {
-        this.images[ImageType.Original] = `${LOCAL_HOST_PORT}/${this.name}-originalImage.bmp`;
-        this.images[ImageType.Modified] = `${LOCAL_HOST_PORT}/${this.name}-modifiedImage.bmp`;
+        this.images[ImageType.Original] = `${SERVER_ADDRESS}/${this.name}-originalImage.bmp`;
+        this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
     }
 
     public checkDifference(position: [number, number]): void {
@@ -69,7 +69,7 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private updateDifferenceImage(): void {
-        this.images[ImageType.Modified] = `${LOCAL_HOST_PORT}/${this.id}.bmp?${this.foundDifferencesCounter}`;
+        this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.id}.bmp?${this.foundDifferencesCounter}`;
     }
 
     private playSound(): void {

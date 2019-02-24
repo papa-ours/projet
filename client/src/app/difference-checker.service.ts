@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { HEIGHT, LOCAL_HOST_PORT, WIDTH } from "../../../common/communication/constants";
+import { HEIGHT, SERVER_ADDRESS, WIDTH } from "../../../common/communication/constants";
 import { Message } from "../../../common/communication/message";
 
 @Injectable({
@@ -13,7 +13,7 @@ export class DifferenceCheckerService {
     private readonly HTML_IMAGE_WIDTH: number = 500;
     private readonly HTML_IMAGE_HEIGHT: number = 375;
 
-    public readonly BASE_URL: string = `${LOCAL_HOST_PORT}/api/difference/`;
+    public readonly BASE_URL: string = `${SERVER_ADDRESS}/api/difference/`;
     public constructor(private http: HttpClient) { }
 
     public isPositionDifference(id: string, x: number, y: number): Observable<boolean> {

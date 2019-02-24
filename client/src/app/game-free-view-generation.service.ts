@@ -1,12 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { LOCAL_HOST_PORT } from "../../../common/communication/constants";
+import { SERVER_ADDRESS } from "../../../common/communication/constants";
 @Injectable({
   providedIn: "root",
 })
 export class GameFreeViewGenerationService {
 
-    public readonly URL: string = `${LOCAL_HOST_PORT}/api/scene`;
+    public readonly URL: string = `${SERVER_ADDRESS}/api/scene`;
     public constructor(private http: HttpClient) { }
 
     public postGenerate(formData: FormData): void {

@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import { LOCAL_HOST_PORT } from "../../../../common/communication/constants";
+import { SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameSheet, GameType } from "../../../../common/communication/game-description";
 
 @Component({
@@ -28,7 +28,7 @@ export class GameSheetComponent implements OnInit {
 
     public ngOnInit(): void {
         if (this.type === GameType.Simple) {
-            this.source = `${LOCAL_HOST_PORT}/${this.description.name}-originalImage.bmp`;
+            this.source = `${SERVER_ADDRESS}/${this.description.name}-originalImage.bmp`;
         }
         this.btn1.nativeElement.textContent = this.isAdmin ? "Supprimer" : "Jouer";
         this.btn2.nativeElement.textContent = this.isAdmin ? "Réinitialiser" : "Créer";

@@ -1,13 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Observable, Observer } from "rxjs";
 import * as io from "socket.io-client";
-import { LOCAL_HOST_PORT } from "../../../common/communication/constants";
+import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { Message } from "../../../common/communication/message";
 
 @Injectable()
 export class UsernameValidationService {
 
-    private readonly BASE_URL: string = `${LOCAL_HOST_PORT}`;
+    private readonly BASE_URL: string = `${SERVER_ADDRESS}`;
 
     private socket: SocketIOClient.Socket;
     public connected: boolean;

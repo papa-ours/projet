@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { of, Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { LOCAL_HOST_PORT } from "../../../../common/communication/constants";
+import { SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { SceneData } from "../../../../common/communication/geometry";
 
 @Injectable({
@@ -10,7 +10,7 @@ import { SceneData } from "../../../../common/communication/geometry";
 })
 export class GetSceneDataService {
 
-    public readonly URL: string = `${LOCAL_HOST_PORT}`;
+    public readonly URL: string = `${SERVER_ADDRESS}`;
     public constructor(private http: HttpClient) { }
 
     public getSceneData(name: string): Observable<SceneData> {
