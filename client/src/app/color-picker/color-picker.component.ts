@@ -59,7 +59,7 @@ export class ColorPickerComponent {
     }
 
     private changeHeaderSecondaryColor(root: HTMLElement): void {
-        const headerSecondaryColor: string = this.isDarkTheme ? "#404040": "#ABABAB";
+        const headerSecondaryColor: string = this.isDarkTheme ? "#404040": "#CCCCCC";
         root.style.setProperty("--header-secondary-color", headerSecondaryColor);
     }
 }
