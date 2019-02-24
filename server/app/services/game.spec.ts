@@ -11,7 +11,9 @@ describe("Game", () => {
             () => {
                 const x: number = 35;
                 const y: number = 193;
-                game.restoreModifiedImage(x, y);
+                game.restoreModifiedImage(x, y).catch((err: Error) => {
+                    console.error(err);
+                });
                 const position: Position = {i: x, j: y };
                 const index: number = game.images[0].getIndex(position);
 
