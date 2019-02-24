@@ -13,12 +13,13 @@ import { GameplayService } from "../gameplay.service";
 })
 export class GameplayViewComponent implements OnInit {
 
+    private readonly SERVER_URL: string = "http://localhost:3000";
+
     public hourglassIcon: IconDefinition = faHourglassHalf;
     public foundDifferencesCounter: number = 0;
     private name: string;
     private id: string;
     public images: string[] = [];
-    private readonly SERVER_URL: string = "http://localhost:3000";
     public readonly nbPlayers: number = 1;
     public requiredDifferences: number;
     private sound: HTMLAudioElement;
