@@ -3,7 +3,6 @@ import { Component } from "@angular/core";
 interface ColorPalette {
     primary: string;
     secondary: string;
-    text: string;
 }
 
 @Component({
@@ -15,6 +14,7 @@ export class ColorPickerComponent {
 
     public colorPalettes: ColorPalette[];
     public isPanelShown: boolean;
+    public isTextWhite: boolean;
     public isDarkTheme: boolean;
 
     public constructor() {
@@ -22,21 +22,21 @@ export class ColorPickerComponent {
         this.isDarkTheme = true;
 
         this.colorPalettes = [
-            {primary: "#379BFF", secondary: "#8AC4FF", text: "#FFFFFF"},
-            {primary: "#03D300", secondary: "#12FF0F", text: "#000000"},
-            {primary: "#F73D1D", secondary: "#FF6247", text: "#FFFFFF"},
-            {primary: "#FF8B1E", secondary: "#FFB049", text: "#FFFFFF"},
+            {primary: "#379BFF", secondary: "#8AC4FF"},
+            {primary: "#03D300", secondary: "#12FF0F"},
+            {primary: "#F73D1D", secondary: "#FF6247"},
+            {primary: "#FF8B1E", secondary: "#FFB049"},
         ];
 
         this.colorSelected(this.colorPalettes[0]);
         this.changeTheme();
+        this.changeTextColor();
     }
 
     public colorSelected(colorPalette: ColorPalette): void {
         const root: HTMLElement = document.documentElement;
         root.style.setProperty("--primary-color", colorPalette.primary);
         root.style.setProperty("--secondary-color", colorPalette.secondary);
-        root.style.setProperty("--text-color", colorPalette.text);
     }
 
     public changePanelState(): void {
@@ -64,5 +64,12 @@ export class ColorPickerComponent {
     private changeHeaderSecondaryColor(root: HTMLElement): void {
         const headerSecondaryColor: string = this.isDarkTheme ? "#404040": "#CCCCCC";
         root.style.setProperty("--header-secondary-color", headerSecondaryColor);
+    }
+
+    public changeTextColor(): void {
+        const root: HTMLElement = document.documentElement;
+        this.isTextWhite = !this.isTextWhite;
+        const textColor: string = this.isTextWhite ? "#FFFFFF" : "#000000";
+        root.style.setProperty("--text-color", textColor);
     }
 }
