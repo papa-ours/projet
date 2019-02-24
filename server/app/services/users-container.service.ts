@@ -12,18 +12,20 @@ export class UsersContainerService {
             return u.name === name;
         });
 
-        if (userIndex !== -1) {
-            UsersContainerService.users.splice(userIndex, 1);
-        }
+        this.deleteUserAt(userIndex);
     }
 
     public deleteUserById(id: string): void {
         const userIndex: number = UsersContainerService.users.findIndex((u: User) => {
-            return u.id === id;
+            return u.socketId === id;
         });
 
-        if (userIndex !== -1) {
-            UsersContainerService.users.splice(userIndex, 1);
+        this.deleteUserAt(userIndex);
+    }
+
+    private deleteUserAt(index: number): void {
+        if (index !== -1) {
+            UsersContainerService.users.splice(index, 1);
         }
     }
 }
