@@ -16,13 +16,23 @@ export class SceneDataController {
 
     public get router(): Router {
         const router: Router = Router();
+        const uploads: multer.Instance = multer();
 
-        router.post("/", (req: Request, res: Response, next: NextFunction) => {
-
-            const scene: SceneData = this.getSceneData(req);
-            FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)));
-            const SERVER_URL: string = "http://localhost:3000/api/gamesheet/free/";
-            Axios.post(SERVER_URL, { name: scene.name });
+        router.post(
+            "/",
+            uploads.fields([
+                {name: "name", maxCount: 1},
+                {name: "nbObjects", maxCount: 1},
+                {name: "isAdding", maxCount: 1},
+                {name: "isRemoval", maxCount: 1},
+                {name: "isColorChange", maxCount: 1},
+                {name: "objectType", maxCount: 1},
+            ]),
+            (req: Request, res: Response, next: NextFunction) => {
+                const scene: SceneData = this.getSceneData(req);
+                FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)));
+                const SERVER_URL: string = "http://localhost:3000/api/gamesheet/free/";
+                Axios.post(SERVER_URL, { name: scene.name });
         });
 
         return router;
