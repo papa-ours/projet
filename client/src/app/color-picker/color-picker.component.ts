@@ -31,6 +31,7 @@ export class ColorPickerComponent {
         const root: HTMLElement = document.documentElement;
         root.style.setProperty("--primary-color", colorPalette.primary);
         root.style.setProperty("--secondary-color", colorPalette.secondary);
+        root.style.setProperty("--text-color", colorPalette.text);
     }
 
     public changePanelState(): void {
