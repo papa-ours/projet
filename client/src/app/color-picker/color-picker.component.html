@@ -3,8 +3,8 @@
 </div>
 
 <div class="color-panel">
-    <span class="display-color"></span>
-    <span class="display-color"></span>
-    <span class="display-color"></span>
-    <span class="display-color"></span>
+    <span *ngFor="let colorPalette of colorPalettes"
+            class="display-color"
+            [style.backgroundImage]="'linear-gradient('+colorPalette.primary+', '+colorPalette.secondary+')'">
+    </span>
 </div>
