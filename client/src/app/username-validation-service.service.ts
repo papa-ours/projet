@@ -1,5 +1,7 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, Observer } from "rxjs";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { Message } from "../../../common/communication/message";
 import { SocketService } from "./socket.service";
 
@@ -8,8 +10,12 @@ export class UsernameValidationService {
 
     public connected: boolean = false;
     public username: string = "";
+    private readonly BASE_URL: string = "http://localhost:3000/api/user/name";
 
-    public constructor(public socketService: SocketService) {}
+    public constructor(
+        public socketService: SocketService,
+        private http: HttpClient,
+    ) {}
 
     public sendUsername(username: string): void {
         this.socketService.socket.emit("requestUsernameValidation", username);
@@ -19,11 +25,9 @@ export class UsernameValidationService {
         this.socketService.socket.emit("deleteUsername", this.username);
     }
 
-    public getUsernameValidation(): Observable<Message> {
-        return new Observable<Message>((observer: Observer<Message>) => {
-            this.socketService.socket.on("validation", (message: Message) => {
-                observer.next(message);
-            });
-        });
+    public getUsernameValidation(name: string): Observable<string> {
+        return this.http.post<Message>(this.BASE_URL, {name: name})
+            .pipe(map((message: Message) => message.body),
+        );
     }
 }
