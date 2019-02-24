@@ -5,6 +5,7 @@
 <div class="color-panel">
     <span *ngFor="let colorPalette of colorPalettes"
             class="display-color"
-            [style.backgroundImage]="'linear-gradient('+colorPalette.primary+', '+colorPalette.secondary+')'">
+            [style.backgroundImage]="'linear-gradient('+colorPalette.primary+', '+colorPalette.secondary+')'"
+            (click)="colorSelected(colorPalette)">
     </span>
 </div>
