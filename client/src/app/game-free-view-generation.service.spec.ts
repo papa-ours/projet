@@ -27,15 +27,4 @@ describe("GameFreeViewGenerationService", () => {
         request.flush(response);
     });
 
-    it("should return a proper message body on POST request", () => {
-        const response: Message = {
-            type: MessageType.GAME_SHEET_GENERATION,
-            body: "this is the body",
-        };
-        gameFreeViewGenerationService.postGenerate(new FormData());
-        const request: TestRequest = httpMock.expectOne(`${gameFreeViewGenerationService.URL}`);
-        request.flush(response);
-        expect(request.request.body).toBe("this is the body");
-    });
-
 });
