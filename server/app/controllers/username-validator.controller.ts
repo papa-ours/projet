@@ -26,6 +26,13 @@ export class UsernameValidatorController {
                 res.send(message);
             });
 
+        router.delete(
+            "/delete:name",
+            (req: Request, res: Response, next: NextFunction) => {
+                DBConnectionService.getInstance().deleteUserByName(req.params.name);
+                res.send();
+            });
+
         return router;
     }
 }
