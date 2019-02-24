@@ -5,12 +5,12 @@ import { User } from "./user";
 export class UsersContainerService {
     private static users: User[] = [];
 
-    public addUser(user: User): void {
-        UsersContainerService.users.push(user);
+    public static get usernames(): string[] {
+        return UsersContainerService.users.map((user: User) => user.name);
     }
 
-    public get usernames(): string[] {
-        return UsersContainerService.users.map((user: User) => user.name);
+    public addUser(user: User): void {
+        UsersContainerService.users.push(user);
     }
 
     public deleteUserByName(name: string): void {
