@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { FreeViewForm } from "./freeViewForm";
 
 @Injectable({
   providedIn: "root",
@@ -23,10 +24,10 @@ export class FormValidationFreeViewService {
         return (isAdding || isColorChange || isRemoval);
     }
 
-    public static isFormValid(name: string, nbObjects: number, isAdding: boolean, isColorChange: boolean, removal: boolean): boolean {
-        return (this.validateName(name) &&
-                this.validateNbObjects(nbObjects) &&
-                this.validateModifications(isAdding, isColorChange, removal));
+    public static isFormValid(freeViewForm: FreeViewForm): boolean {
+        return (this.validateName(freeViewForm.name) &&
+                this.validateNbObjects(freeViewForm.nbObjects) &&
+                this.validateModifications(freeViewForm.isAdding, freeViewForm.isColorChange, freeViewForm.isRemoval));
     }
 
 }
