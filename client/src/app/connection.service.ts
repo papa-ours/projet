@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { Message } from "../../../common/communication/message";
 import { SocketService } from "./socket.service";
-import { StringMap } from "@angular/core/src/render3/jit/compiler_facade_interface";
 
 @Injectable()
 export class ConnectionService {
