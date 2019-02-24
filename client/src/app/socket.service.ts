@@ -5,7 +5,7 @@ import * as io from "socket.io-client";
     providedIn: "root",
 })
 export class SocketService {
-    public socket: SocketIOClient.Socket;
+    private socket: SocketIOClient.Socket;
     private readonly BASE_URL: string = "http://localhost:3000";
 
     public constructor() {
