@@ -3,6 +3,11 @@ import * as mongoose from "mongoose";
 import "reflect-metadata";
 import { GameSheetDescription, GameType } from "../../../common/communication/game-description";
 
+interface User {
+    name?: string;
+    socket: SocketIO.Socket;
+}
+
 @injectable()
 export class DBConnectionService {
     private static instance: DBConnectionService;
@@ -24,6 +29,8 @@ export class DBConnectionService {
 
     public constructor() {
         this.connect();
+
+        mongoose.model("User", this.userSchema);
     }
 
     public static getInstance(): DBConnectionService {
@@ -48,5 +55,18 @@ export class DBConnectionService {
 
     public async getGameSheets(type: GameType): Promise<mongoose.Document[]> {
         return mongoose.models.GameSheet2D.find({}).exec();
+    }
+
+    public async getUsers(): Promise<{}> {
+        const userDocuments: mongoose.Document[] = await mongoose.models.User.find({});
+        console.log(userDocuments.map((doc: mongoose.Document) => doc.toObject()));
+
+        return new Promise<{}>((resolve: Function) => {
+            resolve();
+        });
+    }
+
+    public addUser(user: User): void {
+        new mongoose.models.User(user).save();
     }
 }
