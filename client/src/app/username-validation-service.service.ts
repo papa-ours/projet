@@ -10,7 +10,7 @@ export class UsernameValidationService {
 
     public connected: boolean = false;
     public username: string = "";
-    private readonly BASE_URL: string = "http://localhost:3000/api/user/";
+    public readonly BASE_URL: string = "http://localhost:3000/api/user/";
 
     public constructor(
         public socketService: SocketService,
