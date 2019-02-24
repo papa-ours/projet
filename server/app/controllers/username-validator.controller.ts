@@ -27,7 +27,7 @@ export class UsernameValidatorController {
             });
 
         router.delete(
-            "/delete:name",
+            "/delete/:name",
             (req: Request, res: Response, next: NextFunction) => {
                 DBConnectionService.getInstance().deleteUserByName(req.params.name);
                 res.send();
