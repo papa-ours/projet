@@ -13,8 +13,11 @@ interface ColorPalette {
 export class ColorPickerComponent {
 
     public colorPalettes: ColorPalette[];
+    public showPanel: boolean;
 
     public constructor() {
+        this.showPanel = false;
+
         this.colorPalettes = [
             {primary: "#8AC4FF", secondary: "#379bff"},
             {primary: "#FF0000", secondary: "#379bff"},
