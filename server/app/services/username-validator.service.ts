@@ -14,7 +14,7 @@ export class UsernameValidatorService {
         return ch.match(REGEXP) !== null;
     }
 
-    private validateUsername(username: string, users: string[]): string {
+    private validateUsername(username: string, usernames: string[]): string {
         let messageBody: string = "";
 
         const BASE_MESSAGE: string = "Le nom d'utilisateur ";
@@ -22,7 +22,7 @@ export class UsernameValidatorService {
             messageBody = BASE_MESSAGE.concat(`doit contenir entre ${this.MIN_LENGTH} et ${this.MAX_LENGTH} charactères`);
         } else if (!this.isAlphaNumeric(username)) {
             messageBody = BASE_MESSAGE.concat("doit contenir que des lettres et des chiffres");
-        } else if (users.indexOf(username) !== -1) {
+        } else if (usernames.indexOf(username) !== -1) {
             messageBody = BASE_MESSAGE.concat("existe déjà");
         }
 
