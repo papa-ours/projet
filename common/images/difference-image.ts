@@ -6,11 +6,12 @@ import { Pixel } from "./pixel";
 
 export class DifferenceImage extends BMPImage {
     private isPixelVisited: boolean[];
-    public differenceCount: number = 0;
+    public differenceCount: number;
 
     public constructor(pixels: Pixel[], header: Uint8Array, width: number, height: number) {
         super(pixels, header, width, height);
         this.isPixelVisited = new Array(this.size()).fill(false);
+        this.differenceCount = 0;
     }
 
     public static fromBMPImage(bmp: BMPImage): DifferenceImage {
