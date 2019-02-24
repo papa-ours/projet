@@ -32,7 +32,8 @@ export class SceneDataController {
             ]),
             (req: Request, res: Response, next: NextFunction) => {
                 const scene: SceneData = this.getSceneData(req);
-                FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)));
+                FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)))
+                    .catch((err: Error) => console.error(err));
                 const SERVER_URL: string = "http://localhost:3000/api/gamesheet/free/";
                 Axios.post(SERVER_URL, { name: scene.name });
         });
