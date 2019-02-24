@@ -47,7 +47,7 @@ app-chat-messages {
 }
 .instruction-container, .title-container {
     height: 75px;
-    color: var(--text-color);
+    color: var(--header-text-color);
     width: 100%;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-align: center;
