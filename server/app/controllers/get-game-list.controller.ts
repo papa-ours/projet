@@ -12,15 +12,16 @@ export class GetGameListController {
     public get router(): Router {
         const router: Router = Router();
 
-        router.get("/",
-                   (req: Request, res: Response, next: NextFunction) => {
-                        const message: Message = {
-                            type: MessageType.USERNAME_VALIDATION,
-                            body: JSON.stringify(this.getGameListService.getGameList()),
-                        };
+        router.get(
+            "/",
+            (req: Request, res: Response, next: NextFunction) => {
+                const message: Message = {
+                    type: MessageType.USERNAME_VALIDATION,
+                    body: JSON.stringify(this.getGameListService.getGameList()),
+                };
 
-                        res.send(message);
-                   });
+                res.send(message);
+            });
 
         return router;
     }
