@@ -1,10 +1,16 @@
+import { injectable } from "inversify";
 import { User } from "./user";
 
+@injectable()
 export class UsersContainerService {
     private static users: User[] = [];
 
     public addUser(user: User): void {
         UsersContainerService.users.push(user);
+    }
+
+    public get usernames(): string[] {
+        return UsersContainerService.users.map((user: User) => user.name);
     }
 
     public deleteUserByName(name: string): void {
