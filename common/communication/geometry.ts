@@ -3,16 +3,16 @@ import { VectorInterface } from "./vector-interface";
 export interface GeometryData {
    position: VectorInterface;
    rotation: VectorInterface;
-   color:    number;
-   size :    number;
-   type :    GeometryType;
+   color: number;
+   size: number;
+   type: GeometryType;
    isModified: boolean;
 }
 
 export interface SceneData {
     name: string;
-    originalScene: GeometryData [];
-    modifiedScene: GeometryData [];
+    originalScene: GeometryData[];
+    modifiedScene: GeometryData[];
 }
 
 export enum GeometryType {

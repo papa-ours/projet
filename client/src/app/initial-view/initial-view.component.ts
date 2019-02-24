@@ -8,13 +8,16 @@ import { ConnectionService } from "../connection.service";
     styleUrls: ["./initial-view.component.css"],
 })
 export class InitialViewComponent implements OnInit {
-    private username: string = "";
-    private usernameValidationMessage: string = "";
+    private username: string;
+    private usernameValidationMessage: string;
 
     public constructor(
         private connectionService: ConnectionService,
         private router: Router,
-    ) { }
+    ) {
+        this.username = "";
+        this.usernameValidationMessage = "";
+    }
 
     public ngOnInit(): void {
         if (this.connectionService.connected) {

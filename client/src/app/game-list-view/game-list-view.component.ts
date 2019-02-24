@@ -17,16 +17,20 @@ enum GameType {
 
 export class GameListViewComponent implements OnInit {
 
-    @Input() public isAdmin: boolean = false;
-    public username: string = "";
-    private games: GameSheet[][] = [];
+    @Input() public isAdmin: boolean;
+    public username: string;
+    private games: GameSheet[][];
 
     public constructor(
         private route: ActivatedRoute,
         private router: Router,
         private connectionService: ConnectionService,
         private gameListService: GameListService,
-    ) {}
+    ) {
+        this.games = [];
+        this.username = "";
+        this.isAdmin = false;
+    }
 
     public ngOnInit(): void {
         if (this.route.snapshot.url[0].path === "gamelist") {

@@ -8,8 +8,13 @@ import { Component } from "@angular/core";
 
 export class AdminViewComponent {
 
-    public showForm2D: boolean = false;
-    public showForm3D: boolean = false;
+    public showForm2D: boolean;
+    public showForm3D: boolean;
+
+    public constructor() {
+        this.showForm2D = false;
+        this.showForm3D = false;
+    }
 
     public changeShowForm2D(): void {
         this.showForm2D = !this.showForm2D;

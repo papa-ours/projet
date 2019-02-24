@@ -20,13 +20,14 @@ export class Application {
     public app: express.Application;
 
     public constructor(
-            @inject(Types.GetGameListController) private getGameListController: GetGameListController,
-            @inject(Types.GetGameController) private getGameController: GetGameController,
-            @inject(Types.GameSheetGenerationController) private gameSheetGenerationController: GameSheetGenerationController,
-            @inject(Types.SceneDataController) private sceneDataController: SceneDataController,
-            @inject(Types.DifferenceImageController) private differenceImageController: DifferenceImageController,
-            @inject(Types.DifferenceCheckerController) private differenceCheckerController: DifferenceCheckerController,
-            @inject(Types.UsernameValidatorController) private usernameValidatorController: UsernameValidatorController) {
+        @inject(Types.GetGameListController) private getGameListController: GetGameListController,
+        @inject(Types.GetGameController) private getGameController: GetGameController,
+        @inject(Types.GameSheetGenerationController) private gameSheetGenerationController: GameSheetGenerationController,
+        @inject(Types.SceneDataController) private sceneDataController: SceneDataController,
+        @inject(Types.DifferenceImageController) private differenceImageController: DifferenceImageController,
+        @inject(Types.DifferenceCheckerController) private differenceCheckerController: DifferenceCheckerController,
+        @inject(Types.UsernameValidatorController) private usernameValidatorController: UsernameValidatorController,
+    ) {
         this.app = express();
 
         this.config();

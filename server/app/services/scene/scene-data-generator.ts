@@ -13,7 +13,6 @@ export class SceneDataGeneratorService {
     private readonly maxObject: number = 200;
     private readonly geometryBaseSize: number = 65;
 
-    public constructor() {}
 
     private checkNumberOfObjects(numberOfObjects: number): boolean {
         return this.minObject <= numberOfObjects && numberOfObjects <= this.maxObject;
@@ -28,8 +27,8 @@ export class SceneDataGeneratorService {
     public getRandomPosition(): VectorInterface {
         return {
             x: RandomNumber.randomInteger(SKYBOX_MIN.x, SKYBOX_MAX.x),
-            y: RandomNumber.randomInteger(SKYBOX_MIN.y , SKYBOX_MAX.y),
-            z: RandomNumber.randomInteger(SKYBOX_MIN.z , SKYBOX_MAX.z),
+            y: RandomNumber.randomInteger(SKYBOX_MIN.y, SKYBOX_MAX.y),
+            z: RandomNumber.randomInteger(SKYBOX_MIN.z, SKYBOX_MAX.z),
         };
     }
 

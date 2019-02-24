@@ -9,9 +9,9 @@ export class UsernameValidatorService {
     private readonly MIN_LENGTH: number = 3;
 
     private isAlphaNumeric(ch: string): boolean {
-        const REGEXP: RegExp = /^\w*$/;
+        const alphanumericRegex: RegExp = /^\w*$/;
 
-        return ch.match(REGEXP) !== null;
+        return ch.match(alphanumericRegex) !== null;
     }
 
     private validateUsername(username: string, usernames: string[]): string {
