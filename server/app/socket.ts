@@ -19,7 +19,7 @@ export class Socket {
 
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
-            this.deleteUser({name: "", socketId: socket.id});
+            this.deleteUser(socket.id);
         });
     }
 
@@ -29,7 +29,7 @@ export class Socket {
         });
     }
 
-    private deleteUser(user: User): void {
-        DBConnectionService.getInstance().deleteUserById(user);
+    private deleteUser(id: string): void {
+        DBConnectionService.getInstance().deleteUserById(id);
     }
 }
