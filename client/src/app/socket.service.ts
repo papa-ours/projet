@@ -15,4 +15,8 @@ export class SocketService {
     public get id(): string {
         return this.socket.id;
     }
+
+    public deleteUser(): void {
+        this.socket.emit("deleteUser", this.id);
+    }
 }
