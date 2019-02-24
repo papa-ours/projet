@@ -8,9 +8,15 @@
             [style.backgroundImage]="'linear-gradient('+colorPalette.primary+', '+colorPalette.secondary+')'"
             (click)="colorSelected(colorPalette)">
     </span>
+
+    <label class="switch theme-color">
+        <input type="checkbox" checked (click)="changeTheme()">
+        <span class="slider round"></span>
+    </label>
+
+    <label class="switch text-color">
+        <input type="checkbox" checked (click)="changeTextColor()">
+        <span class="slider round"></span>
+    </label>
 </div>
 
-<label class="switch">
-    <input type="checkbox" checked (click)="changeTheme()">
-    <span class="slider round"></span>
-</label>
