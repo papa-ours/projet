@@ -6,8 +6,8 @@ import { Game } from "./game";
 @injectable()
 export class GetGameService {
 
-    private static games: Game[] = [];
-    private static gameSheets: [GameSheet[], GameSheet[]] = [[], []];
+    private static readonly games: Game[] = [];
+    private static readonly gameSheets: [GameSheet[], GameSheet[]] = [[], []];
 
     public addGameSheet(gameSheet: GameSheet, type: GameType): void {
         gameSheet.id = this.generateUniqueId(GetGameService.gameSheets[type]);
@@ -81,10 +81,11 @@ export class GetGameService {
     }
 
     public emptyGameSheets(): void {
-        GetGameService.gameSheets = [[], []];
+        GetGameService.gameSheets[0] = [];
+        GetGameService.gameSheets[1] = [];
     }
 
     public emptyGames(): void {
-        GetGameService.games = [];
+        GetGameService.games.splice(0, GetGameService.length);
     }
 }
