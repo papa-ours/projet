@@ -15,7 +15,6 @@ import { GameplayService } from "../gameplay.service";
 export class GameplayViewComponent implements OnInit {
 
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
-    private readonly SERVER_URL: string = `${LOCAL_HOST_PORT}`;
     private readonly SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
     public readonly nbPlayers: number;
 
@@ -49,8 +48,8 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private setImagesPath(): void {
-        this.images[ImageType.Original] = `${this.SERVER_URL}/${this.name}-originalImage.bmp`;
-        this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.name}-modifiedImage.bmp`;
+        this.images[ImageType.Original] = `${LOCAL_HOST_PORT}/${this.name}-originalImage.bmp`;
+        this.images[ImageType.Modified] = `${LOCAL_HOST_PORT}/${this.name}-modifiedImage.bmp`;
     }
 
     public checkDifference(position: [number, number]): void {
@@ -70,7 +69,7 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private updateDifferenceImage(): void {
-        this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}`;
+        this.images[ImageType.Modified] = `${LOCAL_HOST_PORT}/${this.id}.bmp?${this.foundDifferencesCounter}`;
     }
 
     private playSound(): void {
