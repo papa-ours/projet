@@ -1,6 +1,7 @@
 import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
+import * as multer from "multer";
 import { GeometryData, Modification, ModificationType, SceneData } from "../../../common/communication/geometry";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
@@ -15,8 +16,19 @@ export class SceneDataController {
 
     public get router(): Router {
         const router: Router = Router();
+        const uploads: multer.Instance = multer();
 
-        router.post("/", (req: Request, res: Response, next: NextFunction) => {
+        router.post(
+            "/",
+            uploads.fields([
+                {name: "name", maxCount: 1},
+                {name: "nbObjects", maxCount: 1},
+                {name: "isAdding", maxCount: 1},
+                {name: "isRemoval", maxCount: 1},
+                {name: "isColorChange", maxCount: 1},
+                {name: "objectType", maxCount: 1},
+            ]),
+            (req: Request, res: Response, next: NextFunction) => {
                 let modifications: Modification[] =
                     [
                         { type: ModificationType.ADD, isActive: JSON.parse(req.body.isAdding) },
