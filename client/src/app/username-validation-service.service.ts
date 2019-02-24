@@ -8,12 +8,14 @@ import { Message } from "../../../common/communication/message";
 export class UsernameValidationService {
 
     private socket: SocketIOClient.Socket;
-    public connected: boolean = false;
-    public username: string = "";
+    public connected: boolean;
+    public username: string;
     private readonly BASE_URL: string = `${LOCAL_HOST_PORT}`;
 
     public constructor() {
         this.socket = io(this.BASE_URL);
+        this.connected = false;
+        this.username = "";
     }
 
     public sendUsername(username: string): void {
