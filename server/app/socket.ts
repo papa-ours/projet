@@ -2,7 +2,6 @@ import * as http from "http";
 import { injectable } from "inversify";
 import * as socketio from "socket.io";
 import { DBConnectionService } from "./services/dbconnection.service";
-import { User } from "./services/user";
 
 @injectable()
 export class Socket {
