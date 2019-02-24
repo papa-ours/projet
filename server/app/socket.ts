@@ -12,28 +12,24 @@ export class Socket {
         this.io = socketio(server);
 
         this.io.on("connection", (socket: SocketIO.Socket) => {
-            const currentUser: User = {name: ""};
-
-            this.setupDisconnect(socket, currentUser);
+            this.setupDisconnect(socket);
             this.setupDeleteUser(socket);
         });
     }
 
-    private setupDisconnect(socket: SocketIO.Socket, user: User): void {
+    private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
-            if (user.name !== "") {
-                this.deleteUser(user);
-            }
+            this.deleteUser({name: "", socketId: socket.id});
         });
     }
 
     private setupDeleteUser(socket: SocketIO.Socket): void {
-        socket.on("deleteUsername", (username: string) => {
-            this.deleteUser({name: username});
+        socket.on("deleteUsername", (user: User) => {
+            this.deleteUser(user);
         });
     }
 
     private deleteUser(user: User): void {
-        DBConnectionService.getInstance().deleteUser(user);
+        DBConnectionService.getInstance().deleteUserById(user);
     }
 }
