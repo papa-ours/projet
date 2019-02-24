@@ -18,7 +18,7 @@ export class DBConnectionService {
 
     public readonly userSchema: mongoose.Schema = new mongoose.Schema({
         name: String,
-        socketid: String,
+        socketId: String,
     });
 
     public connected: boolean = false;
@@ -66,8 +66,8 @@ export class DBConnectionService {
         new mongoose.models.User(user).save();
     }
 
-    public deleteUser(user: User): void {
-        mongoose.models.User.deleteOne({name: user.name}, (err: Error) => {
+    public deleteUserById(user: User): void {
+        mongoose.models.User.deleteOne({socketId: user.socketId}, (err: Error) => {
             if (err) {
                 console.error("An error has occurred while deleting the user with name " + user.name);
             }
