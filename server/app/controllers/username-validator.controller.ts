@@ -19,7 +19,8 @@ export class UsernameValidatorController {
                 const message: Message = await this.usernameValidatorService.getUsernameValidation(req.body.name);
 
                 if (message.body === "") {
-                    DBConnectionService.getInstance().addUser({name: req.body.name});
+                    const PREFIX: string = "/#";
+                    DBConnectionService.getInstance().addUser({name: req.body.name, socketId: `${PREFIX}${req.body.socketId}`});
                 }
 
                 res.send(message);
