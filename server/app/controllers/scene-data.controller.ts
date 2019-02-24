@@ -13,7 +13,7 @@ export class SceneDataController {
 
     public constructor(
         @inject(Types.SceneDataDifferenceService) private sceneDataDifferenceService: SceneDataDifferenceService,
-        @inject(Types.SceneDataGeneratorService) private sceneDataGeneratorService: SceneDataGeneratorService
+        @inject(Types.SceneDataGeneratorService) private sceneDataGeneratorService: SceneDataGeneratorService,
     ) { }
 
     public get router(): Router {
