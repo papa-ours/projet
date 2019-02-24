@@ -10,19 +10,19 @@ export class UsernameValidationService {
 
     public connected: boolean = false;
     public username: string = "";
-    private readonly BASE_URL: string = "http://localhost:3000/api/user/name";
+    private readonly BASE_URL: string = "http://localhost:3000/api/user/";
 
     public constructor(
         public socketService: SocketService,
         private http: HttpClient,
     ) {}
 
-    public deleteUsername(): void {
-        this.socketService.socket.emit("deleteUsername", this.username);
+    public deleteUsername(): Observable<void> {
+        return this.http.delete<void>(this.BASE_URL + "delete/" + this.username);
     }
 
     public getUsernameValidation(name: string): Observable<string> {
-        return this.http.post<Message>(this.BASE_URL, {name: name, socketId: this.socketService.id})
+        return this.http.post<Message>(this.BASE_URL + "name", {name: name, socketId: this.socketService.id})
             .pipe(map((message: Message) => message.body),
         );
     }
