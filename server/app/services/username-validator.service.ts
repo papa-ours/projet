@@ -1,8 +1,7 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { Message, MessageType } from "../../../common/communication/message";
-import { DBConnectionService } from "./dbconnection.service";
-import { User } from "./user";
+import { UsersContainerService } from "./users-container.service";
 
 @injectable()
 export class UsernameValidatorService {
@@ -30,10 +29,8 @@ export class UsernameValidatorService {
         return messageBody;
     }
 
-    public async getUsernameValidation(username: string): Promise<Message> {
-        const users: User[] = await DBConnectionService.getInstance().getUsers();
-        const usernames: string[] = users.map((user: User) => user.name);
-        const usernameValidation: string = this.validateUsername(username, usernames);
+    public getUsernameValidation(username: string): Promise<Message> {
+        const usernameValidation: string = this.validateUsername(username, UsersContainerService.usernames);
 
         return new Promise<Message>((resolve: Function) => {
             resolve({
