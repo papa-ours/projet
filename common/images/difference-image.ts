@@ -66,9 +66,7 @@ export class DifferenceImage extends BMPImage {
                         i: currentPosition.i + i,
                         j: currentPosition.j + j,
                     };
-                    const pixelToVisitIndex: number = this.getIndex(pixelToVisitPosition);
-
-                    neighbors.push(pixelToVisitIndex);
+                    neighbors.push(this.getIndex(pixelToVisitPosition));
                 }
             }
         }
