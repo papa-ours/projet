@@ -77,5 +77,6 @@ export class GameplayViewComponent implements OnInit {
 
     private playSound(): void {
         this.sound.play();
+        this.sound.currentTime = 0;
     }
 }
