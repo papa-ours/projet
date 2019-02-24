@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import { Message } from "../../../common/communication/message";
+import { DBConnectionService } from "../services/dbconnection.service";
 import { UsernameValidatorService } from "../services/username-validator.service";
 import Types from "../types";
 
@@ -16,6 +17,11 @@ export class UsernameValidatorController {
             "/name",
             async (req: Request, res: Response, next: NextFunction) => {
                 const message: Message = await this.usernameValidatorService.getUsernameValidation(req.body.name);
+
+                if (message.body === "") {
+                    DBConnectionService.getInstance().addUser({name: req.body.name});
+                }
+
                 res.send(message);
             });
 
