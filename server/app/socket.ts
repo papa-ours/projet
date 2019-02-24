@@ -10,7 +10,6 @@ import Types from "./types";
 
 @injectable()
 export class Socket {
-    private users: User[] = [];
     private io: SocketIO.Server;
 
     public constructor(
@@ -29,7 +28,6 @@ export class Socket {
                     const user: User = {name: username};
                     currentUsername = username;
                     DBConnectionService.getInstance().addUser(user);
-                    this.users.push(user);
                 }
                 socket.emit("validation", message);
             });
