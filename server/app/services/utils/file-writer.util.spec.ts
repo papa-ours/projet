@@ -4,7 +4,7 @@ import { FileWriterUtil } from "./file-writer.util";
 
 describe("FileWriterUtil", () => {
 
-    it("should reject if the directory doesn't exist", (done: MochaDone) => {
+    it("should reject if the directory doesn't exist", (done: Mocha.Done) => {
         const data: Uint8Array = new Uint8Array([]);
         FileWriterUtil.writeFile("fakeDire/fakeFile.out", Buffer.from(data))
             .then(() => done(new Error("Promise should not resolve")))
