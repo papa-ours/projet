@@ -76,7 +76,7 @@ input {
 button {
     font-family: 'Helvetica';
     font-size: 18px;
-    color: #FFFFFF;
+    color: var(--text-color);
     border: none;
     width: 100px;
     height: 35px;
