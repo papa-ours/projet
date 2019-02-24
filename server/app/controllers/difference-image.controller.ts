@@ -42,11 +42,14 @@ export class DifferenceImageController {
                         [`${this.FILES_DIRECTORY}/${name}-originalImage.bmp`, `${this.FILES_DIRECTORY}/${name}-modifiedImage.bmp`],
                     );
 
-                    this.verifyNumberOfDifferences(differenceImage);
-
-                    FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, Buffer.from(differenceImage.toArray()));
-                    const GAMESHEET_URL: string = `${SERVER_ADDRESS}/api/gamesheet/simple/`;
-                    Axios.post(GAMESHEET_URL, {name: name});
+                    if (!this.verifyNumberOfDifferences(differenceImage)) {
+                        message.body =
+                            "Les images n'ont pas exactement " + REQUIRED_DIFFERENCES_1P + " différences, la création a été annulée";
+                    } else {
+                        FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, Buffer.from(differenceImage.toArray()));
+                        const GAMESHEET_URL: string = `${SERVER_ADDRESS}/api/gamesheet/simple/`;
+                        Axios.post(GAMESHEET_URL, {name: name});
+                    }
                 } catch (err) {
                     message.body = err.message;
                 }
@@ -71,10 +74,9 @@ export class DifferenceImageController {
         return multer({storage: storage});
     }
 
-    private verifyNumberOfDifferences(image: DifferenceImage): void {
+    private verifyNumberOfDifferences(image: DifferenceImage): boolean {
         const numberOfDifferences: number = this.differencesFinder.getNumberOfDifferences(image);
-        if (numberOfDifferences !== REQUIRED_DIFFERENCES_1P) {
-            throw new RangeError("Les images n'ont pas exactement " + REQUIRED_DIFFERENCES_1P + " différences, la création a été annulée");
-        }
+
+        return (numberOfDifferences === REQUIRED_DIFFERENCES_1P);
     }
 }
