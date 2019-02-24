@@ -31,4 +31,8 @@ export class ColorPickerComponent {
         root.style.setProperty("--primary-color", colorPalette.primary);
         root.style.setProperty("--secondary-color", colorPalette.secondary);
     }
+
+    public changePanelState(): void {
+        this.isPanelShown = !this.isPanelShown;
+    }
 }
