@@ -22,6 +22,7 @@ export class Socket {
 
             this.setupValidation(socket, currentUser);
             this.setupDisconnect(socket, currentUser);
+            this.setupDeleteUser(socket);
         });
     }
 
@@ -42,6 +43,12 @@ export class Socket {
             if (user.name !== "") {
                 this.deleteUser(user);
             }
+        });
+    }
+
+    private setupDeleteUser(socket: SocketIO.Socket): void {
+        socket.on("deleteUsername", (username: string) => {
+            this.deleteUser({name: username});
         });
     }
 
