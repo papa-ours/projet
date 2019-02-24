@@ -6,17 +6,21 @@ import { GeometryGeneratorService } from "./geometry-generator.service";
     providedIn: "root",
 })
 export class GeometryFactoryService {
-    private geometryGeneratorService: GeometryGeneratorService = new GeometryGeneratorService() ;
-    private functionList: Function[] = [];
-    // private randomNumber: RandomNumber = new RandomNumber();
+    private geometryGeneratorService: GeometryGeneratorService;
+    private geometryTypeTofunction: Map<GeometryType, Function>;
+
     public constructor() {
-        this.functionList.push(this.geometryGeneratorService.createSphere);
-        this.functionList.push(this.geometryGeneratorService.createCube);
-        this.functionList.push(this.geometryGeneratorService.createCone);
-        this.functionList.push(this.geometryGeneratorService.createCylinder);
-        this.functionList.push(this.geometryGeneratorService.createPyramid);
+        this.geometryGeneratorService = new GeometryGeneratorService();
+        this.geometryTypeTofunction = new Map();
+        this.geometryTypeTofunction.set(GeometryType.SPHERE , this.geometryGeneratorService.createSphere);
+        this.geometryTypeTofunction.set(GeometryType.CUBE, this.geometryGeneratorService.createCube);
+        this.geometryTypeTofunction.set(GeometryType.CONE, this.geometryGeneratorService.createCone);
+        this.geometryTypeTofunction.set(GeometryType.CYLINDER, this.geometryGeneratorService.createCylinder);
+        this.geometryTypeTofunction.set(GeometryType.PYRAMID, this.geometryGeneratorService.createPyramid);
     }
     public createShape(size: number, material: THREE.Material, type: GeometryType): THREE.Mesh {
-        return this.functionList[type](size, material);
+        const geometry: Function =  this.geometryTypeTofunction.get(type) as Function;
+
+        return geometry(size, material);
     }
 }
