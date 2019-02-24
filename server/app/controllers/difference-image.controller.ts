@@ -2,7 +2,7 @@ import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as multer from "multer";
-import { SERVER_ADDRESS, REQUIRED_DIFFERENCES_1P } from "../../../common/communication/constants";
+import { REQUIRED_DIFFERENCES_1P, SERVER_ADDRESS } from "../../../common/communication/constants";
 import { Message, MessageType } from "../../../common/communication/message";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "../services/difference-image-generator.service";
