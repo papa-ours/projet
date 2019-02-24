@@ -10,7 +10,7 @@ describe("Difference Image Generator", () => {
     });
 
     it("should return undefined if it is passed a non bmp original image", () => {
-        differenceImageService.generateDifferenceImage("testing", ["assets/car_test.jpg", "assets/pringles-modifiedImage.bmp"])
+        differenceImageService.generateDifferenceImage("testing", ["test/car_test.jpg", "test/pringles-modifiedImage.bmp"])
             .catch((err: TypeError) => {
 
                 expect(err.message).to.equals("L'image originale n'est pas de type BMP");
@@ -18,7 +18,7 @@ describe("Difference Image Generator", () => {
     });
 
     it("should return undefined if it is passed a non bmp modified image", () => {
-        differenceImageService.generateDifferenceImage("testing", ["assets/pringles-originalImage.bmp", "assets/car_test.jpg"])
+        differenceImageService.generateDifferenceImage("testing", ["test/pringles-originalImage.bmp", "test/car_test.jpg"])
             .catch((err: TypeError) => {
 
                 expect(err.message).to.equals("L'image modifiée n'est pas de type BMP");
@@ -26,7 +26,7 @@ describe("Difference Image Generator", () => {
     });
 
     it("should return undefined if the dimension of the original image is not 640px x 480px", () => {
-        differenceImageService.generateDifferenceImage("testing", ["./test/blank_smallDimension.bmp", "assets/pringles-modifiedImage.bmp"])
+        differenceImageService.generateDifferenceImage("testing", ["./test/blank_smallDimension.bmp", "test/pringles-modifiedImage.bmp"])
             .catch((err: SyntaxError) => {
 
                 expect(err.message).to.equals("L'image originale n'est pas de dimension 640px x 480px");
@@ -34,7 +34,7 @@ describe("Difference Image Generator", () => {
     });
 
     it("should return undefined if the dimension of the modified image is not 640px x 480px", () => {
-        differenceImageService.generateDifferenceImage("testing", ["assets/pringles-originalImage.bmp", "./test/blank_smallDimension.bmp"])
+        differenceImageService.generateDifferenceImage("testing", ["test/pringles-originalImage.bmp", "./test/blank_smallDimension.bmp"])
             .catch((err: SyntaxError) => {
 
                 expect(err.message).to.equals("L'image modifiée n'est pas de dimension 640px x 480px");
@@ -42,7 +42,7 @@ describe("Difference Image Generator", () => {
     });
 
     it("should return undefined if the original image is not in 24 bit format", () => {
-        differenceImageService.generateDifferenceImage("testing", ["./test/car_original_32bit.bmp", "assets/pringles-modifiedImage.bmp"])
+        differenceImageService.generateDifferenceImage("testing", ["./test/car_original_32bit.bmp", "test/pringles-modifiedImage.bmp"])
             .catch((err: SyntaxError) => {
 
             expect(err.message).to.equals("L'image originale n'est pas en format 24 bit");
@@ -50,7 +50,7 @@ describe("Difference Image Generator", () => {
     });
 
     it("should return undefined if the modified image is not in 24 bit format", () => {
-        differenceImageService.generateDifferenceImage("testing", ["assets/pringles-originalImage.bmp", "./test/car_original_32bit.bmp"])
+        differenceImageService.generateDifferenceImage("testing", ["test/pringles-originalImage.bmp", "./test/car_original_32bit.bmp"])
             .catch((err: SyntaxError) => {
 
             expect(err.message).to.equals("L'image modifiée n'est pas en format 24 bit");
@@ -60,7 +60,7 @@ describe("Difference Image Generator", () => {
     it("should generate the difference image correctly", () => {
         differenceImageService.generateDifferenceImage(
             "testing",
-            ["assets/voiture-originalImage.bmp", "assets/voiture-modifiedImage.bmp"])
+            ["test/voiture-originalImage.bmp", "test/voiture-modifiedImage.bmp"])
                 .then((image: DifferenceImage) => {
 
                     expect(image).not.to.equals(undefined);

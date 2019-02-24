@@ -10,13 +10,7 @@ export class GameFreeViewGenerationService {
     public constructor(private http: HttpClient) { }
 
     public postGenerate(formData: FormData): void {
-        this.http.post(this.URL, {
-            name: formData.get("name"),
-            nbObjects: formData.get("nbObjects"),
-            isAdding: formData.get("isAdding"),
-            isRemoval: formData.get("isRemoval"),
-            isColorChange: formData.get("isColorChange"),
-            objectType: formData.get("objectType"),
-        }).toPromise().catch(console.error);
+        this.http.post(this.URL, formData).toPromise()
+            .catch((err: Error) => console.error(err.message));
     }
 }

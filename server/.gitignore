@@ -18,7 +18,9 @@ coverage/
 
 # Files saved in Multer Uploads Folder
 uploads/*
-!uploads/.gitkeep   
+!uploads/voiture-originalImage.bmp  
+!uploads/voiture-modifiedImage.bmp  
+!uploads/voiture-differenceImage.bmp  
 
 ##Typescrit compilation ##
 

@@ -12,11 +12,8 @@ export class SceneDataGeneratorService {
     private readonly minObject: number = 10;
     private readonly maxObject: number = 200;
     private readonly geometryBaseSize: number = 65;
-    private readonly randomNumber: RandomNumber;
 
-    public constructor() {
-        this.randomNumber = new RandomNumber();
-    }
+    public constructor() {}
 
     private checkNumberOfObjects(numberOfObjects: number): boolean {
         return this.minObject <= numberOfObjects && numberOfObjects <= this.maxObject;
@@ -24,15 +21,15 @@ export class SceneDataGeneratorService {
 
     private validateNumberOfObjects(numberOfObjects: number): void {
         if (!this.checkNumberOfObjects(numberOfObjects)) {
-            throw new Error(`Number should be beetwen ${this.minObject} and ${this.maxObject}`);
+            throw new RangeError(`Number should be beetwen ${this.minObject} and ${this.maxObject}`);
         }
     }
 
     public getRandomPosition(): VectorInterface {
         return {
-            x: this.randomNumber.randomInteger(SKYBOX_MIN.x, SKYBOX_MAX.x),
-            y: this.randomNumber.randomInteger(SKYBOX_MIN.y , SKYBOX_MAX.y),
-            z: this.randomNumber.randomInteger(SKYBOX_MIN.z , SKYBOX_MAX.z),
+            x: RandomNumber.randomInteger(SKYBOX_MIN.x, SKYBOX_MAX.x),
+            y: RandomNumber.randomInteger(SKYBOX_MIN.y , SKYBOX_MAX.y),
+            z: RandomNumber.randomInteger(SKYBOX_MIN.z , SKYBOX_MAX.z),
         };
     }
 
@@ -40,21 +37,21 @@ export class SceneDataGeneratorService {
         const maxAngle: number = Math.PI;
 
         return {
-            x: this.randomNumber.randomFloat(0, maxAngle),
-            y: this.randomNumber.randomFloat(0, maxAngle),
-            z: this.randomNumber.randomFloat(0, maxAngle),
+            x: RandomNumber.randomFloat(0, maxAngle),
+            y: RandomNumber.randomFloat(0, maxAngle),
+            z: RandomNumber.randomFloat(0, maxAngle),
         };
     }
 
     public getRandomColor(): number {
-        return this.randomNumber.randomInteger(0, this.baseColor);
+        return RandomNumber.randomInteger(0, this.baseColor);
     }
 
     public getRandomSize(): number {
         const MIN_FACTOR: number = 0.5;
         const MAX_FACTOR: number = 1.5;
 
-        return this.randomNumber.randomInteger(this.geometryBaseSize * MIN_FACTOR, this.geometryBaseSize * MAX_FACTOR);
+        return RandomNumber.randomInteger(this.geometryBaseSize * MIN_FACTOR, this.geometryBaseSize * MAX_FACTOR);
     }
 
     public getRandomGeometryType(): GeometryType {
