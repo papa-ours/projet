@@ -17,10 +17,6 @@ export class UsernameValidationService {
         private http: HttpClient,
     ) {}
 
-    public sendUsername(username: string): void {
-        this.socketService.socket.emit("requestUsernameValidation", username);
-    }
-
     public deleteUsername(): void {
         this.socketService.socket.emit("deleteUsername", this.username);
     }
