@@ -37,14 +37,14 @@ export class DifferenceImage extends BMPImage {
         if (!this.isPixelVisited[index]) {
             if (this.pixelAt(index).equals(Pixel.BLACK_PIXEL)) {
                 this.differenceCount++;
-                return DepthFirstSearch.search(index, (current: number) => this.explorePixel(current));
+                return DepthFirstSearch.search(index, (current: number) => this.getNeighbors(current));
             }
         }
 
         return [];
     }
 
-    private explorePixel(index: number): number[] {
+    private getNeighbors(index: number): number[] {
         this.isPixelVisited[index] = true;
         const currentPosition: Position = this.getPosition(index);
 
