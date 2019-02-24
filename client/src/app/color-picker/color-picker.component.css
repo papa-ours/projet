@@ -31,7 +31,6 @@
     position: relative;
     width: 34px;
     height: 34px;
-    background-image: linear-gradient(var(--primary-color), var(--secondary-color));
 
     border-radius: 50%;
 }
