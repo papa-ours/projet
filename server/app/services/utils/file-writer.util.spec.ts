@@ -8,7 +8,7 @@ describe("FileWriterUtil", () => {
         const data: Uint8Array = new Uint8Array([]);
         FileWriterUtil.writeFile("fakeDire/fakeFile.out", Buffer.from(data))
             .then(() => done(new Error("Promise should not resolve")))
-            .catch(done);
+            .catch(() => done());
     });
 
     it("should resolve if the directory exists", async () => {
