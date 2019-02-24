@@ -34,10 +34,19 @@ export class DifferenceImage extends BMPImage {
     }
 
     public getDifferenceAt(index: number): number[] {
+
+        const image: DifferenceImage = this;
+
         if (!this.isPixelVisited[index]) {
             if (this.pixelAt(index).equals(Pixel.BLACK_PIXEL)) {
                 this.differenceCount++;
-                return DepthFirstSearch.search(index, (current: number) => this.getNeighbors(current));
+                return DepthFirstSearch.search(index,
+                    (current: number) => {
+                        return image.getNeighbors(current)
+                            .filter((index: number) => image.isIndexValid(index) && image.pixelAt(index).equals(Pixel.BLACK_PIXEL)
+                        );
+                    }
+                );
             }
         }
 
@@ -59,9 +68,7 @@ export class DifferenceImage extends BMPImage {
                     };
                     const pixelToVisitIndex: number = this.getIndex(pixelToVisitPosition);
 
-                    if (this.isIndexValid(pixelToVisitIndex) && this.pixelAt(pixelToVisitIndex).equals(Pixel.BLACK_PIXEL)) {
-                        neighbors.push(pixelToVisitIndex);
-                    }
+                    neighbors.push(pixelToVisitIndex);
                 }
             }
         }
