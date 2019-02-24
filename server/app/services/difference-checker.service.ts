@@ -6,6 +6,7 @@ import { Game } from "./game";
 
 @injectable()
 export class DifferenceCheckerService {
+
     public isPositionDifference(x: number, y: number, game: Game): boolean {
         const differenceImage: BMPImage = game.differenceImage;
 
