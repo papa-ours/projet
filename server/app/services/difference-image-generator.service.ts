@@ -18,7 +18,7 @@ export class DifferenceImageGenerator {
     }
 
     public async generateDifferenceImage(name: string, paths: string[]): Promise<DifferenceImage> {
-        const readFiles: Promise<Buffer>[] = paths.map((path: string) => {
+        const readFiles: Promise<Buffer>[] = paths.map(async(path: string) => {
             return FileReaderUtil.readFile(path);
         });
 
