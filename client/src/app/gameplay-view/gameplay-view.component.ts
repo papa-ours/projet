@@ -17,11 +17,11 @@ export class GameplayViewComponent implements OnInit {
     private readonly SERVER_URL: string = "http://localhost:3000";
     private readonly SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
 
-    public foundDifferencesCounter: number = 0;
+    public foundDifferencesCounter: number;
     private name: string;
     private id: string;
-    public images: string[] = [];
-    public readonly nbPlayers: number = 1;
+    public images: string[];
+    public readonly nbPlayers: number;
     public requiredDifferences: number;
     public type: GameType;
 
@@ -33,6 +33,9 @@ export class GameplayViewComponent implements OnInit {
         const ONE_PLAYER_REQUIRED_DIFFERENCES: number = 7;
         const TWO_PLAYERS_REQUIRED_DIFFERENCES: number = 4;
         this.requiredDifferences = this.nbPlayers === 1 ? ONE_PLAYER_REQUIRED_DIFFERENCES : TWO_PLAYERS_REQUIRED_DIFFERENCES;
+        this.foundDifferencesCounter = 0;
+        this.images = [];
+        this.nbPlayers = 1;
     }
 
     public ngOnInit(): void {
