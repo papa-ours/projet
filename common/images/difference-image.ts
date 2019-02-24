@@ -59,7 +59,7 @@ export class DifferenceImage extends BMPImage {
                     };
                     const pixelToVisitIndex: number = this.getIndex(pixelToVisitPosition);
 
-                    if (pixelToVisitIndex >= 0 && pixelToVisitIndex < this.isPixelVisited.length) {
+                    if (this.isIndexValid(pixelToVisitIndex)) {
                         if (this.pixelAt(pixelToVisitIndex).equals(Pixel.BLACK_PIXEL) && !this.isPixelVisited[pixelToVisitIndex]) {
                             neighbors.push(pixelToVisitIndex);
                         }
@@ -69,5 +69,9 @@ export class DifferenceImage extends BMPImage {
         }
 
         return neighbors;
+    }
+
+    private isIndexValid(index: number): boolean {
+        return index >= 0 && index < this.isPixelVisited.length;
     }
 }
