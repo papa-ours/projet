@@ -15,9 +15,11 @@ export class ColorPickerComponent {
 
     public colorPalettes: ColorPalette[];
     public isPanelShown: boolean;
+    public isDarkTheme: boolean;
 
     public constructor() {
         this.isPanelShown = false;
+        this.isDarkTheme = true;
 
         this.colorPalettes = [
             {primary: "#379BFF", secondary: "#8AC4FF", text: "#FFFFFF"},
@@ -36,5 +38,15 @@ export class ColorPickerComponent {
 
     public changePanelState(): void {
         this.isPanelShown = !this.isPanelShown;
+    }
+
+    public changeTheme(): void {
+        this.isDarkTheme = !this.isDarkTheme;
+        const root: HTMLElement = document.documentElement;
+        console.log(this.isDarkTheme);
+        const headerColor: string = this.isDarkTheme ? "#332323" : "#DADADA";
+        const headerTextColor: string = this.isDarkTheme ? "#FFFFFF": "#000000";
+        root.style.setProperty("--header-color", headerColor);
+        root.style.setProperty("--header-text-color", headerTextColor);
     }
 }
