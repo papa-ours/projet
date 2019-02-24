@@ -2,11 +2,7 @@ import { injectable } from "inversify";
 import * as mongoose from "mongoose";
 import "reflect-metadata";
 import { GameSheetDescription, GameType } from "../../../common/communication/game-description";
-
-interface User {
-    name?: string;
-    socket: SocketIO.Socket;
-}
+import { User } from "./user";
 
 @injectable()
 export class DBConnectionService {
@@ -57,12 +53,12 @@ export class DBConnectionService {
         return mongoose.models.GameSheet2D.find({}).exec();
     }
 
-    public async getUsers(): Promise<{}> {
+    public async getUsers(): Promise<User[]> {
         const userDocuments: mongoose.Document[] = await mongoose.models.User.find({});
-        console.log(userDocuments.map((doc: mongoose.Document) => doc.toObject()));
+        const users: User[] = (userDocuments.map((doc: mongoose.Document) => doc.toObject()));
 
-        return new Promise<{}>((resolve: Function) => {
-            resolve();
+        return new Promise<User[]>((resolve: Function) => {
+            resolve(users);
         });
     }
 
