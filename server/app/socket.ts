@@ -1,11 +1,16 @@
 import * as http from "http";
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
-import { DBConnectionService } from "./services/dbconnection.service";
+import { UsersContainerService } from "./services/users-container.service";
+import Types from "./types";
 
 @injectable()
 export class Socket {
     private io: SocketIO.Server;
+
+    public constructor(
+        @inject(Types.UsersContainerService) private usersContainerService: UsersContainerService,
+    ) {}
 
     public init(server: http.Server): void {
         this.io = socketio(server);
@@ -22,6 +27,6 @@ export class Socket {
     }
 
     private deleteUser(id: string): void {
-        DBConnectionService.getInstance().deleteUserById(id);
+        this.usersContainerService.deleteUserById(id);
     }
 }
