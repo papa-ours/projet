@@ -65,4 +65,12 @@ export class DBConnectionService {
     public addUser(user: User): void {
         new mongoose.models.User(user).save();
     }
+
+    public deleteUser(user: User): void {
+        mongoose.models.User.deleteOne({name: user.name}, (err: Error) => {
+            if (err) {
+                console.error("An error has occurred while deleting the user with name " + user.name);
+            }
+        });
+    }
 }
