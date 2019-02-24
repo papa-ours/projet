@@ -20,17 +20,20 @@ export class Socket {
         this.io.on("connection", (socket: SocketIO.Socket) => {
             const currentUser: User = {name: ""};
 
-            socket.on("requestUsernameValidation", async (username: string) => {
-                const message: Message = await this.usernameValidatorService.getUsernameValidation(username);
-
-                if (message.body === "") {
-                    currentUser.name = username;
-                    DBConnectionService.getInstance().addUser(currentUser);
-                }
-                socket.emit("validation", message);
-            });
-
+            this.setupValidation(socket, currentUser);
             this.setupDisconnect(socket, currentUser);
+        });
+    }
+
+    private setupValidation(socket: SocketIO.Socket, user: User): void {
+        socket.on("requestUsernameValidation", async (username: string) => {
+            const message: Message = await this.usernameValidatorService.getUsernameValidation(username);
+
+            if (message.body === "") {
+                user.name = username;
+                DBConnectionService.getInstance().addUser(user);
+            }
+            socket.emit("validation", message);
         });
     }
 
