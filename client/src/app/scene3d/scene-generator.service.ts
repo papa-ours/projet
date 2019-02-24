@@ -7,12 +7,17 @@ import { GeometryFactoryService } from "./geometry-factory.service";
     providedIn: "root",
 })
 export class SceneGeneratorService {
-    private readonly backgroundColor: number = 0x515151;
+
+    private readonly BACKGROUND_COLOR: number = 0x515151;
+
     private scene: THREE.Scene;
-    public constructor(private geometryFactoryService: GeometryFactoryService) { }
+
+    public constructor(private geometryFactoryService: GeometryFactoryService) {
+
+    }
 
     private changeBackgroundScene(): void {
-        this.scene.background = new THREE.Color(this.backgroundColor);
+        this.scene.background = new THREE.Color(this.BACKGROUND_COLOR);
     }
     private addGeometry(sceneData: GeometryData[]): void {
         for (const shape of sceneData) {

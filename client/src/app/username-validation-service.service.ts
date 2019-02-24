@@ -7,10 +7,11 @@ import { Message } from "../../../common/communication/message";
 @Injectable()
 export class UsernameValidationService {
 
+    private readonly BASE_URL: string = `${LOCAL_HOST_PORT}`;
+
     private socket: SocketIOClient.Socket;
     public connected: boolean;
     public username: string;
-    private readonly BASE_URL: string = `${LOCAL_HOST_PORT}`;
 
     public constructor() {
         this.socket = io(this.BASE_URL);

@@ -8,6 +8,7 @@ import { GetGameService } from "./get-game.service";
 export class GetGameListService {
 
     public constructor(@inject(Types.GetGameService) private getGameService: GetGameService) {
+
     }
 
     public getGameList(): GameLists {

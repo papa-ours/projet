@@ -7,11 +7,11 @@ import { Pixel } from "./pixel";
 export class BMPImage {
 
     public constructor(
-            public pixels: Pixel[],
-            public readonly header: Uint8Array,
-            public readonly width: number,
-            public readonly height: number,
-        ) {}
+        public pixels: Pixel[],
+        public readonly header: Uint8Array,
+        public readonly width: number,
+        public readonly height: number,
+    ) {}
 
     public static fromArray(imageData: Uint8Array, width: number = WIDTH, height: number = HEIGHT): BMPImage {
         const dataIndexIndex: number = 10;

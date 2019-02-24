@@ -13,6 +13,7 @@ export class FreeViewGameCreationComponent {
     public readonly OPTION_MAX_NAME_LENGTH: number = 15;
     private readonly NB_OBJECTS_MIN: number = 10;
     private readonly NB_OBJECTS_MAX: number = 200;
+
     public freeViewForm: FreeViewForm;
     @Output() public closeForm: EventEmitter<boolean>;
     public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) {

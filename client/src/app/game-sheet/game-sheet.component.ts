@@ -9,7 +9,6 @@ import { GameSheet, GameType } from "../../../../common/communication/game-descr
     styleUrls: ["./game-sheet.component.css"],
 })
 export class GameSheetComponent implements OnInit {
-
     public source: string;
     public readonly medalColors: string[] = [
         "#FFD700",

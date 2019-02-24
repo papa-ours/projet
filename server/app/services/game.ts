@@ -13,6 +13,7 @@ export class Game implements HasId {
     public constructor(public id: string, name: string) {
         this.images = [];
         this.setupImages(name);
+        this.images = [];
     }
 
     private setupImages(name: string): void {

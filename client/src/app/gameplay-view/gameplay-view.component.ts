@@ -14,29 +14,27 @@ import { GameplayService } from "../gameplay.service";
 })
 export class GameplayViewComponent implements OnInit {
 
+    public readonly hourglassIcon: IconDefinition = faHourglassHalf;
     private readonly SERVER_URL: string = `${LOCAL_HOST_PORT}`;
-    public readonly nbPlayers: number = 1;
-    public hourglassIcon: IconDefinition;
+    private readonly SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
+    public readonly nbPlayers: number;
+
     public foundDifferencesCounter: number;
-    public images: string[];
-    public type: GameType;
-    public requiredDifferences: number;
     private name: string;
-    private sound: HTMLAudioElement;
     private id: string;
+    public images: string[];
+    public requiredDifferences: number;
+    public type: GameType;
 
     public constructor(
         private route: ActivatedRoute,
         private differenceCheckerService: DifferenceCheckerService,
         private gameplayService: GameplayService,
     ) {
+        this.nbPlayers = 1;
         this.requiredDifferences = this.nbPlayers === 1 ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
-        this.hourglassIcon = faHourglassHalf;
         this.foundDifferencesCounter = 0;
         this.images = [];
-
-        const soundUrl: string = "../../../assets/sound/Correct-answer.ogg";
-        this.sound = new Audio(soundUrl);
     }
 
     public ngOnInit(): void {
@@ -76,7 +74,7 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private playSound(): void {
-        this.sound.play();
-        this.sound.currentTime = 0;
+        this.SOUND.play();
+        this.SOUND.currentTime = 0;
     }
 }

@@ -12,8 +12,10 @@ import Types from "../types";
 @injectable()
 export class SceneDataController {
 
-    public constructor(@inject(Types.SceneDataDifferenceService) private sceneDataDifferenceService: SceneDataDifferenceService,
-                       @inject(Types.SceneDataGeneratorService) private sceneDataGeneratorService: SceneDataGeneratorService) { }
+    public constructor(
+        @inject(Types.SceneDataDifferenceService) private sceneDataDifferenceService: SceneDataDifferenceService,
+        @inject(Types.SceneDataGeneratorService) private sceneDataGeneratorService: SceneDataGeneratorService,
+    ) { }
 
     public get router(): Router {
         const router: Router = Router();
@@ -42,19 +44,16 @@ export class SceneDataController {
     private getSceneData(req: Request): SceneData {
 
         const modifications: Modification[] = this.getModifications(req);
-        const originalGeometry: GeometryData[] =
-            this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects));
+        const originalGeometry: GeometryData[] = this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects));
 
-        const modifiedGeometry: GeometryData[] =
-            this.sceneDataDifferenceService.getDifference(originalGeometry, modifications);
+        const modifiedGeometry: GeometryData[] = this.sceneDataDifferenceService.getDifference(originalGeometry, modifications);
 
         return { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry };
     }
 
     private getModifications(req: Request): Modification[] {
 
-        const modifications: Modification[] =
-        [
+        const modifications: Modification[] = [
             { type: ModificationType.ADD, isActive: JSON.parse(req.body.isAdding) },
             { type: ModificationType.DELETE, isActive: JSON.parse(req.body.isRemoval) },
             { type: ModificationType.CHANGE_COLOR, isActive: JSON.parse(req.body.isColorChange) },
