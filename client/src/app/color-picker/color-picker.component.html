@@ -2,7 +2,7 @@
     <span class="display-color"></span>
 </div>
 
-<div class="color-panel">
+<div *ngIf="isPanelShown" class="color-panel">
     <span *ngFor="let colorPalette of colorPalettes"
             class="display-color"
             [style.backgroundImage]="'linear-gradient('+colorPalette.primary+', '+colorPalette.secondary+')'"
