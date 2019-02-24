@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { GameSheet } from "../../../../common/communication/game-description";
+import { ConnectionService } from "../connection.service";
 import { GameListService } from "../game-list-getter.service";
-import { UsernameValidationService } from "../username-validation-service.service";
 
 enum GameType {
     Simple,
@@ -24,7 +24,7 @@ export class GameListViewComponent implements OnInit {
     public constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private usernameValidationService: UsernameValidationService,
+        private connectionService: ConnectionService,
         private gameListService: GameListService,
     ) {
         this.games = [];
@@ -48,7 +48,7 @@ export class GameListViewComponent implements OnInit {
     }
 
     private checkUserConnection(): void {
-        if (!this.usernameValidationService.connected) {
+        if (!this.connectionService.connected) {
             this.router.navigateByUrl("/login")
                 .catch((err: Error) => {
                     console.error(err);
