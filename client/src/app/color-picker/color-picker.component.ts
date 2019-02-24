@@ -19,10 +19,10 @@ export class ColorPickerComponent {
         this.isPanelShown = false;
 
         this.colorPalettes = [
-            {primary: "#8AC4FF", secondary: "#379bff"},
-            {primary: "#FF0000", secondary: "#379bff"},
-            {primary: "#00FF00", secondary: "#379bff"},
-            {primary: "#FFFF00", secondary: "#379bff"},
+            {primary: "#8AC4FF", secondary: "#379BFF"},
+            {primary: "#43E041", secondary: "#81FF42"},
+            {primary: "#F73D1D", secondary: "#FF6247"},
+            {primary: "#FF8B1E", secondary: "#FFB049"},
         ];
     }
 
