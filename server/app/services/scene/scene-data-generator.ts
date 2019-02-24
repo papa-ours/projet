@@ -1,8 +1,8 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { GeometryData, GeometryType } from "../../../../common/communication/geometry";
-import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { SKYBOX_MAX, SKYBOX_MIN } from "../../../../common/communication/skybox";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { RandomNumber } from "../utils/random-number";
 import { GeometryIntersection } from "./geometry-intersection";
 
