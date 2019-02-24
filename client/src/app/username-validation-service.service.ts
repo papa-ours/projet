@@ -22,7 +22,7 @@ export class UsernameValidationService {
     }
 
     public getUsernameValidation(name: string): Observable<string> {
-        return this.http.post<Message>(this.BASE_URL, {name: name, socketid: this.socketService.id})
+        return this.http.post<Message>(this.BASE_URL, {name: name, socketId: this.socketService.id})
             .pipe(map((message: Message) => message.body),
         );
     }
