@@ -15,6 +15,10 @@ export class Scene3dComponent implements AfterViewInit {
     @Input() public width: number;
     @Input() public height: number;
     @Input() public type: number;
+
+    @ViewChild("container")
+    private containerRef: ElementRef;
+
     public constructor(
         private renderService: RenderService,
         private getSceneData: GetSceneDataService,
@@ -26,9 +30,6 @@ export class Scene3dComponent implements AfterViewInit {
     private get container(): HTMLDivElement {
         return this.containerRef.nativeElement;
     }
-
-    @ViewChild("container")
-    private containerRef: ElementRef;
 
     @HostListener("window:resize", ["$event"])
     public onResize(): void {
