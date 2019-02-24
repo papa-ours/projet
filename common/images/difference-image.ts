@@ -1,4 +1,5 @@
 import { readLittleEndianBytes } from "./binary";
+import { HEIGHT, WIDTH } from "../communication/constants"
 import { BMPImage } from "../images/bmp-image";
 import { Position } from "./position";
 import { Pixel } from "./pixel";
@@ -16,7 +17,7 @@ export class DifferenceImage extends BMPImage {
         return new DifferenceImage(Array.from(bmp.pixels), bmp.header, bmp.width, bmp.height);
     }
 
-    public static fromArray(imageData: Uint8Array, width: number = BMPImage.WIDTH, height: number = BMPImage.HEIGHT): DifferenceImage {
+    public static fromArray(imageData: Uint8Array, width: number = WIDTH, height: number = HEIGHT): DifferenceImage {
         const dataIndexIndex: number = 10;
         const dataIndexLength: number = 4;
         const dataIndex: number = readLittleEndianBytes(imageData, dataIndexLength, dataIndexIndex);

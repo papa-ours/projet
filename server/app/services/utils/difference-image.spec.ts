@@ -1,12 +1,11 @@
 import { expect } from "chai";
 import * as fs from "fs";
+import { HEIGHT, WIDTH } from "../../../../common/communication/constants";
 import { BMPImage } from "../../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../../common/images/difference-image";
 import { Pixel } from "../../../../common/images/pixel";
 
 describe("difference-image", () => {
-    const width: number = 640;
-    const height: number = 480;
 
     let differenceImage: DifferenceImage;
 
@@ -17,7 +16,7 @@ describe("difference-image", () => {
     const header: Uint8Array = imageBMP.header;
 
     before(() => {
-        differenceImage = new DifferenceImage(pixels, header, width, height);
+        differenceImage = new DifferenceImage(pixels, header, WIDTH, HEIGHT);
     });
 
     it("should convert from BMPImage to DifferenceImage properly", () => {
