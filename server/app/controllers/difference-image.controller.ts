@@ -74,7 +74,7 @@ export class DifferenceImageController {
     private verifyNumberOfDifferences(image: DifferenceImage): void {
         const numberOfDifferences: number = this.differencesFinder.getNumberOfDifferences(image);
         if (numberOfDifferences !== REQUIRED_DIFFERENCES_1P) {
-            throw new Error("Les images n'ont pas exactement " + REQUIRED_DIFFERENCES_1P + " différences, la création a été annulée");
+            throw new RangeError("Les images n'ont pas exactement " + REQUIRED_DIFFERENCES_1P + " différences, la création a été annulée");
         }
     }
 }
