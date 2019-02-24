@@ -2,13 +2,11 @@ import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
 import { Message } from "../../common/communication/message";
+import { DBConnectionService } from "./services/dbconnection.service";
+import { User } from "./services/user";
 import { UsernameValidatorService } from "./services/username-validator.service";
 import Types from "./types";
 
-interface User {
-    name?: string;
-    socket: SocketIO.Socket;
-}
 
 @injectable()
 export class Socket {
@@ -24,12 +22,13 @@ export class Socket {
         this.io.on("connection", (socket: SocketIO.Socket) => {
             let currentUsername: string = "";
 
-            socket.on("requestUsernameValidation", (username: string) => {
-                const message: Message = this.usernameValidatorService.getUsernameValidation(username, this.usernames);
+            socket.on("requestUsernameValidation", async (username: string) => {
+                const message: Message = await this.usernameValidatorService.getUsernameValidation(username);
 
                 if (message.body === "") {
-                    const user: User = {socket: socket, name: username};
+                    const user: User = {name: username};
                     currentUsername = username;
+                    DBConnectionService.getInstance().addUser(user);
                     this.users.push(user);
                 }
                 socket.emit("validation", message);
