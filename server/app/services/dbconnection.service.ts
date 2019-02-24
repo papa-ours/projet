@@ -14,6 +14,12 @@ export class DBConnectionService {
         topScores: Array,
         type: Number,
     });
+
+    public readonly userSchema: mongoose.Schema = new mongoose.Schema({
+        name: String,
+        socketid: String,
+    });
+
     public connected: boolean = false;
 
     public constructor() {
