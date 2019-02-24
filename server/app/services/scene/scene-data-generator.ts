@@ -28,8 +28,8 @@ export class SceneDataGeneratorService {
     public getRandomPosition(): VectorInterface {
         return {
             x: RandomNumber.randomInteger(SKYBOX_MIN.x, SKYBOX_MAX.x),
-            y: RandomNumber.randomInteger(SKYBOX_MIN.y , SKYBOX_MAX.y),
-            z: RandomNumber.randomInteger(SKYBOX_MIN.z , SKYBOX_MAX.z),
+            y: RandomNumber.randomInteger(SKYBOX_MIN.y, SKYBOX_MAX.y),
+            z: RandomNumber.randomInteger(SKYBOX_MIN.z, SKYBOX_MAX.z),
         };
     }
 
