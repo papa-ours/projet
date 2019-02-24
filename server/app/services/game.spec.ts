@@ -23,7 +23,9 @@ describe("Game", () => {
     it("should not restore something in the modified image if not a difference", () => {
         setTimeout(
             () => {
-                game.restoreModifiedImage(0, 0);
+                game.restoreModifiedImage(0, 0).catch((err: Error) => {
+                    console.error(err);
+                });
                 const position: Position = {i: 0, j: 0};
                 const index: number = game.images[0].getIndex(position);
 
