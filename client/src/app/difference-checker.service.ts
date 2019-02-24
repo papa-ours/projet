@@ -17,15 +17,15 @@ export class DifferenceCheckerService {
     public constructor(private http: HttpClient) { }
 
     public isPositionDifference(id: string, x: number, y: number): Observable<boolean> {
-        x = Math.floor(this.mapValue(x, 0, this.HTML_IMAGE_WIDTH, 0, WIDTH));
-        y = Math.floor(this.mapValue(y, 0, this.HTML_IMAGE_HEIGHT, HEIGHT, 0));
+        x = Math.floor(this.mapHtmlPositionToPixel(x, 0, this.HTML_IMAGE_WIDTH, 0, WIDTH));
+        y = Math.floor(this.mapHtmlPositionToPixel(y, 0, this.HTML_IMAGE_HEIGHT, HEIGHT, 0));
 
         return this.http.get<Message>(this.BASE_URL + id + "/" + x + "/" + y)
             .pipe(map((message: Message) => JSON.parse(message.body)),
         );
     }
 
-    private mapValue(val: number, fromMin: number, fromMax: number, toMin: number, toMax: number): number {
+    private mapHtmlPositionToPixel(val: number, fromMin: number, fromMax: number, toMin: number, toMax: number): number {
         return (val - fromMin) * (toMax - toMin) / (fromMax - fromMin) + toMin;
     }
 }
