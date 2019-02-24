@@ -7,7 +7,6 @@ import { User } from "./services/user";
 import { UsernameValidatorService } from "./services/username-validator.service";
 import Types from "./types";
 
-
 @injectable()
 export class Socket {
     private io: SocketIO.Server;
@@ -19,32 +18,31 @@ export class Socket {
         this.io = socketio(server);
 
         this.io.on("connection", (socket: SocketIO.Socket) => {
-            let currentUsername: string = "";
+            const currentUser: User = {name: ""};
 
             socket.on("requestUsernameValidation", async (username: string) => {
                 const message: Message = await this.usernameValidatorService.getUsernameValidation(username);
 
                 if (message.body === "") {
-                    const user: User = {name: username};
-                    currentUsername = username;
-                    DBConnectionService.getInstance().addUser(user);
+                    currentUser.name = username;
+                    DBConnectionService.getInstance().addUser(currentUser);
                 }
                 socket.emit("validation", message);
             });
 
-            socket.on("deleteUsername", (username: string) => {
-                this.deleteUser(username);
-            });
-
-            socket.on("disconnect", () => {
-                if (currentUsername !== "") {
-                    this.deleteUser(currentUsername);
-                }
-            });
+            this.setupDisconnect(socket, currentUser);
         });
     }
 
-    private deleteUser(username: string): void {
-        DBConnectionService.getInstance().deleteUser({name: username});
+    private setupDisconnect(socket: SocketIO.Socket, user: User): void {
+        socket.on("disconnect", () => {
+            if (user.name !== "") {
+                this.deleteUser(user);
+            }
+        });
+    }
+
+    private deleteUser(user: User): void {
+        DBConnectionService.getInstance().deleteUser(user);
     }
 }
