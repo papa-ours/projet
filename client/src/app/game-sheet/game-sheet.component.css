@@ -107,7 +107,7 @@
 }
 
 button {
-    background: #FFFFFF;
+    background: var(--text-color);
     color: var(--primary-color);
     border: none;
     font-size: 18px;
