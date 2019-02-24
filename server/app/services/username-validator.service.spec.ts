@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import { UsernameValidatorService } from "./username-validator.service";
+import { UsersContainerService } from "./users-container.service";
 
 describe("username validation", () => {
     const validator: UsernameValidatorService = new UsernameValidatorService();
@@ -12,8 +13,11 @@ describe("username validation", () => {
     });
 
     it("should return the correct message if the server already has the username", async () => {
+        const usersContainerService: UsersContainerService = new UsersContainerService();
+        usersContainerService.addUser({name: "username", socketId: ""});
         const username: string = "username";
         const result: string = (await validator.getUsernameValidation(username)).body;
+        usersContainerService.deleteUserByName("username");
 
         expect(result).to.equals("Le nom d'utilisateur existe déjà");
     });
