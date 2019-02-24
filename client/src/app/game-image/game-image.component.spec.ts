@@ -9,7 +9,9 @@ describe("GameImageComponent", () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [GameImageComponent],
-        }).compileComponents();
+        }).compileComponents().catch((err: Error) => {
+            console.error(err);
+        });
     }));
 
     beforeEach(() => {
