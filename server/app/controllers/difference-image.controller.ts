@@ -2,7 +2,7 @@ import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as multer from "multer";
-import { LOCAL_HOST_PORT } from "../../../common/communication/constants";
+import { LOCAL_HOST_PORT, REQUIRED_DIFFERENCES_1P } from "../../../common/communication/constants";
 import { Message, MessageType } from "../../../common/communication/message";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "../services/difference-image-generator.service";
@@ -72,10 +72,9 @@ export class DifferenceImageController {
     }
 
     private verifyNumberOfDifferences(image: DifferenceImage): void {
-        const REQUIRED_DIFFERENCES: number = 7;
         const numberOfDifferences: number = this.differencesFinder.getNumberOfDifferences(image);
-        if (numberOfDifferences !== REQUIRED_DIFFERENCES) {
-            throw new Error("Les images n'ont pas exactement " + REQUIRED_DIFFERENCES + " différences, la création a été annulée");
+        if (numberOfDifferences !== REQUIRED_DIFFERENCES_1P) {
+            throw new Error("Les images n'ont pas exactement " + REQUIRED_DIFFERENCES_1P + " différences, la création a été annulée");
         }
     }
 }
