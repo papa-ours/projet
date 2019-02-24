@@ -34,7 +34,7 @@ export class ColorPickerComponent {
     }
 
     public colorSelected(colorPalette: ColorPalette): void {
-        const root: HTMLElement = document.documentElement;
+        const root: HTMLElement = this.getRoot();
         root.style.setProperty("--primary-color", colorPalette.primary);
         root.style.setProperty("--secondary-color", colorPalette.secondary);
     }
@@ -45,7 +45,7 @@ export class ColorPickerComponent {
 
     public changeTheme(): void {
         this.isDarkTheme = !this.isDarkTheme;
-        const root: HTMLElement = document.documentElement;
+        const root: HTMLElement = this.getRoot();
         this.changeHeaderColor(root);
         this.changeHeaderSecondaryColor(root);
         this.changeHeaderTextColor(root);
@@ -67,9 +67,12 @@ export class ColorPickerComponent {
     }
 
     public changeTextColor(): void {
-        const root: HTMLElement = document.documentElement;
         this.isTextWhite = !this.isTextWhite;
         const textColor: string = this.isTextWhite ? "#FFFFFF" : "#000000";
-        root.style.setProperty("--text-color", textColor);
+        this.getRoot().style.setProperty("--text-color", textColor);
+    }
+
+    private getRoot(): HTMLElement {
+        return document.documentElement as HTMLElement;
     }
 }
