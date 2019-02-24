@@ -33,7 +33,7 @@ export class UsernameValidatorService {
         const usernames: string[] = users.map((user: User) => user.name);
         const usernameValidation: string = this.validateUsername(username, usernames);
 
-        return new Promise((resolve: Function) => {
+        return new Promise<Message>((resolve: Function) => {
             resolve({
                 type: MessageType.USERNAME_VALIDATION,
                 body: usernameValidation,
