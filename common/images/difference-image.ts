@@ -60,7 +60,7 @@ export class DifferenceImage extends BMPImage {
                     const pixelToVisitIndex: number = this.getIndex(pixelToVisitPosition);
 
                     if (this.isIndexValid(pixelToVisitIndex)) {
-                        if (this.pixelAt(pixelToVisitIndex).equals(Pixel.BLACK_PIXEL) && !this.isPixelVisited[pixelToVisitIndex]) {
+                        if (this.pixelAt(pixelToVisitIndex).equals(Pixel.BLACK_PIXEL)) {
                             neighbors.push(pixelToVisitIndex);
                         }
                     }
