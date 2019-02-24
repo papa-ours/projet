@@ -11,14 +11,21 @@ export class FreeViewGameCreationComponent {
     public readonly OPTION_MAX_NAME_LENGTH: number = 15;
     private readonly NB_OBJECTS_MIN: number = 10;
     private readonly NB_OBJECTS_MAX: number = 200;
-    public name: string = "";
-    public isAdding: boolean = false;
-    public isRemoval: boolean = false;
-    public isColorChange: boolean = false;
+    public name: string;
+    public isAdding: boolean;
+    public isRemoval: boolean;
+    public isColorChange: boolean;
     public nbObjects: number;
     public sceneType: string;
-    @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
-    public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) { }
+    @Output() public closeForm: EventEmitter<boolean>;
+
+    public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) {
+        this.name = "";
+        this.isAdding = false;
+        this.isRemoval = false;
+        this.isColorChange = false;
+        this.closeForm = new EventEmitter();
+     }
 
     public isAIntInRange(): boolean {
         return !Number.isNaN(this.nbObjects) &&
