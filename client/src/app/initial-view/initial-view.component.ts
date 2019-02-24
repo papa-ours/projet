@@ -23,7 +23,7 @@ export class InitialViewComponent implements OnInit {
     }
 
     private deleteUsername(): void {
-        this.usernameValidationService.deleteUsername();
+        this.usernameValidationService.deleteUsername().subscribe();
         this.usernameValidationService.connected = false;
     }
 
