@@ -19,4 +19,9 @@ describe("GetSceneDataService", () => {
         const service: GetSceneDataService = TestBed.get(GetSceneDataService);
         expect(service).toBeTruthy();
     });
+    it("should have a valid URL", () => {
+        getSceneDataService.getSceneData("Test")
+            .subscribe((data: SceneData) => expect(data).toBeDefined());
+        httpMock.expectOne(`${getSceneDataService.URL}/Test-data.txt`);
+    });
 });
