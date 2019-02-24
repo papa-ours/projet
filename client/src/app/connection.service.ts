@@ -6,7 +6,7 @@ import { Message } from "../../../common/communication/message";
 import { SocketService } from "./socket.service";
 
 @Injectable()
-export class UsernameValidationService {
+export class ConnectionService {
 
     public connected: boolean = false;
     public username: string = "";

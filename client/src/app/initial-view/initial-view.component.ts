@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { UsernameValidationService } from "../username-validation-service.service";
+import { ConnectionService } from "../connection.service";
 
 @Component({
     selector: "app-initial-view",
@@ -12,27 +12,27 @@ export class InitialViewComponent implements OnInit {
     private usernameValidationMessage: string = "";
 
     public constructor(
-        private usernameValidationService: UsernameValidationService,
+        private connectionService: ConnectionService,
         private router: Router,
     ) { }
 
     public ngOnInit(): void {
-        if (this.usernameValidationService.connected) {
+        if (this.connectionService.connected) {
             this.deleteUsername();
         }
     }
 
     private deleteUsername(): void {
-        this.usernameValidationService.deleteUsername().subscribe();
-        this.usernameValidationService.connected = false;
+        this.connectionService.deleteUsername().subscribe();
+        this.connectionService.connected = false;
     }
 
     public validateUsername(): void {
-        this.usernameValidationService.getUsernameValidation(this.username).subscribe((validation: string) => {
+        this.connectionService.getUsernameValidation(this.username).subscribe((validation: string) => {
             this.usernameValidationMessage = validation;
             if (this.usernameValidationMessage === "") {
-                this.usernameValidationService.connected = true;
-                this.usernameValidationService.username = this.username;
+                this.connectionService.connected = true;
+                this.connectionService.username = this.username;
                 this.router.navigateByUrl("/gamelist/" + this.username)
                     .catch((err: Error) => {
                         console.error(err);
