@@ -41,11 +41,9 @@ export class DifferenceImage extends BMPImage {
             if (this.pixelAt(index).equals(Pixel.BLACK_PIXEL)) {
                 this.differenceCount++;
                 return DepthFirstSearch.search(index,
-                    (current: number) => {
-                        return image.getNeighbors(current)
-                            .filter((index: number) => image.isIndexValid(index) && image.pixelAt(index).equals(Pixel.BLACK_PIXEL)
-                        );
-                    }
+                    (current: number) => image.getNeighbors(current)
+                        .filter((index: number) => image.isIndexValid(index) && image.pixelAt(index).equals(Pixel.BLACK_PIXEL)
+                    )
                 );
             }
         }
