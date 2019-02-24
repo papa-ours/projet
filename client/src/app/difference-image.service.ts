@@ -1,6 +1,7 @@
 import { of, Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
 
+import { LOCAL_HOST_PORT } from "../../../common/communication/constants";
 import { Message } from "../../../common/communication/message";
 
 import { HttpClient } from "@angular/common/http";
@@ -9,7 +10,7 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class DifferenceImageService {
 
-    public readonly URL: string = "http://localhost:3000/api/difference_image";
+    public readonly URL: string = `${LOCAL_HOST_PORT}/api/difference_image`;
     public constructor(private http: HttpClient) { }
 
     public postDifferenceImageData(formData: FormData): Observable<Message> {

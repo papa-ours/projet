@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, Observer } from "rxjs";
 import * as io from "socket.io-client";
+import { LOCAL_HOST_PORT } from "../../../common/communication/constants";
 import { Message } from "../../../common/communication/message";
 
 @Injectable()
@@ -9,7 +10,7 @@ export class UsernameValidationService {
     private socket: SocketIOClient.Socket;
     public connected: boolean = false;
     public username: string = "";
-    private readonly BASE_URL: string = "http://localhost:3000";
+    private readonly BASE_URL: string = `${LOCAL_HOST_PORT}`;
 
     public constructor() {
         this.socket = io(this.BASE_URL);

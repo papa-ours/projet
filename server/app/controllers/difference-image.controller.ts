@@ -2,6 +2,7 @@ import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as multer from "multer";
+import { LOCAL_HOST_PORT } from "../../../common/communication/constants";
 import { Message, MessageType } from "../../../common/communication/message";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "../services/difference-image-generator.service";
@@ -44,7 +45,7 @@ export class DifferenceImageController {
                     this.verifyNumberOfDifferences(differenceImage);
 
                     FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, Buffer.from(differenceImage.toArray()));
-                    const GAMESHEET_URL: string = "http://localhost:3000/api/gamesheet/simple/";
+                    const GAMESHEET_URL: string = `${LOCAL_HOST_PORT}/api/gamesheet/simple/`;
                     Axios.post(GAMESHEET_URL, {name: name});
                 } catch (err) {
                     message.body = err.message;

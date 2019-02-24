@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { LOCAL_HOST_PORT } from "../../../../common/communication/constants";
 import { GameSheet, GameType } from "../../../../common/communication/game-description";
 
 @Component({
@@ -22,7 +23,7 @@ export class GameSheetComponent implements OnInit {
     @ViewChild("btn2") private btn2: ElementRef;
 
     public ngOnInit(): void {
-        const SERVER_URL: string = "http://localhost:3000";
+        const SERVER_URL: string = `${LOCAL_HOST_PORT}`;
         if (this.type === GameType.Simple) {
             this.source = `${SERVER_URL}/${this.description.name}-originalImage.bmp`;
         }

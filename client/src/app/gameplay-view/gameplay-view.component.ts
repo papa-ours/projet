@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { LOCAL_HOST_PORT } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
@@ -18,7 +19,7 @@ export class GameplayViewComponent implements OnInit {
     private name: string;
     private id: string;
     public images: string[] = [];
-    private readonly SERVER_URL: string = "http://localhost:3000";
+    private readonly SERVER_URL: string = `${LOCAL_HOST_PORT}`;
     public readonly nbPlayers: number = 1;
     public requiredDifferences: number;
     private sound: HTMLAudioElement;
