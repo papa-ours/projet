@@ -16,4 +16,14 @@ export class UsersContainerService {
             UsersContainerService.users.splice(userIndex, 1);
         }
     }
+
+    public deleteUserById(id: string): void {
+        const userIndex: number = UsersContainerService.users.findIndex((u: User) => {
+            return u.id === id;
+        });
+
+        if (userIndex !== -1) {
+            UsersContainerService.users.splice(userIndex, 1);
+        }
+    }
 }
