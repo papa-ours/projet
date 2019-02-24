@@ -27,6 +27,9 @@ export class ColorPickerComponent {
             {primary: "#F73D1D", secondary: "#FF6247", text: "#FFFFFF"},
             {primary: "#FF8B1E", secondary: "#FFB049", text: "#FFFFFF"},
         ];
+
+        this.colorSelected(this.colorPalettes[0]);
+        this.changeTheme();
     }
 
     public colorSelected(colorPalette: ColorPalette): void {
