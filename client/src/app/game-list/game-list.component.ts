@@ -1,7 +1,5 @@
 import { Component, Input } from "@angular/core";
 import { GameSheet } from "../../../../common/communication/game-description";
-// @ts-ignore
-import { GameListService } from "../game-list-getter.service";
 
 @Component({
     selector: "app-game-list",
