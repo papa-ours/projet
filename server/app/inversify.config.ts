@@ -18,6 +18,7 @@ import { GetGameService } from "./services/get-game.service";
 import { SceneDataGeneratorService } from "./services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "./services/scene/scene-difference-generator";
 import { UsernameValidatorService } from "./services/username-validator.service";
+import { UsersContainerService } from "./services/users-container.service";
 import { Socket } from "./socket";
 import Types from "./types";
 
@@ -43,4 +44,5 @@ container.bind(Types.SceneDataController).to(SceneDataController);
 container.bind(Types.SceneDataDifferenceService).to(SceneDataDifferenceService);
 container.bind(Types.DifferenceCheckerController).to(DifferenceCheckerController);
 container.bind(Types.DifferenceCheckerService).to(DifferenceCheckerService);
+container.bind(Types.UsersContainerService).to(UsersContainerService);
 export { container };
