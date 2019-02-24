@@ -1,5 +1,5 @@
 import { TestBed } from "@angular/core/testing";
-import { HttpClientTestingModule, HttpTestingController, TestRequest } from "@angular/common/http/testing";
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
 import { GetSceneDataService } from "./get-scene-data.service";
 import { SceneData } from "../../../../common/communication/geometry";
 
@@ -23,5 +23,11 @@ describe("GetSceneDataService", () => {
         getSceneDataService.getSceneData("Test")
             .subscribe((data: SceneData) => expect(data).toBeDefined());
         httpMock.expectOne(`${getSceneDataService.URL}/Test-data.txt`);
+    });
+    it("should be a GET Request", () => {
+        getSceneDataService.getSceneData("Test")
+            .subscribe((data: SceneData) => expect(data).toBeDefined());
+        const request = httpMock.expectOne(`${getSceneDataService.URL}/Test-data.txt`);
+        expect(request.request.method).toBe("GET");
     });
 });
