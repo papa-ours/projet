@@ -1,0 +1,1 @@
+export const LOCAL_HOST_PORT: string = "http://localhost:3000"
