@@ -13,19 +13,12 @@ export class Socket {
 
         this.io.on("connection", (socket: SocketIO.Socket) => {
             this.setupDisconnect(socket);
-            this.setupDeleteUser(socket);
         });
     }
 
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
             this.deleteUser(socket.id);
-        });
-    }
-
-    private setupDeleteUser(socket: SocketIO.Socket): void {
-        socket.on("deleteUsername", (user: User) => {
-            this.deleteUser(user);
         });
     }
 
