@@ -12,6 +12,10 @@ export class GameListComponent {
 
     @Input() public is3D: boolean;
     @Input() public descriptions: GameSheet[];
-    @Input() public isAdmin: boolean = false;
+    @Input() public isAdmin: boolean;
+
+    public constructor() {
+        this.isAdmin = false;
+    }
 
 }
