@@ -2,6 +2,7 @@ import { readLittleEndianBytes } from "./binary";
 import { BMPImage } from "../images/bmp-image";
 import { Position } from "./position";
 import { Pixel } from "./pixel";
+import { DepthFirstSearch } from "../utils/depth-first-search";
 
 export class DifferenceImage extends BMPImage {
     private isPixelVisited: boolean[];
@@ -33,29 +34,22 @@ export class DifferenceImage extends BMPImage {
     }
 
     public getDifferenceAt(index: number): number[] {
-        const difference: number[] = [];
-        const stack: number[] = [];
         if (!this.isPixelVisited[index]) {
-
             if (this.pixelAt(index).equals(Pixel.BLACK_PIXEL)) {
-                stack.push(index);
-                difference.push(index);
-                while (stack.length > 0) {
-                    this.explorePixel(stack.pop() as number, stack, difference);
-                }
                 this.differenceCount++;
-            } else {
-                this.isPixelVisited[index] = true;
+                return DepthFirstSearch.search(index, (current: number) => this.explorePixel(current));
             }
-
         }
 
-        return difference;
+        return [];
     }
 
-    private explorePixel(index: number, pixelsToVisit: number[], difference: number[]): void {
+    private explorePixel(index: number): number[] {
         this.isPixelVisited[index] = true;
         const currentPosition: Position = this.getPosition(index);
+
+        const neighbors: number[] = [];
+
         for (let i: number = -1; i <= 1; i++) {
             for (let j: number = -1; j <= 1; j++) {
                 if (!(i === 0 && j === 0)) {
@@ -67,14 +61,13 @@ export class DifferenceImage extends BMPImage {
 
                     if (pixelToVisitIndex >= 0 && pixelToVisitIndex < this.isPixelVisited.length) {
                         if (this.pixelAt(pixelToVisitIndex).equals(Pixel.BLACK_PIXEL) && !this.isPixelVisited[pixelToVisitIndex]) {
-                            if (!pixelsToVisit.find((val: number) => val === pixelToVisitIndex)) {
-                                difference.push(pixelToVisitIndex);
-                                pixelsToVisit.push(pixelToVisitIndex);
-                            }
+                            neighbors.push(pixelToVisitIndex);
                         }
                     }
                 }
             }
         }
+
+        return neighbors;
     }
 }
