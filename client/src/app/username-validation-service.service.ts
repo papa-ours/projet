@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { Observable, Observer } from "rxjs";
-import * as io from "socket.io-client";
 import { Message } from "../../../common/communication/message";
 import { SocketService } from "./socket.service";
 
