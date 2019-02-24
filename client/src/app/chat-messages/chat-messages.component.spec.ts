@@ -9,7 +9,9 @@ describe("ChatMessagesComponent", () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [ChatMessagesComponent],
-        }).compileComponents();
+        }).compileComponents().catch((err: Error) => {
+            console.error(err);
+        });
     }));
 
     beforeEach(() => {
