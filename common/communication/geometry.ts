@@ -1,8 +1,8 @@
-import { Vector } from "./position";
+import { VectorInterface } from "./vector-interface";
 
 export interface GeometryData {
-   position: Vector;
-   rotation: Vector;
+   position: VectorInterface;
+   rotation: VectorInterface;
    color:    number;
    size :    number;
    type :    GeometryType;

@@ -32,11 +32,9 @@ export class SceneDataController {
                 const modifiedGeometry: GeometryData[] =
                     this.sceneDataDifferenceService.getDifference(originalGeometry, modifications);
 
-                // TODO
-                // @ts-ignore
                 const scene: SceneData = { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry };
 
-                FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, new Buffer(JSON.stringify(scene)));
+                FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)));
                 const SERVER_URL: string = "http://localhost:3000/api/gamesheet/free/";
                 Axios.post(SERVER_URL, {name: scene.name});
             });

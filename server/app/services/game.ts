@@ -38,6 +38,6 @@ export class Game implements HasId {
     }
 
     private async saveModifiedImage(): Promise<{}> {
-        return FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, new Buffer(this.images[ImageType.Modified].toArray()));
+        return FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, Buffer.from(this.images[ImageType.Modified].toArray()));
     }
 }
