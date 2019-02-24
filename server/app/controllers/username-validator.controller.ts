@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
-import { Message, MessageType } from "../../../common/communication/message";
 import { UsernameValidatorService } from "../services/username-validator.service";
 import Types from "../types";
 
