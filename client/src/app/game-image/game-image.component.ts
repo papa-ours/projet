@@ -14,15 +14,6 @@ export class GameImageComponent {
     @ViewChild("image") private imageElement: ElementRef;
     @Output() private checkDifference: EventEmitter<[number, number]> = new EventEmitter();
 
-    @Input()
-    public source: string;
-
-    @ViewChild("image")
-    private imageElement: ElementRef;
-
-    @Output()
-    private checkDifference: EventEmitter<[number, number]> = new EventEmitter();
-
     @HostListener("click", ["$event"])
     public mouseClicked(event: MouseEvent): void {
         const imageRectangle: DOMRect = this.imageElement.nativeElement.getBoundingClientRect();

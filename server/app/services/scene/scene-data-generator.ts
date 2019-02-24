@@ -1,9 +1,10 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { GeometryData, GeometryType } from "../../../../common/communication/geometry";
-import { Vector } from "../../../../common/communication/position";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { SKYBOX_MAX, SKYBOX_MIN } from "../../../../common/communication/skybox";
 import { RandomNumber } from "../utils/random-number";
+import { GeometryIntersection } from "./geometry-intersection";
 
 @injectable()
 export class SceneDataGeneratorService {
@@ -24,7 +25,7 @@ export class SceneDataGeneratorService {
         }
     }
 
-    public getRandomPosition(): Vector {
+    public getRandomPosition(): VectorInterface {
         return {
             x: RandomNumber.randomInteger(SKYBOX_MIN.x, SKYBOX_MAX.x),
             y: RandomNumber.randomInteger(SKYBOX_MIN.y , SKYBOX_MAX.y),
@@ -32,7 +33,7 @@ export class SceneDataGeneratorService {
         };
     }
 
-    public getRandomRotation(): Vector {
+    public getRandomRotation(): VectorInterface {
         const maxAngle: number = Math.PI;
 
         return {
@@ -64,8 +65,8 @@ export class SceneDataGeneratorService {
     }
 
     public getRandomGeometryData(): GeometryData {
-        const randomPosition: Vector = this.getRandomPosition();
-        const randomRotation: Vector = this.getRandomRotation();
+        const randomPosition: VectorInterface = this.getRandomPosition();
+        const randomRotation: VectorInterface = this.getRandomRotation();
         const randomColor: number = this.getRandomColor();
         const randomSize: number = this.getRandomSize();
 
@@ -79,11 +80,20 @@ export class SceneDataGeneratorService {
         };
     }
 
+    public getRandomNonIntersectingGeometryData(collection: GeometryData[]): GeometryData {
+        let geometry: GeometryData;
+        do {
+            geometry = this.getRandomGeometryData();
+        } while (GeometryIntersection.intersectsWithCollection(geometry, collection));
+
+        return geometry;
+    }
+
     public getSceneData(numberOfObjects: number): GeometryData[] {
         this.validateNumberOfObjects(numberOfObjects);
         const geometryData: GeometryData[] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
-            geometryData.push(this.getRandomGeometryData());
+            geometryData.push(this.getRandomNonIntersectingGeometryData(geometryData));
         }
 
         return geometryData;
