@@ -14,9 +14,9 @@ describe("file-reader.util", () => {
         expect(result).to.deep.equal(data);
     });
 
-    it("should reject if the image doesn't exist", async (done: MochaDone) => {
-        await FileReaderUtil.readFile("")
-        .then(() => done(new Error("Promise should not resolve")))
-        .catch(done);
+    it("should reject if the image doesn't exist", (done: MochaDone) => {
+        FileReaderUtil.readFile("")
+            .then(() => done(new Error("Promise should not resolve")))
+            .catch(() => done());
     });
 });
