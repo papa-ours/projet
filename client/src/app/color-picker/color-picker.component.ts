@@ -23,4 +23,9 @@ export class ColorPickerComponent {
         ];
     }
 
+    public colorSelected(colorPalette: ColorPalette): void {
+        const root: HTMLElement = document.documentElement;
+        root.style.setProperty("--primary-color", colorPalette.primary);
+        root.style.setProperty("--secondary-color", colorPalette.secondary);
+    }
 }
