@@ -1,6 +1,6 @@
 import { readLittleEndianBytes } from "./binary";
 import { Position } from "./position";
-import { HEIGHT, WIDTH } from "../communication/constants";
+import { BMP_IMAGE_HEIGHT, BMP_IMAGE_WIDTH } from "../communication/constants";
 import { CHUNK_RELATIVE_POSITIONS } from "../../server/app/services/utils/circle-area";
 import { Pixel } from "./pixel";
 
@@ -13,7 +13,7 @@ export class BMPImage {
         public readonly height: number,
     ) {}
 
-    public static fromArray(imageData: Uint8Array, width: number = WIDTH, height: number = HEIGHT): BMPImage {
+    public static fromArray(imageData: Uint8Array, width: number = BMP_IMAGE_WIDTH, height: number = BMP_IMAGE_HEIGHT): BMPImage {
         const dataIndexIndex: number = 10;
         const dataIndexLength: number = 4;
         const dataIndex: number = readLittleEndianBytes(imageData, dataIndexLength, dataIndexIndex);
