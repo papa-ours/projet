@@ -20,8 +20,8 @@ describe("GeometryFactoryService", () => {
     it("should generate a cube if GeometryType is cube", () => {
         const size: number = 100;
         const material: THREE.Material = new THREE.Material();
-        expect(geometryFactoryService.createShape(size, material, GeometryType.CUBE).geometry.type).
-            toEqual(new THREE.CubeGeometry().type);
+        expect(geometryFactoryService.createShape(size, material, GeometryType.CUBE).geometry.type)
+            .toEqual(new THREE.BoxGeometry().type);
     });
 
     it("should generate a sphere if GeometryType is sphere", () => {
