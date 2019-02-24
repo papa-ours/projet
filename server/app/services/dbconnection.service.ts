@@ -66,10 +66,18 @@ export class DBConnectionService {
         new mongoose.models.User(user).save();
     }
 
-    public deleteUserById(user: User): void {
-        mongoose.models.User.deleteOne({socketId: user.socketId}, (err: Error) => {
+    public deleteUserById(id: string): void {
+        mongoose.models.User.deleteOne({socketId: id}, (err: Error) => {
             if (err) {
-                console.error("An error has occurred while deleting the user with name " + user.name);
+                console.error("An error has occurred while deleting the user with id " + id);
+            }
+        });
+    }
+
+    public deleteUserByName(name: string): void {
+        mongoose.models.User.deleteOne({name: name}, (err: Error) => {
+            if (err) {
+                console.error("An error has occurred while deleting the user with name " + name);
             }
         });
     }
