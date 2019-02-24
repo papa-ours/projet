@@ -14,70 +14,74 @@ export class GetGameController {
     public get router(): Router {
         const router: Router = Router();
 
-        router.get( "/:id/differenceImage",
-                    (req: Request, res: Response, next: NextFunction) => {
-                        const message: Message = {
-                            type: MessageType.GAME_SHEET_GENERATION,
-                            body: "",
-                        };
+        router.get(
+            "/:id/differenceImage",
+            (req: Request, res: Response, next: NextFunction) => {
+                const message: Message = {
+                    type: MessageType.GAME_SHEET_GENERATION,
+                    body: "",
+                };
 
-                        try {
-                            const game: Game = this.getGameService.getGame(req.params.id);
-                            const imageData: string = game.differenceImage.toArray().toString();
-                            message.body = imageData;
-                        } catch (err) {
-                            message.body = err.message;
-                        }
+                try {
+                    const game: Game = this.getGameService.getGame(req.params.id);
+                    const imageData: string = game.differenceImage.toArray().toString();
+                    message.body = imageData;
+                } catch (err) {
+                    message.body = err.message;
+                }
 
-                        res.send(message);
-                    });
+                res.send(message);
+            });
 
-        router.get( "/:id/originalImage",
-                    (req: Request, res: Response, next: NextFunction) => {
-                        const message: Message = {
-                            type: MessageType.GAME_SHEET_GENERATION,
-                            body: "",
-                        };
+        router.get(
+            "/:id/originalImage",
+            (req: Request, res: Response, next: NextFunction) => {
+                const message: Message = {
+                    type: MessageType.GAME_SHEET_GENERATION,
+                    body: "",
+                };
 
-                        try {
-                            const game: Game = this.getGameService.getGame(req.params.id);
-                            const imageData: string = game.images[ImageType.Original].toArray().toString();
-                            message.body = imageData;
-                        } catch (err) {
-                            message.body = err.message;
-                        }
+                try {
+                    const game: Game = this.getGameService.getGame(req.params.id);
+                    const imageData: string = game.images[ImageType.Original].toArray().toString();
+                    message.body = imageData;
+                } catch (err) {
+                    message.body = err.message;
+                }
 
-                        res.send(message);
-                    });
+                res.send(message);
+            });
 
-        router.get( "/:id/modifiedImage",
-                    (req: Request, res: Response, next: NextFunction) => {
-                        const message: Message = {
-                            type: MessageType.GAME_SHEET_GENERATION,
-                            body: "",
-                        };
+        router.get(
+            "/:id/modifiedImage",
+            (req: Request, res: Response, next: NextFunction) => {
+                const message: Message = {
+                    type: MessageType.GAME_SHEET_GENERATION,
+                    body: "",
+                };
 
-                        try {
-                            const game: Game = this.getGameService.getGame(req.params.id);
-                            const imageData: string = game.images[ImageType.Modified].toArray().toString();
-                            message.body = imageData;
-                        } catch (err) {
-                            message.body = err.message;
-                        }
+                try {
+                    const game: Game = this.getGameService.getGame(req.params.id);
+                    const imageData: string = game.images[ImageType.Modified].toArray().toString();
+                    message.body = imageData;
+                } catch (err) {
+                    message.body = err.message;
+                }
 
-                        res.send(message);
-                    });
+                res.send(message);
+            });
 
-        router.get( "/:name",
-                    (req: Request, res: Response, next: NextFunction) => {
-                        const id: string = this.getGameService.createGame(req.params.name);
-                        const message: Message = {
-                            type: MessageType.GAME_SHEET_GENERATION,
-                            body: JSON.stringify(id),
-                        };
+        router.get(
+            "/:name",
+            (req: Request, res: Response, next: NextFunction) => {
+                const id: string = this.getGameService.createGame(req.params.name);
+                const message: Message = {
+                    type: MessageType.GAME_SHEET_GENERATION,
+                    body: JSON.stringify(id),
+                };
 
-                        res.send(message);
-                    });
+                res.send(message);
+            });
 
         return router;
     }

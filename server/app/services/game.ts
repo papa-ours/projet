@@ -7,10 +7,13 @@ import { FileReaderUtil } from "./utils/file-reader.util";
 import { FileWriterUtil } from "./utils/file-writer.util";
 
 export class Game implements HasId {
-    public images: BMPImage[] = [];
+
+    public images: BMPImage[];
     public differenceImage: DifferenceImage;
+
     public constructor(public id: string, name: string) {
         this.setupImages(name);
+        this.images = [];
     }
 
     private setupImages(name: string): void {

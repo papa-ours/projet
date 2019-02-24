@@ -7,7 +7,9 @@ import Types from "../types";
 @injectable()
 export class GameSheetGenerationController {
 
-    public constructor(@inject(Types.GameSheetGenerationService) private gameSheetGenerationService: GameSheetGenerationService) {}
+    public constructor(@inject(Types.GameSheetGenerationService) private gameSheetGenerationService: GameSheetGenerationService) {
+
+    }
 
     public get router(): Router {
         const router: Router = Router();

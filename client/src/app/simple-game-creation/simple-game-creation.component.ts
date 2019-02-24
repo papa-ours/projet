@@ -85,8 +85,7 @@ export class SimpleGameCreationComponent {
             });
     }
 
-    // @ts-ignore
-    private submitForm(): void {
+    public submitForm(): void {
         if (this.allValuesEntered) {
             this.sendForm();
         }

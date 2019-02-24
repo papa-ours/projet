@@ -9,11 +9,11 @@ export class BMPImage {
     public static readonly HEIGHT: number = 480;
 
     public constructor(
-            public pixels: Pixel[],
-            public readonly header: Uint8Array,
-            public readonly width: number,
-            public readonly height: number,
-        ) {}
+        public pixels: Pixel[],
+        public readonly header: Uint8Array,
+        public readonly width: number,
+        public readonly height: number,
+    ) {}
 
     public static fromArray(imageData: Uint8Array, width: number = BMPImage.WIDTH, height: number = BMPImage.HEIGHT): BMPImage {
         const dataIndexIndex: number = 10;

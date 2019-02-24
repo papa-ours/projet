@@ -6,7 +6,6 @@ import * as THREE from "three";
 })
 export class GeometryGeneratorService {
 
-    public constructor() { }
     public createSphere(size: number, material: THREE.Material): THREE.Mesh {
         return new THREE.Mesh(new THREE.SphereGeometry(size), material);
     }
