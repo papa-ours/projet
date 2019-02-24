@@ -46,14 +46,7 @@ export class Socket {
         });
     }
 
-    private get usernames(): string[] {
-        return this.users.map((user: User) => user.name as string);
-    }
-
     private deleteUser(username: string): void {
-        const index: number = this.usernames.indexOf(username);
-        if (index !== -1) {
-            this.users.splice(index, 1);
-        }
+        DBConnectionService.getInstance().deleteUser({name: username});
     }
 }
