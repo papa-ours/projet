@@ -80,6 +80,7 @@ export class SimpleGameCreationComponent {
                     this.errorMessage = message.body;
                 } else {
                     this.close();
+                    location.reload();
                 }
             });
     }

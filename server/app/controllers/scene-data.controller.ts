@@ -17,28 +17,37 @@ export class SceneDataController {
         const router: Router = Router();
 
         router.post("/", (req: Request, res: Response, next: NextFunction) => {
-                let modifications: Modification[] =
-                    [
-                        { type: ModificationType.ADD, isActive: JSON.parse(req.body.isAdding) },
-                        { type: ModificationType.DELETE, isActive: JSON.parse(req.body.isRemoval) },
-                        { type: ModificationType.CHANGE_COLOR, isActive: JSON.parse(req.body.isColorChange) },
-                    ];
 
-                modifications = modifications.filter((modification: Modification) => modification.isActive);
-
-                const originalGeometry: GeometryData[] =
-                    this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects));
-
-                const modifiedGeometry: GeometryData[] =
-                    this.sceneDataDifferenceService.getDifference(originalGeometry, modifications);
-
-                const scene: SceneData = { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry };
-
-                FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)));
-                const SERVER_URL: string = "http://localhost:3000/api/gamesheet/free/";
-                Axios.post(SERVER_URL, {name: scene.name});
-            });
+            const scene: SceneData = this.getSceneData(req);
+            FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)));
+            const SERVER_URL: string = "http://localhost:3000/api/gamesheet/free/";
+            Axios.post(SERVER_URL, { name: scene.name });
+        });
 
         return router;
+    }
+
+    private getSceneData(req: Request): SceneData {
+
+        const modifications: Modification[] = this.getModifications(req);
+        const originalGeometry: GeometryData[] =
+            this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects));
+
+        const modifiedGeometry: GeometryData[] =
+            this.sceneDataDifferenceService.getDifference(originalGeometry, modifications);
+
+        return { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry };
+    }
+
+    private getModifications(req: Request): Modification[] {
+
+        const modifications: Modification[] =
+        [
+            { type: ModificationType.ADD, isActive: JSON.parse(req.body.isAdding) },
+            { type: ModificationType.DELETE, isActive: JSON.parse(req.body.isRemoval) },
+            { type: ModificationType.CHANGE_COLOR, isActive: JSON.parse(req.body.isColorChange) },
+        ];
+
+        return modifications.filter((modification: Modification) => modification.isActive);
     }
 }
