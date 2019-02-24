@@ -8,8 +8,7 @@ import { GameSheet, GameType } from "../../../../common/communication/game-descr
     styleUrls: ["./game-sheet.component.css"],
 })
 export class GameSheetComponent implements OnInit {
-    public constructor(private router: Router) {}
-    public source: string = "";
+    public source: string;
     public readonly medalColors: string[] = [
         "#FFD700",
         "#C0C0C0",
@@ -17,9 +16,14 @@ export class GameSheetComponent implements OnInit {
     ];
     @Input() public type: GameType;
     @Input() public description: GameSheet;
-    @Input() private isAdmin: boolean = false;
+    @Input() private isAdmin: boolean;
     @ViewChild("btn1") private btn1: ElementRef;
     @ViewChild("btn2") private btn2: ElementRef;
+
+    public constructor(private router: Router) {
+        this.source = "";
+        this.isAdmin = false;
+    }
 
     public ngOnInit(): void {
         const SERVER_URL: string = "http://localhost:3000";

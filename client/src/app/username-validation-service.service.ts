@@ -6,13 +6,17 @@ import { Message } from "../../../common/communication/message";
 @Injectable()
 export class UsernameValidationService {
 
-    private socket: SocketIOClient.Socket;
-    public connected: boolean = false;
-    public username: string = "";
     private readonly BASE_URL: string = "http://localhost:3000";
+
+    private socket: SocketIOClient.Socket;
+    public connected: boolean;
+    public username: string;
 
     public constructor() {
         this.socket = io(this.BASE_URL);
+        this.connected = false;
+        this.username = "";
+
     }
 
     public sendUsername(username: string): void {
