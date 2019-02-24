@@ -6,6 +6,7 @@ import { GameSheetGenerationController } from "./controllers/game-sheet-generati
 import { GetGameListController } from "./controllers/get-game-list.controller";
 import { GetGameController } from "./controllers/get-game.controller";
 import { SceneDataController } from "./controllers/scene-data.controller";
+import { UsernameValidatorController } from "./controllers/username-validator.controller";
 import { Server } from "./server";
 import { DBConnectionService } from "./services/dbconnection.service";
 import { DifferenceCheckerService } from "./services/difference-checker.service";
@@ -26,6 +27,7 @@ container.bind(Types.Server).to(Server);
 container.bind(Types.Socket).to(Socket);
 container.bind(Types.Application).to(Application);
 container.bind(Types.UsernameValidatorService).to(UsernameValidatorService);
+container.bind(Types.UsernameValidatorController).to(UsernameValidatorController);
 container.bind(Types.GetGameListService).to(GetGameListService);
 container.bind(Types.GetGameListController).to(GetGameListController);
 container.bind(Types.DifferenceImageGenerator).to(DifferenceImageGenerator);
