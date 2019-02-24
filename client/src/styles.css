@@ -5,12 +5,13 @@
     --success-color: #08A037;
     --danger-color: #ff5757;
     --header-color: #332323;
+    --header-secondary-color: #404040;
     --header-text-color: #FFFFFF;
     --text-color: #FFFFFF;
 }
 
 body {
-    background-image: linear-gradient(#000000, #404040);
+    background-image: linear-gradient(var(--header-color), var(--header-secondary-color));
     padding: 0;
     margin: 0;
     height: 100vh;
