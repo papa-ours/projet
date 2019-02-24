@@ -6,10 +6,11 @@ import { GeometryGeneratorService } from "./geometry-generator.service";
     providedIn: "root",
 })
 export class GeometryFactoryService {
-    private geometryGeneratorService: GeometryGeneratorService = new GeometryGeneratorService() ;
+    private geometryGeneratorService: GeometryGeneratorService;
     private geometryTypeTofunction: Map<GeometryType, Function>;
 
     public constructor() {
+        this.geometryGeneratorService = new GeometryGeneratorService();
         this.geometryTypeTofunction = new Map();
         this.geometryTypeTofunction.set(GeometryType.SPHERE , this.geometryGeneratorService.createSphere);
         this.geometryTypeTofunction.set(GeometryType.CUBE, this.geometryGeneratorService.createCube);
