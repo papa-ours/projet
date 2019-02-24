@@ -12,4 +12,11 @@ describe.only("UsersContainerService", () => {
 
         expect(result).to.equals(name);
     });
+
+    it("should clear the users properly", () => {
+        UsersContainerService.clearUsers();
+        const result: number = UsersContainerService.usernames.length;
+
+        expect(result).to.equals(0);
+    });
 });
