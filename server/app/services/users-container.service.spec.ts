@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { UsersContainerService } from "./users-container.service";
 
-describe.only("UsersContainerService", () => {
+describe("UsersContainerService", () => {
     const usersContainerService: UsersContainerService = new UsersContainerService();
     const name: string = "test-user";
     const id: string = "test-id";
@@ -23,6 +23,14 @@ describe.only("UsersContainerService", () => {
     it("should delete the user by name if he exists", () => {
         usersContainerService.addUser({name: name, socketId: id});
         usersContainerService.deleteUserByName(name);
+        const result: number = UsersContainerService.usernames.length;
+
+        expect(result).to.equals(0);
+    });
+
+    it("should delete the user by id if he exists", () => {
+        usersContainerService.addUser({name: name, socketId: id});
+        usersContainerService.deleteUserById(id);
         const result: number = UsersContainerService.usernames.length;
 
         expect(result).to.equals(0);
