@@ -9,8 +9,9 @@ import { Message, MessageType } from "../../../common/communication/message";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "../services/difference-image-generator.service";
 import { DifferencesFinderService } from "../services/differences-finder.service";
-import { FileWriterUtil } from "../services/utils/file-writer.util";
+import { S3FileReader } from "../services/utils/aws-file-reader";
 import Types from "../types";
+import { PromiseResult } from "aws-sdk/lib/request";
 
 @injectable()
 export class DifferenceImageController {
@@ -41,14 +42,16 @@ export class DifferenceImageController {
                     const differenceImage: DifferenceImage =
                     await this.differenceImageGenerator.generateDifferenceImage(
                         name,
-                        [`${this.FILES_DIRECTORY}/${name}-originalImage.bmp`, `${this.FILES_DIRECTORY}/${name}-modifiedImage.bmp`],
+                        [`${name}-originalImage.bmp`, `${name}-modifiedImage.bmp`],
                     );
 
                     if (!this.verifyNumberOfDifferences(differenceImage)) {
                         message.body =
                             "Les images n'ont pas exactement " + REQUIRED_DIFFERENCES_1P + " différences, la création a été annulée";
                     } else {
-                        this.writeFile(differenceImage.toArray(), name);
+                        await this.writeFile(differenceImage.toArray(), name);
+                        const GAMESHEET_URL: string = `${SERVER_ADDRESS}/api/gamesheet/simple/`;
+                        Axios.post(GAMESHEET_URL, {name: name});
                     }
                 } catch (err) {
                     message.body = err.message;
@@ -61,13 +64,8 @@ export class DifferenceImageController {
         return router;
     }
 
-    private writeFile(data: Uint8Array, name: string): void {
-        FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, Buffer.from(data))
-            .catch((err: Error) => {
-                console.error(err);
-            });
-        const GAMESHEET_URL: string = `${SERVER_ADDRESS}/api/gamesheet/simple/`;
-        Axios.post(GAMESHEET_URL, {name: name});
+    private async writeFile(data: Uint8Array, name: string): Promise<PromiseResult<aws.S3.PutObjectOutput, aws.AWSError>> {
+         return S3FileReader.writeFile(`${name}-differenceImage.bmp`, Buffer.from(data));
     }
 
     private createMulterObject(): multer.Instance {
