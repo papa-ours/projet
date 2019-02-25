@@ -36,7 +36,7 @@ jobs:
             - ./server/node_modules
       - run:
           name: build-client
-          command: cd client; ng build
+          command: cd client; npm build
       - run:
           name: lint-client
           command: cd client; npm run lint
