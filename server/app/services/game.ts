@@ -1,3 +1,4 @@
+import { REQUIRED_DIFFERENCES_1P } from "../../../common/communication/constants";
 import { GameType, HasId } from "../../../common/communication/game-description";
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
@@ -7,12 +8,14 @@ import { FileReaderUtil } from "./utils/file-reader.util";
 import { FileWriterUtil } from "./utils/file-writer.util";
 
 export class Game implements HasId {
+    public differenceCount: number;
     public images: BMPImage[];
     public differenceImage: DifferenceImage;
 
     public constructor(public id: string, name: string, public type: GameType) {
         this.images = [];
         this.setupImages(name);
+        this.differenceCount = REQUIRED_DIFFERENCES_1P;
     }
 
     private setupImages(name: string): void {
@@ -36,6 +39,7 @@ export class Game implements HasId {
             this.differenceImage.placePixel(differenceIndex, Pixel.WHITE_PIXEL);
         });
 
+        this.differenceCount--;
         return this.saveModifiedImage();
     }
 
