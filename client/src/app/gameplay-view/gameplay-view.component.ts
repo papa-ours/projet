@@ -40,7 +40,7 @@ export class GameplayViewComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
             this.type = params["type"];
-            this.gameplayService.getGameId(this.name).subscribe((id: string) => {
+            this.gameplayService.getGameId(this.name, this.type).subscribe((id: string) => {
                 this.id = id;
             });
             this.setImagesPath();
