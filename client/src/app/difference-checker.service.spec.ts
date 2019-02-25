@@ -26,6 +26,7 @@ describe("DifferenceCheckerService", () => {
         expect(request.request.method).toBe("GET");
         httpMock.verify();
     });
+
     it("should return a JSON", () => {
         differenceCheckerService.isPositionDifference("0", 0, 0)
             .subscribe((data: boolean) => expect(data).toBeDefined());
@@ -33,6 +34,7 @@ describe("DifferenceCheckerService", () => {
         expect(request.request.responseType).toBe("json");
         httpMock.verify();
     });
+
     it("should return a null body", () => {
         differenceCheckerService.isPositionDifference("0", 0, 0)
             .subscribe((data: boolean) => expect(data).toBeDefined());
