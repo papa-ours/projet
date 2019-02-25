@@ -15,7 +15,8 @@ import { GameplayService } from "../gameplay.service";
 export class GameplayViewComponent implements OnInit {
 
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
-    private readonly SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
+    private readonly CORRECTSOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
+    private readonly WRONGANSWER: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
     public readonly nbPlayers: number;
 
     public foundDifferencesCounter: number;
@@ -73,22 +74,30 @@ export class GameplayViewComponent implements OnInit {
     private differenceFound(): void {
         this.foundDifferencesCounter++;
         this.updateDifferenceImage();
-        this.playSound();
+        this.playCorrectSound();
     }
 
     private updateDifferenceImage(): void {
         this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.id}.bmp?${this.foundDifferencesCounter}`;
     }
 
-    private playSound(): void {
-        this.SOUND.currentTime = 0;
-        this.SOUND.play().catch((err: Error) => {
+    private playCorrectSound(): void {
+        this.CORRECTSOUND.currentTime = 0;
+        this.CORRECTSOUND.play().catch((err: Error) => {
+            console.error(err);
+        });
+    }
+
+    private playWrongSound(): void {
+        this.WRONGANSWER.currentTime = 0;
+        this.WRONGANSWER.play().catch((err: Error) => {
             console.error(err);
         });
     }
 
     private identificationError(position: [number, number]): void {
         this.changeCursor();
+        this.playWrongSound();
     }
 
     private changeCursor(): void {
