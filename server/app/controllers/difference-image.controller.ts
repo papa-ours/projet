@@ -46,12 +46,7 @@ export class DifferenceImageController {
                         message.body =
                             "Les images n'ont pas exactement " + REQUIRED_DIFFERENCES_1P + " différences, la création a été annulée";
                     } else {
-                        FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, Buffer.from(differenceImage.toArray()))
-                            .catch((err: Error) => {
-                                console.error(err);
-                            });
-                        const GAMESHEET_URL: string = `${SERVER_ADDRESS}/api/gamesheet/simple/`;
-                        Axios.post(GAMESHEET_URL, {name: name});
+                        this.writeFile(differenceImage.toArray());
                     }
                 } catch (err) {
                     message.body = err.message;
@@ -62,6 +57,15 @@ export class DifferenceImageController {
         );
 
         return router;
+    }
+
+    private writeFile(data: Uint8Array): void {
+        FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, Buffer.from(data))
+            .catch((err: Error) => {
+                console.error(err);
+            });
+        const GAMESHEET_URL: string = `${SERVER_ADDRESS}/api/gamesheet/simple/`;
+        Axios.post(GAMESHEET_URL, {name: name});
     }
 
     private createMulterObject(): multer.Instance {
