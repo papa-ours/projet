@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FreeViewForm } from "./freeViewForm";
+import { FreeViewForm } from "./free-view-form";
 
 @Injectable({
   providedIn: "root",

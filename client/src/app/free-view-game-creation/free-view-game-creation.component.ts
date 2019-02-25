@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 import { FormValidationFreeViewService } from "../form-validation-free-view.service";
-import { FreeViewForm } from "../freeViewForm";
+import { FreeViewForm } from "../free-view-form";
 import { GameFreeViewGenerationService } from "../game-free-view-generation.service";
 
 @Component({
