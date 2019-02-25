@@ -1,7 +1,9 @@
+import { S3 } from "aws-sdk";
 import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as multer from "multer";
+import * as multerS3 from "multer-s3";
 import { REQUIRED_DIFFERENCES_1P, SERVER_ADDRESS } from "../../../common/communication/constants";
 import { Message, MessageType } from "../../../common/communication/message";
 import { DifferenceImage } from "../../../common/images/difference-image";
@@ -69,11 +71,12 @@ export class DifferenceImageController {
     }
 
     private createMulterObject(): multer.Instance {
-        const storage: multer.StorageEngine = multer.diskStorage({
-            destination: (req: Request, file: Express.Multer.File, callback: Function) => {
-                callback(null, this.FILES_DIRECTORY);
-            },
-            filename: (req: Request, file: Express.Multer.File, callback: Function) => {
+        const aws: S3 = new S3();
+        const storage: multer.StorageEngine = multerS3({
+            s3: aws,
+            bucket: "uploads-diffs",
+            acl: "public-read",
+            key: (req: Request, file: Express.Multer.File, callback: Function) => {
                 callback(null, req.body.name + "-" + file.fieldname + ".bmp");
             },
         });
