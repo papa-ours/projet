@@ -52,6 +52,9 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         DifferenceCheckerService,
         FileReaderUtil,
         RenderService,
+        GameplayViewComponent,
+        Gameplay2DComponent,
+        {provide: String, useValue: "stringValue"},
     ],
     bootstrap: [AppComponent],
 })
