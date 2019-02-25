@@ -11,7 +11,7 @@ export class GetGameListService {
         const simpleGameSheets: GameSheet[] = await db.getGameSheets(GameType.Simple);
         const freeGameSheets: GameSheet[] = await db.getGameSheets(GameType.Free);
 
-        return new Promise((resolve: Function) => {
+        return new Promise((resolve: (gameLists: GameLists) => void) => {
             resolve({
                 list2d: simpleGameSheets,
                 list3d: freeGameSheets,
