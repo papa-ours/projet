@@ -14,8 +14,8 @@ export class GetSceneDataService {
     public constructor(private http: HttpClient) { }
 
     public getSceneData(name: string): Observable<SceneData> {
-        return this.http.get<SceneData>(`${this.URL}/${name}-data.txt`)
-            .pipe(catchError(this.handleError<SceneData>("postSceneData")),
+        return this.http.get<SceneData>(`https://s3.amazonaws.com/uploads-diffs/${name}-data.json`)
+            .pipe(catchError(this.handleError<SceneData>("getSceneData")),
         );
     }
 
