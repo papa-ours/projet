@@ -31,6 +31,9 @@ describe("ConnectionService", () => {
     });
 
     it("should be a DELETE REQUEST", () => {
+        connectionService.username = "name";
+        connectionService.deleteUsername()
+            .subscribe((data: void) => expect(data).toBeUndefined());
         const request: TestRequest = httpMock.expectOne(`${connectionService.BASE_URL}delete/name`);
         expect(request.request.method).toBe("DELETE");
         httpMock.verify();
