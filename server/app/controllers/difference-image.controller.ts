@@ -16,8 +16,6 @@ import { PromiseResult } from "aws-sdk/lib/request";
 @injectable()
 export class DifferenceImageController {
 
-    private readonly FILES_DIRECTORY: string = "uploads/";
-
     public constructor(
         @inject(Types.DifferenceImageGenerator) private differenceImageGenerator: DifferenceImageGenerator,
         @inject(Types.DifferencesFinderService) private differencesFinder: DifferencesFinderService,
