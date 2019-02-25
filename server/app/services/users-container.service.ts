@@ -9,6 +9,10 @@ export class UsersContainerService {
         return UsersContainerService.users.map((user: User) => user.name);
     }
 
+    public static clearUsers(): void {
+        UsersContainerService.users = [];
+    }
+
     public addUser(user: User): void {
         UsersContainerService.users.push(user);
     }
