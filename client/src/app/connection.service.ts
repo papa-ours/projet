@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { Message } from "../../../common/communication/message";
 import { SocketService } from "./socket.service";
 
@@ -10,7 +11,7 @@ export class ConnectionService {
 
     public connected: boolean;
     public username: String;
-    public readonly BASE_URL: string = "http://localhost:3000/api/user/";
+    public readonly BASE_URL: string = `${SERVER_ADDRESS}/api/user/`;
 
     public constructor(
         public socketService: SocketService,

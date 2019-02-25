@@ -13,8 +13,6 @@ enum ImageType {
 
 @injectable()
 export class GameSheetGenerationService {
-    // @ts-ignore
-    private imagesData: Uint8Array[];
 
     public constructor(@inject(Types.GetGameService) private getGameService: GetGameService) {}
 

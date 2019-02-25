@@ -42,9 +42,9 @@ export class GetGameService {
         return GetGameService.gameSheets[type];
     }
 
-    public createGame(name: string): string {
+    public createGame(name: string, type: GameType): string {
         const id: string = this.generateUniqueId(GetGameService.games);
-        const game: Game = new Game(id, name);
+        const game: Game = new Game(id, name, type);
         GetGameService.games.push(game);
 
         return id;

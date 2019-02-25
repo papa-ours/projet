@@ -27,9 +27,9 @@ export class GameListViewComponent implements OnInit {
         private connectionService: ConnectionService,
         private gameListService: GameListService,
     ) {
-        this.games = [];
-        this.username = "";
         this.isAdmin = false;
+        this.username = "";
+        this.games = [];
     }
 
     public ngOnInit(): void {

@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { GameSheet, TopScoresInterface } from "../../../common/communication/game-description";
+import { GameSheet, TopScoresInterface, GameType } from "../../../common/communication/game-description";
 import { Game } from "./game";
 import { GetGameService } from "./get-game.service";
 
@@ -57,7 +57,7 @@ describe("GetGameService", () => {
     });
 
     it("should create a game properly", () => {
-        const id: string = getGameService.createGame("voiture");
+        const id: string = getGameService.createGame("voiture", GameType.Simple);
         const game: Game = getGameService.getGame(id);
 
         expect(game.id).to.equals(id);

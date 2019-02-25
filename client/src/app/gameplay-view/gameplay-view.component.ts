@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
@@ -14,7 +15,6 @@ import { GameplayService } from "../gameplay.service";
 export class GameplayViewComponent implements OnInit {
 
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
-    private readonly SERVER_URL: string = "http://localhost:3000";
     private readonly SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
     public readonly nbPlayers: number;
 
@@ -30,10 +30,8 @@ export class GameplayViewComponent implements OnInit {
         private differenceCheckerService: DifferenceCheckerService,
         private gameplayService: GameplayService,
     ) {
-        const ONE_PLAYER_REQUIRED_DIFFERENCES: number = 7;
-        const TWO_PLAYERS_REQUIRED_DIFFERENCES: number = 4;
         this.nbPlayers = 1;
-        this.requiredDifferences = this.nbPlayers === 1 ? ONE_PLAYER_REQUIRED_DIFFERENCES : TWO_PLAYERS_REQUIRED_DIFFERENCES;
+        this.requiredDifferences = this.nbPlayers === 1 ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
         this.foundDifferencesCounter = 0;
         this.images = [];
     }
@@ -42,7 +40,7 @@ export class GameplayViewComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
             this.type = params["type"];
-            this.gameplayService.getGameId(this.name).subscribe((id: string) => {
+            this.gameplayService.getGameId(this.name, this.type).subscribe((id: string) => {
                 this.id = id;
             });
             this.setImagesPath();
@@ -50,8 +48,8 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private setImagesPath(): void {
-        this.images[ImageType.Original] = `${this.SERVER_URL}/${this.name}-originalImage.bmp`;
-        this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.name}-modifiedImage.bmp`;
+        this.images[ImageType.Original] = `${SERVER_ADDRESS}/${this.name}-originalImage.bmp`;
+        this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
     }
 
     public checkDifference(position: [number, number]): void {
@@ -71,10 +69,11 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private updateDifferenceImage(): void {
-        this.images[ImageType.Modified] = `${this.SERVER_URL}/${this.id}.bmp?${this.foundDifferencesCounter}`;
+        this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.id}.bmp?${this.foundDifferencesCounter}`;
     }
 
     private playSound(): void {
         this.SOUND.play();
+        this.SOUND.currentTime = 0;
     }
 }
