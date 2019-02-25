@@ -9,8 +9,9 @@ type GeometryCreator = (size: number, material: THREE.Material) => THREE.Mesh;
     providedIn: "root",
 })
 export class GeometryFactoryService {
+
     private geometryGeneratorService: GeometryGeneratorService;
-    private geometryTypeTofunction: Map<GeometryType, Function>;
+    private geometryTypeTofunction: Map<GeometryType, GeometryCreator>;
 
     public constructor() {
         this.geometryGeneratorService = new GeometryGeneratorService();
@@ -22,8 +23,6 @@ export class GeometryFactoryService {
         this.geometryTypeTofunction.set(GeometryType.PYRAMID, this.geometryGeneratorService.createPyramid);
     }
     public createShape(size: number, material: THREE.Material, type: GeometryType): THREE.Mesh {
-        const geometry: Function =  this.geometryTypeTofunction.get(type) as Function;
-
-        return geometry(size, material);
+        return (this.geometryTypeTofunction.get(type) as GeometryCreator)(size, material);
     }
 }
