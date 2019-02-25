@@ -1,5 +1,6 @@
 import { expect } from "chai";
 import * as fs from "fs";
+import { BMP_IMAGE_HEIGHT, BMP_IMAGE_WIDTH } from "../../../../common/communication/constants";
 import { readLittleEndianBytes } from "../../../../common/images/binary";
 import { BMPImage } from "../../../../common/images/bmp-image";
 import { Pixel } from "../../../../common/images/pixel";
@@ -7,9 +8,6 @@ import { Pixel } from "../../../../common/images/pixel";
 /* tslint:disable:no-magic-numbers */
 describe("bmp image", () => {
     let data: Uint8Array;
-
-    const width: number = 640;
-    const height: number = 480;
 
     before((done: Mocha.Func) => {
         fs.readFile("../client/src/assets/img/dog.bmp", (err: NodeJS.ErrnoException, fileData: Buffer) => {
@@ -21,14 +19,14 @@ describe("bmp image", () => {
     it("should serialize and deserialize properly", () => {
         const image: Uint8Array = data;
         const bmpImage: Uint8Array = BMPImage.fromArray(image).toArray();
-        const lastPixel: number = 640 * 480 * 3 + readLittleEndianBytes(image, 4, 10);
+        const lastPixel: number = BMP_IMAGE_WIDTH * BMP_IMAGE_HEIGHT * 3 + readLittleEndianBytes(image, 4, 10);
 
         expect(bmpImage.slice(0, lastPixel)).to.deep.equal(image.slice(0, lastPixel));
     });
 
     it("should return the number of pixels in the image", () => {
 
-        expect(BMPImage.fromArray(data).size()).to.be.equal(width * height);
+        expect(BMPImage.fromArray(data).size()).to.be.equal(BMP_IMAGE_WIDTH * BMP_IMAGE_HEIGHT);
     });
 
     it("should return a white pixel", () => {
@@ -44,7 +42,7 @@ describe("bmp image", () => {
 
     it("should return undefined when reading after the last pixel", () => {
 
-        expect(BMPImage.fromArray(data).pixelAt(width * height + 1)).to.equal(undefined);
+        expect(BMPImage.fromArray(data).pixelAt(BMP_IMAGE_WIDTH * BMP_IMAGE_HEIGHT + 1)).to.equal(undefined);
     });
 
     it("should recognize a bmp image", () => {

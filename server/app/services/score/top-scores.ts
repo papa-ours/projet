@@ -4,7 +4,7 @@ import { Score } from "./score";
 export class TopScores implements TopScoresInterface {
     public scores: Score[];
     public scoresStrings: string[];
-    private SCORE_LENGTH: number = 3;
+    private readonly SCORE_LENGTH: number = 3;
 
     public constructor() {
         this.createScores();

@@ -11,7 +11,6 @@ describe("DifferenceImageService", () => {
             imports: [HttpClientTestingModule],
             providers: [DifferenceImageService],
         });
-        // tslint:disable-next-line:no-any
         differenceImageService = TestBed.get(DifferenceImageService);
         httpMock = TestBed.get(HttpTestingController);
     });

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 import { FormValidationFreeViewService } from "../form-validation-free-view.service";
-import { FreeViewForm } from "../freeViewForm";
+import { FreeViewForm } from "../free-view-form";
 import { GameFreeViewGenerationService } from "../game-free-view-generation.service";
 
 @Component({
@@ -13,8 +13,9 @@ export class FreeViewGameCreationComponent {
     public readonly OPTION_MAX_NAME_LENGTH: number = 15;
     private readonly NB_OBJECTS_MIN: number = 10;
     private readonly NB_OBJECTS_MAX: number = 200;
+
     public freeViewForm: FreeViewForm;
-    @Output() public closeForm: EventEmitter<boolean> = new EventEmitter();
+    @Output() public closeForm: EventEmitter<boolean>;
     public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) {
         this.freeViewForm = {
             name: "",
@@ -24,6 +25,7 @@ export class FreeViewGameCreationComponent {
             isColorChange: false,
             sceneType: "",
         };
+        this.closeForm = new EventEmitter();
     }
 
     public isAIntInRange(): boolean {
@@ -44,6 +46,8 @@ export class FreeViewGameCreationComponent {
     public submitForm(): void {
         if (this.allValuesEntered) {
             this.sendForm();
+            this.close();
+            location.reload();
         }
     }
 

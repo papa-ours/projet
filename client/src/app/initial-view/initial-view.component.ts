@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { Message } from "../../../../common/communication/message";
-import { UsernameValidationService } from "../username-validation-service.service";
+import { ConnectionService } from "../connection.service";
 
 @Component({
     selector: "app-initial-view",
@@ -9,24 +8,34 @@ import { UsernameValidationService } from "../username-validation-service.servic
     styleUrls: ["./initial-view.component.css"],
 })
 export class InitialViewComponent implements OnInit {
-    private username: string = "";
-    private usernameValidationMessage: string = "";
+    private username: string;
+    private usernameValidationMessage: string;
 
     public constructor(
-        private usernameValidationService: UsernameValidationService,
+        private connectionService: ConnectionService,
         private router: Router,
-    ) { }
+    ) {
+        this.username = "";
+        this.usernameValidationMessage = "";
+    }
 
     public ngOnInit(): void {
-        if (this.usernameValidationService.connected) {
+        if (this.connectionService.connected) {
             this.deleteUsername();
         }
+    }
 
-        this.usernameValidationService.getUsernameValidation().subscribe((message: Message) => {
-            this.usernameValidationMessage = message.body;
+    private deleteUsername(): void {
+        this.connectionService.deleteUsername().subscribe();
+        this.connectionService.connected = false;
+    }
+
+    public validateUsername(): void {
+        this.connectionService.getUsernameValidation(this.username).subscribe((validation: string) => {
+            this.usernameValidationMessage = validation;
             if (this.usernameValidationMessage === "") {
-                this.usernameValidationService.connected = true;
-                this.usernameValidationService.username = this.username;
+                this.connectionService.connected = true;
+                this.connectionService.username = this.username;
                 this.router.navigateByUrl("/gamelist/" + this.username)
                     .catch((err: Error) => {
                         console.error(err);
@@ -34,14 +43,5 @@ export class InitialViewComponent implements OnInit {
                 );
             }
         });
-    }
-
-    private deleteUsername(): void {
-        this.usernameValidationService.deleteUsername();
-        this.usernameValidationService.connected = false;
-    }
-
-    public validateUsername(): void {
-        this.usernameValidationService.sendUsername(this.username);
     }
 }

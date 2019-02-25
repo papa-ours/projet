@@ -9,23 +9,21 @@ export class RenderService {
     private renderer: THREE.WebGLRenderer;
     private scene: THREE.Scene;
 
-    private readonly cameraZ: number = 400;
-    private readonly fieldOfView: number = 45;
+    private readonly CAMERA_Z: number = 400;
+    private readonly FIELD_OF_VIEW: number = 45;
 
-    private readonly nearClippingPane: number = 1;
-    private readonly farClippingPane: number = 10000;
-
-    public constructor() { }
+    private readonly NEAR_CLIPPING_PANE: number = 1;
+    private readonly FAR_CLIPPING_PANE: number = 10000;
 
     private createCamera(): void {
         const aspectRatio: number = this.getAspectRatio();
         this.camera = new THREE.PerspectiveCamera(
-            this.fieldOfView,
+            this.FIELD_OF_VIEW,
             aspectRatio,
-            this.nearClippingPane,
-            this.farClippingPane,
+            this.NEAR_CLIPPING_PANE,
+            this.FAR_CLIPPING_PANE,
         );
-        this.camera.position.z = this.cameraZ;
+        this.camera.position.z = this.CAMERA_Z;
     }
 
     private getAspectRatio(): number {

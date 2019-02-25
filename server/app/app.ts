@@ -10,6 +10,7 @@ import { GameSheetGenerationController } from "./controllers/game-sheet-generati
 import { GetGameListController } from "./controllers/get-game-list.controller";
 import { GetGameController } from "./controllers/get-game.controller";
 import { SceneDataController } from "./controllers/scene-data.controller";
+import { UsernameValidatorController } from "./controllers/username-validator.controller";
 import Types from "./types";
 
 @injectable()
@@ -19,12 +20,14 @@ export class Application {
     public app: express.Application;
 
     public constructor(
-            @inject(Types.GetGameListController) private getGameListController: GetGameListController,
-            @inject(Types.GetGameController) private getGameController: GetGameController,
-            @inject(Types.GameSheetGenerationController) private gameSheetGenerationController: GameSheetGenerationController,
-            @inject(Types.SceneDataController) private sceneDataController: SceneDataController,
-            @inject(Types.DifferenceImageController) private differenceImageController: DifferenceImageController,
-            @inject(Types.DifferenceCheckerController) private differenceCheckerController: DifferenceCheckerController) {
+        @inject(Types.GetGameListController) private getGameListController: GetGameListController,
+        @inject(Types.GetGameController) private getGameController: GetGameController,
+        @inject(Types.GameSheetGenerationController) private gameSheetGenerationController: GameSheetGenerationController,
+        @inject(Types.SceneDataController) private sceneDataController: SceneDataController,
+        @inject(Types.DifferenceImageController) private differenceImageController: DifferenceImageController,
+        @inject(Types.DifferenceCheckerController) private differenceCheckerController: DifferenceCheckerController,
+        @inject(Types.UsernameValidatorController) private usernameValidatorController: UsernameValidatorController,
+    ) {
         this.app = express();
 
         this.config();
@@ -50,6 +53,7 @@ export class Application {
         this.app.use("/api/difference_image", this.differenceImageController.router);
         this.app.use("/api/game", this.getGameController.router);
         this.app.use("/api/scene", this.sceneDataController.router);
+        this.app.use("/api/user", this.usernameValidatorController.router);
         this.errorHandeling();
     }
 

@@ -12,7 +12,11 @@ export class GameImageComponent {
 
     @Input() public source: string;
     @ViewChild("image") private imageElement: ElementRef;
-    @Output() private checkDifference: EventEmitter<[number, number]> = new EventEmitter();
+    @Output() private checkDifference: EventEmitter<[number, number]>;
+
+    public constructor() {
+        this.checkDifference = new EventEmitter();
+    }
 
     @HostListener("click", ["$event"])
     public mouseClicked(event: MouseEvent): void {

@@ -1,22 +1,25 @@
 import { readLittleEndianBytes } from "./binary";
+import { BMP_IMAGE_HEIGHT, BMP_IMAGE_WIDTH } from "../communication/constants"
 import { BMPImage } from "../images/bmp-image";
 import { Position } from "./position";
 import { Pixel } from "./pixel";
+import { DepthFirstSearch } from "../utils/depth-first-search";
 
 export class DifferenceImage extends BMPImage {
     private isPixelVisited: boolean[];
-    public differenceCount: number = 0;
+    public differenceCount: number;
 
     public constructor(pixels: Pixel[], header: Uint8Array, width: number, height: number) {
         super(pixels, header, width, height);
         this.isPixelVisited = new Array(this.size()).fill(false);
+        this.differenceCount = 0;
     }
 
     public static fromBMPImage(bmp: BMPImage): DifferenceImage {
         return new DifferenceImage(Array.from(bmp.pixels), bmp.header, bmp.width, bmp.height);
     }
 
-    public static fromArray(imageData: Uint8Array, width: number = BMPImage.WIDTH, height: number = BMPImage.HEIGHT): DifferenceImage {
+    public static fromArray(imageData: Uint8Array, width: number = BMP_IMAGE_WIDTH, height: number = BMP_IMAGE_HEIGHT): DifferenceImage {
         const dataIndexIndex: number = 10;
         const dataIndexLength: number = 4;
         const dataIndex: number = readLittleEndianBytes(imageData, dataIndexLength, dataIndexIndex);
@@ -33,48 +36,43 @@ export class DifferenceImage extends BMPImage {
     }
 
     public getDifferenceAt(index: number): number[] {
-        const difference: number[] = [];
-        const stack: number[] = [];
+
+        const image: DifferenceImage = this;
+
         if (!this.isPixelVisited[index]) {
-
             if (this.pixelAt(index).equals(Pixel.BLACK_PIXEL)) {
-                stack.push(index);
-                difference.push(index);
-                while (stack.length > 0) {
-                    this.explorePixel(stack.pop() as number, stack, difference);
-                }
                 this.differenceCount++;
-            } else {
-                this.isPixelVisited[index] = true;
+                return DepthFirstSearch.search(index,
+                    (current: number) => image.getNeighbors(current)
+                        .filter((index: number) => image.isIndexValid(index) && image.pixelAt(index).equals(Pixel.BLACK_PIXEL)
+                    )
+                );
             }
-
         }
 
-        return difference;
+        return [];
     }
 
-    private explorePixel(index: number, pixelsToVisit: number[], difference: number[]): void {
+    private getNeighbors(index: number): number[] {
         this.isPixelVisited[index] = true;
         const currentPosition: Position = this.getPosition(index);
+
+        const neighbors: number[] = [];
+
         for (let i: number = -1; i <= 1; i++) {
             for (let j: number = -1; j <= 1; j++) {
                 if (!(i === 0 && j === 0)) {
-                    const pixelToVisitPosition: Position = {
+                    neighbors.push(this.getIndex({
                         i: currentPosition.i + i,
                         j: currentPosition.j + j,
-                    };
-                    const pixelToVisitIndex: number = this.getIndex(pixelToVisitPosition);
-
-                    if (pixelToVisitIndex >= 0 && pixelToVisitIndex < this.isPixelVisited.length) {
-                        if (this.pixelAt(pixelToVisitIndex).equals(Pixel.BLACK_PIXEL) && !this.isPixelVisited[pixelToVisitIndex]) {
-                            if (!pixelsToVisit.find((val: number) => val === pixelToVisitIndex)) {
-                                difference.push(pixelToVisitIndex);
-                                pixelsToVisit.push(pixelToVisitIndex);
-                            }
-                        }
-                    }
+                    }));
                 }
             }
         }
+        return neighbors;
+    }
+
+    private isIndexValid(index: number): boolean {
+        return index >= 0 && index < this.isPixelVisited.length;
     }
 }

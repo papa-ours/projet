@@ -5,16 +5,8 @@ import Types from "../types";
 import { GetGameService } from "./get-game.service";
 import { TopScores } from "./score/top-scores";
 
-// @ts-ignore
-enum ImageType {
-    Original,
-    Modified,
-}
-
 @injectable()
 export class GameSheetGenerationService {
-    // @ts-ignore
-    private imagesData: Uint8Array[];
 
     public constructor(@inject(Types.GetGameService) private getGameService: GetGameService) {}
 

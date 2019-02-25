@@ -8,6 +8,7 @@ import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { AppComponent } from "./app.component";
 import { ChatMessagesComponent } from "./chat-messages/chat-messages.component";
 import { ColorPickerComponent } from './color-picker/color-picker.component';
+import { ConnectionService } from "./connection.service";
 import { DifferenceCheckerService } from "./difference-checker.service";
 import { DifferenceImageService } from "./difference-image.service";
 import { FreeViewGameCreationComponent } from "./free-view-game-creation/free-view-game-creation.component";
@@ -21,7 +22,6 @@ import { RenderService } from "./scene3d/render.service";
 import { Scene3dComponent } from "./scene3d/scene3d.component";
 import { FileReaderUtil } from "./simple-game-creation/file-reader.util";
 import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-creation.component";
-import { UsernameValidationService } from "./username-validation-service.service";
 
 @NgModule({
     declarations: [
@@ -47,7 +47,7 @@ import { UsernameValidationService } from "./username-validation-service.service
         FontAwesomeModule,
       ],
     providers: [
-        UsernameValidationService,
+        ConnectionService,
         DifferenceImageService,
         DifferenceCheckerService,
         FileReaderUtil,

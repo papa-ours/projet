@@ -20,4 +20,5 @@ export default {
         SceneDataDifferenceService: Symbol("SceneDataDifferenceService"),
         DifferenceCheckerService: Symbol("DifferenceCheckerService"),
         DifferenceCheckerController: Symbol("DifferenceCheckerController"),
+        UsersContainerService: Symbol("UsersContainerService"),
 };

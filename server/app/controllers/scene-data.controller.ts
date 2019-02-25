@@ -2,6 +2,7 @@ import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as multer from "multer";
+import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { GeometryData, Modification, ModificationType, SceneData } from "../../../common/communication/geometry";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
@@ -11,8 +12,10 @@ import Types from "../types";
 @injectable()
 export class SceneDataController {
 
-    public constructor(@inject(Types.SceneDataDifferenceService) private sceneDataDifferenceService: SceneDataDifferenceService,
-                       @inject(Types.SceneDataGeneratorService) private sceneDataGeneratorService: SceneDataGeneratorService) { }
+    public constructor(
+        @inject(Types.SceneDataDifferenceService) private sceneDataDifferenceService: SceneDataDifferenceService,
+        @inject(Types.SceneDataGeneratorService) private sceneDataGeneratorService: SceneDataGeneratorService,
+    ) { }
 
     public get router(): Router {
         const router: Router = Router();
@@ -30,8 +33,9 @@ export class SceneDataController {
             ]),
             (req: Request, res: Response, next: NextFunction) => {
                 const scene: SceneData = this.getSceneData(req);
-                FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)));
-                const SERVER_URL: string = "http://localhost:3000/api/gamesheet/free/";
+                FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)))
+                    .catch((err: Error) => console.error(err));
+                const SERVER_URL: string = `${SERVER_ADDRESS}/api/gamesheet/free/`;
                 Axios.post(SERVER_URL, { name: scene.name });
         });
 
@@ -41,19 +45,16 @@ export class SceneDataController {
     private getSceneData(req: Request): SceneData {
 
         const modifications: Modification[] = this.getModifications(req);
-        const originalGeometry: GeometryData[] =
-            this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects));
+        const originalGeometry: GeometryData[] = this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects));
 
-        const modifiedGeometry: GeometryData[] =
-            this.sceneDataDifferenceService.getDifference(originalGeometry, modifications);
+        const modifiedGeometry: GeometryData[] = this.sceneDataDifferenceService.getDifference(originalGeometry, modifications);
 
         return { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry };
     }
 
     private getModifications(req: Request): Modification[] {
 
-        const modifications: Modification[] =
-        [
+        const modifications: Modification[] = [
             { type: ModificationType.ADD, isActive: JSON.parse(req.body.isAdding) },
             { type: ModificationType.DELETE, isActive: JSON.parse(req.body.isRemoval) },
             { type: ModificationType.CHANGE_COLOR, isActive: JSON.parse(req.body.isColorChange) },

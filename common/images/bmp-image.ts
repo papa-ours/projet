@@ -1,21 +1,19 @@
 import { readLittleEndianBytes } from "./binary";
 import { Position } from "./position";
+import { BMP_IMAGE_HEIGHT, BMP_IMAGE_WIDTH } from "../communication/constants";
 import { CHUNK_RELATIVE_POSITIONS } from "../../server/app/services/utils/circle-area";
 import { Pixel } from "./pixel";
 
 export class BMPImage {
 
-    public static readonly WIDTH: number = 640;
-    public static readonly HEIGHT: number = 480;
-
     public constructor(
-            public pixels: Pixel[],
-            public readonly header: Uint8Array,
-            public readonly width: number,
-            public readonly height: number,
-        ) {}
+        public pixels: Pixel[],
+        public readonly header: Uint8Array,
+        public readonly width: number,
+        public readonly height: number,
+    ) {}
 
-    public static fromArray(imageData: Uint8Array, width: number = BMPImage.WIDTH, height: number = BMPImage.HEIGHT): BMPImage {
+    public static fromArray(imageData: Uint8Array, width: number = BMP_IMAGE_WIDTH, height: number = BMP_IMAGE_HEIGHT): BMPImage {
         const dataIndexIndex: number = 10;
         const dataIndexLength: number = 4;
         const dataIndex: number = readLittleEndianBytes(imageData, dataIndexLength, dataIndexIndex);

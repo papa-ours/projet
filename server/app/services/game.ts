@@ -1,4 +1,4 @@
-import { HasId } from "../../../common/communication/game-description";
+import { GameType, HasId } from "../../../common/communication/game-description";
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
@@ -7,9 +7,11 @@ import { FileReaderUtil } from "./utils/file-reader.util";
 import { FileWriterUtil } from "./utils/file-writer.util";
 
 export class Game implements HasId {
-    public images: BMPImage[] = [];
+    public images: BMPImage[];
     public differenceImage: DifferenceImage;
-    public constructor(public id: string, name: string) {
+
+    public constructor(public id: string, name: string, public type: GameType) {
+        this.images = [];
         this.setupImages(name);
     }
 

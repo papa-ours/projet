@@ -1,6 +1,6 @@
 import { TestBed } from "@angular/core/testing";
 import { FormValidationFreeViewService } from "./form-validation-free-view.service";
-import { FreeViewForm } from "./freeViewForm";
+import { FreeViewForm } from "./free-view-form";
 
 describe("FormValidationFreeViewService", () => {
     const freeViewForm: FreeViewForm = {

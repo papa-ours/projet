@@ -50,9 +50,16 @@
     height: 36px;
 }
 
-.color-panel {
+.color-panel.shown {
     top:  62px;
     left: 12px;
+    opacity: 1;
+}
+
+.color-panel {
+    top:  62px;
+    left: -100px;
+    transition-duration: 0.6s;
     display: grid;
     z-index: 4;
     position: absolute;

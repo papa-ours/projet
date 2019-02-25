@@ -25,6 +25,7 @@ describe("GameFreeViewGenerationService", () => {
         const request: TestRequest = httpMock.expectOne(`${gameFreeViewGenerationService.URL}`);
         expect(request.request.method).toBe("POST");
         request.flush(response);
+        httpMock.verify();
     });
 
 });

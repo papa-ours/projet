@@ -11,22 +11,25 @@ import { SceneGeneratorService } from "./scene-generator.service";
 })
 export class Scene3dComponent implements AfterViewInit {
 
-    @Input() private name: string = "";
+    @Input() private name: string;
     @Input() public width: number;
     @Input() public height: number;
     @Input() public type: number;
+
+    @ViewChild("container")
+    private containerRef: ElementRef;
+
     public constructor(
         private renderService: RenderService,
         private getSceneData: GetSceneDataService,
         private sceneGeneratorService: SceneGeneratorService,
-    ) {}
+    ) {
+        this.name = "";
+    }
 
     private get container(): HTMLDivElement {
         return this.containerRef.nativeElement;
     }
-
-    @ViewChild("container")
-    private containerRef: ElementRef;
 
     @HostListener("window:resize", ["$event"])
     public onResize(): void {
