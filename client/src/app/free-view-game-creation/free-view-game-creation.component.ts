@@ -47,6 +47,7 @@ export class FreeViewGameCreationComponent {
         if (this.allValuesEntered) {
             this.sendForm();
             this.close();
+            location.reload();
         }
     }
 
