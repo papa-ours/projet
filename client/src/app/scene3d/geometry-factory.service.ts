@@ -2,6 +2,9 @@ import { Injectable } from "@angular/core";
 import * as THREE from "three";
 import { GeometryType } from "../../../../common/communication/geometry";
 import { GeometryGeneratorService } from "./geometry-generator.service";
+
+type GeometryCreator = (size: number, material: THREE.Material) => THREE.Mesh;
+
 @Injectable({
     providedIn: "root",
 })
