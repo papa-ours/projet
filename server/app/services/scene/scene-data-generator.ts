@@ -8,19 +8,18 @@ import { GeometryIntersection } from "./geometry-intersection";
 
 @injectable()
 export class SceneDataGeneratorService {
-    private readonly baseColor: number = 0xFFFFFF;
-    private readonly minObject: number = 10;
-    private readonly maxObject: number = 200;
-    private readonly geometryBaseSize: number = 65;
-
+    private readonly BASECOLOR: number = 0xFFFFFF;
+    private readonly MIN_OBJECT: number = 10;
+    private readonly MAX_OBJECT: number = 200;
+    private readonly GEOMETRY_BASE_SIZE: number = 65;
 
     private checkNumberOfObjects(numberOfObjects: number): boolean {
-        return this.minObject <= numberOfObjects && numberOfObjects <= this.maxObject;
+        return this.MIN_OBJECT <= numberOfObjects && numberOfObjects <= this.MAX_OBJECT;
     }
 
     private validateNumberOfObjects(numberOfObjects: number): void {
         if (!this.checkNumberOfObjects(numberOfObjects)) {
-            throw new RangeError(`Number should be beetwen ${this.minObject} and ${this.maxObject}`);
+            throw new RangeError(`Number should be beetwen ${this.MIN_OBJECT} and ${this.MAX_OBJECT}`);
         }
     }
 
@@ -43,14 +42,14 @@ export class SceneDataGeneratorService {
     }
 
     public getRandomColor(): number {
-        return RandomNumber.randomInteger(0, this.baseColor);
+        return RandomNumber.randomInteger(0, this.BASECOLOR);
     }
 
     public getRandomSize(): number {
         const MIN_FACTOR: number = 0.5;
         const MAX_FACTOR: number = 1.5;
 
-        return RandomNumber.randomInteger(this.geometryBaseSize * MIN_FACTOR, this.geometryBaseSize * MAX_FACTOR);
+        return RandomNumber.randomInteger(this.GEOMETRY_BASE_SIZE * MIN_FACTOR, this.GEOMETRY_BASE_SIZE * MAX_FACTOR);
     }
 
     public getRandomGeometryType(): GeometryType {

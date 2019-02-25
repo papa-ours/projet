@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+import { SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameSheet, GameType } from "../../../../common/communication/game-description";
 
 @Component({
@@ -26,9 +27,8 @@ export class GameSheetComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        const SERVER_URL: string = "http://localhost:3000";
         if (this.type === GameType.Simple) {
-            this.source = `${SERVER_URL}/${this.description.name}-originalImage.bmp`;
+            this.source = `${SERVER_ADDRESS}/${this.description.name}-originalImage.bmp`;
         }
         this.btn1.nativeElement.textContent = this.isAdmin ? "Supprimer" : "Jouer";
         this.btn2.nativeElement.textContent = this.isAdmin ? "Réinitialiser" : "Créer";

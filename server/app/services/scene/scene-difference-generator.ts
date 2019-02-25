@@ -1,13 +1,12 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
+import { REQUIRED_DIFFERENCES_1P } from "../../../../common/communication/constants";
 import { GeometryData, Modification, ModificationType } from "../../../../common/communication/geometry";
 import { DeepCloner } from "../utils/deep-cloner";
 import { SceneDataGeneratorService } from "./scene-data-generator";
 
 @injectable()
 export class SceneDataDifferenceService {
-
-    private readonly MAX_DIFFERENCE: number = 7;
 
     private sceneDataGeneratorService: SceneDataGeneratorService;
     private modificationMap: Map<ModificationType, Function>;
@@ -49,7 +48,7 @@ export class SceneDataDifferenceService {
         const geometryDataDifference: GeometryData[] = DeepCloner.clone(geometryData);
         this.modifications = modifications;
         let differenceCounter: number = 0;
-        while (differenceCounter < this.MAX_DIFFERENCE) {
+        while (differenceCounter < REQUIRED_DIFFERENCES_1P) {
             const randomIndex: number = Math.floor(Math.random() * geometryDataDifference.length);
             if (!geometryDataDifference[randomIndex].isModified) {
                 this.applyRandomChange(geometryDataDifference, randomIndex);
