@@ -1,7 +1,7 @@
+import { HttpClientTestingModule, HttpTestingController, TestRequest } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
-import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
-import { GetSceneDataService } from "./get-scene-data.service";
 import { SceneData } from "../../../../common/communication/geometry";
+import { GetSceneDataService } from "./get-scene-data.service";
 
 describe("GetSceneDataService", () => {
     let getSceneDataService: GetSceneDataService;
