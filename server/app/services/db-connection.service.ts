@@ -46,7 +46,11 @@ export class DBConnectionService {
         return gameSheetDocument.save();
     }
 
-    public async getGameSheets(type: GameType): Promise<mongoose.Document[]> {
-        return mongoose.models.GameSheet2D.find({type: type}).exec();
+    public async getGameSheets(type: GameType): Promise<GameSheet[]> {
+        const documents: mongoose.Document[] = await mongoose.models.GameSheet.find({type: type}).exec();
+
+        return documents.map((document: mongoose.Document) => {
+            return document.toObject();
+        });
     }
 }
