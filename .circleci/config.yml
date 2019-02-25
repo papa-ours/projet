@@ -7,7 +7,7 @@ jobs:
       - checkout # check out the code in the project directory
       - run: 
           name: update-npm-server
-          command: "cd server; sudo npm install"
+          command: "cd server; npm install"
       - run:
           name: test-server
           command: "cd server; npm run test"
