@@ -28,7 +28,7 @@ export class GameSheetComponent implements OnInit {
 
     public ngOnInit(): void {
         if (this.type === GameType.Simple) {
-            this.source = `${SERVER_ADDRESS}/${this.description.name}-originalImage.bmp`;
+            this.source = `https://s3.amazonaws.com/uploads-diffs/${this.description.name}-originalImage.bmp`;
         }
         this.btn1.nativeElement.textContent = this.isAdmin ? "Supprimer" : "Jouer";
         this.btn2.nativeElement.textContent = this.isAdmin ? "Réinitialiser" : "Créer";
