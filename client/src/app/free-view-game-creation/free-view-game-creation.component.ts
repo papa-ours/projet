@@ -46,6 +46,7 @@ export class FreeViewGameCreationComponent {
     public submitForm(): void {
         if (this.allValuesEntered) {
             this.sendForm();
+            this.close();
         }
     }
 
