@@ -4,6 +4,7 @@ import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
 import { Pixel } from "../../../common/images/pixel";
+import { FileDeleterUtil } from "./utils/file-deleter-util";
 import { FileReaderUtil } from "./utils/file-reader.util";
 import { FileWriterUtil } from "./utils/file-writer.util";
 
@@ -40,10 +41,19 @@ export class Game implements HasId {
         });
 
         this.differenceCount--;
-        return this.saveModifiedImage();
+        if (this.differenceCount === 0) {
+            return this.deleteModifiedImage();
+        } else {
+            return this.saveModifiedImage();
+        }
+
     }
 
     private async saveModifiedImage(): Promise<{}> {
         return FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, Buffer.from(this.images[ImageType.Modified].toArray()));
+    }
+
+    public async deleteModifiedImage(): Promise<{}> {
+        return FileDeleterUtil.deleteFile(`uploads/${this.id}.bmp`);
     }
 }
