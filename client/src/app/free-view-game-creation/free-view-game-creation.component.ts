@@ -16,7 +16,6 @@ export class FreeViewGameCreationComponent {
 
     public freeViewForm: FreeViewForm;
     @Output() public closeForm: EventEmitter<boolean>;
-
     public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) {
         this.freeViewForm = {
             name: "",
@@ -26,7 +25,6 @@ export class FreeViewGameCreationComponent {
             isColorChange: false,
             sceneType: "",
         };
-
         this.closeForm = new EventEmitter();
     }
 
