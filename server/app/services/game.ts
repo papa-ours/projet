@@ -10,7 +10,7 @@ export class Game implements HasId {
     public images: BMPImage[];
     public differenceImage: DifferenceImage;
 
-    public constructor(public id: string, name: string, private type: GameType) {
+    public constructor(public id: string, name: string, public type: GameType) {
         this.images = [];
         this.setupImages(name);
     }
