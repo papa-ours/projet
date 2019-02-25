@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import * as mongoose from "mongoose";
 import "reflect-metadata";
-import { GameSheetDescription, GameType } from "../../../common/communication/game-description";
+import { GameSheet, GameType } from "../../../common/communication/game-description";
 
 @injectable()
 export class DBConnectionService {
@@ -18,6 +18,7 @@ export class DBConnectionService {
 
     public constructor() {
         this.connect();
+        mongoose.model("GameSheet", this.gameSheetSchema);
     }
 
     public static getInstance(): DBConnectionService {
@@ -34,13 +35,18 @@ export class DBConnectionService {
         });
     }
 
-    public async saveGameSheet2D(gameSheetDescription: GameSheetDescription): Promise<mongoose.Document> {
-        const gameSheet: mongoose.Document = new mongoose.models.GameSheet2D(gameSheetDescription);
+    public async saveGameSheet(gameSheet: GameSheet, type: GameType): Promise<mongoose.Document> {
+        const gameSheetDocument: mongoose.Document = new mongoose.models.GameSheet({
+            name: gameSheet.name,
+            id: gameSheet.id,
+            topScores: gameSheet.topScores,
+            type: type,
+        });
 
-        return gameSheet.save();
+        return gameSheetDocument.save();
     }
 
     public async getGameSheets(type: GameType): Promise<mongoose.Document[]> {
-        return mongoose.models.GameSheet2D.find({}).exec();
+        return mongoose.models.GameSheet2D.find({type: type}).exec();
     }
 }
