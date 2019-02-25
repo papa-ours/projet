@@ -5,7 +5,7 @@ import { Component } from "@angular/core";
   templateUrl: "./gameplay-2d.component.html",
   styleUrls: ["./gameplay-2d.component.css"],
 })
-export class Gameplay2DComponent implements {
+export class Gameplay2DComponent {
 
   public constructor() { }
 
