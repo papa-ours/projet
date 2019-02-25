@@ -8,7 +8,9 @@ describe("UsersContainerService", () => {
 
     it("should add the user properly", () => {
         usersContainerService.addUser({name: name, socketId: id});
-        const result: string = UsersContainerService.usernames[0];
+        const result: string | undefined = UsersContainerService.usernames.find((username: string) => {
+            return username === name;
+        });
 
         expect(result).to.equals(name);
     });
@@ -34,5 +36,13 @@ describe("UsersContainerService", () => {
         const result: number = UsersContainerService.usernames.length;
 
         expect(result).to.equals(0);
+    });
+
+    it("should not delete the user if he does not exist", () => {
+        usersContainerService.addUser({name: name, socketId: id});
+        usersContainerService.deleteUserByName(id);
+        const result: number = UsersContainerService.usernames.length;
+
+        expect(result).to.equals(1);
     });
 });
