@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { Message, MessageType } from "../../../common/communication/message";
+import { UsersContainerService } from "./users-container.service";
 
 @injectable()
 export class UsernameValidatorService {
@@ -13,7 +14,7 @@ export class UsernameValidatorService {
         return ch.match(alphanumericRegex) !== null;
     }
 
-    private validateUsername(username: string, users: string[]): string {
+    private validateUsername(username: string, usernames: string[]): string {
         let messageBody: string = "";
 
         const BASE_MESSAGE: string = "Le nom d'utilisateur ";
@@ -21,19 +22,21 @@ export class UsernameValidatorService {
             messageBody = BASE_MESSAGE.concat(`doit contenir entre ${this.MIN_LENGTH} et ${this.MAX_LENGTH} charactères`);
         } else if (!this.isAlphaNumeric(username)) {
             messageBody = BASE_MESSAGE.concat("doit contenir que des lettres et des chiffres");
-        } else if (users.indexOf(username) !== -1) {
+        } else if (usernames.indexOf(username) !== -1) {
             messageBody = BASE_MESSAGE.concat("existe déjà");
         }
 
         return messageBody;
     }
 
-    public getUsernameValidation(username: string, users: string[]): Message {
-        const usernameValidation: string = this.validateUsername(username, users);
+    public getUsernameValidation(username: string): Promise<Message> {
+        const usernameValidation: string = this.validateUsername(username, UsersContainerService.usernames);
 
-        return {
-            type: MessageType.USERNAME_VALIDATION,
-            body: usernameValidation,
-        };
+        return new Promise<Message>((resolve: Function) => {
+            resolve({
+                type: MessageType.USERNAME_VALIDATION,
+                body: usernameValidation,
+            });
+        });
     }
 }
