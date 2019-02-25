@@ -93,11 +93,14 @@ export class GameplayViewComponent implements OnInit {
 
     private changeCursor(): void {
         const ONE_SEC: number = 1000;
+        const normalCursor: string = "not-allowed";
+        const errorCursor: string = "context-menu";
+
         this.canClick = false;
-        this.containerRef.nativeElement.style.cursor = "not-allowed";
+        this.containerRef.nativeElement.style.cursor = normalCursor;
 
         setTimeout(() => {
-            this.containerRef.nativeElement.style.cursor = "context-menu";
+            this.containerRef.nativeElement.style.cursor = errorCursor;
             this.canClick = true;
         },         ONE_SEC);
     }
