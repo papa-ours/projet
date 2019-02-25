@@ -1,4 +1,5 @@
 import * as aws from "aws-sdk";
+import { PromiseResult } from "aws-sdk/lib/request";
 import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
@@ -11,7 +12,6 @@ import { DifferenceImageGenerator } from "../services/difference-image-generator
 import { DifferencesFinderService } from "../services/differences-finder.service";
 import { S3FileReader } from "../services/utils/aws-file-reader";
 import Types from "../types";
-import { PromiseResult } from "aws-sdk/lib/request";
 
 @injectable()
 export class DifferenceImageController {
