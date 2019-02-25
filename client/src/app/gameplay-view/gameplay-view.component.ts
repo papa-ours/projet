@@ -25,6 +25,7 @@ export class GameplayViewComponent implements OnInit {
     public requiredDifferences: number;
     public type: GameType;
     public chrono: number;
+    private isChronoRunning: boolean;
 
     public constructor(
         private route: ActivatedRoute,
@@ -36,6 +37,7 @@ export class GameplayViewComponent implements OnInit {
         this.foundDifferencesCounter = 0;
         this.images = [];
         this.chrono = 0;
+        this.isChronoRunning = false;
     }
 
     public ngOnInit(): void {
@@ -67,6 +69,9 @@ export class GameplayViewComponent implements OnInit {
 
     private differenceFound(): void {
         this.foundDifferencesCounter++;
+        if (this.foundDifferencesCounter === REQUIRED_DIFFERENCES_1P) {
+            this.isChronoRunning = false;
+        }
         this.updateDifferenceImage();
         this.playSound();
     }
@@ -83,6 +88,7 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private startChrono(): void {
+        this.isChronoRunning = true;
         this.incrementChrono();
     }
 
@@ -90,8 +96,10 @@ export class GameplayViewComponent implements OnInit {
         const ONE_SECOND: number = 1000;
         setTimeout(
             () => {
+                if (this.isChronoRunning) {
                     this.chrono++;
                     this.incrementChrono();
+                }
             },
             ONE_SECOND,
         );
