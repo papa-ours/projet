@@ -29,7 +29,7 @@ export class UsernameValidatorService {
         return messageBody;
     }
 
-    public getUsernameValidation(username: string): Promise<Message> {
+    public async getUsernameValidation(username: string): Promise<Message> {
         const usernameValidation: string = this.validateUsername(username, UsersContainerService.usernames);
 
         return new Promise<Message>((resolve: Function) => {

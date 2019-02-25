@@ -7,7 +7,7 @@ describe("Difference Checker", () => {
     const differenceChecker: DifferenceCheckerService = new DifferenceCheckerService();
     let game: Game;
 
-    beforeEach((done: MochaDone) => {
+    beforeEach((done: Mocha.Done) => {
         const ONE_SECOND: number = 1000;
         game = new Game("0", "voiture", GameType.Simple);
         setTimeout(done, ONE_SECOND);

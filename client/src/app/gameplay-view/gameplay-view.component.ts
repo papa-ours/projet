@@ -73,7 +73,9 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private playSound(): void {
-        this.SOUND.play();
         this.SOUND.currentTime = 0;
+        this.SOUND.play().catch((err: Error) => {
+            console.error(err);
+        });
     }
 }

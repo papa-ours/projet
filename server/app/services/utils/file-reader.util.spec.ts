@@ -14,7 +14,7 @@ describe("file-reader.util", () => {
         expect(result).to.deep.equal(data);
     });
 
-    it("should reject if the image doesn't exist", (done: MochaDone) => {
+    it("should reject if the image doesn't exist", (done: Mocha.Done) => {
         FileReaderUtil.readFile("")
             .then(() => done(new Error("Promise should not resolve")))
             .catch(() => done());
