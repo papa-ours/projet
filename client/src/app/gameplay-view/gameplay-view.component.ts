@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from "../../../../common/communication/constants";
@@ -24,6 +24,9 @@ export class GameplayViewComponent implements OnInit {
     public images: string[];
     public requiredDifferences: number;
     public type: GameType;
+    private canClick: boolean;
+
+    @ViewChild("container") private containerRef: ElementRef;
 
     public constructor(
         private route: ActivatedRoute,
@@ -34,6 +37,7 @@ export class GameplayViewComponent implements OnInit {
         this.requiredDifferences = this.nbPlayers === 1 ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
         this.foundDifferencesCounter = 0;
         this.images = [];
+        this.canClick = true;
     }
 
     public ngOnInit(): void {
@@ -53,13 +57,17 @@ export class GameplayViewComponent implements OnInit {
     }
 
     public checkDifference(position: [number, number]): void {
-        this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
-            .subscribe((isDifference: boolean) => {
-                if (isDifference) {
-                    this.differenceFound();
-                }
-            },
-        );
+        if (this.canClick) {
+            this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
+                .subscribe((isDifference: boolean) => {
+                    if (isDifference) {
+                        this.differenceFound();
+                    } else {
+                        this.identificationError(position);
+                    }
+                },
+            );
+        }
     }
 
     private differenceFound(): void {
@@ -77,5 +85,20 @@ export class GameplayViewComponent implements OnInit {
         this.SOUND.play().catch((err: Error) => {
             console.error(err);
         });
+    }
+
+    private identificationError(position: [number, number]): void {
+        this.changeCursor();
+    }
+
+    private changeCursor(): void {
+        const ONE_SEC: number = 1000;
+        this.canClick = false;
+        this.containerRef.nativeElement.style.cursor = "not-allowed";
+
+        setTimeout(() => {
+            this.containerRef.nativeElement.style.cursor = "context-menu";
+            this.canClick = true;
+        },         ONE_SEC);
     }
 }

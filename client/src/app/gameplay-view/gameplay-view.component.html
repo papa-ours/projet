@@ -1,31 +1,32 @@
 
-<div class="instruction-container">Trouvez les 7 différences</div>
+<div #container>
+    <div class="instruction-container">Trouvez les 7 différences</div>
 
-<div class="container">
-    <div class="title-container">{{name}}</div>
-    
-    <div class="info-container">
-        <span class="time-container">
-            <fa-icon [icon]="hourglassIcon" class="info-label"></fa-icon>
-            <span>00:00</span>
-        </span>
-        <span class="differences-count">
-            <span>{{foundDifferencesCounter}}/{{requiredDifferences}}</span>
-        </span>
-        <span *ngIf="nbPlayers==2" class="differences-count">
-            <span>{{foundDifferencesCounter}}/{{requiredDifferences}}</span>
-        </span>
-    </div>
-
-    <div class="images-chat-container">
-        <div *ngIf="type==0; else scenes"> 
-            <app-game-image *ngFor="let src of images" [source]="src" (checkDifference)="checkDifference($event)"></app-game-image>
+    <div class="game-container">
+        <div class="title-container">{{name}}</div>
+        
+        <div class="info-container">
+            <span class="time-container">
+                <fa-icon [icon]="hourglassIcon" class="info-label"></fa-icon>
+                <span>00:00</span>
+            </span>
+            <span class="differences-count">
+                <span>{{foundDifferencesCounter}}/{{requiredDifferences}}</span>
+            </span>
+            <span *ngIf="nbPlayers==2" class="differences-count">
+                <span>{{foundDifferencesCounter}}/{{requiredDifferences}}</span>
+            </span>
         </div>
-        <ng-template #scenes>
-            <app-scene3d [name]="name" [type]="0" [width]="500" [height]="375"></app-scene3d>
-            <app-scene3d [name]="name" [type]="1" [width]="500" [height]="375"></app-scene3d>
-        </ng-template>
-        <app-chat-messages></app-chat-messages>
-    </div>
 
+        <div class="images-chat-container">
+            <div *ngIf="type==0; else scenes"> 
+                <app-game-image *ngFor="let src of images" [source]="src" (checkDifference)="checkDifference($event)"></app-game-image>
+            </div>
+            <ng-template #scenes>
+                <app-scene3d [name]="name" [type]="0" [width]="500" [height]="375"></app-scene3d>
+                <app-scene3d [name]="name" [type]="1" [width]="500" [height]="375"></app-scene3d>
+            </ng-template>
+            <app-chat-messages></app-chat-messages>
+        </div>
+    </div>
 </div>
