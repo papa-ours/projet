@@ -1,4 +1,4 @@
-import { S3 } from "aws-sdk";
+import * as aws from "aws-sdk";
 import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
@@ -71,9 +71,14 @@ export class DifferenceImageController {
     }
 
     private createMulterObject(): multer.Instance {
-        const aws: S3 = new S3();
+        aws.config.update({
+            accessKeyId: "AKIAI23N35EM3WRJXQRA",
+            secretAccessKey: "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",
+        });
+
+        const s3: aws.S3 = new aws.S3();
         const storage: multer.StorageEngine = multerS3({
-            s3: aws,
+            s3: s3,
             bucket: "uploads-diffs",
             acl: "public-read",
             key: (req: Request, file: Express.Multer.File, callback: Function) => {
