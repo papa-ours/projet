@@ -23,7 +23,7 @@ export class ColorPickerComponent {
 
         this.colorPalettes = [
             {primary: "#379BFF", secondary: "#8AC4FF"},
-            {primary: "#03D300", secondary: "#12FF0F"},
+            {primary: "#F4429B", secondary: "#D1297D"},
             {primary: "#F73D1D", secondary: "#FF6247"},
             {primary: "#FF8B1E", secondary: "#FFB049"},
         ];
