@@ -57,12 +57,12 @@ export class ColorPickerComponent {
     }
 
     private changeHeaderTextColor(root: HTMLElement): void {
-        const headerTextColor: string = this.isDarkTheme ? "#FFFFFF": "#000000";
+        const headerTextColor: string = this.isDarkTheme ? "#FFFFFF" : "#000000";
         root.style.setProperty("--header-text-color", headerTextColor);
     }
 
     private changeHeaderSecondaryColor(root: HTMLElement): void {
-        const headerSecondaryColor: string = this.isDarkTheme ? "#404040": "#CCCCCC";
+        const headerSecondaryColor: string = this.isDarkTheme ? "#404040" : "#CCCCCC";
         root.style.setProperty("--header-secondary-color", headerSecondaryColor);
     }
 
