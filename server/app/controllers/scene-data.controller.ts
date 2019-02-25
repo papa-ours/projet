@@ -6,7 +6,7 @@ import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { GeometryData, Modification, ModificationType, SceneData } from "../../../common/communication/geometry";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
-import { FileWriterUtil } from "../services/utils/file-writer.util";
+import { S3FileReader } from "../services/utils/aws-file-reader";
 import Types from "../types";
 
 @injectable()
@@ -31,9 +31,9 @@ export class SceneDataController {
                 {name: "isColorChange", maxCount: 1},
                 {name: "objectType", maxCount: 1},
             ]),
-            (req: Request, res: Response, next: NextFunction) => {
+            async (req: Request, res: Response, next: NextFunction) => {
                 const scene: SceneData = this.getSceneData(req);
-                FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)))
+                await S3FileReader.writeFile(`${scene.name}-data.json`, Buffer.from(JSON.stringify(scene)))
                     .catch((err: Error) => console.error(err));
                 const SERVER_URL: string = `${SERVER_ADDRESS}/api/gamesheet/free/`;
                 Axios.post(SERVER_URL, { name: scene.name });
