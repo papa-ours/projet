@@ -11,18 +11,18 @@ type GeometryCreator = (size: number, material: THREE.Material) => THREE.Mesh;
 export class GeometryFactoryService {
 
     private geometryGeneratorService: GeometryGeneratorService;
-    private geometryTypeTofunction: Map<GeometryType, GeometryCreator>;
+    private geometryCreatorMap: Map<GeometryType, GeometryCreator>;
 
     public constructor() {
         this.geometryGeneratorService = new GeometryGeneratorService();
-        this.geometryTypeTofunction = new Map();
-        this.geometryTypeTofunction.set(GeometryType.SPHERE , this.geometryGeneratorService.createSphere);
-        this.geometryTypeTofunction.set(GeometryType.CUBE, this.geometryGeneratorService.createCube);
-        this.geometryTypeTofunction.set(GeometryType.CONE, this.geometryGeneratorService.createCone);
-        this.geometryTypeTofunction.set(GeometryType.CYLINDER, this.geometryGeneratorService.createCylinder);
-        this.geometryTypeTofunction.set(GeometryType.PYRAMID, this.geometryGeneratorService.createPyramid);
+        this.geometryCreatorMap = new Map();
+        this.geometryCreatorMap.set(GeometryType.SPHERE , this.geometryGeneratorService.createSphere);
+        this.geometryCreatorMap.set(GeometryType.CUBE, this.geometryGeneratorService.createCube);
+        this.geometryCreatorMap.set(GeometryType.CONE, this.geometryGeneratorService.createCone);
+        this.geometryCreatorMap.set(GeometryType.CYLINDER, this.geometryGeneratorService.createCylinder);
+        this.geometryCreatorMap.set(GeometryType.PYRAMID, this.geometryGeneratorService.createPyramid);
     }
     public createShape(size: number, material: THREE.Material, type: GeometryType): THREE.Mesh {
-        return (this.geometryTypeTofunction.get(type) as GeometryCreator)(size, material);
+        return (this.geometryCreatorMap.get(type) as GeometryCreator)(size, material);
     }
 }
