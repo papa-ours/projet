@@ -1,4 +1,4 @@
-import { HasId, GameType } from "../../../common/communication/game-description";
+import { GameType, HasId } from "../../../common/communication/game-description";
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
