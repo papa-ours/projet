@@ -25,6 +25,8 @@ describe("ConnectionService", () => {
     });
 
     it("should be a POST REQUEST", () => {
+        connectionService.getUsernameValidation("name")
+            .subscribe((data: string) => expect(data).toBeDefined());
         const request: TestRequest = httpMock.expectOne(`${connectionService.BASE_URL}name`);
         expect(request.request.method).toBe("POST");
         httpMock.verify();
