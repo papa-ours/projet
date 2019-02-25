@@ -6,7 +6,7 @@ export class DeplacementCameraService{
         const scene3d = document.getElementById(data);
         if (!!scene3d) {
             scene3d.addEventListener("keypress", (e: KeyboardEvent) => {
-            
+            render3d.moveCamera(1);
             });
         }
     }
