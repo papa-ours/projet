@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { GameSheet, TopScoresInterface, GameType } from "../../../common/communication/game-description";
+import { GameSheet, GameType, TopScoresInterface } from "../../../common/communication/game-description";
 import { Game } from "./game";
 import { GetGameService } from "./get-game.service";
 

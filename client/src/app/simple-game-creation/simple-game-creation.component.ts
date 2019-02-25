@@ -28,7 +28,7 @@ export class SimpleGameCreationComponent {
     private readonly N_IMAGES: number = 2;
     public readonly OPTION_MIN_NAME_LENGTH: number = 5;
     public readonly OPTION_MAX_NAME_LENGTH: number = 15;
-    
+
     private name: string;
     private imageFiles: File[];
     public errorMessage: string;
