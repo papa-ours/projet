@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout # check out the code in the project directory
       - store_artifacts:
-          path: /home/circleci/project/server
+          path: /home/circleci/project/server/npm-debug.log
           destination: artifacts
       - run: 
           name: update-npm-server
