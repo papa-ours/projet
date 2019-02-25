@@ -48,8 +48,8 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private setImagesPath(): void {
-        this.images[ImageType.Original] = `${SERVER_ADDRESS}/${this.name}-originalImage.bmp`;
-        this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
+        this.images[ImageType.Original] = `https://s3.amazonaws.com/uploads-diffs/${this.name}-originalImage.bmp`;
+        this.images[ImageType.Modified] = `https://s3.amazonaws.com/uploads-diffs/${this.name}-modifiedImage.bmp`;
     }
 
     public checkDifference(position: [number, number]): void {
