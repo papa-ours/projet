@@ -20,6 +20,7 @@
 
         <div class="images-chat-container">
             <div *ngIf="type==0; else scenes"> 
+                <div #error [style.left.px]="clickPosition[0]" [style.top.px]="clickPosition[1]" class="error-tag" *ngIf="showError">ERREUR</div>
                 <app-game-image *ngFor="let src of images" [source]="src" (checkDifference)="checkDifference($event)"></app-game-image>
             </div>
             <ng-template #scenes>

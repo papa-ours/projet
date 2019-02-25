@@ -59,3 +59,7 @@ app-chat-messages {
     position: relative;
     text-align: center;
 }
+
+.error-tag {
+    position: absolute;
+}

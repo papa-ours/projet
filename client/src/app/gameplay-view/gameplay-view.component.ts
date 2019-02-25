@@ -26,6 +26,8 @@ export class GameplayViewComponent implements OnInit {
     public requiredDifferences: number;
     public type: GameType;
     private canClick: boolean;
+    public showError: boolean;
+    public clickPosition: [number, number];
 
     @ViewChild("container") private containerRef: ElementRef;
 
@@ -39,6 +41,7 @@ export class GameplayViewComponent implements OnInit {
         this.foundDifferencesCounter = 0;
         this.images = [];
         this.canClick = true;
+        this.showError = false;
     }
 
     public ngOnInit(): void {
@@ -57,14 +60,15 @@ export class GameplayViewComponent implements OnInit {
         this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
     }
 
-    public checkDifference(position: [number, number]): void {
+    public checkDifference(position: [[number, number], [number, number]]): void {
+        this.clickPosition = position[0];
         if (this.canClick) {
-            this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
+            this.differenceCheckerService.isPositionDifference(this.id, position[1][0], position[1][1])
                 .subscribe((isDifference: boolean) => {
                     if (isDifference) {
                         this.differenceFound();
                     } else {
-                        this.identificationError(position);
+                        this.identificationError(position[0]);
                     }
                 },
             );
@@ -88,13 +92,6 @@ export class GameplayViewComponent implements OnInit {
         });
     }
 
-    private playWrongSound(): void {
-        this.WRONGANSWER.currentTime = 0;
-        this.WRONGANSWER.play().catch((err: Error) => {
-            console.error(err);
-        });
-    }
-
     private identificationError(position: [number, number]): void {
         this.changeCursor();
         this.playWrongSound();
@@ -102,15 +99,24 @@ export class GameplayViewComponent implements OnInit {
 
     private changeCursor(): void {
         const ONE_SEC: number = 1000;
-        const normalCursor: string = "not-allowed";
-        const errorCursor: string = "context-menu";
+        const normalCursor: string = "context-menu";
+        const errorCursor: string = "not-allowed";
 
         this.canClick = false;
-        this.containerRef.nativeElement.style.cursor = normalCursor;
+        this.showError = true;
+        this.containerRef.nativeElement.style.cursor = errorCursor;
 
         setTimeout(() => {
-            this.containerRef.nativeElement.style.cursor = errorCursor;
+            this.containerRef.nativeElement.style.cursor = normalCursor;
             this.canClick = true;
+            this.showError = false;
         },         ONE_SEC);
+    }
+
+    private playWrongSound(): void {
+        this.WRONGANSWER.currentTime = 0;
+        this.WRONGANSWER.play().catch((err: Error) => {
+            console.error(err);
+        });
     }
 }
