@@ -60,10 +60,11 @@ describe("Difference Image Generator", () => {
     it("should generate the difference image correctly", () => {
         differenceImageService.generateDifferenceImage(
             "testing",
-            ["test/voiture-originalImage.bmp", "test/voiture-modifiedImage.bmp"])
-                .then((image: DifferenceImage) => {
-
-                    expect(image).not.to.equals(undefined);
-                });
+            ["test/voiture-originalImage.bmp", "test/voiture-modifiedImage.bmp"],
+        ).then((image: DifferenceImage) => {
+            expect(image).not.to.equals(undefined);
+        }).catch((err: Error) => {
+            console.error(err);
+        });
     });
 });
