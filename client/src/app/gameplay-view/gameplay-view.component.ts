@@ -46,7 +46,7 @@ export class GameplayViewComponent implements OnInit {
             });
             this.setImagesPath();
             if (this.type === 0) {
-                DeplacementCameraService.keyPress();
+                DeplacementCameraService.keyPress("scene3d");
             }
         });
     }
