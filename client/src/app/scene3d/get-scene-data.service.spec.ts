@@ -29,7 +29,7 @@ describe("GetSceneDataService", () => {
     it("should be a GET Request", () => {
         getSceneDataService.getSceneData("Test")
             .subscribe((data: SceneData) => expect(data).toBeDefined());
-        const request = httpMock.expectOne(`${getSceneDataService.URL}/Test-data.txt`);
+        const request: TestRequest = httpMock.expectOne(`${getSceneDataService.URL}/Test-data.txt`);
         expect(request.request.method).toBe("GET");
     });
 });
