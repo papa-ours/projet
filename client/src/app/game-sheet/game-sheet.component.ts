@@ -1,6 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
-import { SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameSheet, GameType } from "../../../../common/communication/game-description";
 
 @Component({
