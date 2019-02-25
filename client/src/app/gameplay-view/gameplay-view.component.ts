@@ -14,17 +14,17 @@ import { GameplayService } from "../gameplay.service";
 })
 export class GameplayViewComponent implements OnInit {
 
+    public readonly nbPlayers: number;
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
     private readonly SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
-    public readonly nbPlayers: number;
 
     public foundDifferencesCounter: number;
-    private name: string;
-    private id: string;
     public images: string[];
     public requiredDifferences: number;
     public type: GameType;
     public chrono: number;
+    private name: string;
+    private id: string;
     private isChronoRunning: boolean;
 
     public constructor(
