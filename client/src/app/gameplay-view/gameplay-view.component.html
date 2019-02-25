@@ -22,8 +22,8 @@
             <app-game-image *ngFor="let src of images" [source]="src" (checkDifference)="checkDifference($event)"></app-game-image>
         </div>
         <ng-template #scenes>
-            <app-scene3d id="scene3d" [name]="name" [type]="0" [width]="500" [height]="375"></app-scene3d>
-            <app-scene3d id="scene3d" [name]="name" [type]="1" [width]="500" [height]="375"></app-scene3d>
+            <app-scene3d [name]="name" [type]="0" [width]="500" [height]="375"></app-scene3d>
+            <app-scene3d [name]="name" [type]="1" [width]="500" [height]="375"></app-scene3d>
         </ng-template>
         <app-chat-messages></app-chat-messages>
     </div>
