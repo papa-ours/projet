@@ -46,7 +46,7 @@ export class DifferenceImageController {
                         message.body =
                             "Les images n'ont pas exactement " + REQUIRED_DIFFERENCES_1P + " différences, la création a été annulée";
                     } else {
-                        this.writeFile(differenceImage.toArray());
+                        this.writeFile(differenceImage.toArray(), name);
                     }
                 } catch (err) {
                     message.body = err.message;
@@ -59,7 +59,7 @@ export class DifferenceImageController {
         return router;
     }
 
-    private writeFile(data: Uint8Array): void {
+    private writeFile(data: Uint8Array, name: string): void {
         FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, Buffer.from(data))
             .catch((err: Error) => {
                 console.error(err);
