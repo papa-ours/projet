@@ -2,13 +2,15 @@ import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { GameSheet, GameType } from "../../../common/communication/game-description";
 import Types from "../types";
+import { DBConnectionService } from "./db-connection.service";
 import { GetGameService } from "./get-game.service";
 import { TopScores } from "./score/top-scores";
 
 @injectable()
 export class GameSheetGenerationService {
 
-    public constructor(@inject(Types.GetGameService) private getGameService: GetGameService) {}
+    public constructor(
+        @inject(Types.GetGameService) private getGameService: GetGameService) {}
 
     public createGameSheet(name: string, type: GameType): void {
         const gameSheet: GameSheet = {
@@ -17,6 +19,7 @@ export class GameSheetGenerationService {
             topScores: this.generateTopScores(),
         };
         this.getGameService.addGameSheet(gameSheet, type);
+        DBConnectionService.getInstance().saveGameSheet(gameSheet, type);
     }
 
     private generateTopScores(): TopScores[] {
