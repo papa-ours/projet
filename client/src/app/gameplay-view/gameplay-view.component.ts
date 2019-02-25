@@ -6,7 +6,6 @@ import { GameType } from "../../../../common/communication/game-description";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
 import { GameplayService } from "../gameplay.service";
-import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 
 @Component({
     selector: "app-gameplay-view",
