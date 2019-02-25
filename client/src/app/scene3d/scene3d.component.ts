@@ -3,6 +3,7 @@ import { GeometryData, SceneData } from "../../../../common/communication/geomet
 import { GetSceneDataService } from "./get-scene-data.service";
 import { RenderService } from "./render.service";
 import { SceneGeneratorService } from "./scene-generator.service";
+import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 
 @Component({
     selector: "app-scene3d",
@@ -40,6 +41,7 @@ export class Scene3dComponent implements AfterViewInit {
         this.getSceneData.getSceneData(this.name).subscribe((sceneData: SceneData) => {
             const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
             this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
+            DeplacementCameraService.keyPress("scene3d");
         });
     }
 
