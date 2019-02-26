@@ -15,8 +15,8 @@ import { GameplayService } from "../gameplay.service";
 export class GameplayViewComponent implements OnInit {
 
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
-    private readonly CORRECTSOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
-    private readonly WRONGANSWER: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
+    private readonly CORRECT_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
+    private readonly WRONG_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
     public readonly nbPlayers: number;
 
     public foundDifferencesCounter: number;
@@ -53,6 +53,9 @@ export class GameplayViewComponent implements OnInit {
             });
             this.setImagesPath();
         });
+        const VOLUME: number = 0.2;
+        this.CORRECT_SOUND.volume = VOLUME;
+        this.WRONG_SOUND.volume = VOLUME;
     }
 
     private setImagesPath(): void {
@@ -61,14 +64,14 @@ export class GameplayViewComponent implements OnInit {
     }
 
     public checkDifference(position: [[number, number], [number, number]]): void {
-        this.clickPosition = position[0];
         if (this.canClick) {
+            this.clickPosition = position[0];
             this.differenceCheckerService.isPositionDifference(this.id, position[1][0], position[1][1])
                 .subscribe((isDifference: boolean) => {
                     if (isDifference) {
                         this.differenceFound();
                     } else {
-                        this.identificationError(position[0]);
+                        this.identificationError();
                     }
                 },
             );
@@ -86,36 +89,36 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private playCorrectSound(): void {
-        this.CORRECTSOUND.currentTime = 0;
-        this.CORRECTSOUND.play().catch((err: Error) => {
+        this.CORRECT_SOUND.currentTime = 0;
+        this.CORRECT_SOUND.play().catch((err: Error) => {
             console.error(err);
         });
     }
 
-    private identificationError(position: [number, number]): void {
-        this.changeCursor();
+    private identificationError(): void {
+        this.displayErrorFeedback();
         this.playWrongSound();
     }
 
-    private changeCursor(): void {
+    private displayErrorFeedback(): void {
         const ONE_SEC: number = 1000;
-        const normalCursor: string = "context-menu";
-        const errorCursor: string = "not-allowed";
+        const NORMAL_CURSOR: string = "context-menu";
+        const ERROR_CURSOR: string = "not-allowed";
 
         this.canClick = false;
         this.showError = true;
-        this.containerRef.nativeElement.style.cursor = errorCursor;
+        this.containerRef.nativeElement.style.cursor = ERROR_CURSOR;
 
         setTimeout(() => {
-            this.containerRef.nativeElement.style.cursor = normalCursor;
+            this.containerRef.nativeElement.style.cursor = NORMAL_CURSOR;
             this.canClick = true;
             this.showError = false;
         },         ONE_SEC);
     }
 
     private playWrongSound(): void {
-        this.WRONGANSWER.currentTime = 0;
-        this.WRONGANSWER.play().catch((err: Error) => {
+        this.WRONG_SOUND.currentTime = 0;
+        this.WRONG_SOUND.play().catch((err: Error) => {
             console.error(err);
         });
     }
