@@ -2,6 +2,7 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 import { GameSheet, GameType, HasId } from "../../../common/communication/game-description";
 import { Game } from "./game";
+import { TopScores } from "./score/top-scores";
 
 @injectable()
 export class GetGameService {
@@ -85,6 +86,20 @@ export class GetGameService {
         const index: number = GetGameService.gameSheets[type].indexOf(gameSheet);
 
         GetGameService.gameSheets[type].splice(index, 1);
+    }
+
+    private generateTopScores(): TopScores[] {
+        const TOP_SCORES_LENGTH: number = 2;
+
+        return [...Array(TOP_SCORES_LENGTH)].map(() => {
+
+            return new TopScores();
+        });
+    }
+
+    public reinitializeScores(id: string, type: GameType): void {
+        const gameSheet: GameSheet = this.getGameSheet(id, type);
+        gameSheet.topScores = this.generateTopScores();
     }
 
     public emptyGameSheets(): void {
