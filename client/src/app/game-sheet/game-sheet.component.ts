@@ -49,4 +49,11 @@ export class GameSheetComponent implements OnInit {
         }
     }
 
+    public reinit(): void {
+        this.deleteGameSheetService.reinitializeScores(this.description.id, this.type)
+            .subscribe(() => {
+                location.reload();
+            });
+    }
+
 }
