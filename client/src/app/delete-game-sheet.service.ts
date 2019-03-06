@@ -22,6 +22,12 @@ export class DeleteGameSheetService {
         );
     }
 
+    public reinitializeScores(id: string, type: GameType): Observable<Message> {
+        return this.http.post<Message>(this.URL, {id: id, type: type})
+            .pipe(catchError(this.handleError<Message>("reinitializeScores")),
+        );
+    }
+
     private handleError<T>(request: string, result?: T): (error: Error) => Observable<T> {
         return (error: Error): Observable<T> => of(result as T);
     }
