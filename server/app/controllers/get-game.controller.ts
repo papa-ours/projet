@@ -28,6 +28,8 @@ export class GetGameController {
             "/sheet/:id/:type",
             (req: Request, res: Response, next: NextFunction) => {
                 this.getGameService.deleteGameSheet(req.params.id, req.params.type);
+
+                res.send();
             });
 
         return router;
