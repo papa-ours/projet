@@ -80,6 +80,13 @@ export class GetGameService {
         return id;
     }
 
+    public deleteGameSheet(id: string, type: GameType): void {
+        const gameSheet: GameSheet = this.getGameSheet(id, type);
+        const index: number = GetGameService.gameSheets[type].indexOf(gameSheet);
+
+        GetGameService.gameSheets[type].splice(index, 1);
+    }
+
     public emptyGameSheets(): void {
         GetGameService.gameSheets[0] = [];
         GetGameService.gameSheets[1] = [];
