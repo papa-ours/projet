@@ -6,6 +6,7 @@ import { GameType } from "../../../../common/communication/game-description";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
 import { GameplayService } from "../gameplay.service";
+import { SocketService } from "../socket.service";
 
 @Component({
     selector: "app-gameplay-view",
@@ -29,6 +30,7 @@ export class GameplayViewComponent implements OnInit {
         private route: ActivatedRoute,
         private differenceCheckerService: DifferenceCheckerService,
         private gameplayService: GameplayService,
+        private socketService: SocketService,
     ) {
         this.nbPlayers = 1;
         this.requiredDifferences = this.nbPlayers === 1 ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
@@ -57,6 +59,8 @@ export class GameplayViewComponent implements OnInit {
             .subscribe((isDifference: boolean) => {
                 if (isDifference) {
                     this.differenceFound();
+                } else {
+                    this.showErrorChat();
                 }
             },
         );
@@ -66,6 +70,7 @@ export class GameplayViewComponent implements OnInit {
         this.foundDifferencesCounter++;
         this.updateDifferenceImage();
         this.playSound();
+        this.showFoundDifferenceChat();
     }
 
     private updateDifferenceImage(): void {
@@ -77,5 +82,13 @@ export class GameplayViewComponent implements OnInit {
         this.SOUND.play().catch((err: Error) => {
             console.error(err);
         });
+    }
+
+    private showFoundDifferenceChat(): void {
+        this.socketService.sendFoundDifferenceChat();
+    }
+
+    private showErrorChat(): void {
+        this.socketService.sendErrorChat();
     }
 }

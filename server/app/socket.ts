@@ -17,6 +17,14 @@ export class Socket {
 
         this.io.on("connection", (socket: SocketIO.Socket) => {
             this.setupDisconnect(socket);
+            socket.on("DifferenceFound", (data: string) => {
+                const message: string = `${data} a trouvé une difference`;
+                socket.emit("DifferenceFound", message);
+            });
+            socket.on("ErrorIdentification", (data: string) => {
+                const message: string = `${data} a fait une erreur d'identification`;
+                socket.emit("ErrorIdentification", message);
+            });
         });
     }
 
