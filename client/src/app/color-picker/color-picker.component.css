@@ -64,7 +64,7 @@
     z-index: 4;
     position: absolute;
     grid-template-columns: repeat(2, 41px);
-    grid-template-rows: repeat(4, 41px);
+    grid-template-rows: repeat(6, 41px);
     background-image: linear-gradient(var(--header-secondary-color), var(--header-color));
     padding-right: 7px;
     padding-bottom: 7px;
@@ -82,11 +82,11 @@
 }
 
 .switch.text-color {
-    grid-row: 4;
+    grid-row: 6;
 }
 
 .switch.switch.theme-color {
-    grid-row: 3;
+    grid-row: 5;
 }
   
 .switch input { 
