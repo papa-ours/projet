@@ -32,6 +32,14 @@ export class GetGameController {
                 res.send();
             });
 
+        router.post(
+            "/sheet/",
+            (req: Request, res: Response, next: NextFunction) => {
+                this.getGameService.reinitializeScores(req.body.id, req.body.type);
+
+                res.send();
+            });
+
         return router;
     }
 }
