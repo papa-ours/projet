@@ -13,7 +13,7 @@ export class RaycasterService {
        this.mouse = new THREE.Vector2();
        this.rayCaster = new THREE.Raycaster();
     }
-    private computeMousePosition(event: MouseEvent, container: HTMLDivElement) {
+    private computeMousePosition(event: MouseEvent, container: HTMLDivElement): void {
         const boundingRect: ClientRect = container.getBoundingClientRect();
         this.mouse.x = 2 * ( (event.clientX - boundingRect.left) / container.clientWidth ) - 1;
         this.mouse.y = 1 - 2* ( (event.clientY - boundingRect.top)/ container.clientHeight );
