@@ -41,27 +41,30 @@ export class Socket {
         this.io.emit("chatMessage", message);
     }
 
+    // tslint:disable:max-func-body-length
     private setupChatMessage(socket: SocketIO.Socket): void {
         socket.on("chatMessage", (event: ChatEvent) => {
             let message: ChatMessage;
+            let textMessage: string;
             switch (event) {
                 case ChatEvent.CONNECT:
-                    const suffixMessage: string = " vient de se connecter.";
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id}${suffixMessage}`};
+                    textMessage = " vient de se connecter.";
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id}${textMessage}`};
                     this.io.emit("chatMessage", message);
                     break;
                 case ChatEvent.FOUND_DIFFERENCE:
-                    const textMessage: string = "Différence trouvée.";
+                    textMessage = "Différence trouvée.";
                     message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${textMessage}`};
                     socket.emit("chatMessage", message);
                     break;
                 case ChatEvent.ERROR_IDENTIFICATION:
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: "Erreur."};
+                    textMessage = "Erreur.";
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${textMessage}`};
                     socket.emit("chatMessage", message);
                     break;
                 case ChatEvent.BEST_TIME:
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id}  obtient la POSITION place dans les meilleurs temps du
-                    jeu NOM_JEU en solo.`};
+                    textMessage = "  obtient la POSITION place dans les meilleurs temps du jeu NOM_JEU en solo.";
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id}${textMessage}`};
                     this.io.emit("chatMessage", message);
                     break;
                 default: {
