@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
 import { GeometryData, SceneData } from "../../../../common/communication/geometry";
 import { GetSceneDataService } from "./get-scene-data.service";
+import { RaycasterService } from "./raycaster.service";
 import { RenderService } from "./render.service";
 import { SceneGeneratorService } from "./scene-generator.service";
 
@@ -23,8 +24,11 @@ export class Scene3dComponent implements AfterViewInit {
         private renderService: RenderService,
         private getSceneData: GetSceneDataService,
         private sceneGeneratorService: SceneGeneratorService,
+        private rayCasterService: RaycasterService,
     ) {
         this.name = "";
+        this.renderService = new RenderService();
+        this.rayCasterService = new RaycasterService(this.renderService);
     }
 
     private get container(): HTMLDivElement {
@@ -41,6 +45,11 @@ export class Scene3dComponent implements AfterViewInit {
             const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
             this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
         });
+    }
+
+    @HostListener("click", ["$event"])
+    public mouseClicked(event: MouseEvent): void {
+        this.rayCasterService.findObject(event, this.container);
     }
 
 }
