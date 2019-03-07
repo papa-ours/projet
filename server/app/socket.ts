@@ -1,7 +1,7 @@
 import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
-import { ChatEvent, ChatMessage } from "../../common/communication/message";
+import { ChatEvent, ChatMessage, ChatTime } from "../../common/communication/message";
 import { UsersContainerService } from "./services/users-container.service";
 import Types from "./types";
 
@@ -34,7 +34,7 @@ export class Socket {
     }
 
     private emitDeconnectionMessage(socket: SocketIO.Socket): void {
-        const message: ChatMessage = {chatEvent: ChatEvent.DISCONNECT,
+        const message: ChatMessage = {chatTime: this.getTime(), chatEvent: ChatEvent.DISCONNECT,
                                       username: socket.id,
                                       text: `${socket.id} vient de se déconnecter`};
         this.io.emit("chatMessage", message);
@@ -45,29 +45,47 @@ export class Socket {
             let message: ChatMessage;
             switch (event) {
                 case ChatEvent.CONNECT: {
-                    message = {chatEvent: event, username: socket.id, text: `${socket.id} vient de se connecter`};
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id} vient de se connecter`};
                     this.io.emit("chatMessage", message);
                     break;
                 }
                 case ChatEvent.FOUND_DIFFERENCE: {
-                    message = {chatEvent: event, username: socket.id, text: `${socket.id} a trouvé une difference`};
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id} a trouvé une difference`};
                     socket.emit("chatMessage", message);
                     break;
                 }
                 case ChatEvent.ERROR_IDENTIFICATION: {
-                    message = {chatEvent: event, username: socket.id, text: `${socket.id} a fait une erreur d'identification`};
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id} a fait une erreur d'identification`};
                     socket.emit("chatMessage", message);
                     break;
                 }
                 case ChatEvent.BEST_TIME: {
-                    message = {chatEvent: event, username: socket.id, text: `${socket.id} a terminé une partie avec un temps record`};
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id} a terminé une partie avec un temps record`};
                     this.io.emit("chatMessage", message);
                     break;
                 }
                 default: {
-                    message = {chatEvent: event, username: socket.id, text: ""};
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: ""};
                 }
             }
         });
+    }
+
+    private getTime(): ChatTime {
+        const currentTime: Date = new Date();
+
+        return {hours: currentTime.getHours(),
+                minutes: this.checkTime(currentTime.getMinutes()),
+                seconds: this.checkTime(currentTime.getSeconds())};
+    }
+
+    private checkTime(time: number): string {
+        const FIRST_TWO_DIGITS_NUMBER: number = 10;
+        let timeString: string = time.toString();
+        if (time < FIRST_TWO_DIGITS_NUMBER) {
+            timeString = "0" + timeString;
+        }
+
+        return timeString;
     }
 }

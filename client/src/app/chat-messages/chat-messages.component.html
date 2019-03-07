@@ -1,6 +1,6 @@
 <div #chatContainer class="chat-container">
     <div class="title">Messages système :</div>
     <div class="message" *ngFor="let message of chatMessages">
-        {{ message.text }}
+        {{ message.chatTime.hours }}:{{ message.chatTime.minutes }}:{{ message.chatTime.seconds }} - {{ message.text }}
     </div>
 </div>

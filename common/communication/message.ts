@@ -11,9 +11,16 @@ export enum MessageType {
 }
 
 export interface ChatMessage {
+    chatTime: ChatTime;
     chatEvent: ChatEvent;
     username: string;
     text: string;
+}
+
+export interface ChatTime {
+    hours: number;
+    minutes: string;
+    seconds: string;
 }
 
 export enum ChatEvent {
