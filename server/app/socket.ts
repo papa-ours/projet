@@ -44,26 +44,23 @@ export class Socket {
         socket.on("chatMessage", (event: ChatEvent) => {
             let message: ChatMessage;
             switch (event) {
-                case ChatEvent.CONNECT: {
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id} vient de se connecter`};
+                case ChatEvent.CONNECT:
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id} vient de se connecter.`};
                     this.io.emit("chatMessage", message);
                     break;
-                }
-                case ChatEvent.FOUND_DIFFERENCE: {
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id} a trouvé une difference`};
+                case ChatEvent.FOUND_DIFFERENCE:
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: "Différence trouvée."};
                     socket.emit("chatMessage", message);
                     break;
-                }
-                case ChatEvent.ERROR_IDENTIFICATION: {
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id} a fait une erreur d'identification`};
+                case ChatEvent.ERROR_IDENTIFICATION:
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: "Erreur."};
                     socket.emit("chatMessage", message);
                     break;
-                }
-                case ChatEvent.BEST_TIME: {
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id} a terminé une partie avec un temps record`};
+                case ChatEvent.BEST_TIME:
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id}  obtient la POSITION place dans les meilleurs temps du
+                    jeu NOM_JEU en solo.`};
                     this.io.emit("chatMessage", message);
                     break;
-                }
                 default: {
                     message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: ""};
                 }
