@@ -34,15 +34,15 @@ export class Socket {
     }
 
     private setupDifferenceFound(socket: SocketIO.Socket): void {
-        socket.on("DifferenceFound", (data: string) => {
-            const message: ChatMessage = {username: data, text: `${data} a trouvé une difference`};
+        socket.on("DifferenceFound", (socketId: string) => {
+            const message: ChatMessage = {username: socketId, text: `${socketId} a trouvé une difference`};
             this.io.emit("DifferenceFound", message);
         });
     }
 
     private setupErrorIdentification(socket: SocketIO.Socket): void {
-        socket.on("ErrorIdentification", (data: string) => {
-            const message: ChatMessage = {username: data, text: `${data} a fait une erreur d'identification`};
+        socket.on("ErrorIdentification", (socketId: string) => {
+            const message: ChatMessage = {username: socketId, text: `${socketId} a fait une erreur d'identification`};
             this.io.emit("ErrorIdentification", message);
         });
     }
