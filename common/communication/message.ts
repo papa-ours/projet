@@ -11,6 +11,15 @@ export enum MessageType {
 }
 
 export interface ChatMessage {
+    chatEvent: ChatEvent;
     username: string;
     text: string;
+}
+
+export enum ChatEvent {
+    CONNECT,
+    DISCONNECT,
+    FOUND_DIFFERENCE,
+    ERROR_IDENTIFICATION,
+    BEST_TIME,
 }

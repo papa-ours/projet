@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
+import { ChatEvent } from "../../../../common/communication/message";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
 import { GameplayService } from "../gameplay.service";
@@ -60,7 +61,7 @@ export class GameplayViewComponent implements OnInit {
                 if (isDifference) {
                     this.differenceFound();
                 } else {
-                    this.showErrorChat();
+                    this.sendChatMessage(ChatEvent.ERROR_IDENTIFICATION);
                 }
             },
         );
@@ -70,7 +71,7 @@ export class GameplayViewComponent implements OnInit {
         this.foundDifferencesCounter++;
         this.updateDifferenceImage();
         this.playSound();
-        this.showFoundDifferenceChat();
+        this.sendChatMessage(ChatEvent.FOUND_DIFFERENCE);
     }
 
     private updateDifferenceImage(): void {
@@ -84,11 +85,7 @@ export class GameplayViewComponent implements OnInit {
         });
     }
 
-    private showFoundDifferenceChat(): void {
-        this.socketService.sendFoundDifferenceChat();
-    }
-
-    private showErrorChat(): void {
-        this.socketService.sendErrorChat();
+    private sendChatMessage(event: ChatEvent): void {
+        this.socketService.sendChatMessage(event);
     }
 }

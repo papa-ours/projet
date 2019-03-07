@@ -1,7 +1,7 @@
 import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
-import { ChatMessage } from "../../common/communication/message";
+import { ChatEvent, ChatMessage } from "../../common/communication/message";
 import { UsersContainerService } from "./services/users-container.service";
 import Types from "./types";
 
@@ -18,8 +18,7 @@ export class Socket {
 
         this.io.on("connection", (socket: SocketIO.Socket) => {
             this.setupDisconnect(socket);
-            this.setupDifferenceFound(socket);
-            this.setupErrorIdentification(socket);
+            this.setupChatMessage(socket);
         });
     }
 
@@ -33,17 +32,31 @@ export class Socket {
         this.usersContainerService.deleteUserById(id);
     }
 
-    private setupDifferenceFound(socket: SocketIO.Socket): void {
-        socket.on("DifferenceFound", (socketId: string) => {
-            const message: ChatMessage = {username: socketId, text: `${socketId} a trouvé une difference`};
-            this.io.emit("DifferenceFound", message);
-        });
-    }
-
-    private setupErrorIdentification(socket: SocketIO.Socket): void {
-        socket.on("ErrorIdentification", (socketId: string) => {
-            const message: ChatMessage = {username: socketId, text: `${socketId} a fait une erreur d'identification`};
-            this.io.emit("ErrorIdentification", message);
+    private setupChatMessage(socket: SocketIO.Socket): void {
+        socket.on("chatMessage", (event: ChatEvent) => {
+            let message: ChatMessage;
+            switch (event) {
+                case ChatEvent.CONNECT: {
+                    message = {chatEvent: event, username: socket.id, text: `${socket.id} vient de se connecter`};
+                    break;
+                }
+                case ChatEvent.FOUND_DIFFERENCE: {
+                    message = {chatEvent: event, username: socket.id, text: `${socket.id} a trouvé une difference`};
+                    break;
+                }
+                case ChatEvent.ERROR_IDENTIFICATION: {
+                    message = {chatEvent: event, username: socket.id, text: `${socket.id} a fait une erreur d'identification`};
+                    break;
+                }
+                case ChatEvent.DISCONNECT: {
+                    message = {chatEvent: event, username: socket.id, text: `${socket.id} vient de se déconnecter`};
+                    break;
+                }
+                default: {
+                    message = {chatEvent: event, username: socket.id, text: ""};
+                }
+            }
+            this.io.emit("chatMessage", message);
         });
     }
 }
