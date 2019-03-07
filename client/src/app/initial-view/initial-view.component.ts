@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { ChatEvent } from "../../../../common/communication/message";
 import { ConnectionService } from "../connection.service";
+import { SocketService } from "../socket.service";
 
 @Component({
     selector: "app-initial-view",
@@ -14,6 +16,7 @@ export class InitialViewComponent implements OnInit {
     public constructor(
         private connectionService: ConnectionService,
         private router: Router,
+        private socketService: SocketService,
     ) {
         this.username = "";
         this.usernameValidationMessage = "";
@@ -36,6 +39,7 @@ export class InitialViewComponent implements OnInit {
             if (this.usernameValidationMessage === "") {
                 this.connectionService.connected = true;
                 this.connectionService.username = this.username;
+                this.socketService.sendChatMessage(ChatEvent.CONNECT);
                 this.router.navigateByUrl("/gamelist/" + this.username)
                     .catch((err: Error) => {
                         console.error(err);

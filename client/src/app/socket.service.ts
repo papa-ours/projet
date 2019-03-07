@@ -12,7 +12,6 @@ export class SocketService {
 
     public constructor() {
         this.socket = io(this.BASE_URL);
-        this.setupConnection(this.socket);
         this.setupDeconnection(this.socket);
     }
 
@@ -30,12 +29,6 @@ export class SocketService {
             this.socket.on("chatMessage", (data: ChatMessage) => {
                 observer.next(data);
             });
-        });
-    }
-
-    private setupConnection(socket: SocketIOClient.Socket): void {
-        socket.on("connect", () => {
-            this.socket.emit("chatMessage", ChatEvent.CONNECT);
         });
     }
 
