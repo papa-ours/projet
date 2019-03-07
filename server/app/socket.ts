@@ -56,6 +56,10 @@ export class Socket {
                     message = {chatEvent: event, username: socket.id, text: `${socket.id} a fait une erreur d'identification`};
                     break;
                 }
+                case ChatEvent.BEST_TIME: {
+                    message = {chatEvent: event, username: socket.id, text: `${socket.id} a terminé une partie avec un temps record`};
+                    break;
+                }
                 default: {
                     message = {chatEvent: event, username: socket.id, text: ""};
                 }
