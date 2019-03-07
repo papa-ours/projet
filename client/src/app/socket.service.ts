@@ -12,7 +12,6 @@ export class SocketService {
 
     public constructor() {
         this.socket = io(this.BASE_URL);
-        this.setupDeconnection(this.socket);
     }
 
     public get id(): string {
@@ -29,12 +28,6 @@ export class SocketService {
             this.socket.on("chatMessage", (data: ChatMessage) => {
                 observer.next(data);
             });
-        });
-    }
-
-    private setupDeconnection(socket: SocketIOClient.Socket): void {
-        socket.on("disconnect", () => {
-            this.socket.emit("chatMessage", ChatEvent.DISCONNECT);
         });
     }
 }

@@ -25,11 +25,19 @@ export class Socket {
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
             this.deleteUser(socket.id);
+            this.emitDeconnectionMessage(socket);
         });
     }
 
     private deleteUser(id: string): void {
         this.usersContainerService.deleteUserById(id);
+    }
+
+    private emitDeconnectionMessage(socket: SocketIO.Socket): void {
+        const message: ChatMessage = {chatEvent: ChatEvent.DISCONNECT,
+                                      username: socket.id,
+                                      text: `${socket.id} vient de se déconnecter`};
+        this.io.emit("chatMessage", message);
     }
 
     private setupChatMessage(socket: SocketIO.Socket): void {
@@ -46,10 +54,6 @@ export class Socket {
                 }
                 case ChatEvent.ERROR_IDENTIFICATION: {
                     message = {chatEvent: event, username: socket.id, text: `${socket.id} a fait une erreur d'identification`};
-                    break;
-                }
-                case ChatEvent.DISCONNECT: {
-                    message = {chatEvent: event, username: socket.id, text: `${socket.id} vient de se déconnecter`};
                     break;
                 }
                 default: {
