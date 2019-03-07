@@ -13,10 +13,15 @@ export class RaycasterService {
        this.mouse = new THREE.Vector2();
        this.rayCaster = new THREE.Raycaster();
     }
+
     private computeMousePosition(event: MouseEvent, container: HTMLDivElement): void {
         const boundingRect: ClientRect = container.getBoundingClientRect();
-        this.mouse.x = 2 * ( (event.clientX - boundingRect.left) / container.clientWidth ) - 1;
-        this.mouse.y = 1 - 2* ( (event.clientY - boundingRect.top)/ container.clientHeight );
+        const ratioX: number = (event.clientX - boundingRect.left) / container.clientWidth;
+        const ratioY: number = (event.clientY - boundingRect.top) / container.clientHeight;
+        // tslint:disable-next-line:no-magic-numbers
+        this.mouse.x =  (ratioX * 2) - 1;
+        // tslint:disable-next-line:no-magic-numbers
+        this.mouse.y = 1 - (ratioY * 2);
     }
 
     public findObject(event: MouseEvent, container: HTMLDivElement): THREE.Intersection[] {
