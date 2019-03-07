@@ -46,25 +46,28 @@ export class Socket {
             switch (event) {
                 case ChatEvent.CONNECT: {
                     message = {chatEvent: event, username: socket.id, text: `${socket.id} vient de se connecter`};
+                    this.io.emit("chatMessage", message);
                     break;
                 }
                 case ChatEvent.FOUND_DIFFERENCE: {
                     message = {chatEvent: event, username: socket.id, text: `${socket.id} a trouvé une difference`};
+                    socket.emit("chatMessage", message);
                     break;
                 }
                 case ChatEvent.ERROR_IDENTIFICATION: {
                     message = {chatEvent: event, username: socket.id, text: `${socket.id} a fait une erreur d'identification`};
+                    socket.emit("chatMessage", message);
                     break;
                 }
                 case ChatEvent.BEST_TIME: {
                     message = {chatEvent: event, username: socket.id, text: `${socket.id} a terminé une partie avec un temps record`};
+                    this.io.emit("chatMessage", message);
                     break;
                 }
                 default: {
                     message = {chatEvent: event, username: socket.id, text: ""};
                 }
             }
-            this.io.emit("chatMessage", message);
         });
     }
 }
