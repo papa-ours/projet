@@ -19,4 +19,22 @@ export class RaycasterService {
         this.mouse.y = 1 - 2* ( (event.clientY - boundingRect.top)/ container.clientHeight );
     }
 
+    public findObject(event: MouseEvent, container: HTMLDivElement): THREE.Intersection[] {
+
+        this.computeMousePosition(event, container);
+
+        this.renderService.camera.updateMatrixWorld(false);
+        this.rayCaster.setFromCamera(this.mouse.clone(),  this.renderService.camera);
+
+        const intersections: THREE.Intersection[] = this.rayCaster.intersectObjects(this.renderService.scene.children);
+        //TODO: temporaire pour voir le raycast a enlever
+        for (const intersection of intersections) {
+            const hightlightColor: number = 0xFF0000;
+            // @ts-ignore
+            intersection.object.material.emissive.setHex(hightlightColor);
+        }
+
+        return intersections;
+    }
+
 }
