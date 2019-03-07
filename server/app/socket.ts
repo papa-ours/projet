@@ -46,7 +46,8 @@ export class Socket {
             let message: ChatMessage;
             switch (event) {
                 case ChatEvent.CONNECT:
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id} vient de se connecter.`};
+                    const suffixMessage: string = " vient de se connecter.";
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id}${suffixMessage}`};
                     this.io.emit("chatMessage", message);
                     break;
                 case ChatEvent.FOUND_DIFFERENCE:
