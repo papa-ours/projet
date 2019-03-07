@@ -34,9 +34,10 @@ export class Socket {
     }
 
     private emitDeconnectionMessage(socket: SocketIO.Socket): void {
+        const suffixMessage: string = " vient de se déconnecter.";
         const message: ChatMessage = {chatTime: this.getTime(), chatEvent: ChatEvent.DISCONNECT,
                                       username: socket.id,
-                                      text: `${socket.id} vient de se déconnecter`};
+                                      text: `${socket.id}${suffixMessage}`};
         this.io.emit("chatMessage", message);
     }
 
