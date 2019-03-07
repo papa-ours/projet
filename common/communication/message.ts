@@ -9,3 +9,8 @@ export enum MessageType {
     SCENE_DATA,
     GAME_FREE_VIEW_GENERATION
 }
+
+export interface ChatMessage {
+    username: string;
+    text: string;
+}
