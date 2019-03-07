@@ -51,7 +51,8 @@ export class Socket {
                     this.io.emit("chatMessage", message);
                     break;
                 case ChatEvent.FOUND_DIFFERENCE:
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: "Différence trouvée."};
+                    const textMessage: string = "Différence trouvée.";
+                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${textMessage}`};
                     socket.emit("chatMessage", message);
                     break;
                 case ChatEvent.ERROR_IDENTIFICATION:
