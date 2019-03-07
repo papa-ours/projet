@@ -1,6 +1,7 @@
 import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
+import { ChatMessage } from "../../common/communication/message";
 import { UsersContainerService } from "./services/users-container.service";
 import Types from "./types";
 
@@ -17,14 +18,8 @@ export class Socket {
 
         this.io.on("connection", (socket: SocketIO.Socket) => {
             this.setupDisconnect(socket);
-            socket.on("DifferenceFound", (data: string) => {
-                const message: string = `${data} a trouvé une difference`;
-                socket.emit("DifferenceFound", message);
-            });
-            socket.on("ErrorIdentification", (data: string) => {
-                const message: string = `${data} a fait une erreur d'identification`;
-                socket.emit("ErrorIdentification", message);
-            });
+            this.setupDifferenceFound(socket);
+            this.setupErrorIdentification(socket);
         });
     }
 
@@ -36,5 +31,19 @@ export class Socket {
 
     private deleteUser(id: string): void {
         this.usersContainerService.deleteUserById(id);
+    }
+
+    private setupDifferenceFound(socket: SocketIO.Socket): void {
+        socket.on("DifferenceFound", (data: string) => {
+            const message: ChatMessage = {username: data, text: `${data} a trouvé une difference`};
+            this.io.emit("DifferenceFound", message);
+        });
+    }
+
+    private setupErrorIdentification(socket: SocketIO.Socket): void {
+        socket.on("ErrorIdentification", (data: string) => {
+            const message: ChatMessage = {username: data, text: `${data} a fait une erreur d'identification`};
+            this.io.emit("ErrorIdentification", message);
+        });
     }
 }
