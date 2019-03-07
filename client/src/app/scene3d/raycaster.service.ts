@@ -24,7 +24,7 @@ export class RaycasterService {
         this.mouse.y = 1 - (ratioY * 2);
     }
 
-    public findObject(event: MouseEvent, container: HTMLDivElement): THREE.Intersection[] {
+    public findObject(event: MouseEvent, container: HTMLDivElement): THREE.Vector3 | undefined {
 
         this.computeMousePosition(event, container);
 
@@ -32,14 +32,14 @@ export class RaycasterService {
         this.rayCaster.setFromCamera(this.mouse.clone(),  this.renderService.camera);
 
         const intersections: THREE.Intersection[] = this.rayCaster.intersectObjects(this.renderService.scene.children);
-        //TODO: temporaire pour voir le raycast a enlever
-        for (const intersection of intersections) {
-            const hightlightColor: number = 0xFF0000;
-            // @ts-ignore
-            intersection.object.material.emissive.setHex(hightlightColor);
+
+        if (intersections.length > 0) {
+            const nearestObject: THREE.Intersection = intersections[0];
+
+            return nearestObject.point;
         }
 
-        return intersections;
+        return undefined;
     }
 
 }
