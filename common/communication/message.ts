@@ -28,5 +28,4 @@ export enum ChatEvent {
     DISCONNECT,
     FOUND_DIFFERENCE,
     ERROR_IDENTIFICATION,
-    BEST_TIME,
 }
