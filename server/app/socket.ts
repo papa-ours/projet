@@ -24,8 +24,8 @@ export class Socket {
 
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
-            this.deleteUser(socket.id);
             this.sendDeconnectionMessage(socket);
+            this.deleteUser(socket.id);
         });
     }
 
@@ -34,20 +34,27 @@ export class Socket {
     }
 
     private sendConnectionMessage(socket: SocketIO.Socket): void {
-        const textMessage: string = `${socket.id} vient de se connecter.`;
-        const message: ChatMessage = {chatTime: this.getTime(),
-                                      chatEvent: ChatEvent.CONNECT,
-                                      username: socket.id,
-                                      text: textMessage};
-        this.io.emit("chatMessage", message);
+        const username: string =  this.usersContainerService.getUsernameByID(socket.id);
+        if (username !== "") {
+            const textMessage: string = `${username} vient de se connecter.`;
+            const message: ChatMessage = {chatTime: this.getTime(),
+                                          chatEvent: ChatEvent.CONNECT,
+                                          username: socket.id,
+                                          text: textMessage};
+            this.io.emit("chatMessage", message);
+        }
     }
 
     private sendDeconnectionMessage(socket: SocketIO.Socket): void {
-        const textMessage: string = `${socket.id} vient de se déconnecter.`;
-        const message: ChatMessage = {chatTime: this.getTime(), chatEvent: ChatEvent.DISCONNECT,
-                                      username: socket.id,
-                                      text: textMessage};
-        this.io.emit("chatMessage", message);
+        const username: string =  this.usersContainerService.getUsernameByID(socket.id);
+        if (username !== "") {
+            const textMessage: string = `${username} vient de se déconnecter.`;
+            const message: ChatMessage = {chatTime: this.getTime(),
+                                          chatEvent: ChatEvent.DISCONNECT,
+                                          username: socket.id,
+                                          text: textMessage};
+            this.io.emit("chatMessage", message);
+        }
     }
 
     private sendFoundDifferenceMessage(socket: SocketIO.Socket): void {
