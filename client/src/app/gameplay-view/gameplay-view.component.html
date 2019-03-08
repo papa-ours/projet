@@ -22,8 +22,8 @@
             <app-gameplay-2d (foundDifferenceEvent)="updateView($event)" [id]="id" [name]="name"></app-gameplay-2d>
         </div>
         <ng-template #scenes>
-            <app-scene3d [name]="name" [type]="0" [width]="500" [height]="375"></app-scene3d>
-            <app-scene3d [name]="name" [type]="1" [width]="500" [height]="375"></app-scene3d>
+            <app-gameplay-3d [name]="name" [type]="0" [width]="500" [height]="375"></app-gameplay-3d>
+            <app-gameplay-3d [name]="name" [type]="1" [width]="500" [height]="375"></app-gameplay-3d>
         </ng-template>
         <app-chat-messages></app-chat-messages>
     </div>
