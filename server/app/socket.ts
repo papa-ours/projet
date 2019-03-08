@@ -87,7 +87,7 @@ export class Socket {
                     this.sendErrorIdentificationMessage(socket);
                     break;
                 default: {
-                    throw TypeError("Unknown ChatEvent");
+                    throw new TypeError("Unknown ChatEvent");
                 }
             }
         });
