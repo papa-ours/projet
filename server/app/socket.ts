@@ -25,7 +25,7 @@ export class Socket {
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
             this.deleteUser(socket.id);
-            this.emitDeconnectionMessage(socket);
+            this.sendDeconnectionMessage(socket);
         });
     }
 
@@ -33,42 +33,54 @@ export class Socket {
         this.usersContainerService.deleteUserById(id);
     }
 
-    private emitDeconnectionMessage(socket: SocketIO.Socket): void {
-        const suffixMessage: string = " vient de se déconnecter.";
-        const message: ChatMessage = {chatTime: this.getTime(), chatEvent: ChatEvent.DISCONNECT,
+    private sendConnectionMessage(socket: SocketIO.Socket): void {
+        const textMessage: string = `${socket.id} vient de se connecter.`;
+        const message: ChatMessage = {chatTime: this.getTime(),
+                                      chatEvent: ChatEvent.CONNECT,
                                       username: socket.id,
-                                      text: `${socket.id}${suffixMessage}`};
+                                      text: textMessage};
         this.io.emit("chatMessage", message);
     }
 
-    // tslint:disable:max-func-body-length
+    private sendDeconnectionMessage(socket: SocketIO.Socket): void {
+        const textMessage: string = `${socket.id} vient de se déconnecter.`;
+        const message: ChatMessage = {chatTime: this.getTime(), chatEvent: ChatEvent.DISCONNECT,
+                                      username: socket.id,
+                                      text: textMessage};
+        this.io.emit("chatMessage", message);
+    }
+
+    private sendFoundDifferenceMessage(socket: SocketIO.Socket): void {
+        const textMessage: string = "Différence trouvée.";
+        const message: ChatMessage = {chatTime: this.getTime(), chatEvent: ChatEvent.FOUND_DIFFERENCE,
+                                      username: socket.id,
+                                      text: textMessage};
+        socket.emit("chatMessage", message);
+    }
+
+    private sendErrorIdentificationMessage(socket: SocketIO.Socket): void {
+        const textMessage: string = "Erreur.";
+        const message: ChatMessage = {chatTime: this.getTime(),
+                                      chatEvent: ChatEvent.ERROR_IDENTIFICATION,
+                                      username: socket.id,
+                                      text: textMessage};
+        socket.emit("chatMessage", message);
+    }
+
     private setupChatMessage(socket: SocketIO.Socket): void {
         socket.on("chatMessage", (event: ChatEvent) => {
-            let message: ChatMessage;
-            let textMessage: string;
             switch (event) {
                 case ChatEvent.CONNECT:
-                    textMessage = " vient de se connecter.";
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id}${textMessage}`};
-                    this.io.emit("chatMessage", message);
+                    this.sendConnectionMessage(socket);
                     break;
                 case ChatEvent.FOUND_DIFFERENCE:
-                    textMessage = "Différence trouvée.";
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${textMessage}`};
-                    socket.emit("chatMessage", message);
+                    this.sendFoundDifferenceMessage(socket);
                     break;
                 case ChatEvent.ERROR_IDENTIFICATION:
-                    textMessage = "Erreur.";
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${textMessage}`};
-                    socket.emit("chatMessage", message);
-                    break;
-                case ChatEvent.BEST_TIME:
-                    textMessage = "  obtient la POSITION place dans les meilleurs temps du jeu NOM_JEU en solo.";
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: `${socket.id}${textMessage}`};
-                    this.io.emit("chatMessage", message);
+                    this.sendErrorIdentificationMessage(socket);
                     break;
                 default: {
-                    message = {chatTime: this.getTime(), chatEvent: event, username: socket.id, text: ""};
+                    throw TypeError("Unknown ChatEvent");
                 }
             }
         });
