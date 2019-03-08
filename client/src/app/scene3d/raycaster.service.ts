@@ -34,9 +34,9 @@ export class RaycasterService {
         const intersections: THREE.Intersection[] = this.rayCaster.intersectObjects(this.renderService.scene.children);
 
         if (intersections.length > 0) {
-            const nearestObject: THREE.Intersection = intersections[0];
+            const nearestObject: THREE.Object3D = intersections[0].object;
 
-            return nearestObject.point;
+            return nearestObject.position;
         }
 
         return undefined;
