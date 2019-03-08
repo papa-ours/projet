@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input , Output, ViewChild} from "@angular/core";
 import { GeometryData, SceneData } from "../../../../common/communication/geometry";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { GetSceneDataService } from "./get-scene-data.service";
 import { RaycasterService } from "./raycaster.service";
 import { RenderService } from "./render.service";
@@ -16,7 +17,7 @@ export class Scene3dComponent implements AfterViewInit {
     @Input() public width: number;
     @Input() public height: number;
     @Input() public type: number;
-
+    @Output() private difference3DEvent: EventEmitter<VectorInterface>;
     @ViewChild("container")
     private containerRef: ElementRef;
 
@@ -24,11 +25,12 @@ export class Scene3dComponent implements AfterViewInit {
         private renderService: RenderService,
         private getSceneData: GetSceneDataService,
         private sceneGeneratorService: SceneGeneratorService,
-        private rayCasterService: RaycasterService,
-    ) {
+        private rayCaster: RaycasterService,
+        ) {
         this.name = "";
         this.renderService = new RenderService();
-        this.rayCasterService = new RaycasterService(this.renderService);
+        this.difference3DEvent = new EventEmitter<VectorInterface>();
+        this.rayCaster = new RaycasterService(this.renderService);
     }
 
     private get container(): HTMLDivElement {
@@ -49,7 +51,10 @@ export class Scene3dComponent implements AfterViewInit {
 
     @HostListener("click", ["$event"])
     public mouseClicked(event: MouseEvent): void {
-        this.rayCasterService.findObject(event, this.container);
+        const position: THREE.Vector3 | undefined = this.rayCaster.findObject(event, this.container);
+        if (position !== undefined) {
+            this.difference3DEvent.emit({ x: position.x, y: position.y, z: position.z });
+        }
     }
 
 }
