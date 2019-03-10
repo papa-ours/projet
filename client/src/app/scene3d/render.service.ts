@@ -68,8 +68,8 @@ export class RenderService {
         this.startRenderingLoop();
     }
 
-    public moveCamera(z: Number){
-
+    public moveCamera(z: number): void{
+        this.camera.translateZ(z)
     }
 
 }
