@@ -23,7 +23,7 @@ export class DifferenceCheckerController {
 
         router.get(
             "/:id/:x/:y",
-            async(req: Request, res: Response, next: NextFunction) => {
+            async (req: Request, res: Response, next: NextFunction) => {
                 const getGameService: GetGameService = new GetGameService();
                 const x: number = parseInt(req.params.x, 10);
                 const y: number = parseInt(req.params.y, 10);
@@ -53,28 +53,28 @@ export class DifferenceCheckerController {
             });
 
         router.post(
-                "/3D",
-                async(req: Request, res: Response, next: NextFunction) => {
-                        const message: Message = {
-                            type: MessageType.SCENE_DATA,
-                            body: "false",
-                        };
-                        const name: string = "Scene3D";
-                        this.getSceneData(name).then(
-                            //TODO: trouver un typedef
-                            (promise) => {
-                                const sceneData: SceneData = promise.data;
-                                const position: VectorInterface = req.body.position;
-                                const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService();
-                                message.body = String(differenceChecker.checkDifference(sceneData, position));
-                                res.send(message);
-                            }).catch(console.error);
-                });
+            "/3D",
+            async (req: Request, res: Response, next: NextFunction) => {
+                const message: Message = {
+                    type: MessageType.SCENE_DATA,
+                    body: "false",
+                };
+                const sceneName: string = String(req.body.name);
+                this.getSceneData(sceneName).then(
+                    //TODO: trouver un typedef
+                    (promise) => {
+                        const sceneData: SceneData = promise.data;
+                        const position: VectorInterface = req.body.position;
+                        const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService(sceneData);
+                        message.body = String(differenceChecker.checkDifference(position));
+                        res.send(message);
+                    }).catch(console.error);
+            });
 
         return router;
     }
     //TODO: remplacer le any
     private getSceneData(name: string): Promise<any> {
-       return Axios.get(`${SERVER_ADDRESS}/${name}-data.txt`);
+        return Axios.get(`${SERVER_ADDRESS}/${name}-data.txt`);
     }
 }
