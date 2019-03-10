@@ -15,6 +15,6 @@ export class Gameplay3dComponent {
     public constructor(private difference3DCheckerService: Difference3DCheckerService) { }
 
     public checkDifference(position: VectorInterface): void {
-        this.difference3DCheckerService.isPositionDifference(position, name).subscribe((data) => console.log(data));
+        this.difference3DCheckerService.isPositionDifference(position, this.name).subscribe((data) => console.log(data));
     }
 }
