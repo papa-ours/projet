@@ -5,16 +5,47 @@ import { VectorInterface } from "../../../../common/communication/vector-interfa
 @injectable()
 export class SceneDifferenceCheckerService {
 
-    public constructor() {
+    private differenceSet: GeometryData[];
 
+    public constructor(scene: SceneData) {
+       this.differenceSet = this.getSetDifference(scene.originalScene, scene.modifiedScene);
     }
 
-    public checkDifference(scene: SceneData, position: VectorInterface): boolean {
-        const originalScene: Set<GeometryData> = new Set<GeometryData>(scene.originalScene);
-        const modifiedScene: Set<GeometryData> = new Set<GeometryData>(scene.modifiedScene);
-        console.log("original", originalScene.size);
-        console.log("modified", modifiedScene.size);
+    private isGeometryEqual(geometry1: GeometryData, geometry2: GeometryData): boolean {
+        return (geometry1.color === geometry2.color &&
+                geometry1.position.x === geometry2.position.x &&
+                geometry1.position.y === geometry2.position.y &&
+                geometry1.position.z === geometry2.position.z &&
+                geometry1.rotation.x === geometry2.rotation.x &&
+                geometry1.rotation.y === geometry2.rotation.y &&
+                geometry1.rotation.z === geometry2.rotation.z &&
+                geometry1.size === geometry2.size
+                );
+    }
+
+    private isDifferenteFromCollection(newGeometry: GeometryData, collection: GeometryData[]): boolean {
+        for (const geometry of collection) {
+            if (this.isGeometryEqual(geometry, newGeometry)) {
+                return false;
+            }
+        }
+
         return true;
+    }
+
+    private getSetDifference(scene1: GeometryData[], scene2: GeometryData[]): GeometryData[] {
+        return  scene1.filter((geometry: GeometryData) => this.isDifferenteFromCollection(geometry, scene2));
+    }
+
+    private positionEqual(geometry: GeometryData, position: VectorInterface): boolean {
+        return (geometry.position.x === position.x &&
+                geometry.position.y === position.y &&
+                geometry.position.z === position.z);
+    }
+
+    public checkDifference(position: VectorInterface): boolean {
+
+        return this.differenceSet.some((geometry: GeometryData) => this.positionEqual(geometry, position)) ;
     }
 
 }
