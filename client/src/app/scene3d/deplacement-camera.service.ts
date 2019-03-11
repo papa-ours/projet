@@ -28,10 +28,10 @@ export class DeplacementCameraService{
     private moveCamera(e: KeyboardEvent): void {
         switch (e.key){
             case "w":
-            this.render3d.moveCamera(-50);
+            this.render3d.translateCameraZAxis(-50);
             break;
             case "s":
-            this.render3d.moveCamera(50);
+            this.render3d.translateCameraZAxis(50);
             break;
             default:
         }

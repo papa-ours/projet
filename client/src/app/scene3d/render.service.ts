@@ -68,7 +68,7 @@ export class RenderService {
         this.startRenderingLoop();
     }
 
-    public moveCamera(z: number): void{
+    public translateCameraZAxis(z: number): void{
         this.camera.translateZ(z);
     }
 
