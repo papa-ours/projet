@@ -2,6 +2,8 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 import { GeometryData, SceneData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
+import { Geometry } from "./geometry";
+
 @injectable()
 export class SceneDifferenceCheckerService {
 
@@ -34,18 +36,14 @@ export class SceneDifferenceCheckerService {
     }
 
     private getSetDifference(scene1: GeometryData[], scene2: GeometryData[]): GeometryData[] {
-        return  scene1.filter((geometry: GeometryData) => this.isDifferenteFromCollection(geometry, scene2));
-    }
+        const diffScene1: GeometryData[] = scene1.filter((geometry: GeometryData) => this.isDifferenteFromCollection(geometry, scene2));
+        const diffScene2:  GeometryData[] = scene2.filter((geometry: GeometryData) => this.isDifferenteFromCollection(geometry, scene1));
 
-    private positionEqual(geometry: GeometryData, position: VectorInterface): boolean {
-        return (geometry.position.x === position.x &&
-                geometry.position.y === position.y &&
-                geometry.position.z === position.z);
+        return [...diffScene1, ...diffScene2];
     }
 
     public checkDifference(position: VectorInterface): boolean {
 
-        return this.differenceSet.some((geometry: GeometryData) => this.positionEqual(geometry, position)) ;
+        return this.differenceSet.some((geometry: GeometryData) => Geometry.fromGeometryData(geometry).isPositionEqual(position));
     }
-
 }
