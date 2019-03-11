@@ -10,17 +10,7 @@ export class DeplacementCameraService{
     }
     public keyPress(): void {
 
-        document.body.addEventListener("keypress", (e: KeyboardEvent) => {
-            switch (e.key){
-                case "w":
-                this.render3d.moveCamera(-50);
-                break;
-                case "s":
-                this.render3d.moveCamera(50);
-                break;
-                default:
-            }
-        });
+        document.body.addEventListener("keypress", this.moveCamera, false);
 
         document.body.addEventListener("mousedown", (e: MouseEvent) => {
             if (e.buttons === this.RIGHT_CLICK){
@@ -34,5 +24,17 @@ export class DeplacementCameraService{
         document.body.addEventListener("mouseup", (e: MouseEvent) => {
             
         });
+    }
+
+    private moveCamera(e: KeyboardEvent): void {
+        switch (e.key){
+            case "w":
+            this.render3d.moveCamera(-50);
+            break;
+            case "s":
+            this.render3d.moveCamera(50);
+            break;
+            default:
+        }
     }
 }
