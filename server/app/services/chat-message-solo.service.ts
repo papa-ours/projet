@@ -1,14 +1,13 @@
 import { injectable } from "inversify";
 import { ChatEvent, ChatMessage } from "../../../common/communication/message";
-import { Socket } from "../../app/socket";
 import { ChatMessageService } from "./chat-message.service";
 import { UsersContainerService } from "./users-container.service";
 
 @injectable()
 export class ChatMessageSOLOService extends ChatMessageService {
 
-    public constructor(socketIO: Socket, usersContainerService: UsersContainerService) {
-        super(socketIO, usersContainerService);
+    public constructor(usersContainerService: UsersContainerService) {
+        super(usersContainerService);
     }
 
     public sendFoundDifferenceMessageSOLO(socket: SocketIO.Socket): void {
