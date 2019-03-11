@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
   selector: "app-confirm-action",
@@ -7,4 +7,13 @@ import { Component, Input } from "@angular/core";
 })
 export class ConfirmActionComponent {
     @Input() public actionMessage: string;
+    @Output() public confirmAction: EventEmitter<boolean>;
+
+    public constructor() {
+        this.confirmAction = new EventEmitter<boolean>();
+    }
+
+    public confirm(isActionConfirmed: boolean): void {
+        this.confirmAction.emit(isActionConfirmed);
+    }
 }
