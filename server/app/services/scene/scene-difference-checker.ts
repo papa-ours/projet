@@ -13,21 +13,9 @@ export class SceneDifferenceCheckerService {
        this.differenceSet = this.getSetDifference(scene.originalScene, scene.modifiedScene);
     }
 
-    private isGeometryEqual(geometry1: GeometryData, geometry2: GeometryData): boolean {
-        return (geometry1.color === geometry2.color &&
-                geometry1.position.x === geometry2.position.x &&
-                geometry1.position.y === geometry2.position.y &&
-                geometry1.position.z === geometry2.position.z &&
-                geometry1.rotation.x === geometry2.rotation.x &&
-                geometry1.rotation.y === geometry2.rotation.y &&
-                geometry1.rotation.z === geometry2.rotation.z &&
-                geometry1.size === geometry2.size
-                );
-    }
-
     private isDifferenteFromCollection(newGeometry: GeometryData, collection: GeometryData[]): boolean {
         for (const geometry of collection) {
-            if (this.isGeometryEqual(geometry, newGeometry)) {
+            if (Geometry.fromGeometryData(geometry).isEqual(newGeometry)) {
                 return false;
             }
         }
