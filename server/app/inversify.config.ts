@@ -8,6 +8,7 @@ import { GetGameController } from "./controllers/get-game.controller";
 import { SceneDataController } from "./controllers/scene-data.controller";
 import { UsernameValidatorController } from "./controllers/username-validator.controller";
 import { Server } from "./server";
+import { ChatMessageSOLOService } from "./services/chat-message-solo.service";
 import { ChatMessageService } from "./services/chat-message.service";
 import { DifferenceCheckerService } from "./services/difference-checker.service";
 import { DifferenceImageGenerator } from "./services/difference-image-generator.service";
@@ -45,4 +46,5 @@ container.bind(Types.DifferenceCheckerController).to(DifferenceCheckerController
 container.bind(Types.DifferenceCheckerService).to(DifferenceCheckerService);
 container.bind(Types.UsersContainerService).to(UsersContainerService);
 container.bind(Types.ChatMessageService).to(ChatMessageService);
+container.bind(Types.ChatMessageSOLOService).to(ChatMessageSOLOService);
 export { container };
