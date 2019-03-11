@@ -3,7 +3,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
-import { ChatEvent } from "../../../../common/communication/message";
+import { ChatEvent, GameMode } from "../../../../common/communication/message";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
 import { GameplayService } from "../gameplay.service";
@@ -18,7 +18,7 @@ export class GameplayViewComponent implements OnInit {
 
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
     private readonly SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
-    public readonly nbPlayers: number;
+    public readonly gameMode: GameMode;
 
     public foundDifferencesCounter: number;
     private name: string;
@@ -33,8 +33,8 @@ export class GameplayViewComponent implements OnInit {
         private gameplayService: GameplayService,
         private socketService: SocketService,
     ) {
-        this.nbPlayers = 1;
-        this.requiredDifferences = this.nbPlayers === 1 ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
+        this.gameMode = GameMode.SOLO;
+        this.requiredDifferences = this.gameMode === GameMode.SOLO ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
         this.foundDifferencesCounter = 0;
         this.images = [];
     }
@@ -48,6 +48,7 @@ export class GameplayViewComponent implements OnInit {
             });
             this.setImagesPath();
         });
+        this.socketService.sendGameMode(this.gameMode);
     }
 
     private setImagesPath(): void {
