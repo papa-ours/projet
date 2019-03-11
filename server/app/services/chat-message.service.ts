@@ -32,7 +32,7 @@ export class ChatMessageService {
         }
     }
 
-    private getTime(): ChatTime {
+    protected getTime(): ChatTime {
         const currentTime: Date = new Date();
 
         return {hours: currentTime.getHours(),
