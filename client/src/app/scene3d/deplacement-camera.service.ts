@@ -3,7 +3,11 @@ import { RenderService } from "./render.service";
 export class DeplacementCameraService{
 
     public readonly RIGHT_CLICK: number = 2;
+    private render3d: RenderService;
 
+    public constructor(renderService: RenderService){
+        this.render3d = renderService;
+    }
     public keyPress( render3d: RenderService): void {
 
         document.body.addEventListener("keypress", (e: KeyboardEvent) => {
