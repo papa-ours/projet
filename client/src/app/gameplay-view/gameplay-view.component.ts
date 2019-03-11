@@ -107,10 +107,15 @@ export class GameplayViewComponent implements OnInit {
 
     public get formattedChrono(): string {
         const SECONDS: number = 60;
-        const BASE: number = 10;
         const seconds: number = this.chrono % SECONDS;
         const minutes: number = Math.floor(this.chrono / SECONDS);
 
-        return `${minutes < BASE ? "0" : ""}${minutes}:${seconds < BASE ? "0" : ""}${seconds}`;
+        return `${this.formatTimeUnit(minutes)}:${this.formatTimeUnit(seconds)}`;
+    }
+
+    private formatTimeUnit(n: number): string {
+        const BASE: number = 10;
+
+        return `${n < BASE ? "0" : ""}${n}`;
     }
 }
