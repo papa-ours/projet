@@ -1,6 +1,6 @@
 import { RenderService } from "./render.service";
 
-export class DeplacementCameraService{
+export class DeplacementCameraService {
 
     public static readonly RIGHT_CLICK: number = 2;
     private static readonly DISTANCE: number = 50;
@@ -11,20 +11,20 @@ export class DeplacementCameraService{
         document.body.addEventListener("keypress", this.moveCamera, false);
 
         document.body.addEventListener("mousedown", (e: MouseEvent) => {
-            if (e.button === this.RIGHT_CLICK){
+            if (e.button === this.RIGHT_CLICK) {
                 document.body.addEventListener("mousemove", this.rotateCamera, false);
                 }
         });
 
         document.body.addEventListener("mouseup", (e: MouseEvent) => {
-            if (e.button === this.RIGHT_CLICK){
+            if (e.button === this.RIGHT_CLICK) {
                 document.body.removeEventListener("mousemove", this.rotateCamera, false);
                 }
         });
     }
 
     private static moveCamera(e: KeyboardEvent): void {
-        switch (e.key){
+        switch (e.key) {
             case "w":
             DeplacementCameraService.render3d.translateCameraZAxis(-DeplacementCameraService.DISTANCE);
             break;
