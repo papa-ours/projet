@@ -53,9 +53,9 @@ export class GameplayViewComponent implements OnInit {
             });
             this.setImagesPath();
         });
-        const VOLUME: number = 0.2;
-        this.CORRECT_SOUND.volume = VOLUME;
-        this.WRONG_SOUND.volume = VOLUME;
+        const SOUND_VOLUME: number = 0.2;
+        this.CORRECT_SOUND.volume = SOUND_VOLUME;
+        this.WRONG_SOUND.volume = SOUND_VOLUME;
     }
 
     private setImagesPath(): void {
