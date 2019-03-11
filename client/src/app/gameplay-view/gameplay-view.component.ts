@@ -42,8 +42,8 @@ export class GameplayViewComponent implements OnInit {
         });
     }
 
-    public updateView(nDifference: number): void {
-        this.foundDifferencesCounter = nDifference;
+    public updateView(): void {
+        this.foundDifferencesCounter ++;
         this.playSound();
     }
 

@@ -16,14 +16,14 @@ export class Gameplay2DComponent implements OnInit {
     public images: string[];
     public type: GameType;
     private foundDifferencesCounter: number;
-    @Output() public foundDifferenceEvent: EventEmitter<number>;
+    @Output() public foundDifferenceEvent: EventEmitter<void>;
 
     public constructor(
         private differenceCheckerService: DifferenceCheckerService,
     ) {
         this.images = [];
         this.foundDifferencesCounter = 0;
-        this.foundDifferenceEvent = new EventEmitter<number>();
+        this.foundDifferenceEvent = new EventEmitter<void>();
     }
     public ngOnInit(): void {
         this.setImagesPath();
@@ -46,7 +46,7 @@ export class Gameplay2DComponent implements OnInit {
 
     private differenceFound(): void {
         this.foundDifferencesCounter++;
-        this.foundDifferenceEvent.emit(this.foundDifferencesCounter);
+        this.foundDifferenceEvent.emit();
         this.updateDifferenceImage();
 
     }
