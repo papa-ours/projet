@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-confirm-action",
@@ -6,5 +6,5 @@ import { Component } from "@angular/core";
   styleUrls: ["./confirm-action.component.css"],
 })
 export class ConfirmActionComponent {
-
+    @Input() public actionMessage: string;
 }
