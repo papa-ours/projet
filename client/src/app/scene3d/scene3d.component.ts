@@ -24,7 +24,6 @@ export class Scene3dComponent implements AfterViewInit {
         private renderService: RenderService,
         private getSceneData: GetSceneDataService,
         private sceneGeneratorService: SceneGeneratorService,
-        private deplacementCameraService: DeplacementCameraService,
     ) {
         this.name = "";
     }
@@ -42,8 +41,7 @@ export class Scene3dComponent implements AfterViewInit {
         this.getSceneData.getSceneData(this.name).subscribe((sceneData: SceneData) => {
             const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
             this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
-            const deplacementCameraService: DeplacementCameraService = new DeplacementCameraService(this.renderService);
-            deplacementCameraService.keyPress();
+            DeplacementCameraService.keyPress(this.renderService);
         });
     }
 

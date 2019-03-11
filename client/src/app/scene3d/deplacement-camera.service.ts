@@ -2,14 +2,11 @@ import { RenderService } from "./render.service";
 
 export class DeplacementCameraService{
 
-    public readonly RIGHT_CLICK: number = 2;
-    private render3d: RenderService;
+    public static readonly RIGHT_CLICK: number = 1;
+    private static render3d: RenderService;
 
-    public constructor(renderService: RenderService){
-        this.render3d = renderService;
-    }
-    public keyPress(): void {
-
+    public static keyPress(render3d: RenderService): void {
+        DeplacementCameraService.render3d = render3d;
         document.body.addEventListener("keypress", this.moveCamera, false);
 
         document.body.addEventListener("mousedown", (e: MouseEvent) => {
@@ -25,26 +22,26 @@ export class DeplacementCameraService{
         });
     }
 
-    private moveCamera(e: KeyboardEvent): void {
+    private static moveCamera(e: KeyboardEvent): void {
         switch (e.key){
             case "w":
-            this.render3d.translateCameraZAxis(-50);
+            DeplacementCameraService.render3d.translateCameraZAxis(-50);
             break;
             case "a":
-            this.render3d.translateCameraXAxis(50);
+            DeplacementCameraService.render3d.translateCameraXAxis(50);
             break;
             case "s":
-            this.render3d.translateCameraZAxis(50);
+            DeplacementCameraService.render3d.translateCameraZAxis(50);
             break;
             case "d":
-            this.render3d.translateCameraXAxis(-50);
+            DeplacementCameraService.render3d.translateCameraXAxis(-50);
             break;
             default:
         }
     }
 
-    private rotateCamera(e: MouseEvent): void {
-        this.render3d.rotateCameraY(e.movementX);
-        this.render3d.rotateCameraX(e.movementY);
+    private static rotateCamera(e: MouseEvent): void {
+        DeplacementCameraService.render3d.rotateCameraY(e.movementX);
+        DeplacementCameraService.render3d.rotateCameraX(e.movementY);
     }
 }
