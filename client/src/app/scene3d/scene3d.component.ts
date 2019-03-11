@@ -22,18 +22,16 @@ export class Scene3dComponent implements AfterViewInit {
     private containerRef: ElementRef;
 
     public constructor(
-        private renderService: RenderService,
+        public renderService: RenderService,
         private getSceneData: GetSceneDataService,
         private sceneGeneratorService: SceneGeneratorService,
-        private rayCaster: RaycasterService,
         ) {
         this.name = "";
         this.renderService = new RenderService();
         this.difference3DEvent = new EventEmitter<VectorInterface>();
-        this.rayCaster = new RaycasterService(this.renderService);
     }
 
-    private get container(): HTMLDivElement {
+    public get container(): HTMLDivElement {
         return this.containerRef.nativeElement;
     }
 
@@ -50,11 +48,8 @@ export class Scene3dComponent implements AfterViewInit {
     }
 
     @HostListener("click", ["$event"])
-    public mouseClicked(event: MouseEvent): void {
-        const position: THREE.Vector3 | undefined = this.rayCaster.findObject(event, this.container);
-        if (position !== undefined) {
-            this.difference3DEvent.emit({ x: position.x, y: position.y, z: position.z });
-        }
+    public mouseClicked(mouseEvent: MouseEvent): void {
+            this.difference3DEvent.emit(RaycasterService.getMousePosition(mouseEvent, this.container));
     }
 
 }
