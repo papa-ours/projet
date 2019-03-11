@@ -15,10 +15,7 @@ export class Socket {
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
         @inject(Types.ChatMessageSOLOService) private chatMessageSOLOService: ChatMessageSOLOService,
         @inject(Types.ChatMessagePVPService) private chatMessagePVPService: ChatMessagePVPService,
-    ) {
-        chatMessageSOLOService = new ChatMessageSOLOService(usersContainerService);
-        chatMessagePVPService = new ChatMessagePVPService(usersContainerService);
-    }
+    ) {}
 
     public init(server: http.Server): void {
         this.io = socketio(server);
