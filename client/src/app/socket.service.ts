@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import * as io from "socket.io-client";
+import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { ChatEvent, ChatMessage, GameMode } from "../../../common/communication/message";
 
 @Injectable({
@@ -8,10 +9,9 @@ import { ChatEvent, ChatMessage, GameMode } from "../../../common/communication/
 })
 export class SocketService {
     private socket: SocketIOClient.Socket;
-    private readonly BASE_URL: string = "http://localhost:3000";
 
     public constructor() {
-        this.socket = io(this.BASE_URL);
+        this.socket = io(SERVER_ADDRESS);
     }
 
     public get id(): string {
