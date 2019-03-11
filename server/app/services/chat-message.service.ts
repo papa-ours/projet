@@ -4,7 +4,7 @@ import Types from "../types";
 import { UsersContainerService } from "./users-container.service";
 
 @injectable()
-export class ChatMessageService {
+export abstract class ChatMessageService {
 
     public constructor(@inject(Types.UsersContainerService) public usersContainerService: UsersContainerService) {}
 
@@ -27,6 +27,10 @@ export class ChatMessageService {
                 username: socket.id,
                 text: textMessage};
     }
+
+    public abstract sendFoundDifferenceMessage(socket: SocketIO.Socket): void;
+    public abstract sendErrorIdentificationMessage(socket: SocketIO.Socket): void;
+    public abstract getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage;
 
     protected getTime(): ChatTime {
         const currentTime: Date = new Date();

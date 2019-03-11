@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { ChatEvent, GameMode } from "../../../../common/communication/message";
+import { ChatEvent } from "../../../../common/communication/message";
 import { ConnectionService } from "../connection.service";
 import { SocketService } from "../socket.service";
 
@@ -39,7 +39,7 @@ export class InitialViewComponent implements OnInit {
             if (this.usernameValidationMessage === "") {
                 this.connectionService.connected = true;
                 this.connectionService.username = this.username;
-                this.socketService.sendChatMessage(ChatEvent.CONNECT, GameMode.SOLO);
+                this.socketService.sendChatMessage(ChatEvent.CONNECT);
                 this.router.navigateByUrl("/gamelist/" + this.username)
                     .catch((err: Error) => {
                         console.error(err);

@@ -10,7 +10,7 @@ export class ChatMessagePVPService extends ChatMessageService {
         super(usersContainerService);
     }
 
-    public sendFoundDifferenceMessagePVP(socket: SocketIO.Socket): void {
+    public sendFoundDifferenceMessage(socket: SocketIO.Socket): void {
         const username: string =  this.usersContainerService.getUsernameByID(socket.id);
         if (username !== "") {
             const textMessage: string = `Différence trouvée par ${username}.`;
@@ -22,7 +22,7 @@ export class ChatMessagePVPService extends ChatMessageService {
         }
     }
 
-    public sendErrorIdentificationMessagePVP(socket: SocketIO.Socket): void {
+    public sendErrorIdentificationMessage(socket: SocketIO.Socket): void {
         const username: string =  this.usersContainerService.getUsernameByID(socket.id);
         if (username !== "") {
             const textMessage: string = `Erreur par ${username}.`;
@@ -32,5 +32,16 @@ export class ChatMessagePVPService extends ChatMessageService {
                                           text: textMessage};
             socket.emit("chatMessage", message);
         }
+    }
+
+    public getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage {
+        const username: string =  this.usersContainerService.getUsernameByID(socket.id);
+        const textMessage: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${nomJeu} en un contre un`;
+
+        return {chatTime: this.getTime(),
+                chatEvent: ChatEvent.BEST_TIME,
+                username: socket.id,
+                text: textMessage};
+
     }
 }
