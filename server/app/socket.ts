@@ -84,12 +84,29 @@ export class Socket {
     }
 
     private sendErrorIdentificationMessage(socket: SocketIO.Socket, gameMode: GameMode): void {
+        gameMode === GameMode.SOLO ? this.sendErrorIdentificationMessageSOLO(socket) :
+                                     this.sendErrorIdentificationMessagePVP(socket);
+    }
+
+    private sendErrorIdentificationMessageSOLO(socket: SocketIO.Socket): void {
         const textMessage: string = "Erreur.";
         const message: ChatMessage = {chatTime: this.getTime(),
                                       chatEvent: ChatEvent.ERROR_IDENTIFICATION,
                                       username: socket.id,
                                       text: textMessage};
         socket.emit("chatMessage", message);
+    }
+
+    private sendErrorIdentificationMessagePVP(socket: SocketIO.Socket): void {
+        const username: string =  this.usersContainerService.getUsernameByID(socket.id);
+        if (username !== "") {
+            const textMessage: string = "Erreur.";
+            const message: ChatMessage = {chatTime: this.getTime(),
+                                          chatEvent: ChatEvent.ERROR_IDENTIFICATION,
+                                          username: socket.id,
+                                          text: textMessage};
+            socket.emit("chatMessage", message);
+        }
     }
 
     private setupChatMessage(socket: SocketIO.Socket): void {
