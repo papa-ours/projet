@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import * as io from "socket.io-client";
-import { ChatEvent, ChatMessage } from "../../../common/communication/message";
+import { ChatEvent, ChatMessage, GameMode } from "../../../common/communication/message";
 
 @Injectable({
     providedIn: "root",
@@ -20,6 +20,10 @@ export class SocketService {
 
     public sendChatMessage(event: ChatEvent): void {
         this.socket.emit("chatMessage", event);
+    }
+
+    public sendGameMode(gamemode: GameMode): void {
+        this.socket.emit("setGameMode", gamemode);
     }
 
     public getChatMessage = () => {
