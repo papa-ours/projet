@@ -25,7 +25,7 @@ export class Socket {
         this.io.on("connection", (socket: SocketIO.Socket) => {
             this.setupDisconnect(socket);
             this.setupChatMessage(socket);
-            this.setupSwitchGameMode(socket);
+            this.setupSetGameMode(socket);
         });
     }
 
@@ -60,7 +60,7 @@ export class Socket {
         });
     }
 
-    private setupSwitchGameMode(socket: SocketIO.Socket): void {
+    private setupSetGameMode(socket: SocketIO.Socket): void {
         socket.on("setGameMode", (gameMode: GameMode) => {
             this.setGameMode(gameMode);
         });
