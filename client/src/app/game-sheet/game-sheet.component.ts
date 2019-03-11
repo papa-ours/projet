@@ -35,25 +35,28 @@ export class GameSheetComponent implements OnInit {
         this.btn2.nativeElement.textContent = this.isAdmin ? "Réinitialiser" : "Créer";
     }
 
-    public play(): void {
-        if (this.isAdmin) {
-            this.deleteGameSheetService.deleteGameSheet(this.description.id, this.type)
+    public delete(): void {
+        this.deleteGameSheetService.deleteGameSheet(this.description.id, this.type)
                 .subscribe(() => {
                     location.reload();
                 });
-        } else {
-            this.router.navigateByUrl(`/game/${this.description.name}/${this.type}`)
-            .catch((err: Error) => {
-                console.error(err);
-            });
-        }
     }
 
-    public reinit(): void {
+    public reinitializeScores(): void {
         this.deleteGameSheetService.reinitializeScores(this.description.id, this.type)
-            .subscribe(() => {
-                location.reload();
-            });
+        .subscribe(() => {
+            location.reload();
+        });
     }
 
+    public play(): void {
+        this.router.navigateByUrl(`/game/${this.description.name}/${this.type}`)
+        .catch((err: Error) => {
+            console.error(err);
+        });
+    }
+
+    public createGame(): void {
+        console.log("CREATING A PVP GAME");
+    }
 }
