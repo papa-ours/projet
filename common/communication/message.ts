@@ -29,3 +29,8 @@ export enum ChatEvent {
     FOUND_DIFFERENCE,
     ERROR_IDENTIFICATION,
 }
+
+export enum GameMode {
+    SOLO,
+    PVP,
+}
