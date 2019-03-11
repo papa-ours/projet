@@ -1,35 +1,31 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import { ChatEvent, ChatMessage, ChatTime } from "../../../common/communication/message";
-import { Socket } from "../../app/socket";
+import Types from "../types";
 import { UsersContainerService } from "./users-container.service";
 
 @injectable()
 export class ChatMessageService {
 
-    public constructor(public socketIO: Socket, public usersContainerService: UsersContainerService) {}
+    public constructor(@inject(Types.UsersContainerService) public usersContainerService: UsersContainerService) {}
 
-    public sendConnectionMessage(socket: SocketIO.Socket): void {
+    public getConnectionMessage(socket: SocketIO.Socket): ChatMessage {
         const username: string =  this.usersContainerService.getUsernameByID(socket.id);
-        if (username !== "") {
-            const textMessage: string = `${username} vient de se connecter.`;
-            const message: ChatMessage = {chatTime: this.getTime(),
-                                          chatEvent: ChatEvent.CONNECT,
-                                          username: socket.id,
-                                          text: textMessage};
-            this.socketIO.io.emit("chatMessage", message);
-        }
+        const textMessage: string = `${username} vient de se connecter.`;
+
+        return {chatTime: this.getTime(),
+                chatEvent: ChatEvent.CONNECT,
+                username: socket.id,
+                text: textMessage};
     }
 
-    public sendDeconnectionMessage(socket: SocketIO.Socket): void {
+    public getDeconnectionMessage(socket: SocketIO.Socket): ChatMessage {
         const username: string =  this.usersContainerService.getUsernameByID(socket.id);
-        if (username !== "") {
-            const textMessage: string = `${username} vient de se déconnecter.`;
-            const message: ChatMessage = {chatTime: this.getTime(),
-                                          chatEvent: ChatEvent.DISCONNECT,
-                                          username: socket.id,
-                                          text: textMessage};
-            this.socketIO.io.emit("chatMessage", message);
-        }
+        const textMessage: string = `${username} vient de se déconnecter.`;
+
+        return {chatTime: this.getTime(),
+                chatEvent: ChatEvent.DISCONNECT,
+                username: socket.id,
+                text: textMessage};
     }
 
     protected getTime(): ChatTime {
