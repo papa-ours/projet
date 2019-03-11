@@ -9,6 +9,8 @@ import { DifferenceCheckerService } from "../services/difference-checker.service
 import { Game } from "../services/game";
 import { GetGameService } from "../services/get-game.service";
 import { SceneDifferenceCheckerService } from "../services/scene/scene-difference-checker";
+import { SceneDifferenceRestorationService } from "../services/scene/scene-difference-restoration";
+import { FileWriterUtil } from "../services/utils/file-writer.util";
 import Types from "../types";
 
 @injectable()
@@ -63,10 +65,19 @@ export class DifferenceCheckerController {
                 this.getSceneData(sceneName).then(
                     //TODO: trouver un typedef
                     (promise) => {
-                        const sceneData: SceneData = promise.data;
+                        let sceneData: SceneData = promise.data;
                         const position: VectorInterface = req.body.position;
                         const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService(sceneData);
-                        message.body = String(differenceChecker.checkDifference(position));
+                        const isModification: boolean = differenceChecker.checkDifference(position);
+                        if (isModification) {
+                            const differenceRestoration: SceneDifferenceRestorationService =
+                                                         new SceneDifferenceRestorationService(sceneData);
+
+                            sceneData = differenceRestoration.getSceneAfterDifferenceUpdate(position);
+                            FileWriterUtil.writeFile(`uploads/${sceneName}-data.txt`, Buffer.from(JSON.stringify(sceneData)))
+                                .catch((err: Error) => console.error(err));
+                        }
+                        message.body = String(isModification);
                         res.send(message);
                     }).catch(console.error);
             });
