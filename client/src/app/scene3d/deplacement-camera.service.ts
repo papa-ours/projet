@@ -30,8 +30,14 @@ export class DeplacementCameraService{
             case "w":
             this.render3d.translateCameraZAxis(-50);
             break;
+            case "a":
+            this.render3d.translateCameraXAxis(50);
+            break;
             case "s":
             this.render3d.translateCameraZAxis(50);
+            break;
+            case "d":
+            this.render3d.translateCameraXAxis(-50);
             break;
             default:
         }
