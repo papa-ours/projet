@@ -72,4 +72,11 @@ export class RenderService {
         this.camera.translateZ(z);
     }
 
+    public rotateCameraY(y: number): void{
+
+    }
+
+    public rotateCameraX(x: number): void{
+
+    }
 }
