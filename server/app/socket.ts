@@ -61,8 +61,8 @@ export class Socket {
     }
 
     private setupSwitchGameMode(socket: SocketIO.Socket): void {
-        socket.on("switchGameMode", (gameMode: GameMode) => {
-            this.switchGameMode(gameMode);
+        socket.on("setGameMode", (gameMode: GameMode) => {
+            this.setGameMode(gameMode);
         });
     }
 
@@ -92,7 +92,7 @@ export class Socket {
         this.chatMessageService.sendErrorIdentificationMessage(socket);
     }
 
-    private switchGameMode(gameMode: GameMode): void {
+    private setGameMode(gameMode: GameMode): void {
         gameMode === GameMode.SOLO ? this.chatMessageService = new ChatMessageSOLOService(this.usersContainerService) :
                                      this.chatMessageService = new ChatMessagePVPService(this.usersContainerService);
     }
