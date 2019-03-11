@@ -17,7 +17,10 @@ export class DeplacementCameraService{
         });
 
         document.body.addEventListener("mousedown", (e: MouseEvent) => {
-
+            if (e.buttons == 2){
+                document.body.addEventListener("mousemove", (e: MouseEvent) => {
+                 });
+                }
         });
     }
 }
