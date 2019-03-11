@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
 import { GeometryData, SceneData } from "../../../../common/communication/geometry";
+import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 import { GetSceneDataService } from "./get-scene-data.service";
 import { RenderService } from "./render.service";
 import { SceneGeneratorService } from "./scene-generator.service";
-import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 
 @Component({
     selector: "app-scene3d",
