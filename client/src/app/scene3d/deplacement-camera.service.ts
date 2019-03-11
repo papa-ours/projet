@@ -21,7 +21,8 @@ export class DeplacementCameraService{
         document.body.addEventListener("mousedown", (e: MouseEvent) => {
             if (e.buttons === DeplacementCameraService.RIGHT_CLICK){
                 document.body.addEventListener("mousemove", (e: MouseEvent) => {
-                    
+                    render3d.rotateCameraY(e.movementX);
+                    render3d.rotateCameraX(e.movementY);
                 });
                 }
         });
