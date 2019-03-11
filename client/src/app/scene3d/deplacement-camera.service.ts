@@ -26,5 +26,9 @@ export class DeplacementCameraService{
                 });
                 }
         });
+
+        document.body.addEventListener("mouseup", (e: MouseEvent) => {
+
+        });
     }
 }
