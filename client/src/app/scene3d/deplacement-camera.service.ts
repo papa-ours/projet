@@ -2,7 +2,7 @@ import { RenderService } from "./render.service";
 
 export class DeplacementCameraService{
 
-    private readonly RIGHT_CLICK: number = 2; 
+    public static readonly RIGHT_CLICK: number = 2;
 
     public static keyPress( render3d: RenderService): void {
 
@@ -19,9 +19,10 @@ export class DeplacementCameraService{
         });
 
         document.body.addEventListener("mousedown", (e: MouseEvent) => {
-            if (e.buttons == RIGHT_CLICK){
+            if (e.buttons === DeplacementCameraService.RIGHT_CLICK){
                 document.body.addEventListener("mousemove", (e: MouseEvent) => {
-                 });
+                    
+                });
                 }
         });
     }
