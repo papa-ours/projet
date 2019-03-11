@@ -15,5 +15,9 @@ export class DeplacementCameraService{
                 default:
             }
         });
+
+        document.body.addEventListener("mousedown", (e: MouseEvent) => {
+
+        });
     }
 }
