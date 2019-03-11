@@ -16,7 +16,8 @@ export class GameSheetComponent implements OnInit {
         "#C0C0C0",
         "#CD7F32",
     ];
-    private isConfirmPanelShown: boolean;
+    public isConfirmPanelShown: boolean;
+    public actionMessage: string;
     @Input() public type: GameType;
     @Input() public description: GameSheet;
     @Input() private isAdmin: boolean;
@@ -38,19 +39,22 @@ export class GameSheetComponent implements OnInit {
     }
 
     public delete(): void {
-        this.isConfirmPanelShown = true;
-        // this.deleteGameSheetService.deleteGameSheet(this.description.id, this.type)
-        //         .subscribe(() => {
-        //             location.reload();
-        //         });
+        this.deleteGameSheetService.deleteGameSheet(this.description.id, this.type)
+                .subscribe(() => {
+                    location.reload();
+                });
     }
 
     public reinitializeScores(): void {
+        this.deleteGameSheetService.reinitializeScores(this.description.id, this.type)
+        .subscribe(() => {
+            location.reload();
+        });
+    }
+
+    public showConfirmPanel(message: string): void {
         this.isConfirmPanelShown = true;
-        // this.deleteGameSheetService.reinitializeScores(this.description.id, this.type)
-        // .subscribe(() => {
-        //     location.reload();
-        // });
+        this.actionMessage = message;
     }
 
     public play(): void {
@@ -62,5 +66,17 @@ export class GameSheetComponent implements OnInit {
 
     public createGame(): void {
         console.log("CREATING A PVP GAME");
+    }
+
+    public actionConfirmed(isActionConfirmed: boolean): void {
+        if (isActionConfirmed) {
+            if (this.actionMessage === "supprimer") {
+                this.delete();
+            } else {
+                this.reinitializeScores();
+            }
+        }
+
+        this.isConfirmPanelShown = false;
     }
 }
