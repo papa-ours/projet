@@ -69,7 +69,7 @@ export class RenderService {
     }
 
     public moveCamera(z: number): void{
-        this.camera.translateZ(z)
+        this.camera.translateZ(z);
     }
 
 }
