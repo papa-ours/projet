@@ -48,10 +48,10 @@ export class Socket {
                     this.sendConnectionMessage(socket);
                     break;
                 case ChatEvent.FOUND_DIFFERENCE:
-                    this.sendFoundDifferenceMessage(socket);
+                    this.chatMessageService.sendFoundDifferenceMessage(socket);
                     break;
                 case ChatEvent.ERROR_IDENTIFICATION:
-                    this.sendErrorIdentificationMessage(socket);
+                    this.chatMessageService.sendErrorIdentificationMessage(socket);
                     break;
                 default: {
                     throw new TypeError("Unknown ChatEvent");
@@ -82,14 +82,6 @@ export class Socket {
             const message: ChatMessage = this.chatMessageService.getDeconnectionMessage(socket);
             this.io.emit("chatMessage", message);
         }
-    }
-
-    private sendFoundDifferenceMessage(socket: SocketIO.Socket): void {
-        this.chatMessageService.sendFoundDifferenceMessage(socket);
-    }
-
-    private sendErrorIdentificationMessage(socket: SocketIO.Socket): void {
-        this.chatMessageService.sendErrorIdentificationMessage(socket);
     }
 
     private setGameMode(gameMode: GameMode): void {
