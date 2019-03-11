@@ -58,12 +58,29 @@ export class Socket {
     }
 
     private sendFoundDifferenceMessage(socket: SocketIO.Socket, gameMode: GameMode): void {
+        gameMode === GameMode.SOLO ? this.sendFoundDifferenceMessageSOLO(socket) :
+                                     this.sendFoundDifferenceMessagePVP(socket);
+    }
+
+    private sendFoundDifferenceMessageSOLO(socket: SocketIO.Socket): void {
         const textMessage: string = "Différence trouvée.";
         const message: ChatMessage = {chatTime: this.getTime(),
                                       chatEvent: ChatEvent.FOUND_DIFFERENCE,
                                       username: socket.id,
                                       text: textMessage};
         socket.emit("chatMessage", message);
+    }
+
+    private sendFoundDifferenceMessagePVP(socket: SocketIO.Socket): void {
+        const username: string =  this.usersContainerService.getUsernameByID(socket.id);
+        if (username !== "") {
+            const textMessage: string = `Différence trouvée par ${username}.`;
+            const message: ChatMessage = {chatTime: this.getTime(),
+                                          chatEvent: ChatEvent.FOUND_DIFFERENCE,
+                                          username: socket.id,
+                                          text: textMessage};
+            socket.emit("chatMessage", message);
+        }
     }
 
     private sendErrorIdentificationMessage(socket: SocketIO.Socket, gameMode: GameMode): void {
