@@ -3,6 +3,7 @@ import { RenderService } from "./render.service";
 export class DeplacementCameraService{
 
     public static readonly RIGHT_CLICK: number = 2;
+    private static readonly DISTANCE: number = 50;
     private static render3d: RenderService;
 
     public static keyPress(render3d: RenderService): void {
@@ -25,16 +26,16 @@ export class DeplacementCameraService{
     private static moveCamera(e: KeyboardEvent): void {
         switch (e.key){
             case "w":
-            DeplacementCameraService.render3d.translateCameraZAxis(-50);
+            DeplacementCameraService.render3d.translateCameraZAxis(-DeplacementCameraService.DISTANCE);
             break;
             case "a":
-            DeplacementCameraService.render3d.translateCameraXAxis(-50);
+            DeplacementCameraService.render3d.translateCameraXAxis(-DeplacementCameraService.DISTANCE);
             break;
             case "s":
-            DeplacementCameraService.render3d.translateCameraZAxis(50);
+            DeplacementCameraService.render3d.translateCameraZAxis(DeplacementCameraService.DISTANCE);
             break;
             case "d":
-            DeplacementCameraService.render3d.translateCameraXAxis(50);
+            DeplacementCameraService.render3d.translateCameraXAxis(DeplacementCameraService.DISTANCE);
             break;
             default:
         }
