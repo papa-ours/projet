@@ -1,7 +1,7 @@
 import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
-import { ChatEvent, ChatMessage, ChatTime } from "../../common/communication/message";
+import { ChatEvent, ChatMessage, ChatTime, GameMode } from "../../common/communication/message";
 import { UsersContainerService } from "./services/users-container.service";
 import Types from "./types";
 
@@ -57,15 +57,16 @@ export class Socket {
         }
     }
 
-    private sendFoundDifferenceMessage(socket: SocketIO.Socket): void {
+    private sendFoundDifferenceMessage(socket: SocketIO.Socket, gameMode: GameMode): void {
         const textMessage: string = "Différence trouvée.";
-        const message: ChatMessage = {chatTime: this.getTime(), chatEvent: ChatEvent.FOUND_DIFFERENCE,
+        const message: ChatMessage = {chatTime: this.getTime(),
+                                      chatEvent: ChatEvent.FOUND_DIFFERENCE,
                                       username: socket.id,
                                       text: textMessage};
         socket.emit("chatMessage", message);
     }
 
-    private sendErrorIdentificationMessage(socket: SocketIO.Socket): void {
+    private sendErrorIdentificationMessage(socket: SocketIO.Socket, gameMode: GameMode): void {
         const textMessage: string = "Erreur.";
         const message: ChatMessage = {chatTime: this.getTime(),
                                       chatEvent: ChatEvent.ERROR_IDENTIFICATION,
@@ -75,16 +76,16 @@ export class Socket {
     }
 
     private setupChatMessage(socket: SocketIO.Socket): void {
-        socket.on("chatMessage", (event: ChatEvent) => {
+        socket.on("chatMessage", (event: ChatEvent, gameMode: GameMode) => {
             switch (event) {
                 case ChatEvent.CONNECT:
                     this.sendConnectionMessage(socket);
                     break;
                 case ChatEvent.FOUND_DIFFERENCE:
-                    this.sendFoundDifferenceMessage(socket);
+                    this.sendFoundDifferenceMessage(socket, gameMode);
                     break;
                 case ChatEvent.ERROR_IDENTIFICATION:
-                    this.sendErrorIdentificationMessage(socket);
+                    this.sendErrorIdentificationMessage(socket, gameMode);
                     break;
                 default: {
                     throw new TypeError("Unknown ChatEvent");
