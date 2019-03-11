@@ -2,9 +2,9 @@ import { RenderService } from "./render.service";
 
 export class DeplacementCameraService{
 
-    public static readonly RIGHT_CLICK: number = 2;
+    public readonly RIGHT_CLICK: number = 2;
 
-    public static keyPress( render3d: RenderService): void {
+    public keyPress( render3d: RenderService): void {
 
         document.body.addEventListener("keypress", (e: KeyboardEvent) => {
             switch (e.key){
@@ -19,7 +19,7 @@ export class DeplacementCameraService{
         });
 
         document.body.addEventListener("mousedown", (e: MouseEvent) => {
-            if (e.buttons === DeplacementCameraService.RIGHT_CLICK){
+            if (e.buttons === this.RIGHT_CLICK){
                 document.body.addEventListener("mousemove", (e: MouseEvent) => {
                     render3d.rotateCameraY(e.movementX);
                     render3d.rotateCameraX(e.movementY);
@@ -28,7 +28,7 @@ export class DeplacementCameraService{
         });
 
         document.body.addEventListener("mouseup", (e: MouseEvent) => {
-
+            
         });
     }
 }
