@@ -21,6 +21,7 @@ import { RenderService } from "./scene3d/render.service";
 import { Scene3dComponent } from "./scene3d/scene3d.component";
 import { FileReaderUtil } from "./simple-game-creation/file-reader.util";
 import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-creation.component";
+import { ConfirmActionComponent } from './confirm-action/confirm-action.component';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         GameplayViewComponent,
         ChatMessagesComponent,
         GameImageComponent,
+        ConfirmActionComponent,
     ],
     imports: [
         BrowserModule,
