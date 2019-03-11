@@ -68,11 +68,7 @@ export class GameplayViewComponent implements OnInit {
             this.clickPosition = position[0];
             this.differenceCheckerService.isPositionDifference(this.id, position[1][0], position[1][1])
                 .subscribe((isDifference: boolean) => {
-                    if (isDifference) {
-                        this.differenceFound();
-                    } else {
-                        this.identificationError();
-                    }
+                    isDifference ? this.differenceFound() : this.identificationError();
                 },
             );
         }
