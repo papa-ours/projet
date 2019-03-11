@@ -88,18 +88,11 @@ export class GetGameService {
         GetGameService.gameSheets[type].splice(index, 1);
     }
 
-    private generateTopScores(): TopScores[] {
-        const TOP_SCORES_LENGTH: number = 2;
-
-        return [...Array(TOP_SCORES_LENGTH)].map(() => {
-
-            return new TopScores();
-        });
-    }
-
     public reinitializeScores(id: string, type: GameType): void {
         const gameSheet: GameSheet = this.getGameSheet(id, type);
-        gameSheet.topScores = this.generateTopScores();
+        gameSheet.topScores = gameSheet.topScores.map(() => {
+            return new TopScores();
+        });
     }
 
     public emptyGameSheets(): void {
