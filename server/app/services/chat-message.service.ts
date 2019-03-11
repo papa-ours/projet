@@ -8,6 +8,10 @@ export abstract class ChatMessageService {
 
     public constructor(@inject(Types.UsersContainerService) public usersContainerService: UsersContainerService) {}
 
+    public abstract sendFoundDifferenceMessage(socket: SocketIO.Socket): void;
+    public abstract sendErrorIdentificationMessage(socket: SocketIO.Socket): void;
+    public abstract getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage;
+
     public getConnectionMessage(socket: SocketIO.Socket): ChatMessage {
         const username: string =  this.usersContainerService.getUsernameByID(socket.id);
         const textMessage: string = `${username} vient de se connecter.`;
@@ -27,10 +31,6 @@ export abstract class ChatMessageService {
                 username: socket.id,
                 text: textMessage};
     }
-
-    public abstract sendFoundDifferenceMessage(socket: SocketIO.Socket): void;
-    public abstract sendErrorIdentificationMessage(socket: SocketIO.Socket): void;
-    public abstract getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage;
 
     protected getTime(): ChatTime {
         const currentTime: Date = new Date();
