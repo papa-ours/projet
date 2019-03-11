@@ -7,7 +7,7 @@ import Types from "./types";
 
 @injectable()
 export class Socket {
-    private io: SocketIO.Server;
+    public io: SocketIO.Server;
 
     public constructor(
         @inject(Types.UsersContainerService) private usersContainerService: UsersContainerService,
