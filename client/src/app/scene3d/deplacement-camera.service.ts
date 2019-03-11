@@ -17,7 +17,6 @@ export class DeplacementCameraService{
 
         document.body.addEventListener("mouseup", (e: MouseEvent) => {
             if (e.button === this.RIGHT_CLICK){
-                console.log("wah");
                 document.body.removeEventListener("mousemove", this.rotateCamera, false);
                 }
         });
