@@ -2,7 +2,7 @@ import { RenderService } from "./render.service";
 
 export class DeplacementCameraService{
 
-    public static readonly RIGHT_CLICK: number = 1;
+    public static readonly RIGHT_CLICK: number = 2;
     private static render3d: RenderService;
 
     public static keyPress(render3d: RenderService): void {
@@ -17,6 +17,7 @@ export class DeplacementCameraService{
 
         document.body.addEventListener("mouseup", (e: MouseEvent) => {
             if (e.buttons === this.RIGHT_CLICK){
+                console.log("wah");
                 document.body.removeEventListener("mousemove", this.rotateCamera, false);
                 }
         });
@@ -28,13 +29,13 @@ export class DeplacementCameraService{
             DeplacementCameraService.render3d.translateCameraZAxis(-50);
             break;
             case "a":
-            DeplacementCameraService.render3d.translateCameraXAxis(50);
+            DeplacementCameraService.render3d.translateCameraXAxis(-50);
             break;
             case "s":
             DeplacementCameraService.render3d.translateCameraZAxis(50);
             break;
             case "d":
-            DeplacementCameraService.render3d.translateCameraXAxis(-50);
+            DeplacementCameraService.render3d.translateCameraXAxis(50);
             break;
             default:
         }
