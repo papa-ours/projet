@@ -14,10 +14,7 @@ export class DeplacementCameraService{
 
         document.body.addEventListener("mousedown", (e: MouseEvent) => {
             if (e.buttons === this.RIGHT_CLICK){
-                document.body.addEventListener("mousemove", (e: MouseEvent) => {
-                    this.render3d.rotateCameraY(e.movementX);
-                    this.render3d.rotateCameraX(e.movementY);
-                });
+                document.body.addEventListener("mousemove", this.rotateCamera, false);
                 }
         });
 
@@ -36,5 +33,10 @@ export class DeplacementCameraService{
             break;
             default:
         }
+    }
+
+    private rotateCamera(e: MouseEvent): void {
+        this.render3d.rotateCameraY(e.movementX);
+        this.render3d.rotateCameraX(e.movementY);
     }
 }
