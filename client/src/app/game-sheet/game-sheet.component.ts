@@ -16,6 +16,7 @@ export class GameSheetComponent implements OnInit {
         "#C0C0C0",
         "#CD7F32",
     ];
+    private isConfirmPanelShown: boolean;
     @Input() public type: GameType;
     @Input() public description: GameSheet;
     @Input() private isAdmin: boolean;
@@ -25,6 +26,7 @@ export class GameSheetComponent implements OnInit {
     public constructor(private router: Router, private deleteGameSheetService: DeleteGameSheetService) {
         this.source = "";
         this.isAdmin = false;
+        this.isConfirmPanelShown = false;
     }
 
     public ngOnInit(): void {
@@ -36,17 +38,19 @@ export class GameSheetComponent implements OnInit {
     }
 
     public delete(): void {
-        this.deleteGameSheetService.deleteGameSheet(this.description.id, this.type)
-                .subscribe(() => {
-                    location.reload();
-                });
+        this.isConfirmPanelShown = true;
+        // this.deleteGameSheetService.deleteGameSheet(this.description.id, this.type)
+        //         .subscribe(() => {
+        //             location.reload();
+        //         });
     }
 
     public reinitializeScores(): void {
-        this.deleteGameSheetService.reinitializeScores(this.description.id, this.type)
-        .subscribe(() => {
-            location.reload();
-        });
+        this.isConfirmPanelShown = true;
+        // this.deleteGameSheetService.reinitializeScores(this.description.id, this.type)
+        // .subscribe(() => {
+        //     location.reload();
+        // });
     }
 
     public play(): void {

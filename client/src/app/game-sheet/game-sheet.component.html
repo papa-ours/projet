@@ -1,3 +1,4 @@
+<app-confirm-action *ngIf="isConfirmPanelShown" [actionMessage]="'supprimer'"></app-confirm-action>
 <div class="game-sheet">
     <div class="game-preview">
         <app-scene3d *ngIf="type; else image" class="game-preview-image" [name]="description.name" [width]="240" [height]="180"></app-scene3d>
