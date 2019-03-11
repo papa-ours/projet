@@ -10,7 +10,7 @@ export class DeplacementCameraService{
         document.body.addEventListener("keypress", this.moveCamera, false);
 
         document.body.addEventListener("mousedown", (e: MouseEvent) => {
-            if (e.buttons === this.RIGHT_CLICK){
+            if (e.button === this.RIGHT_CLICK){
                 document.body.addEventListener("mousemove", this.rotateCamera, false);
                 }
         });
