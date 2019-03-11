@@ -103,8 +103,8 @@ export class GetGameService {
     }
 
     public emptyGameSheets(): void {
-        GetGameService.gameSheets[0] = [];
-        GetGameService.gameSheets[1] = [];
+        GetGameService.gameSheets[GameType.Simple] = [];
+        GetGameService.gameSheets[GameType.Free] = [];
     }
 
     public emptyGames(): void {
