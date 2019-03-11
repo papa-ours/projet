@@ -19,7 +19,9 @@ export class DeplacementCameraService{
         });
 
         document.body.addEventListener("mouseup", (e: MouseEvent) => {
-            
+            if (e.buttons === this.RIGHT_CLICK){
+                document.body.removeEventListener("mousemove", this.rotateCamera, false);
+                }
         });
     }
 
