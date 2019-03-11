@@ -8,15 +8,15 @@ export class DeplacementCameraService{
     public constructor(renderService: RenderService){
         this.render3d = renderService;
     }
-    public keyPress( render3d: RenderService): void {
+    public keyPress(): void {
 
         document.body.addEventListener("keypress", (e: KeyboardEvent) => {
             switch (e.key){
                 case "w":
-                render3d.moveCamera(-50);
+                this.render3d.moveCamera(-50);
                 break;
                 case "s":
-                render3d.moveCamera(50);
+                this.render3d.moveCamera(50);
                 break;
                 default:
             }
@@ -25,8 +25,8 @@ export class DeplacementCameraService{
         document.body.addEventListener("mousedown", (e: MouseEvent) => {
             if (e.buttons === this.RIGHT_CLICK){
                 document.body.addEventListener("mousemove", (e: MouseEvent) => {
-                    render3d.rotateCameraY(e.movementX);
-                    render3d.rotateCameraX(e.movementY);
+                    this.render3d.rotateCameraY(e.movementX);
+                    this.render3d.rotateCameraX(e.movementY);
                 });
                 }
         });
