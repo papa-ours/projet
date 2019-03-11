@@ -73,10 +73,10 @@ export class RenderService {
     }
 
     public rotateCameraY(y: number): void{
-
+        this.camera.rotateY(y * Math.PI / 3600);
     }
 
     public rotateCameraX(x: number): void{
-
+        this.camera.rotateX(x * Math.PI / 3600);
     }
 }
