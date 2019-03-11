@@ -6,7 +6,7 @@ import { UsersContainerService } from "./users-container.service";
 @injectable()
 export class ChatMessageService {
 
-    public constructor(private socketIO: Socket, private usersContainerService: UsersContainerService) {}
+    public constructor(public socketIO: Socket, public usersContainerService: UsersContainerService) {}
 
     public sendConnectionMessage(socket: SocketIO.Socket): void {
         const username: string =  this.usersContainerService.getUsernameByID(socket.id);
