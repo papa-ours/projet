@@ -1,7 +1,7 @@
 import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
-import { ChatEvent, ChatMessage, GameMode } from "../../common/communication/message";
+import { ChatMessage, GameMode } from "../../common/communication/message";
 import { ChatMessagePVPService } from "./services/chat-message-pvp.service";
 import { ChatMessageSOLOService } from "./services/chat-message-solo.service";
 import { ChatMessageService } from "./services/chat-message.service";
@@ -11,81 +11,72 @@ import Types from "./types";
 @injectable()
 export class Socket {
     private io: SocketIO.Server;
+    private chatMessageService: ChatMessageService;
 
     public constructor(
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
-        @inject(Types.ChatMessageService) private chatMessageService: ChatMessageService,
     ) {
-        this.chatMessageService = new ChatMessageSOLOService(usersContainerService);
+        this.chatMessageService = new ChatMessageSOLOService(this.usersContainerService);
     }
 
     public init(server: http.Server): void {
         this.io = socketio(server);
 
         this.io.on("connection", (socket: SocketIO.Socket) => {
+            this.setupNewUser(socket);
+            this.setupFoundDifference(socket);
+            this.setupErrorIdentification(socket);
             this.setupDisconnect(socket);
-            this.setupChatMessage(socket);
-            this.setupSetGameMode(socket);
+            this.setupGameMode(socket);
         });
     }
 
-    public sendBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String, gameMode: GameMode): void {
-        const message: ChatMessage = this.chatMessageService.getBestTimeMessage(socket, position, nomJeu);
-        this.io.emit("chatMessage", message);
+    private setupNewUser(socket: SocketIO.Socket): void {
+       socket.on("newUser", () => {
+            const username: string = this.usersContainerService.getUsernameByID(socket.id);
+            if (username === "") {
+
+                return;
+            }
+            const message: ChatMessage =  this.chatMessageService.getNewUserMessage(socket);
+            this.io.emit("chatMessage", message);
+       });
+    }
+
+    private setupFoundDifference(socket: SocketIO.Socket): void {
+        socket.on("foundDifference", () => {
+            this.chatMessageService.sendFoundDifferenceMessage(socket);
+        });
+    }
+
+    private setupErrorIdentification(socket: SocketIO.Socket): void {
+        socket.on("errorIdentification", () => {
+            this.chatMessageService.sendErrorIdentificationMessage(socket);
+        });
     }
 
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
-            this.sendDeconnectionMessage(socket);
+            const username: string = this.usersContainerService.getUsernameByID(socket.id);
+            if (username === "") {
+
+                return;
+            }
+            const message: ChatMessage =  this.chatMessageService.getDeconnectionMessage(socket);
+            this.io.emit("chatMessage", message);
+
             this.deleteUser(socket.id);
         });
     }
 
-    private setupChatMessage(socket: SocketIO.Socket): void {
-        socket.on("chatMessage", (event: ChatEvent) => {
-            switch (event) {
-                case ChatEvent.CONNECT:
-                    this.sendConnectionMessage(socket);
-                    break;
-                case ChatEvent.FOUND_DIFFERENCE:
-                    this.chatMessageService.sendFoundDifferenceMessage(socket);
-                    break;
-                case ChatEvent.ERROR_IDENTIFICATION:
-                    this.chatMessageService.sendErrorIdentificationMessage(socket);
-                    break;
-                default: {
-                    throw new TypeError("Unknown ChatEvent");
-                }
-            }
-        });
-    }
-
-    private setupSetGameMode(socket: SocketIO.Socket): void {
+    private setupGameMode(socket: SocketIO.Socket): void {
         socket.on("setGameMode", (gameMode: GameMode) => {
-            this.setGameMode(gameMode);
+            gameMode === GameMode.SOLO ? this.chatMessageService = new ChatMessageSOLOService(this.usersContainerService) :
+                                         this.chatMessageService = new ChatMessagePVPService(this.usersContainerService);
         });
     }
 
     private deleteUser(id: string): void {
         this.usersContainerService.deleteUserById(id);
-    }
-
-    private sendConnectionMessage(socket: SocketIO.Socket): void {
-        if (this.usersContainerService.getUsernameByID(socket.id) !== "") {
-            const message: ChatMessage = this.chatMessageService.getConnectionMessage(socket);
-            this.io.emit("chatMessage", message);
-        }
-    }
-
-    private sendDeconnectionMessage(socket: SocketIO.Socket): void {
-        if (this.usersContainerService.getUsernameByID(socket.id) !== "") {
-            const message: ChatMessage = this.chatMessageService.getDeconnectionMessage(socket);
-            this.io.emit("chatMessage", message);
-        }
-    }
-
-    private setGameMode(gameMode: GameMode): void {
-        gameMode === GameMode.SOLO ? this.chatMessageService = new ChatMessageSOLOService(this.usersContainerService) :
-                                     this.chatMessageService = new ChatMessagePVPService(this.usersContainerService);
     }
 }

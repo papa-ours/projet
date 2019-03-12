@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { ChatEvent, ChatMessage, ChatTime } from "../../../common/communication/message";
+import { ChatMessage, ChatTime } from "../../../common/communication/message";
 import Types from "../types";
 import { UsersContainerService } from "./users-container.service";
 
@@ -12,12 +12,11 @@ export abstract class ChatMessageService {
     public abstract sendErrorIdentificationMessage(socket: SocketIO.Socket): void;
     public abstract getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage;
 
-    public getConnectionMessage(socket: SocketIO.Socket): ChatMessage {
+    public getNewUserMessage(socket: SocketIO.Socket): ChatMessage {
         const username: string =  this.usersContainerService.getUsernameByID(socket.id);
         const textMessage: string = `${username} vient de se connecter.`;
 
         return {chatTime: this.getTime(),
-                chatEvent: ChatEvent.CONNECT,
                 username: socket.id,
                 text: textMessage};
     }
@@ -27,7 +26,6 @@ export abstract class ChatMessageService {
         const textMessage: string = `${username} vient de se déconnecter.`;
 
         return {chatTime: this.getTime(),
-                chatEvent: ChatEvent.DISCONNECT,
                 username: socket.id,
                 text: textMessage};
     }
