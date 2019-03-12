@@ -24,4 +24,5 @@ export default {
         ChatMessageService: Symbol("ChatMessageService"),
         ChatMessageSOLOService: Symbol("ChatMessageSOLOService"),
         ChatMessagePVPService: Symbol("ChatMessagePVPService"),
+        GetCurrentTimeService: Symbol("GetCurrentTimeService"),
 };
