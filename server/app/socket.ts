@@ -64,7 +64,7 @@ export class Socket {
 
                 return;
             }
-            const message: ChatMessage =  this.chatMessageService.getDeconnectionMessage(socket);
+            const message: ChatMessage =  this.chatMessageService.getDisconnectionMessage(socket);
             this.io.emit("chatMessage", message);
 
             this.deleteUser(socket.id);

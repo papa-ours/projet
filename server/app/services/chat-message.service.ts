@@ -25,7 +25,7 @@ export abstract class ChatMessageService {
                 text: textMessage};
     }
 
-    public getDeconnectionMessage(socket: SocketIO.Socket): ChatMessage {
+    public getDisconnectionMessage(socket: SocketIO.Socket): ChatMessage {
         const username: string =  this.usersContainerService.getUsernameByID(socket.id);
         const textMessage: string = `${username} vient de se déconnecter.`;
 
