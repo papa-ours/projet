@@ -11,7 +11,7 @@ import { Injectable } from "@angular/core";
 @Injectable({
     providedIn: "root",
 })
-export class DeleteGameSheetService {
+export class GameSheetService {
 
     public readonly URL: string = `${SERVER_ADDRESS}/api/game/sheet`;
     public constructor(private http: HttpClient) { }

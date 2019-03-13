@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameSheet, GameType } from "../../../../common/communication/game-description";
-import { DeleteGameSheetService } from "../delete-game-sheet.service";
+import { GameSheetService } from "../delete-game-sheet.service";
 
 @Component({
     selector: "app-game-sheet",
@@ -24,7 +24,7 @@ export class GameSheetComponent implements OnInit {
     @ViewChild("btn1") private btn1: ElementRef;
     @ViewChild("btn2") private btn2: ElementRef;
 
-    public constructor(private router: Router, private deleteGameSheetService: DeleteGameSheetService) {
+    public constructor(private router: Router, private gameSheetService: GameSheetService) {
         this.source = "";
         this.isAdmin = false;
         this.isConfirmPanelShown = false;
@@ -39,14 +39,14 @@ export class GameSheetComponent implements OnInit {
     }
 
     public delete(): void {
-        this.deleteGameSheetService.deleteGameSheet(this.description.id, this.type)
+        this.gameSheetService.deleteGameSheet(this.description.id, this.type)
                 .subscribe(() => {
                     location.reload();
                 });
     }
 
     public reinitializeScores(): void {
-        this.deleteGameSheetService.reinitializeScores(this.description.id, this.type)
+        this.gameSheetService.reinitializeScores(this.description.id, this.type)
         .subscribe(() => {
             location.reload();
         });
