@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameSheet, GameType } from "../../../../common/communication/game-description";
-import { GameSheetService } from "../delete-game-sheet.service";
+import { GameSheetService } from "../game-sheet.service";
 
 @Component({
     selector: "app-game-sheet",
