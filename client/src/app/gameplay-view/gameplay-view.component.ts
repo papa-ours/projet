@@ -5,6 +5,7 @@ import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from
 import { GameType } from "../../../../common/communication/game-description";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
+import { ClickImagePosition, ClickPagePosition } from "../game-image/game-image.component";
 import { GameplayService } from "../gameplay.service";
 
 @Component({
@@ -27,7 +28,7 @@ export class GameplayViewComponent implements OnInit {
     public type: GameType;
     private canClick: boolean;
     public showError: boolean;
-    public clickPosition: [number, number];
+    public clickPosition: ClickPagePosition;
 
     @ViewChild("container") private containerRef: ElementRef;
 
@@ -63,10 +64,10 @@ export class GameplayViewComponent implements OnInit {
         this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
     }
 
-    public checkDifference(position: [[number, number], [number, number]]): void {
+    public checkDifference(positions: [ClickImagePosition, ClickPagePosition]): void {
         if (this.canClick) {
-            this.clickPosition = position[0];
-            this.differenceCheckerService.isPositionDifference(this.id, position[1][0], position[1][1])
+            this.clickPosition = positions[1];
+            this.differenceCheckerService.isPositionDifference(this.id, positions[0].X, positions[0].Y)
                 .subscribe((isDifference: boolean) => {
                     isDifference ? this.differenceFound() : this.identificationError();
                 },
