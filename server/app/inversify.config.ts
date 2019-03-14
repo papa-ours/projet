@@ -4,7 +4,7 @@ import { DifferenceCheckerController } from "./controllers/difference-checker.co
 import { DifferenceImageController } from "./controllers/difference-image.controller";
 import { GameSheetGenerationController } from "./controllers/game-sheet-generation.controller";
 import { GetGameListController } from "./controllers/get-game-list.controller";
-import { GetGameController } from "./controllers/get-game.controller";
+import { CreateGameController } from "./controllers/get-game.controller";
 import { SceneDataController } from "./controllers/scene-data.controller";
 import { UsernameValidatorController } from "./controllers/username-validator.controller";
 import { Server } from "./server";
@@ -35,7 +35,7 @@ container.bind(Types.DifferenceImageController).to(DifferenceImageController);
 container.bind(Types.GameSheetGenerationController).to(GameSheetGenerationController);
 container.bind(Types.DifferencesFinderService).to(DifferencesFinderService);
 container.bind(Types.GameSheetGenerationService).to(GameSheetGenerationService);
-container.bind(Types.GetGameController).to(GetGameController);
+container.bind(Types.CreateGameController).to(CreateGameController);
 container.bind(Types.GetGameService).to(GetGameService);
 container.bind(Types.SceneDataGeneratorService).to(SceneDataGeneratorService);
 container.bind(Types.SceneDataController).to(SceneDataController);

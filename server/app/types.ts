@@ -14,7 +14,7 @@ export default {
         DBConnectionService: Symbol("DBConnectionService"),
         GameSheetGenerationService: Symbol("GameSheetGenerationService"),
         GetGameService: Symbol("GetGameService"),
-        GetGameController: Symbol("GetGameService"),
+        CreateGameController: Symbol("GetGameService"),
         SceneDataGeneratorService: Symbol("SceneDataGeneratorService"),
         SceneDataController: Symbol("SceneDataController"),
         SceneDataDifferenceService: Symbol("SceneDataDifferenceService"),
