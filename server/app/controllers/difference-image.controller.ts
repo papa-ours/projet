@@ -11,6 +11,7 @@ import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "../services/difference-image-generator.service";
 import { DifferencesFinderService } from "../services/differences-finder.service";
 import { AWSFilesUtil } from "../services/utils/aws-files.util";
+import { S3Util } from "../services/utils/s3.util";
 import Types from "../types";
 
 @injectable()
@@ -67,14 +68,9 @@ export class DifferenceImageController {
     }
 
     private createMulterObject(): multer.Instance {
-        aws.config.update({
-            accessKeyId: "AKIAI23N35EM3WRJXQRA",
-            secretAccessKey: "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",
-        });
-
-        const s3: aws.S3 = new aws.S3();
+        const s3Util: S3Util = new S3Util();
         const storage: multer.StorageEngine = multerS3({
-            s3: s3,
+            s3: s3Util.s3,
             bucket: "uploads-diffs",
             acl: "public-read",
             key: (req: Request, file: Express.Multer.File, callback: Function) => {
