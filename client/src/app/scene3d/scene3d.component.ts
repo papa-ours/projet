@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input , Output, ViewChild} from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input ,
+         OnChanges, Output, SimpleChange, SimpleChanges, ViewChild} from "@angular/core";
 import { GeometryData, SceneData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { GetSceneDataService } from "./get-scene-data.service";
@@ -11,12 +12,14 @@ import { SceneGeneratorService } from "./scene-generator.service";
     templateUrl: "./scene3d.component.html",
     styleUrls: ["./scene3d.component.css"],
 })
-export class Scene3dComponent implements AfterViewInit {
+export class Scene3dComponent implements AfterViewInit, OnChanges {
 
     @Input() private name: string;
     @Input() public width: number;
     @Input() public height: number;
     @Input() public type: number;
+    @Input() public differenceCounter: number;
+    @Input() public sceneData: SceneData;
     @Output() private difference3DEvent: EventEmitter<VectorInterface>;
     @ViewChild("container")
     private containerRef: ElementRef;
@@ -39,8 +42,19 @@ export class Scene3dComponent implements AfterViewInit {
     public onResize(): void {
         this.renderService.onResize();
     }
+    public ngOnChanges(changes: SimpleChanges): void {
+        const differenceChange: SimpleChange = changes.differenceCounter;
+        if (this.container.firstChild && differenceChange.currentValue > differenceChange.previousValue) {
+            this.container.removeChild(this.container.firstChild);
+            this.getScene();
+        }
+    }
 
     public ngAfterViewInit(): void {
+        this.getScene();
+    }
+
+    private getScene(): void {
         this.getSceneData.getSceneData(this.name).subscribe((sceneData: SceneData) => {
             const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
             this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
