@@ -3,8 +3,8 @@ import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
 import { Pixel } from "../../../common/images/pixel";
+import { FileIO } from "./utils/file-io.util";
 import { FileReaderUtil } from "./utils/file-reader.util";
-import { FileWriterUtil } from "./utils/file-writer.util";
 
 export class Game implements HasId {
     public images: BMPImage[];
@@ -40,6 +40,6 @@ export class Game implements HasId {
     }
 
     private async saveModifiedImage(): Promise<{}> {
-        return FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, Buffer.from(this.images[ImageType.Modified].toArray()));
+        return FileIO.writeFile(`uploads/${this.id}.bmp`, Buffer.from(this.images[ImageType.Modified].toArray()));
     }
 }
