@@ -23,6 +23,6 @@ export default {
         UsersContainerService: Symbol("UsersContainerService"),
         ChatMessageService: Symbol("ChatMessageService"),
         ChatMessageSoloService: Symbol("ChatMessageSoloService"),
-        ChatMessagePVPService: Symbol("ChatMessagePVPService"),
+        ChatMessagePvpService: Symbol("ChatMessagePvpService"),
         GetCurrentTimeService: Symbol("GetCurrentTimeService"),
 };

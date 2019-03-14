@@ -2,7 +2,7 @@ import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
 import { DifferenceIdentification, GameMode } from "../../common/communication/message";
-import { ChatMessagePVPService } from "./services/chat-message-pvp.service";
+import { ChatMessagePvpService } from "./services/chat-message-pvp.service";
 import { ChatMessageSoloService } from "./services/chat-message-solo.service";
 import { ChatMessageService } from "./services/chat-message.service";
 import { GetCurrentTimeService } from "./services/get-current-time.service";
@@ -64,7 +64,7 @@ export class Socket {
         socket.on("setGameMode", (gameMode: GameMode) => {
             gameMode === GameMode.SOLO ? this.chatMessageService = new ChatMessageSoloService(this.usersContainerService,
                                                                                               this.getCurrentTimeService) :
-                                         this.chatMessageService = new ChatMessagePVPService(this.usersContainerService,
+                                         this.chatMessageService = new ChatMessagePvpService(this.usersContainerService,
                                                                                              this.getCurrentTimeService);
         });
     }
