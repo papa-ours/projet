@@ -10,7 +10,7 @@ import { Message, MessageType } from "../../../common/communication/message";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "../services/difference-image-generator.service";
 import { DifferencesFinderService } from "../services/differences-finder.service";
-import { S3FileReader } from "../services/utils/aws-files.util";
+import { AWSFilesUtil } from "../services/utils/aws-files.util";
 import Types from "../types";
 
 @injectable()
@@ -63,7 +63,7 @@ export class DifferenceImageController {
     }
 
     private async writeFile(data: Uint8Array, name: string): Promise<PromiseResult<aws.S3.PutObjectOutput, aws.AWSError>> {
-         return S3FileReader.writeFile(`${name}-differenceImage.bmp`, Buffer.from(data));
+         return AWSFilesUtil.writeFile(`${name}-differenceImage.bmp`, Buffer.from(data));
     }
 
     private createMulterObject(): multer.Instance {

@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
-import { S3FileReader } from "./utils/aws-files.util";
+import { AWSFilesUtil } from "./utils/aws-files.util";
 import { PromiseResult } from "aws-sdk/lib/request";
 import { GetObjectOutput } from "aws-sdk/clients/s3";
 import { AWSError } from "aws-sdk";
@@ -22,7 +22,7 @@ export class DifferenceImageGenerator {
 
     public async generateDifferenceImage(name: string, paths: string[]): Promise<DifferenceImage> {
         const readFiles: Promise<PromiseResult<GetObjectOutput, AWSError>>[] = paths.map(async(path: string) => {
-            return S3FileReader.readFile(path);
+            return AWSFilesUtil.readFile(path);
         });
 
         return Promise.all(readFiles).then((buffers: PromiseResult<GetObjectOutput, AWSError>[]) => {

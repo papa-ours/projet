@@ -3,7 +3,7 @@ import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
 import { Pixel } from "../../../common/images/pixel";
-import { S3FileReader } from "./utils/aws-files.util";
+import { AWSFilesUtil } from "./utils/aws-files.util";
 import { FileWriterUtil } from "./utils/file-writer.util";
 
 export class Game implements HasId {
@@ -18,7 +18,7 @@ export class Game implements HasId {
     private setupImages(name: string): void {
         const imageTypes: string[] = ["original", "modified", "difference"];
         imageTypes.forEach(async (type: string, index: number) => {
-            const data: Uint8Array = (await S3FileReader.readFile(`${name}-${type}Image.bmp`)).Body as Uint8Array;
+            const data: Uint8Array = (await AWSFilesUtil.readFile(`${name}-${type}Image.bmp`)).Body as Uint8Array;
             if (index === ImageType.Difference) {
                 this.differenceImage = DifferenceImage.fromArray(data);
             } else {
