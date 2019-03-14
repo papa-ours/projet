@@ -8,9 +8,9 @@ describe("Difference Checker", () => {
     let game: Game;
 
     beforeEach((done: Mocha.Done) => {
-        const ONE_SECOND: number = 1000;
+        const TWO_SECONDS: number = 2000;
         game = new Game("0", "voiture", GameType.Simple);
-        setTimeout(done, ONE_SECOND);
+        setTimeout(done, TWO_SECONDS);
     });
 
     it("should return false if there is no difference at the position", () => {
