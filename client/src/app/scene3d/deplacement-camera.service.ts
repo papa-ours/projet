@@ -15,7 +15,7 @@ export class DeplacementCameraService {
         DeplacementCameraService.render3dModifiedImage = renderService;
     }
 
-    public static keyPress(): void {
+    public static activateDeplacement(): void {
         document.body.addEventListener("keypress", DeplacementCameraService.moveCamera, false);
 
         document.body.addEventListener("mousedown", (e: MouseEvent) => {

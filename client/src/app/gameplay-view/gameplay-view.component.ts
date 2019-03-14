@@ -45,7 +45,7 @@ export class GameplayViewComponent implements OnInit {
                 this.id = id;
             });
             this.setImagesPath();
-            DeplacementCameraService.keyPress();
+            DeplacementCameraService.activateDeplacement();
         });
     }
 
