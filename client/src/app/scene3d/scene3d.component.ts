@@ -42,7 +42,12 @@ export class Scene3dComponent implements AfterViewInit {
         this.getSceneData.getSceneData(this.name).subscribe((sceneData: SceneData) => {
             const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
             this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
-            DeplacementCameraService.keyPress(this.renderService);
+            if (this.type) {
+                DeplacementCameraService.setRender3dModifiedImage(this.renderService);
+            }
+            else {
+                DeplacementCameraService.setRender3dOriginalImage(this.renderService);
+            }
         });
     }
 
