@@ -4,6 +4,7 @@ export class DeplacementCameraService {
 
     private static readonly RIGHT_CLICK: number = 2;
     private static readonly DISTANCE: number = 50;
+    private static readonly FORWARD: string = "w";
     private static render3dOriginalImage: RenderService;
     private static render3dModifiedImage: RenderService;
 
@@ -33,7 +34,7 @@ export class DeplacementCameraService {
 
     private static moveCamera(e: KeyboardEvent): void {
         switch (e.key) {
-            case "w":
+            case DeplacementCameraService.FORWARD:
             DeplacementCameraService.render3dOriginalImage.translateCameraZAxis(-DeplacementCameraService.DISTANCE);
             DeplacementCameraService.render3dModifiedImage.translateCameraZAxis(-DeplacementCameraService.DISTANCE);
             break;
