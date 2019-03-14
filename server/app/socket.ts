@@ -1,7 +1,7 @@
 import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
-import { ChatMessage, GameMode } from "../../common/communication/message";
+import { GameMode } from "../../common/communication/message";
 import { ChatMessagePVPService } from "./services/chat-message-pvp.service";
 import { ChatMessageSOLOService } from "./services/chat-message-solo.service";
 import { ChatMessageService } from "./services/chat-message.service";
@@ -35,13 +35,7 @@ export class Socket {
 
     private setupNewUser(socket: SocketIO.Socket): void {
        socket.on("newUser", () => {
-            const username: string = this.usersContainerService.getUsernameByID(socket.id);
-            if (username === "") {
-
-                return;
-            }
-            const message: ChatMessage =  this.chatMessageService.getNewUserMessage(socket);
-            this.io.emit("chatMessage", message);
+            this.chatMessageService.sendNewUserMessage(socket, this.io);
        });
     }
 
@@ -59,14 +53,7 @@ export class Socket {
 
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
-            const username: string = this.usersContainerService.getUsernameByID(socket.id);
-            if (username === "") {
-
-                return;
-            }
-            const message: ChatMessage =  this.chatMessageService.getDisconnectionMessage(socket);
-            this.io.emit("chatMessage", message);
-
+            this.chatMessageService.sendDisconnectionMessage(socket, this.io);
             this.deleteUser(socket.id);
         });
     }
