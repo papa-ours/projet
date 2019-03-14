@@ -26,3 +26,8 @@ export enum GameMode {
     SOLO,
     PVP,
 }
+
+export enum DifferenceIdentification {
+    DifferenceFound,
+    ErrorIdentification,
+}
