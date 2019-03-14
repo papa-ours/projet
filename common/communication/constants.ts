@@ -5,3 +5,6 @@ export const BMP_IMAGE_HEIGHT: number = 480;
 
 export const REQUIRED_DIFFERENCES_1P: number = 7;
 export const REQUIRED_DIFFERENCES_2P: number = 4;
+
+export const S3_ACCESS_KEY_ID: string = "AKIAI23N35EM3WRJXQRA";
+export const S3_SECRET_ACCESS_KEY: string = "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";
