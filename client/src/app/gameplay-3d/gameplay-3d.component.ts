@@ -4,6 +4,11 @@ import { RaycasterService } from "../scene3d/raycaster.service";
 import { Scene3dComponent } from "../scene3d/scene3d.component";
 import { Difference3DCheckerService } from "./difference3d-checker.service";
 
+enum SceneType {
+    originalScene,
+    modifiedScene,
+}
+
 @Component({
     selector: "app-gameplay-3d",
     templateUrl: "./gameplay-3d.component.html",
@@ -17,28 +22,34 @@ export class Gameplay3dComponent implements AfterViewInit {
     private originalScene: Scene3dComponent;
     private modifiedScene: Scene3dComponent;
     private rayCaster: RaycasterService;
+    // @ts-ignore la difference est passer a la scene 3D
+    private differenceCounter: number;
     @ViewChildren(Scene3dComponent) private scenes: QueryList<Scene3dComponent>;
 
     public constructor(private difference3DCheckerService: Difference3DCheckerService) {
         this.foundDifferenceEvent = new EventEmitter<void>();
+        this.differenceCounter = 0;
     }
 
     public ngAfterViewInit(): void {
-        this.originalScene = this.scenes.toArray()[0];
-        this.modifiedScene = this.scenes.toArray()[1];
+        this.originalScene = this.scenes.toArray()[SceneType.originalScene];
+        this.modifiedScene = this.scenes.toArray()[SceneType.modifiedScene];
         this.rayCaster = new RaycasterService(this.originalScene.renderService, this.modifiedScene.renderService);
     }
 
     public checkDifference(mousePosition: VectorInterface): void {
-        const position: VectorInterface = this.rayCaster.findObject(mousePosition) as VectorInterface;
-        this.difference3DCheckerService.isPositionDifference(position, this.name).subscribe(
-            (response: boolean) => {if (response) {
-                this.foundDifference();
-            }
-        });
+        const position: VectorInterface | undefined = this.rayCaster.findObject(mousePosition);
+        if (position) {
+            this.difference3DCheckerService.isPositionDifference(position, this.name).subscribe(
+                (response: boolean) => {if (response) {
+                    this.foundDifference();
+                }
+            });
+        }
     }
 
     private foundDifference(): void {
         this.foundDifferenceEvent.emit();
+        this.differenceCounter++;
     }
 }
