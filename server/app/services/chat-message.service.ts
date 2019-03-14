@@ -18,29 +18,26 @@ export abstract class ChatMessageService {
 
     public sendNewUserMessage(socket: SocketIO.Socket, io: SocketIO.Server): void {
         const username: string =  this.usersContainerService.getUsernameByID(socket.id);
-        if (username === "") {
+        if (username !== "") {
+            const textMessage: string = `${username} vient de se connecter.`;
+            const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
+                                          username: username,
+                                          text: textMessage};
 
-            return;
+            io.emit("chatMessage", message);
         }
-        const textMessage: string = `${username} vient de se connecter.`;
-        const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                                      username: socket.id,
-                                      text: textMessage};
-
-        io.emit("chatMessage", message);
     }
 
     public sendDisconnectionMessage(socket: SocketIO.Socket, io: SocketIO.Server): void {
         const username: string =  this.usersContainerService.getUsernameByID(socket.id);
-        if (username === "") {
+        if (username !== "") {
+            const textMessage: string = `${username} vient de se déconnecter.`;
+            const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
+                                          username: username,
+                                          text: textMessage};
 
-            return;
+            io.emit("chatMessage", message);
         }
-        const textMessage: string = `${username} vient de se déconnecter.`;
-        const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                                      username: socket.id,
-                                      text: textMessage};
 
-        io.emit("chatMessage", message);
     }
 }

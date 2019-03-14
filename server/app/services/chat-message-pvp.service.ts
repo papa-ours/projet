@@ -19,7 +19,7 @@ export class ChatMessagePVPService extends ChatMessageService {
         if (username !== "") {
             const textMessage: string = `Différence trouvée par ${username}.`;
             const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                                          username: socket.id,
+                                          username: username,
                                           text: textMessage};
             socket.emit("chatMessage", message);
         }
@@ -30,7 +30,7 @@ export class ChatMessagePVPService extends ChatMessageService {
         if (username !== "") {
             const textMessage: string = `Erreur par ${username}.`;
             const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                                          username: socket.id,
+                                          username: username,
                                           text: textMessage};
             socket.emit("chatMessage", message);
         }
