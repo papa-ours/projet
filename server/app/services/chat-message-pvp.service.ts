@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { ChatMessage } from "../../../common/communication/message";
+import { ChatMessage, DifferenceIdentification } from "../../../common/communication/message";
 import { ChatMessageService } from "./chat-message.service";
 import { GetCurrentTimeService } from "./get-current-time.service";
 import { UsersContainerService } from "./users-container.service";
@@ -14,10 +14,10 @@ export class ChatMessagePVPService extends ChatMessageService {
         super(usersContainerService, getCurrentTimeService);
     }
 
-    public sendFoundDifferenceMessage(socket: SocketIO.Socket): void {
+    public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, identification: DifferenceIdentification): void {
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
-            const textMessage: string = `Différence trouvée par ${username}.`;
+            const textMessage: string = this.getIdentificationMessage(username, identification);
             const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
                                           username: username,
                                           text: textMessage};
@@ -25,15 +25,11 @@ export class ChatMessagePVPService extends ChatMessageService {
         }
     }
 
-    public sendErrorIdentificationMessage(socket: SocketIO.Socket): void {
-        const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
-        if (username !== "") {
-            const textMessage: string = `Erreur par ${username}.`;
-            const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                                          username: username,
-                                          text: textMessage};
-            socket.emit("chatMessage", message);
-        }
+    private getIdentificationMessage(username: string, identification: DifferenceIdentification): string {
+
+        return identification === DifferenceIdentification.DifferenceFound ? `Différence trouvée par ${username}.` :
+                                                                             `Erreur par ${username}.`;
+
     }
 
     public getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage {

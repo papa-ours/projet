@@ -1,7 +1,7 @@
 import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
-import { GameMode } from "../../common/communication/message";
+import { DifferenceIdentification, GameMode } from "../../common/communication/message";
 import { ChatMessagePVPService } from "./services/chat-message-pvp.service";
 import { ChatMessageSOLOService } from "./services/chat-message-solo.service";
 import { ChatMessageService } from "./services/chat-message.service";
@@ -35,25 +35,27 @@ export class Socket {
 
     private setupNewUser(socket: SocketIO.Socket): void {
        socket.on("newUser", () => {
-            this.chatMessageService.sendConnectionMessage(socket, this.io);
+            const isConnected: boolean = false;
+            this.chatMessageService.sendConnectionMessage(socket, this.io, isConnected);
        });
     }
 
     private setupFoundDifference(socket: SocketIO.Socket): void {
         socket.on("foundDifference", () => {
-            this.chatMessageService.sendFoundDifferenceMessage(socket);
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, DifferenceIdentification.DifferenceFound);
         });
     }
 
     private setupErrorIdentification(socket: SocketIO.Socket): void {
         socket.on("errorIdentification", () => {
-            this.chatMessageService.sendErrorIdentificationMessage(socket);
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, DifferenceIdentification.ErrorIdentification);
         });
     }
 
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
-            this.chatMessageService.sendConnectionMessage(socket, this.io);
+            const isConnected: boolean = true;
+            this.chatMessageService.sendConnectionMessage(socket, this.io, isConnected);
             this.deleteUser(socket.id);
         });
     }
