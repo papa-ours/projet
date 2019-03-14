@@ -7,7 +7,7 @@
     <div class="info-container">
         <span class="time-container">
             <fa-icon [icon]="hourglassIcon" class="info-label"></fa-icon>
-            <span>00:00</span>
+            <span>{{formattedChrono}}</span>
         </span>
         <span class="differences-count">
             <span>{{foundDifferencesCounter}}/{{requiredDifferences}}</span>
