@@ -2,7 +2,7 @@ import { RenderService } from "./render.service";
 
 export class DeplacementCameraService {
 
-    public static readonly RIGHT_CLICK: number = 2;
+    private static readonly RIGHT_CLICK: number = 2;
     private static readonly DISTANCE: number = 50;
     private static render3dOriginalImage: RenderService;
     private static render3dModifiedImage: RenderService;
