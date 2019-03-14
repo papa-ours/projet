@@ -10,7 +10,7 @@ import { Message, MessageType } from "../../../common/communication/message";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "../services/difference-image-generator.service";
 import { DifferencesFinderService } from "../services/differences-finder.service";
-import { S3FileReader } from "../services/utils/aws-file-reader";
+import { S3FileReader } from "../services/utils/aws-files.util";
 import Types from "../types";
 
 @injectable()

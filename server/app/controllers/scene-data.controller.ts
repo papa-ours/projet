@@ -6,7 +6,7 @@ import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { GeometryData, Modification, ModificationType, SceneData } from "../../../common/communication/geometry";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
-import { S3FileReader } from "../services/utils/aws-file-reader";
+import { S3FileReader } from "../services/utils/aws-files.util";
 import Types from "../types";
 
 @injectable()

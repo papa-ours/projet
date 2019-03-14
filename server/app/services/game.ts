@@ -3,7 +3,7 @@ import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
 import { Pixel } from "../../../common/images/pixel";
-import { S3FileReader } from "./utils/aws-file-reader";
+import { S3FileReader } from "./utils/aws-files.util";
 import { FileWriterUtil } from "./utils/file-writer.util";
 
 export class Game implements HasId {
