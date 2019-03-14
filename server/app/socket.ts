@@ -35,7 +35,7 @@ export class Socket {
 
     private setupNewUser(socket: SocketIO.Socket): void {
        socket.on("newUser", () => {
-            this.chatMessageService.sendNewUserMessage(socket, this.io);
+            this.chatMessageService.sendConnectionMessage(socket, this.io);
        });
     }
 
@@ -53,7 +53,7 @@ export class Socket {
 
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
-            this.chatMessageService.sendDisconnectionMessage(socket, this.io);
+            this.chatMessageService.sendConnectionMessage(socket, this.io);
             this.deleteUser(socket.id);
         });
     }
