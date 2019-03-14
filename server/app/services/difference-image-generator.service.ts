@@ -1,12 +1,13 @@
+import { AWSError } from "aws-sdk";
+import { GetObjectOutput } from "aws-sdk/clients/s3";
+import { PromiseResult } from "aws-sdk/lib/request";
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
 import { AWSFilesUtil } from "./utils/aws-files.util";
-import { PromiseResult } from "aws-sdk/lib/request";
-import { GetObjectOutput } from "aws-sdk/clients/s3";
-import { AWSError } from "aws-sdk";
+
 
 @injectable()
 export class DifferenceImageGenerator {
