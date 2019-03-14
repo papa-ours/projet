@@ -6,7 +6,9 @@ export class DeplacementCameraService {
     private static readonly DISTANCE: number = 50;
     private static readonly FORWARD: string = "w";
     private static readonly LEFT: string = "a";
+    private static readonly RIGHT: string = "d";
     private static readonly BACKWARD: string = "s";
+    
     private static render3dOriginalImage: RenderService;
     private static render3dModifiedImage: RenderService;
 
@@ -48,7 +50,7 @@ export class DeplacementCameraService {
             DeplacementCameraService.render3dOriginalImage.translateCameraZAxis(DeplacementCameraService.DISTANCE);
             DeplacementCameraService.render3dModifiedImage.translateCameraZAxis(DeplacementCameraService.DISTANCE);
             break;
-            case "d":
+            case DeplacementCameraService.RIGHT:
             DeplacementCameraService.render3dOriginalImage.translateCameraXAxis(DeplacementCameraService.DISTANCE);
             DeplacementCameraService.render3dModifiedImage.translateCameraXAxis(DeplacementCameraService.DISTANCE);
             break;
