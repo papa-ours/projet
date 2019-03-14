@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
-import { FileReaderUtil } from "./utils/file-reader.util";
+import { FileIO } from "./utils/file-io.util";
 
 @injectable()
 export class DifferenceImageGenerator {
@@ -19,7 +19,7 @@ export class DifferenceImageGenerator {
 
     public async generateDifferenceImage(name: string, paths: string[]): Promise<DifferenceImage> {
         const readFiles: Promise<Buffer>[] = paths.map(async(path: string) => {
-            return FileReaderUtil.readFile(path);
+            return FileIO.readFile(path);
         });
 
         return Promise.all(readFiles).then((buffers: Buffer[]) => {
