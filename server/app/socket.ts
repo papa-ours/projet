@@ -3,7 +3,7 @@ import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
 import { DifferenceIdentification, GameMode } from "../../common/communication/message";
 import { ChatMessagePVPService } from "./services/chat-message-pvp.service";
-import { ChatMessageSOLOService } from "./services/chat-message-solo.service";
+import { ChatMessageSoloService } from "./services/chat-message-solo.service";
 import { ChatMessageService } from "./services/chat-message.service";
 import { GetCurrentTimeService } from "./services/get-current-time.service";
 import { UsersContainerService } from "./services/users-container.service";
@@ -18,7 +18,7 @@ export class Socket {
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
         @inject(Types.GetCurrentTimeService) public getCurrentTimeService: GetCurrentTimeService,
     ) {
-        this.chatMessageService = new ChatMessageSOLOService(this.usersContainerService, this.getCurrentTimeService);
+        this.chatMessageService = new ChatMessageSoloService(this.usersContainerService, this.getCurrentTimeService);
     }
 
     public init(server: http.Server): void {
@@ -62,7 +62,7 @@ export class Socket {
 
     private setupGameMode(socket: SocketIO.Socket): void {
         socket.on("setGameMode", (gameMode: GameMode) => {
-            gameMode === GameMode.SOLO ? this.chatMessageService = new ChatMessageSOLOService(this.usersContainerService,
+            gameMode === GameMode.SOLO ? this.chatMessageService = new ChatMessageSoloService(this.usersContainerService,
                                                                                               this.getCurrentTimeService) :
                                          this.chatMessageService = new ChatMessagePVPService(this.usersContainerService,
                                                                                              this.getCurrentTimeService);

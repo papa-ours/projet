@@ -22,7 +22,7 @@ export default {
         DifferenceCheckerController: Symbol("DifferenceCheckerController"),
         UsersContainerService: Symbol("UsersContainerService"),
         ChatMessageService: Symbol("ChatMessageService"),
-        ChatMessageSOLOService: Symbol("ChatMessageSOLOService"),
+        ChatMessageSoloService: Symbol("ChatMessageSoloService"),
         ChatMessagePVPService: Symbol("ChatMessagePVPService"),
         GetCurrentTimeService: Symbol("GetCurrentTimeService"),
 };

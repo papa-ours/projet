@@ -5,7 +5,7 @@ import { GetCurrentTimeService } from "./get-current-time.service";
 import { UsersContainerService } from "./users-container.service";
 
 @injectable()
-export class ChatMessageSOLOService extends ChatMessageService {
+export class ChatMessageSoloService extends ChatMessageService {
 
     public constructor(
         usersContainerService: UsersContainerService,
