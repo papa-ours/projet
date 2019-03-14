@@ -26,6 +26,7 @@ export class Scene3dComponent implements AfterViewInit {
         private sceneGeneratorService: SceneGeneratorService,
     ) {
         this.name = "";
+        this.renderService = new RenderService();
     }
 
     private get container(): HTMLDivElement {
