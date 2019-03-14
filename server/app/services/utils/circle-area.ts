@@ -1,7 +1,4 @@
-export interface Position {
-    i: number;
-    j: number;
-}
+import { Position } from "../../../../common/images/position";
 
 // tslint:disable:align
 export const CHUNK_RELATIVE_POSITIONS: Position[] = [
