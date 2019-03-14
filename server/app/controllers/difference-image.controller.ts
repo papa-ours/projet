@@ -69,10 +69,13 @@ export class DifferenceImageController {
 
     private createMulterObject(): multer.Instance {
         const s3Util: S3Util = new S3Util();
+        const BUCKET_NAME: string = "uploads-diffs";
+        const BUCKET_ACL: string = "public-read";
+
         const storage: multer.StorageEngine = multerS3({
             s3: s3Util.s3,
-            bucket: "uploads-diffs",
-            acl: "public-read",
+            bucket: BUCKET_NAME,
+            acl: BUCKET_ACL,
             key: (req: Request, file: Express.Multer.File, callback: Function) => {
                 callback(null, req.body.name + "-" + file.fieldname + ".bmp");
             },
