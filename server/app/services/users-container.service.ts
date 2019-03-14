@@ -13,12 +13,12 @@ export class UsersContainerService {
         UsersContainerService.users = [];
     }
 
-    public getUsernameByID(id: string): string {
-        const userIndex: number = UsersContainerService.users.findIndex((u: User) => {
+    public getUsernameBySocketId(id: string): string {
+        const user: User | undefined = UsersContainerService.users.find((u: User) => {
             return u.socketId === id;
         });
 
-        return userIndex === -1 ? "" : UsersContainerService.users[userIndex].name;
+        return user ? user.name : "";
     }
 
     public addUser(user: User): void {

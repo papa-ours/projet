@@ -17,7 +17,7 @@ export abstract class ChatMessageService {
     public abstract getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage;
 
     public sendNewUserMessage(socket: SocketIO.Socket, io: SocketIO.Server): void {
-        const username: string =  this.usersContainerService.getUsernameByID(socket.id);
+        const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
             const textMessage: string = `${username} vient de se connecter.`;
             const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
@@ -29,7 +29,7 @@ export abstract class ChatMessageService {
     }
 
     public sendDisconnectionMessage(socket: SocketIO.Socket, io: SocketIO.Server): void {
-        const username: string =  this.usersContainerService.getUsernameByID(socket.id);
+        const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
             const textMessage: string = `${username} vient de se déconnecter.`;
             const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),

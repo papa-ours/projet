@@ -15,7 +15,7 @@ export class ChatMessageSOLOService extends ChatMessageService {
     }
 
     public sendFoundDifferenceMessage(socket: SocketIO.Socket): void {
-        const username: string =  this.usersContainerService.getUsernameByID(socket.id);
+        const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
             const textMessage: string = "Différence trouvée.";
             const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
@@ -26,18 +26,18 @@ export class ChatMessageSOLOService extends ChatMessageService {
     }
 
     public sendErrorIdentificationMessage(socket: SocketIO.Socket): void {
-        const username: string =  this.usersContainerService.getUsernameByID(socket.id);
+        const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
             const textMessage: string = "Erreur.";
             const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                                          username: this.usersContainerService.getUsernameByID(socket.id),
+                                          username: this.usersContainerService.getUsernameBySocketId(socket.id),
                                           text: textMessage};
             socket.emit("chatMessage", message);
         }
     }
 
     public getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage {
-        const username: string =  this.usersContainerService.getUsernameByID(socket.id);
+        const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         const textMessage: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${nomJeu} en solo`;
 
         return {chatTime: this.getCurrentTimeService.getCurrentTime(),
