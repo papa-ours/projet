@@ -4,8 +4,8 @@ import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-ico
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
 import { ImageType } from "../../../../common/images/image-type";
+import { Position } from "../../../../common/images/position";
 import { DifferenceCheckerService } from "../difference-checker.service";
-import { ClickImagePosition, ClickPagePosition } from "../game-image/game-image.component";
 import { GameplayService } from "../gameplay.service";
 
 @Component({
@@ -28,7 +28,7 @@ export class GameplayViewComponent implements OnInit {
     public type: GameType;
     private canClick: boolean;
     public showError: boolean;
-    public clickPosition: ClickPagePosition;
+    public clickPosition: Position;
 
     @ViewChild("container") private containerRef: ElementRef;
 
@@ -64,10 +64,10 @@ export class GameplayViewComponent implements OnInit {
         this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
     }
 
-    public checkDifference(positions: [ClickImagePosition, ClickPagePosition]): void {
+    public checkDifference(positions: [Position, Position]): void {
         if (this.canClick) {
             this.clickPosition = positions[1];
-            this.differenceCheckerService.isPositionDifference(this.id, positions[0].X, positions[0].Y)
+            this.differenceCheckerService.isPositionDifference(this.id, positions[0].i, positions[0].j)
                 .subscribe((isDifference: boolean) => {
                     isDifference ? this.differenceFound() : this.identificationError();
                 },

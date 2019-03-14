@@ -1,14 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from "@angular/core";
-
-export interface ClickImagePosition {
-    X: number;
-    Y: number;
-}
-
-export interface ClickPagePosition {
-    eventX: number;
-    eventY: number;
-}
+import { Position } from "../../../../common/images/position";
 
 @Component({
   selector: "app-game-image",
@@ -23,7 +14,7 @@ export class GameImageComponent {
 
     @Input() public source: string;
     @ViewChild("image") private imageElement: ElementRef;
-    @Output() private checkDifference: EventEmitter<[ClickImagePosition, ClickPagePosition]>;
+    @Output() private checkDifference: EventEmitter<[Position, Position]>;
 
     public constructor() {
         this.checkDifference = new EventEmitter();
@@ -35,6 +26,6 @@ export class GameImageComponent {
         const x: number = event.x - imageRectangle.left;
         const y: number = event.y - imageRectangle.top;
 
-        this.checkDifference.emit([{X: x, Y: y}, {eventX: event.x, eventY: event.y}]);
+        this.checkDifference.emit([{i: x, j: y}, {i: event.x, j: event.y}]);
     }
 }

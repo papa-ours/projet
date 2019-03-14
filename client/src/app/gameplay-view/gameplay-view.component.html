@@ -18,7 +18,7 @@
 
     <div class="images-chat-container">
         <div *ngIf="type==0; else scenes"> 
-            <div [style.left.px]="clickPosition.eventX" [style.top.px]="clickPosition.eventY" class="error-tag" *ngIf="showError">ERREUR</div>
+            <div [style.left.px]="clickPosition.i" [style.top.px]="clickPosition.j" class="error-tag" *ngIf="showError">ERREUR</div>
             <div #container >
                 <app-game-image *ngFor="let src of images" [source]="src" (checkDifference)="checkDifference($event)"></app-game-image>
             </div>
