@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import * as fs from "fs";
-import { FileReaderUtil } from "./file-reader.util";
+import { FileIO } from "./file-io.util";
 
 describe("file-reader.util", () => {
     let data: Buffer;
@@ -9,13 +9,13 @@ describe("file-reader.util", () => {
     });
 
     it("should resolve", async () => {
-        const result: Buffer = await FileReaderUtil.readFile("../client/src/assets/img/car_original.bmp");
+        const result: Buffer = await FileIO.readFile("../client/src/assets/img/car_original.bmp");
 
         expect(result).to.deep.equal(data);
     });
 
     it("should reject if the image doesn't exist", (done: Mocha.Done) => {
-        FileReaderUtil.readFile("")
+        FileIO.readFile("")
             .then(() => done(new Error("Promise should not resolve")))
             .catch(() => done());
     });
