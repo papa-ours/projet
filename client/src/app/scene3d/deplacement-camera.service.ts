@@ -7,18 +7,26 @@ export class DeplacementCameraService {
     private static render3dOriginalImage: RenderService;
     private static render3dModifiedImage: RenderService;
 
+    public static setRender3dOriginalImage(renderService: RenderService): void {
+        DeplacementCameraService.render3dOriginalImage = renderService;
+    }
+
+    public static setRender3dModifiedImage(renderService: RenderService): void {
+        DeplacementCameraService.render3dModifiedImage = renderService;
+    }
+
     public static keyPress(): void {
-        document.body.addEventListener("keypress", this.moveCamera, false);
+        document.body.addEventListener("keypress", DeplacementCameraService.moveCamera, false);
 
         document.body.addEventListener("mousedown", (e: MouseEvent) => {
             if (e.button === this.RIGHT_CLICK) {
-                document.body.addEventListener("mousemove", this.rotateCamera, false);
+                document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
         });
 
         document.body.addEventListener("mouseup", (e: MouseEvent) => {
             if (e.button === this.RIGHT_CLICK) {
-                document.body.removeEventListener("mousemove", this.rotateCamera, false);
+                document.body.removeEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
         });
     }
@@ -39,7 +47,7 @@ export class DeplacementCameraService {
             break;
             case "d":
             DeplacementCameraService.render3dOriginalImage.translateCameraXAxis(DeplacementCameraService.DISTANCE);
-            DeplacementCameraService.render3dOriginalImage.translateCameraXAxis(DeplacementCameraService.DISTANCE);
+            DeplacementCameraService.render3dModifiedImage.translateCameraXAxis(DeplacementCameraService.DISTANCE);
             break;
             default:
         }
