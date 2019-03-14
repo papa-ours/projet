@@ -5,6 +5,7 @@ import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from
 import { GameType } from "../../../../common/communication/game-description";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
+import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 import { GameplayService } from "../gameplay.service";
 
 @Component({
@@ -44,6 +45,7 @@ export class GameplayViewComponent implements OnInit {
                 this.id = id;
             });
             this.setImagesPath();
+            DeplacementCameraService.keyPress();
         });
     }
 
