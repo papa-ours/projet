@@ -10,7 +10,7 @@ export class Geometry implements GeometryData {
                         public size: number,
                         public type: GeometryType,
                         public isModified: boolean,
-                       ){}
+                       ) {}
 
     public static fromGeometryData(other: GeometryData): Geometry {
         return new Geometry( other.position, other.rotation,
