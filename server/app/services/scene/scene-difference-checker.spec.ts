@@ -51,4 +51,21 @@ describe("SceneDifferenceChecker", () => {
         });
     });
 
+    describe("color Change", () => {
+        beforeEach(() => {
+            scene.modifiedScene = DeepCloner.clone(scene.originalScene);
+        });
+        it("should return false if object has the same color at the position specified", () => {
+            const position: VectorInterface = scene.originalScene[0].position;
+            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
+            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(false);
+        });
+
+        it("should return true if object has a differente color at the position specified", () => {
+            const position: VectorInterface = scene.originalScene[0].position;
+            scene.modifiedScene[0].color = scene.originalScene[0].color + 1 ;
+            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
+            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(true);
+        });
+    });
 });
