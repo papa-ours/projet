@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import { SceneData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
+import { DeepCloner } from "../utils/deep-cloner";
 import { SceneDataGeneratorService } from "./scene-data-generator";
 import { SceneDifferenceCheckerService } from "./scene-difference-checker";
 
@@ -12,20 +13,22 @@ describe("SceneDifferenceChecker", () => {
         originalScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
         modifiedScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
     };
-    const sceneDifferenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService(scene);
-
-    beforeEach(() => {
-        scene.modifiedScene = scene.originalScene;
-    });
+    let sceneDifferenceChecker: SceneDifferenceCheckerService;
 
     describe("deletion", () => {
-        it("should return true if object is deleted at the position specified", () => {
-            const position: VectorInterface = scene.originalScene[0].position;
-            scene.modifiedScene.slice(0, 1);
-            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(true);
+        beforeEach(() => {
+            scene.modifiedScene = DeepCloner.clone(scene.originalScene);
         });
         it("should return false if object is not deleted at the position specified", () => {
             const position: VectorInterface = scene.originalScene[0].position;
+            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
+            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(false);
+        });
+
+        it("should return true if object is deleted at the position specified", () => {
+            const position: VectorInterface = scene.originalScene[0].position;
+            scene.modifiedScene.splice(0, 1);
+            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
             expect(sceneDifferenceChecker.checkDifference(position)).to.equal(true);
         });
     });
