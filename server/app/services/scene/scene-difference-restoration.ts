@@ -46,22 +46,27 @@ export class SceneDifferenceRestorationService {
         this.scene.modifiedScene.splice(index , 1);
     }
 
-    public getSceneAfterDifferenceUpdate(position: VectorInterface): SceneData {
-        let modification: GeometryData ;
-        switch (true) {
+    private isDeletion(position: VectorInterface): boolean {
+         return this.findGeometry(this.scene.modifiedScene, position) === undefined;
+    }
 
+    private restoreDeletion(position: VectorInterface): void {
+        const modification: GeometryData = this.findGeometry(this.scene.originalScene, position) as GeometryData;
+        this.scene.modifiedScene.push(modification);
+    }
+
+    public getSceneAfterDifferenceUpdate(position: VectorInterface): SceneData {
+        switch (true) {
             case this.isColorChange(position):
-                 this.restorColor(position);
-                 break;
+                this.restorColor(position);
+                break;
 
             case this.isAddition(position):
-                 this.restorAddition(position);
-                 break;
-            // delete
-            case this.findGeometry(this.scene.modifiedScene, position) === undefined :
+                this.restorAddition(position);
+                break;
 
-                modification = this.findGeometry(this.scene.originalScene, position) as GeometryData;
-                this.scene.modifiedScene.push(modification);
+            case this.isDeletion(position):
+                this.restoreDeletion(position);
                 break;
             default:
         }
