@@ -50,11 +50,24 @@ describe("SceneDifferenceRestoration", () => {
             scene.modifiedScene = DeepCloner.clone(scene.originalScene);
         });
 
-        it("should restore object if deleted", () => {
+        it("should restore object if color changed", () => {
             const position: VectorInterface = scene.modifiedScene[0].position;
             scene.modifiedScene[0].color = scene.originalScene[0].color + 1;
             sceneDifferenceRestoration = new SceneDifferenceRestorationService(scene);
             expect(scene.modifiedScene).to.not.deep.equal(scene.originalScene);
+            scene = sceneDifferenceRestoration.getSceneAfterDifferenceUpdate(position);
+            expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
+        });
+    });
+
+    describe("No change", () => {
+        beforeEach(() => {
+            scene.modifiedScene = DeepCloner.clone(scene.originalScene);
+        });
+
+        it("should not restore if there is no change", () => {
+            const position: VectorInterface = scene.modifiedScene[scene.modifiedScene.length - 1].position;
+            expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
             scene = sceneDifferenceRestoration.getSceneAfterDifferenceUpdate(position);
             expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
         });
