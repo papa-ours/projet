@@ -33,4 +33,22 @@ describe("SceneDifferenceChecker", () => {
         });
     });
 
+    describe("addition", () => {
+        beforeEach(() => {
+            scene.modifiedScene = DeepCloner.clone(scene.originalScene);
+        });
+        it("should return false if object is not added at the position specified", () => {
+            const position: VectorInterface = scene.originalScene[0].position;
+            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
+            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(false);
+        });
+
+        it("should return true if object is added at the position specified", () => {
+            scene.modifiedScene.push(sceneDataGeneratorService.getRandomGeometryData());
+            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
+            const position: VectorInterface = scene.modifiedScene[scene.modifiedScene.length - 1].position;
+            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(true);
+        });
+    });
+
 });
