@@ -7,7 +7,7 @@ import { SceneDifferenceCheckerService } from "./scene-difference-checker";
 
 describe("SceneDifferenceChecker", () => {
     const sizeOfScene: number = 10;
-    const sceneDataGeneratorService: SceneDataGeneratorService = new SceneDataGeneratorService;
+    const sceneDataGeneratorService: SceneDataGeneratorService = new SceneDataGeneratorService();
     const scene: SceneData = {
         name: "test",
         originalScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
