@@ -36,19 +36,27 @@ export class SceneDifferenceRestorationService {
         this.scene.modifiedScene[index].color = modification.color;
 
     }
+
+    private isAddition(position: VectorInterface): boolean {
+        return this.findGeometry(this.scene.originalScene, position) === undefined;
+    }
+
+    private restorAddition(position: VectorInterface): void {
+        const index: number = this.findIndex(this.scene.modifiedScene, position);
+        this.scene.modifiedScene.splice(index , 1);
+    }
+
     public getSceneAfterDifferenceUpdate(position: VectorInterface): SceneData {
         let modification: GeometryData ;
-        let index: number;
         switch (true) {
+
             case this.isColorChange(position):
                  this.restorColor(position);
                  break;
-            // cas d'un ajout
-            case this.findGeometry(this.scene.originalScene, position) === undefined :
 
-                index = this.findIndex(this.scene.modifiedScene, position);
-                this.scene.modifiedScene.splice(index , 1);
-                break;
+            case this.isAddition(position):
+                 this.restorAddition(position);
+                 break;
             // delete
             case this.findGeometry(this.scene.modifiedScene, position) === undefined :
 
