@@ -9,16 +9,18 @@ import { SceneDifferenceRestorationService } from "./scene-difference-restoratio
 describe("SceneDifferenceRestoration", () => {
     const sizeOfScene: number = 10;
     const sceneDataGeneratorService: SceneDataGeneratorService = new SceneDataGeneratorService();
-    const scene: SceneData = {
+    let scene: SceneData = {
         name: "test",
         originalScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
         modifiedScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
     };
     let sceneDifferenceRestoration: SceneDifferenceRestorationService;
+
     describe("deletion", () => {
         beforeEach(() => {
             scene.modifiedScene = DeepCloner.clone(scene.originalScene);
         });
+
         it("should restore object if deleted", () => {
             const position: VectorInterface = scene.modifiedScene[scene.modifiedScene.length - 1].position;
             scene.modifiedScene.pop();
@@ -27,6 +29,21 @@ describe("SceneDifferenceRestoration", () => {
             const restoration: GeometryData = sceneRestored.modifiedScene[sceneRestored.modifiedScene.length - 1];
             const result: boolean = Geometry.fromGeometryData(restoration).isEqual(scene.originalScene[scene.originalScene.length - 1]);
             expect(result).to.equal(true);
+        });
+    });
+
+    describe("addition", () => {
+        beforeEach(() => {
+            scene.modifiedScene = DeepCloner.clone(scene.originalScene);
+        });
+
+        it("should restore object if added", () => {
+            scene.modifiedScene.push(sceneDataGeneratorService.getRandomGeometryData());
+            const position: VectorInterface = scene.modifiedScene[scene.modifiedScene.length - 1].position;
+            sceneDifferenceRestoration = new SceneDifferenceRestorationService(scene);
+            expect(scene.modifiedScene).to.not.deep.equal(scene.originalScene);
+            scene = sceneDifferenceRestoration.getSceneAfterDifferenceUpdate(position);
+            expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
         });
     });
 });
