@@ -15,15 +15,15 @@ enum SceneType {
     styleUrls: ["./gameplay-3d.component.css"],
 })
 export class Gameplay3dComponent implements AfterViewInit {
-    @Input() public name: string;
     @Input() public width: number;
     @Input() public height: number;
+    @Input() public name: string;
+    @Input() private id: string;
     @Output() public foundDifferenceEvent: EventEmitter<void>;
     private originalScene: Scene3dComponent;
     private modifiedScene: Scene3dComponent;
     private rayCaster: RaycasterService;
-    // @ts-ignore la difference est passer a la scene 3D
-    private differenceCounter: number;
+    public differenceCounter: number;
     @ViewChildren(Scene3dComponent) private scenes: QueryList<Scene3dComponent>;
 
     public constructor(private difference3DCheckerService: Difference3DCheckerService) {
@@ -40,7 +40,7 @@ export class Gameplay3dComponent implements AfterViewInit {
     public checkDifference(mousePosition: VectorInterface): void {
         const position: VectorInterface | undefined = this.rayCaster.findObject(mousePosition);
         if (position) {
-            this.difference3DCheckerService.isPositionDifference(position, this.name).subscribe(
+            this.difference3DCheckerService.isPositionDifference(position, this.id).subscribe(
                 (response: boolean) => {if (response) {
                     this.foundDifference();
                 }

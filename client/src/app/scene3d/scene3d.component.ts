@@ -19,7 +19,7 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     @Input() public height: number;
     @Input() public type: number;
     @Input() public differenceCounter: number;
-    @Input() public sceneData: SceneData;
+    @Input() public id: string;
     @Output() private difference3DEvent: EventEmitter<VectorInterface>;
     @ViewChild("container")
     private containerRef: ElementRef;
@@ -46,16 +46,16 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
         const differenceChange: SimpleChange = changes.differenceCounter;
         if (this.container.firstChild && differenceChange.currentValue > differenceChange.previousValue) {
             this.container.removeChild(this.container.firstChild);
-            this.getScene();
+            this.getScene(this.id);
         }
     }
 
     public ngAfterViewInit(): void {
-        this.getScene();
+        this.getScene(this.name);
     }
 
-    private getScene(): void {
-        this.getSceneData.getSceneData(this.name).subscribe((sceneData: SceneData) => {
+    private getScene(name: string): void {
+        this.getSceneData.getSceneData(name).subscribe((sceneData: SceneData) => {
             const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
             this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
         });
