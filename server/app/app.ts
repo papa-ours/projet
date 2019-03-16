@@ -8,7 +8,7 @@ import { DifferenceCheckerController } from "./controllers/difference-checker.co
 import { DifferenceImageController } from "./controllers/difference-image.controller";
 import { GameSheetGenerationController } from "./controllers/game-sheet-generation.controller";
 import { GetGameListController } from "./controllers/get-game-list.controller";
-import { CreateGameController } from "./controllers/get-game.controller";
+import { CreateGameController } from "./controllers/create-game-constroller";
 import { SceneDataController } from "./controllers/scene-data.controller";
 import { UsernameValidatorController } from "./controllers/username-validator.controller";
 import Types from "./types";
