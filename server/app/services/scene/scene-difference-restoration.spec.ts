@@ -27,7 +27,6 @@ describe("SceneDifferenceRestoration", () => {
             expect(scene.modifiedScene).to.not.deep.equal(scene.originalScene);
             scene = sceneDifferenceRestoration.getSceneAfterDifferenceUpdate(position);
             expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
-
         });
     });
 
@@ -43,6 +42,22 @@ describe("SceneDifferenceRestoration", () => {
             expect(scene.modifiedScene).to.not.deep.equal(scene.originalScene);
             scene = sceneDifferenceRestoration.getSceneAfterDifferenceUpdate(position);
             expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
+        });
+    });
+
+    describe("color change", () => {
+        beforeEach(() => {
+            scene.modifiedScene = DeepCloner.clone(scene.originalScene);
+        });
+
+        it("should restore object if deleted", () => {
+            const position: VectorInterface = scene.modifiedScene[0].position;
+            scene.modifiedScene[0].color = scene.originalScene[0].color + 1;
+            sceneDifferenceRestoration = new SceneDifferenceRestorationService(scene);
+            expect(scene.modifiedScene).to.not.deep.equal(scene.originalScene);
+            scene = sceneDifferenceRestoration.getSceneAfterDifferenceUpdate(position);
+            expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
+
         });
     });
 });
