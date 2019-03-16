@@ -57,7 +57,6 @@ describe("SceneDifferenceRestoration", () => {
             expect(scene.modifiedScene).to.not.deep.equal(scene.originalScene);
             scene = sceneDifferenceRestoration.getSceneAfterDifferenceUpdate(position);
             expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
-
         });
     });
 });
