@@ -47,7 +47,7 @@ export class FreeViewGameCreationComponent {
         if (this.allValuesEntered) {
             this.sendForm();
             this.close();
-            location.reload();
+            // TODO: tell the user that the request is being processed
         }
     }
 
@@ -60,7 +60,9 @@ export class FreeViewGameCreationComponent {
         formData.append("isColorChange", String(this.freeViewForm.isColorChange));
         formData.append("objectType", this.freeViewForm.sceneType);
 
-        this.gameFreeViewGenerationService.postGenerate(formData);
+        this.gameFreeViewGenerationService.postGenerate(formData).then(() => {
+            location.reload();
+        });
     }
 
 }
