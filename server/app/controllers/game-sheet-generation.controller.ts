@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import { GameType } from "../../../common/communication/game-description";
+import { MessageType } from "../../../common/communication/message";
 import { GameSheetGenerationService } from "../services/game-sheet-generation.service";
 import Types from "../types";
-import { MessageType } from "../../../common/communication/message";
 
 @injectable()
 export class GameSheetGenerationController {

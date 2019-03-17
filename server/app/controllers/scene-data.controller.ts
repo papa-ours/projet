@@ -4,11 +4,11 @@ import { inject, injectable } from "inversify";
 import * as multer from "multer";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { GeometryData, Modification, ModificationType, SceneData } from "../../../common/communication/geometry";
+import { MessageType } from "../../../common/communication/message";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
 import { FileIO } from "../services/utils/file-io.util";
 import Types from "../types";
-import { MessageType } from "../../../common/communication/message";
 
 @injectable()
 export class SceneDataController {
