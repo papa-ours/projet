@@ -4,7 +4,7 @@ export default {
         Application: Symbol("Application"),
         Routes: Symbol("Routes"),
         UsernameValidatorService: Symbol("UsernameValidatorService"),
-        UsernameValidatorController: Symbol("UsernameValidatorController"),
+        UsernameController: Symbol("UsernameController"),
         GetGameListService: Symbol("GetGameListService"),
         GetGameListController: Symbol("GetGameListController"),
         DifferenceImageGenerator: Symbol("DifferenceImageGenerator"),

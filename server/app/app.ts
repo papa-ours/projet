@@ -4,13 +4,13 @@ import * as cors from "cors";
 import * as express from "express";
 import { inject, injectable } from "inversify";
 import * as logger from "morgan";
+import { CreateGameController } from "./controllers/create-game-constroller";
 import { DifferenceCheckerController } from "./controllers/difference-checker.controller";
 import { DifferenceImageController } from "./controllers/difference-image.controller";
 import { GameSheetGenerationController } from "./controllers/game-sheet-generation.controller";
 import { GetGameListController } from "./controllers/get-game-list.controller";
-import { CreateGameController } from "./controllers/create-game-constroller";
 import { SceneDataController } from "./controllers/scene-data.controller";
-import { UsernameValidatorController } from "./controllers/username-validator.controller";
+import { UsernameController } from "./controllers/username.controller";
 import Types from "./types";
 
 @injectable()
@@ -26,7 +26,7 @@ export class Application {
         @inject(Types.SceneDataController) private sceneDataController: SceneDataController,
         @inject(Types.DifferenceImageController) private differenceImageController: DifferenceImageController,
         @inject(Types.DifferenceCheckerController) private differenceCheckerController: DifferenceCheckerController,
-        @inject(Types.UsernameValidatorController) private usernameValidatorController: UsernameValidatorController,
+        @inject(Types.UsernameController) private usernameController: UsernameController,
     ) {
         this.app = express();
 
@@ -53,7 +53,7 @@ export class Application {
         this.app.use("/api/difference_image", this.differenceImageController.router);
         this.app.use("/api/game", this.createGameController.router);
         this.app.use("/api/scene", this.sceneDataController.router);
-        this.app.use("/api/user", this.usernameValidatorController.router);
+        this.app.use("/api/user", this.usernameController.router);
         this.errorHandeling();
     }
 
