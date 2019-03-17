@@ -64,6 +64,8 @@ export class FreeViewGameCreationComponent {
 
         this.gameFreeViewGenerationService.postGenerate(formData).then(() => {
             location.reload();
+        }).catch((err: Error) => {
+            alert("Erreur lors de la création de la fiche:\n" + err);
         });
     }
 
