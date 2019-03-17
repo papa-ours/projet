@@ -8,6 +8,7 @@ import { SceneDataGeneratorService } from "../services/scene/scene-data-generato
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
 import { FileIO } from "../services/utils/file-io.util";
 import Types from "../types";
+import { MessageType } from "../../../common/communication/message";
 
 @injectable()
 export class SceneDataController {
@@ -31,12 +32,16 @@ export class SceneDataController {
                 {name: "isColorChange", maxCount: 1},
                 {name: "objectType", maxCount: 1},
             ]),
-            (req: Request, res: Response, next: NextFunction) => {
+            async (req: Request, res: Response, next: NextFunction) => {
                 const scene: SceneData = this.getSceneData(req);
                 FileIO.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)))
                     .catch((err: Error) => console.error(err));
                 const SERVER_URL: string = `${SERVER_ADDRESS}/api/gamesheet/free/`;
-                Axios.post(SERVER_URL, { name: scene.name });
+                await Axios.post(SERVER_URL, { name: scene.name });
+                res.send({
+                    type: MessageType.GAME_FREE_VIEW_GENERATION,
+                    body: "",
+                });
         });
 
         return router;
