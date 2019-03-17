@@ -59,6 +59,13 @@ export class GameplayViewComponent implements OnInit {
         this.playCorrectSound();
     }
 
+    private playCorrectSound(): void {
+        this.CORRECT_SOUND.currentTime = 0;
+        this.CORRECT_SOUND.play().catch((err: Error) => {
+            console.error(err);
+        });
+    }
+
     public identificationError(position: Position): void {
         this.clickPosition = position;
         this.displayErrorFeedback();
@@ -80,13 +87,6 @@ export class GameplayViewComponent implements OnInit {
     private playWrongSound(): void {
         this.WRONG_SOUND.currentTime = 0;
         this.WRONG_SOUND.play().catch((err: Error) => {
-            console.error(err);
-        });
-    }
-
-    private playCorrectSound(): void {
-        this.CORRECT_SOUND.currentTime = 0;
-        this.CORRECT_SOUND.play().catch((err: Error) => {
             console.error(err);
         });
     }
