@@ -18,12 +18,15 @@
     </div>
 
     <div class="images-chat-container">
-        <div *ngIf="type==0; else scenes"> 
-            <app-gameplay-2d (foundDifferenceEvent)="updateView()" [id]="id" [name]="name"></app-gameplay-2d>
-        </div>
-        <ng-template #scenes>
-            <app-gameplay-3d (foundDifferenceEvent)="updateView()" [id]="id" [name]="name" [width]="500" [height]="375"></app-gameplay-3d>
-        </ng-template>
+        <div #container>
+            <div [style.left.px]="clickPosition.i" [style.top.px]="clickPosition.j" class="error-tag" *ngIf="showError">ERREUR</div>
+            <div *ngIf="type==0; else scenes"> 
+                <app-gameplay-2d (foundDifferenceEvent)="updateView()" (errorIdentificationEvent)="identificationError($event)" [id]="id" [name]="name" [canClick]="canClick"></app-gameplay-2d>
+            </div>
+            <ng-template #scenes>
+                <app-gameplay-3d (foundDifferenceEvent)="updateView()" [id]="id" [name]="name" [width]="500" [height]="375"></app-gameplay-3d>
+            </ng-template>
+        <div>
         <app-chat-messages></app-chat-messages>
     </div>
 

@@ -59,3 +59,9 @@ app-chat-messages {
     position: relative;
     text-align: center;
 }
+
+.error-tag {
+    position: absolute;
+    color: var(--danger-color);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+}
