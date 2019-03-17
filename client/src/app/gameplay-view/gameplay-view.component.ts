@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild  } from "@angular/core";
+import { Component, ElementRef, HostListener, OnInit, ViewChild  } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
@@ -54,6 +54,13 @@ export class GameplayViewComponent implements OnInit {
         this.WRONG_SOUND.volume = SOUND_VOLUME;
     }
 
+    @HostListener("click", ["$event"])
+    public mouseClicked(mouseEvent: MouseEvent): void {
+        if (this.canClick) {
+            this.clickPosition = {i: mouseEvent.x, j: mouseEvent.y};
+        }
+    }
+
     public updateView(): void {
         this.foundDifferencesCounter ++;
         this.playCorrectSound();
@@ -66,8 +73,7 @@ export class GameplayViewComponent implements OnInit {
         });
     }
 
-    public identificationError(position: Position): void {
-        this.clickPosition = position;
+    public identificationError(): void {
         this.displayErrorFeedback();
         this.playWrongSound();
     }

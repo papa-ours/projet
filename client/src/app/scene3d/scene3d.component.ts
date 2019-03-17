@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input
          OnChanges, Output, SimpleChange, SimpleChanges, ViewChild} from "@angular/core";
 import { GeometryData, SceneData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
-import { Position } from "../../../../common/images/position";
 import { GetSceneDataService } from "./get-scene-data.service";
 import { RaycasterService } from "./raycaster.service";
 import { RenderService } from "./render.service";
@@ -21,7 +20,7 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     @Input() public type: number;
     @Input() public differenceCounter: number;
     @Input() public id: string;
-    @Output() private difference3DEvent: EventEmitter<[VectorInterface, Position]>;
+    @Output() private difference3DEvent: EventEmitter<VectorInterface>;
     @ViewChild("container")
     private containerRef: ElementRef;
 
@@ -32,7 +31,7 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
         ) {
         this.name = "";
         this.renderService = new RenderService();
-        this.difference3DEvent = new EventEmitter<[VectorInterface, Position]>();
+        this.difference3DEvent = new EventEmitter<VectorInterface>();
     }
 
     public get container(): HTMLDivElement {
@@ -64,8 +63,6 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
 
     @HostListener("click", ["$event"])
     public mouseClicked(mouseEvent: MouseEvent): void {
-            this.difference3DEvent.emit([RaycasterService.getMousePosition(mouseEvent, this.container),
-                                         {i: mouseEvent.x, j: mouseEvent.y}]);
+            this.difference3DEvent.emit(RaycasterService.getMousePosition(mouseEvent, this.container));
     }
-
 }

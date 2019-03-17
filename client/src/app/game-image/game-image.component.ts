@@ -13,7 +13,7 @@ export class GameImageComponent {
 
     @Input() public source: string;
     @ViewChild("image") private imageElement: ElementRef;
-    @Output() private checkDifference: EventEmitter<[Position, Position]>;
+    @Output() private checkDifference: EventEmitter<Position>;
 
     public constructor() {
         this.checkDifference = new EventEmitter();
@@ -25,6 +25,6 @@ export class GameImageComponent {
         const x: number = event.x - imageRectangle.left;
         const y: number = event.y - imageRectangle.top;
 
-        this.checkDifference.emit([{i: x, j: y}, {i: event.x, j: event.y}]);
+        this.checkDifference.emit({i: x, j: y});
     }
 }
