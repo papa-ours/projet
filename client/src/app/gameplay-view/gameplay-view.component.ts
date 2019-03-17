@@ -56,7 +56,7 @@ export class GameplayViewComponent implements OnInit {
 
     public updateView(): void {
         this.foundDifferencesCounter ++;
-        this.playSound();
+        this.playCorrectSound();
     }
 
     public identificationError(position: Position): void {
@@ -84,7 +84,7 @@ export class GameplayViewComponent implements OnInit {
         });
     }
 
-    private playSound(): void {
+    private playCorrectSound(): void {
         this.CORRECT_SOUND.currentTime = 0;
         this.CORRECT_SOUND.play().catch((err: Error) => {
             console.error(err);
