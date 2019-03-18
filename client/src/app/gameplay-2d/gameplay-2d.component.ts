@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
 
@@ -34,8 +35,8 @@ export class Gameplay2DComponent implements OnInit {
         this.imagesUrl[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
     }
 
-    public checkDifference(position: [number, number]): void {
-        this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
+    public checkDifference(position: VectorInterface): void {
+        this.differenceCheckerService.isPositionDifference(this.id, position.x, position.y)
             .subscribe((isDifference: boolean) => {
                 if (isDifference) {
                     this.differenceFound();
