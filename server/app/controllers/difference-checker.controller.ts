@@ -70,7 +70,7 @@ export class DifferenceCheckerController {
             });
 
         router.post(
-                "/all/differences",
+                "/3D/differences",
                 async (req: Request, res: Response, next: NextFunction) => {
                     const message: Message = {
                         type: MessageType.SCENE_DATA,
