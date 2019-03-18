@@ -7,7 +7,7 @@ false/
 # Exclusion des fichiers Javascripts
 out/
 
-# The file created in the test for FileWriterUtil
+# The file created in the test for FileIO
 test/test.bmp
 
 # NPM Debug Log

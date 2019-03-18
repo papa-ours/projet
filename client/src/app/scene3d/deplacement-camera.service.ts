@@ -12,7 +12,7 @@ export class DeplacementCameraService {
 
     private static elementRefOriginal: ElementRef;
     private static elementRefModified: ElementRef;
-    private static render3dOriginalImage: RenderService;
+    public static render3dOriginalImage: RenderService;
     private static render3dModifiedImage: RenderService;
 
     public static setElementRef(elementRefOriginal: ElementRef, elementRefModified: ElementRef): void {
@@ -62,6 +62,7 @@ export class DeplacementCameraService {
             case DeplacementCameraService.FORWARD:
             DeplacementCameraService.render3dOriginalImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
             DeplacementCameraService.render3dModifiedImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
+            console.log("2");
             break;
             case DeplacementCameraService.LEFT:
             DeplacementCameraService.render3dOriginalImage.setDeltaX(-DeplacementCameraService.DISTANCE);

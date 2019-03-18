@@ -6,7 +6,7 @@ import { UsersContainerService } from "../services/users-container.service";
 import Types from "../types";
 
 @injectable()
-export class UsernameValidatorController {
+export class UsernameController {
 
     public constructor(
         @inject(Types.UsernameValidatorService) private usernameValidatorService: UsernameValidatorService,
