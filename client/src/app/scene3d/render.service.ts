@@ -72,11 +72,11 @@ export class RenderService {
         this.startRenderingLoop();
     }
 
-    public translateCameraZAxis(z: number): void{
+    public setDeltaZ(z: number): void{
         this.deltaZ = z;
     }
 
-    public translateCameraXAxis(x: number): void{
+    public setDeltaX(x: number): void{
         this.deltaX = x;
     }
 
