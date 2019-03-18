@@ -79,7 +79,25 @@ export class DeplacementCameraService {
     }
 
     private static resetCameraSpeed(e: KeyboardEvent): void {
-        
+        switch (e.key) {
+            case DeplacementCameraService.FORWARD:
+            DeplacementCameraService.render3dOriginalImage.setDeltaZ(0);
+            DeplacementCameraService.render3dModifiedImage.setDeltaZ(0);
+            break;
+            case DeplacementCameraService.LEFT:
+            DeplacementCameraService.render3dOriginalImage.setDeltaX(0);
+            DeplacementCameraService.render3dModifiedImage.setDeltaX(0);
+            break;
+            case DeplacementCameraService.BACKWARD:
+            DeplacementCameraService.render3dOriginalImage.setDeltaZ(0);
+            DeplacementCameraService.render3dModifiedImage.setDeltaZ(0);
+            break;
+            case DeplacementCameraService.RIGHT:
+            DeplacementCameraService.render3dOriginalImage.setDeltaX(0);
+            DeplacementCameraService.render3dModifiedImage.setDeltaX(0);
+            break;
+            default:
+        }
     }
 
     private static rotateCamera(e: MouseEvent): void {
