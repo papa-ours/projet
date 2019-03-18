@@ -8,6 +8,8 @@ export class RenderService {
     private camera: THREE.PerspectiveCamera;
     private renderer: THREE.WebGLRenderer;
     private scene: THREE.Scene;
+    public deltaX: number = 0;
+    public deltaZ: number = 0;
 
     private readonly CAMERA_Z: number = 400;
     private readonly FIELD_OF_VIEW: number = 45;
@@ -41,6 +43,8 @@ export class RenderService {
 
     private render(): void {
         requestAnimationFrame(() => this.render());
+        this.camera.translateX(this.deltaX);
+        this.camera.translateZ(this.deltaZ)
         this.renderer.render(this.scene, this.camera);
     }
 
