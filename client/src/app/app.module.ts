@@ -7,6 +7,7 @@ import { AdminViewComponent } from "./admin-view/admin-view.component";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { AppComponent } from "./app.component";
 import { ChatMessagesComponent } from "./chat-messages/chat-messages.component";
+import { ConfirmActionComponent } from "./confirm-action/confirm-action.component";
 import { ConnectionService } from "./connection.service";
 import { DifferenceCheckerService } from "./difference-checker.service";
 import { DifferenceImageService } from "./difference-image.service";
@@ -36,6 +37,7 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         GameplayViewComponent,
         ChatMessagesComponent,
         GameImageComponent,
+        ConfirmActionComponent,
     ],
     imports: [
         BrowserModule,
