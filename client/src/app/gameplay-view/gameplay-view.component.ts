@@ -47,8 +47,12 @@ export class GameplayViewComponent implements OnInit {
                 this.id = id;
             });
             this.setImagesPath();
-            DeplacementCameraService.activateDeplacement();
-    });
+        });
+    }
+
+    public ngAfterViewInit(): void{
+        DeplacementCameraService.setElementRef(this.originalSceneElement, this.modifiedSceneElement)
+        DeplacementCameraService.activateDeplacement();
     }
 
     private setImagesPath(): void {
