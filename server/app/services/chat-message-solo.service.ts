@@ -14,18 +14,7 @@ export class ChatMessageSoloService extends ChatMessageService {
         super(usersContainerService, getCurrentTimeService);
     }
 
-    public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, identification: DifferenceIdentification): void {
-        const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
-        if (username !== "") {
-            const textMessage: string = this.getIdentificationMessage(identification);
-            const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                                          username: username,
-                                          text: textMessage};
-            socket.emit("chatMessage", message);
-        }
-    }
-
-    private getIdentificationMessage(identification: DifferenceIdentification): string {
+    public getIdentificationMessage(username: string, identification: DifferenceIdentification): string {
 
         return identification === DifferenceIdentification.DifferenceFound ? "Différence trouvée." : "Erreur.";
 

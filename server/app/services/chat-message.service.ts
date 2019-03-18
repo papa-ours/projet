@@ -12,8 +12,19 @@ export abstract class ChatMessageService {
         @inject(Types.GetCurrentTimeService) public getCurrentTimeService: GetCurrentTimeService,
     ) {}
 
-    public abstract sendDifferenceIdentificationMessage(socket: SocketIO.Socket, identification: DifferenceIdentification): void;
+    public abstract getIdentificationMessage(username: string, identification: DifferenceIdentification): string;
     public abstract getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage;
+
+    public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, identification: DifferenceIdentification): void {
+        const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
+        if (username !== "") {
+            const textMessage: string = this.getIdentificationMessage(username, identification);
+            const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
+                                          username: username,
+                                          text: textMessage};
+            socket.emit("chatMessage", message);
+        }
+    }
 
     public sendConnectionMessage(socket: SocketIO.Socket, io: SocketIO.Server, isConnected: boolean): void {
         const username: string = this.usersContainerService.getUsernameBySocketId(socket.id);
