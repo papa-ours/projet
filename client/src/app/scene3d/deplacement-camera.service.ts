@@ -30,6 +30,7 @@ export class DeplacementCameraService {
 
     public static activateDeplacement(): void {
         document.body.addEventListener("keypress", DeplacementCameraService.moveCamera, false);
+        document.body.addEventListener("keyup", DeplacementCameraService.resetCameraSpeed, false);
 
         DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", (e: MouseEvent) => {
             if (e.button === this.RIGHT_CLICK) {
