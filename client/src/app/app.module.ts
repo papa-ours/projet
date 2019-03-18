@@ -20,7 +20,7 @@ import { GameplayViewComponent } from "./gameplay-view/gameplay-view.component";
 import { InitialViewComponent } from "./initial-view/initial-view.component";
 import { RenderService } from "./scene3d/render.service";
 import { Scene3dComponent } from "./scene3d/scene3d.component";
-import { FileReaderUtil } from "./simple-game-creation/file-reader.util";
+import { FileIO } from "./simple-game-creation/file-reader.util";
 import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-creation.component";
 
 @NgModule({
@@ -50,7 +50,7 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         ConnectionService,
         DifferenceImageService,
         DifferenceCheckerService,
-        FileReaderUtil,
+        FileIO,
         RenderService,
     ],
     bootstrap: [AppComponent],

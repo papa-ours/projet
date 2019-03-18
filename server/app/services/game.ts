@@ -3,8 +3,7 @@ import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
 import { Pixel } from "../../../common/images/pixel";
-import { FileReaderUtil } from "./utils/file-reader.util";
-import { FileWriterUtil } from "./utils/file-writer.util";
+import { FileIO } from "./utils/file-io.util";
 
 export class Game implements HasId {
     public images: BMPImage[];
@@ -18,7 +17,7 @@ export class Game implements HasId {
     private setupImages(name: string): void {
         const imageTypes: string[] = ["original", "modified", "difference"];
         imageTypes.forEach(async (type: string, index: number) => {
-            const data: Uint8Array = await FileReaderUtil.readFile(`uploads/${name}-${type}Image.bmp`);
+            const data: Uint8Array = await FileIO.readFile(`uploads/${name}-${type}Image.bmp`);
             if (index === ImageType.Difference) {
                 this.differenceImage = DifferenceImage.fromArray(data);
             } else {
@@ -40,6 +39,6 @@ export class Game implements HasId {
     }
 
     private async saveModifiedImage(): Promise<{}> {
-        return FileWriterUtil.writeFile(`uploads/${this.id}.bmp`, Buffer.from(this.images[ImageType.Modified].toArray()));
+        return FileIO.writeFile(`uploads/${this.id}.bmp`, Buffer.from(this.images[ImageType.Modified].toArray()));
     }
 }
