@@ -35,6 +35,10 @@ export class DBConnectionService {
         });
     }
 
+    public closeConnection(): void {
+        mongoose.disconnect();
+    }
+
     public async saveGameSheet(gameSheet: GameSheet, type: GameType): Promise<mongoose.Document> {
         const gameSheetDocument: mongoose.Document = new mongoose.models.GameSheet({
             name: gameSheet.name,
