@@ -11,13 +11,13 @@ export class DeplacementCameraService {
     private static readonly BACKWARD: string = "s";
 
     private static elementRefOriginal: ElementRef;
-    private static elementRefModifie: ElementRef;
+    private static elementRefModified: ElementRef;
     private static render3dOriginalImage: RenderService;
     private static render3dModifiedImage: RenderService;
 
-    public static setElementRef(elementRefOriginal: ElementRef, elementRefModifie: ElementRef): void {
+    public static setElementRef(elementRefOriginal: ElementRef, elementRefModified: ElementRef): void {
         DeplacementCameraService.elementRefOriginal = elementRefOriginal;
-        DeplacementCameraService.elementRefModifie = elementRefModifie;
+        DeplacementCameraService.elementRefModified = elementRefModified;
     }
 
     public static setRender3dOriginalImage(renderService: RenderService): void {
@@ -43,13 +43,13 @@ export class DeplacementCameraService {
                 }
         });
 
-        DeplacementCameraService.elementRefModifie.nativeElement.addEventListener("mousedown", (e: MouseEvent) => {
+        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mousedown", (e: MouseEvent) => {
             if (e.button === this.RIGHT_CLICK) {
                 document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
         });
 
-        DeplacementCameraService.elementRefModifie.nativeElement.addEventListener("mouseup", (e: MouseEvent) => {
+        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mouseup", (e: MouseEvent) => {
             if (e.button === this.RIGHT_CLICK) {
                 document.body.removeEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
