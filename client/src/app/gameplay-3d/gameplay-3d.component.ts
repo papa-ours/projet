@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output, QueryList, ViewChildren } from "@angular/core";
+import { AfterViewInit, Component, EventEmitter, HostListener, Input, Output, QueryList, ViewChildren } from "@angular/core";
+import { GeometryData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { RaycasterService } from "../scene3d/raycaster.service";
 import { Scene3dComponent } from "../scene3d/scene3d.component";
@@ -52,5 +53,15 @@ export class Gameplay3dComponent implements AfterViewInit {
     private foundDifference(): void {
         this.foundDifferenceEvent.emit();
         this.differenceCounter++;
+    }
+
+    @HostListener("document:keypress", ["$event"])
+    public cheatMode(keyboardEvent: KeyboardEvent): void {
+        const keyType: string = "t";
+        if (keyboardEvent.key.toLowerCase() === keyType) {
+            this.difference3DCheckerService.getAllDifference(this.id).subscribe(
+                (geometry: GeometryData[]) => console.log(geometry),
+            );
+        }
     }
 }
