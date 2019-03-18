@@ -76,11 +76,15 @@ export class DifferenceCheckerController {
                         type: MessageType.SCENE_DATA,
                         body: "error",
                     };
-                    const sceneName: string = req.body.name as string;
-                    const getGameService: GetGameService = new GetGameService();
-                    const game: Game = getGameService.getGame(sceneName);
-                    const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService(game.scene);
-                    message.body = differenceChecker.differenceSet.toString();
+                    try {
+                        const sceneName: string = req.body.name as string;
+                        const getGameService: GetGameService = new GetGameService();
+                        const game: Game = getGameService.getGame(sceneName);
+                        const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService(game.scene);
+                        message.body = JSON.stringify(differenceChecker.differenceSet);
+                    } catch (err) {
+                        message.body = err.message;
+                    }
                     res.send(message);
                 });
 
