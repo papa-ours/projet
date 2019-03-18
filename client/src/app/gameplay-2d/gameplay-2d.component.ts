@@ -13,7 +13,7 @@ export class Gameplay2DComponent implements OnInit {
 
     @Input() private name: string;
     @Input() private id: string;
-    public images: string[];
+    public imagesUrl: string[];
     public type: GameType;
     private foundDifferencesCounter: number;
     @Output() public foundDifferenceEvent: EventEmitter<void>;
@@ -21,7 +21,7 @@ export class Gameplay2DComponent implements OnInit {
     public constructor(
         private differenceCheckerService: DifferenceCheckerService,
     ) {
-        this.images = [];
+        this.imagesUrl = [];
         this.foundDifferencesCounter = 0;
         this.foundDifferenceEvent = new EventEmitter<void>();
     }
@@ -30,8 +30,8 @@ export class Gameplay2DComponent implements OnInit {
     }
 
     private setImagesPath(): void {
-        this.images[ImageType.Original] = `${SERVER_ADDRESS}/${this.name}-originalImage.bmp`;
-        this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
+        this.imagesUrl[ImageType.Original] = `${SERVER_ADDRESS}/${this.name}-originalImage.bmp`;
+        this.imagesUrl[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
     }
 
     public checkDifference(position: [number, number]): void {
@@ -48,11 +48,10 @@ export class Gameplay2DComponent implements OnInit {
         this.foundDifferencesCounter++;
         this.foundDifferenceEvent.emit();
         this.updateDifferenceImage();
-
     }
 
     private updateDifferenceImage(): void {
-        this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.id}.bmp?${this.foundDifferencesCounter}`;
+        this.imagesUrl[ImageType.Modified] = `${SERVER_ADDRESS}/${this.id}.bmp?${this.foundDifferencesCounter}`;
     }
 
 }
