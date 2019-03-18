@@ -6,8 +6,7 @@ describe("RandomNumber", () => {
     const min: number = 0;
 
     it("should generate a random number in range as specified", () => {
-
-        expect(RandomNumber.randomInteger(min, max)).to.be.below(max).and.to.be.above(min);
+        expect(RandomNumber.randomInteger(min, max)).to.be.lt(max).and.to.be.gte(min);
     });
 
 });
