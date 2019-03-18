@@ -2,6 +2,7 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 import { GameSheet, GameType, HasId } from "../../../common/communication/game-description";
 import { Game } from "./game";
+import { TopScores } from "./score/top-scores";
 
 @injectable()
 export class GetGameService {
@@ -80,9 +81,27 @@ export class GetGameService {
         return id;
     }
 
+    public deleteGameSheet(id: string, type: GameType): void {
+        const gameSheet: GameSheet = this.getGameSheet(id, type);
+        const index: number = GetGameService.gameSheets[type].findIndex((currentGameSheet: GameSheet) => {
+            return currentGameSheet === gameSheet;
+        });
+
+        if (index !== -1) {
+            GetGameService.gameSheets[type].splice(index, 1);
+        }
+    }
+
+    public reinitializeScores(id: string, type: GameType): void {
+        const gameSheet: GameSheet = this.getGameSheet(id, type);
+        gameSheet.topScores = gameSheet.topScores.map(() => {
+            return new TopScores();
+        });
+    }
+
     public emptyGameSheets(): void {
-        GetGameService.gameSheets[0] = [];
-        GetGameService.gameSheets[1] = [];
+        GetGameService.gameSheets[GameType.Simple] = [];
+        GetGameService.gameSheets[GameType.Free] = [];
     }
 
     public emptyGames(): void {
