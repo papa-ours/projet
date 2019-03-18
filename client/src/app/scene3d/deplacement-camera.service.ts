@@ -31,6 +31,18 @@ export class DeplacementCameraService {
     public static activateDeplacement(): void {
         document.body.addEventListener("keypress", DeplacementCameraService.moveCamera, false);
 
+        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", (e: MouseEvent) => {
+            if (e.button === this.RIGHT_CLICK) {
+                document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
+                }
+        });
+
+        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mouseup", (e: MouseEvent) => {
+            if (e.button === this.RIGHT_CLICK) {
+                document.body.removeEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
+                }
+        });
+
         DeplacementCameraService.elementRefModifie.nativeElement.addEventListener("mousedown", (e: MouseEvent) => {
             if (e.button === this.RIGHT_CLICK) {
                 document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
