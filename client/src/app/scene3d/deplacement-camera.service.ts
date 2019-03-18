@@ -78,6 +78,10 @@ export class DeplacementCameraService {
         }
     }
 
+    private static resetCameraSpeed(e: KeyboardEvent): void {
+        
+    }
+
     private static rotateCamera(e: MouseEvent): void {
         DeplacementCameraService.render3dOriginalImage.rotateCameraY(e.movementX);
         DeplacementCameraService.render3dOriginalImage.rotateCameraX(e.movementY);
