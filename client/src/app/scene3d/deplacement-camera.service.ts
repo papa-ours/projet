@@ -16,8 +16,8 @@ export class DeplacementCameraService {
     private static render3dModifiedImage: RenderService;
 
     public static setElementRef(elementRefOriginal: ElementRef, elementRefModifie: ElementRef){
-        this.elementRefOriginal = elementRefOriginal;
-        this.elementRefModifie = elementRefModifie;
+        DeplacementCameraService.elementRefOriginal = elementRefOriginal;
+        DeplacementCameraService.elementRefModifie = elementRefModifie;
     }
 
     public static setRender3dOriginalImage(renderService: RenderService): void {
@@ -31,13 +31,13 @@ export class DeplacementCameraService {
     public static activateDeplacement(): void {
         document.body.addEventListener("keypress", DeplacementCameraService.moveCamera, false);
 
-        this.elementRefModifie.nativeElement.addEventListener("mousedown", (e: MouseEvent) => {
+        DeplacementCameraService.elementRefModifie.nativeElement.addEventListener("mousedown", (e: MouseEvent) => {
             if (e.button === this.RIGHT_CLICK) {
                 document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
         });
 
-        this.elementRefModifie.nativeElement.addEventListener("mouseup", (e: MouseEvent) => {
+        DeplacementCameraService.elementRefModifie.nativeElement.addEventListener("mouseup", (e: MouseEvent) => {
             if (e.button === this.RIGHT_CLICK) {
                 document.body.removeEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
