@@ -70,11 +70,7 @@ export class GameSheetComponent implements OnInit {
 
     public actionConfirmed(isActionConfirmed: boolean): void {
         if (isActionConfirmed) {
-            if (this.actionMessage === "supprimer") {
-                this.delete();
-            } else {
-                this.reinitializeScores();
-            }
+            this.actionMessage === "supprimer" ? this.delete() : this.reinitializeScores();
         }
 
         this.isConfirmPanelShown = false;
