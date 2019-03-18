@@ -1,4 +1,5 @@
 import { RenderService } from "./render.service";
+import { ElementRef } from "@angular/core";
 
 export class DeplacementCameraService {
 
@@ -8,7 +9,9 @@ export class DeplacementCameraService {
     private static readonly LEFT: string = "a";
     private static readonly RIGHT: string = "d";
     private static readonly BACKWARD: string = "s";
-    
+
+    private static elementRefOriginal: ElementRef;
+    private static elementRefModifie: ElementRef;
     private static render3dOriginalImage: RenderService;
     private static render3dModifiedImage: RenderService;
 
@@ -23,13 +26,13 @@ export class DeplacementCameraService {
     public static activateDeplacement(): void {
         document.body.addEventListener("keypress", DeplacementCameraService.moveCamera, false);
 
-        document.body.addEventListener("mousedown", (e: MouseEvent) => {
+        this.elementRefModifie.nativeElement.addEventListener("mousedown", (e: MouseEvent) => {
             if (e.button === this.RIGHT_CLICK) {
                 document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
         });
 
-        document.body.addEventListener("mouseup", (e: MouseEvent) => {
+        this.elementRefModifie.nativeElement.addEventListener("mouseup", (e: MouseEvent) => {
             if (e.button === this.RIGHT_CLICK) {
                 document.body.removeEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
