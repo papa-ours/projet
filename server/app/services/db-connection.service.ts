@@ -17,7 +17,7 @@ export class DBConnectionService {
     public connected: boolean = false;
 
     public constructor() {
-        this.connect();
+        this.connect().catch((error: Error) => console.error(error.message));
         mongoose.model("GameSheet", this.gameSheetSchema);
     }
 
@@ -36,7 +36,7 @@ export class DBConnectionService {
     }
 
     public closeConnection(): void {
-        mongoose.disconnect();
+        mongoose.disconnect().catch((error: Error) => console.error(error.message));
     }
 
     public async saveGameSheet(gameSheet: GameSheet, type: GameType): Promise<mongoose.Document> {
