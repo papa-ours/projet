@@ -7,7 +7,7 @@ import { Geometry } from "./geometry";
 @injectable()
 export class SceneDifferenceCheckerService {
 
-    private differenceSet: GeometryData[];
+    public differenceSet: GeometryData[];
 
     public constructor(scene: SceneData) {
        this.differenceSet = this.getSetDifference(scene.originalScene, scene.modifiedScene);
