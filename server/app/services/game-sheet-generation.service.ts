@@ -28,7 +28,8 @@ export class GameSheetGenerationService {
 
     private saveGameSheet(gameSheet: GameSheet, type: GameType): void {
         this.getGameService.addGameSheet(gameSheet, type);
-        DBConnectionService.getInstance().saveGameSheet(gameSheet, type);
+        DBConnectionService.getInstance().saveGameSheet(gameSheet, type)
+            .catch((error: Error) => console.error(error.message));
     }
 
     private generateTopScores(): TopScores[] {
