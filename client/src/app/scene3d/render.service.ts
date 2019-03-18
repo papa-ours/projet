@@ -73,7 +73,7 @@ export class RenderService {
     }
 
     public translateCameraZAxis(z: number): void{
-        this.camera.translateZ(z);
+        this.deltaZ = z;
     }
 
     public translateCameraXAxis(x: number): void{
