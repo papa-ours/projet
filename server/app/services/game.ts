@@ -15,7 +15,7 @@ export class Game implements HasId {
 
     public constructor(public id: string, name: string, public type: GameType) {
         this.images = [];
-        // probleme de triple egale
+        // triple equal problem
         // tslint:disable-next-line:triple-equals
         if (type == GameType.Free) {
             this.setupScene(name);
