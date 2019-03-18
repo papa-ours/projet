@@ -56,7 +56,7 @@ export class DifferenceCheckerController {
                     type: MessageType.SCENE_DATA,
                     body: "false",
                 };
-                const sceneName: string = String(req.body.name);
+                const sceneName: string = req.body.name as string;
                 const getGameService: GetGameService = new GetGameService();
                 const game: Game = getGameService.getGame(sceneName);
                 const position: VectorInterface = req.body.position;
