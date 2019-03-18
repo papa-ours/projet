@@ -4,6 +4,11 @@ import "reflect-metadata";
 import { GameSheet, GameType } from "../../../common/communication/game-description";
 import { TopScores } from "./score/top-scores";
 
+interface DeleteResponse {
+    ok?: number | undefined;
+    n?: number | undefined;
+}
+
 @injectable()
 export class DBConnectionService {
     private static instance: DBConnectionService;
@@ -64,5 +69,9 @@ export class DBConnectionService {
         const topScores: TopScores[] = [...Array(TOP_SCORES_LENGTH)].map(() => new TopScores());
 
         return mongoose.models.GameSheet.updateOne({id: id, type: type}, {topScores: topScores}).exec();
+    }
+
+    public async deleteGameSheet(id: string, type: GameType): Promise<DeleteResponse> {
+        return mongoose.models.GameSheet.deleteOne({id: id, type: type});
     }
 }
