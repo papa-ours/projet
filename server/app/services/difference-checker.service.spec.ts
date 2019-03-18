@@ -1,10 +1,12 @@
 import { expect } from "chai";
 import { GameType } from "../../../common/communication/game-description";
+import { container } from "../inversify.config";
+import Types from "../types";
 import { DifferenceCheckerService } from "./difference-checker.service";
 import { Game } from "./game";
 
 describe("Difference Checker", () => {
-    const differenceChecker: DifferenceCheckerService = new DifferenceCheckerService();
+    const differenceChecker: DifferenceCheckerService = container.get<DifferenceCheckerService>(Types.DifferenceCheckerService);
     let game: Game;
 
     beforeEach((done: Mocha.Done) => {
