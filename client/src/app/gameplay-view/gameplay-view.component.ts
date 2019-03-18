@@ -47,7 +47,7 @@ export class GameplayViewComponent implements OnInit {
         });
     }
 
-    public updateView(): void {
+    public updateGameplay(): void {
         this.foundDifferencesCounter ++;
         if (this.foundDifferencesCounter === REQUIRED_DIFFERENCES_1P) {
             this.isChronoRunning = false;
