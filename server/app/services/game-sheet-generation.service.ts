@@ -12,12 +12,21 @@ export class GameSheetGenerationService {
     public constructor(
         @inject(Types.GetGameService) private getGameService: GetGameService) {}
 
-    public createGameSheet(name: string, type: GameType): void {
+    public createGameSheet(name: string, type: GameType, saveGameSheet: boolean = true): GameSheet {
         const gameSheet: GameSheet = {
             id: "",
             name: name,
             topScores: this.generateTopScores(),
         };
+
+        if (saveGameSheet) {
+            this.saveGameSheet(gameSheet, type);
+        }
+
+        return gameSheet;
+    }
+
+    private saveGameSheet(gameSheet: GameSheet, type: GameType): void {
         this.getGameService.addGameSheet(gameSheet, type);
         DBConnectionService.getInstance().saveGameSheet(gameSheet, type);
     }
