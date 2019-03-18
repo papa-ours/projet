@@ -19,4 +19,11 @@ export class CheatModeService {
         });
     }
 
+    private setVisibility(renderer: RenderService, geometry: GeometryData): void {
+        if (this.findGeometry(renderer, geometry) !== undefined) {
+            const object: THREE.Object3D = this.findGeometry(renderer, geometry) as THREE.Object3D;
+            object.visible = object.visible ? false : true;
+        }
+    }
+
 }
