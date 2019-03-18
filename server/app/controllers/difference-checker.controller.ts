@@ -69,6 +69,21 @@ export class DifferenceCheckerController {
                 res.send(message);
             });
 
+        router.post(
+                "/all/differences",
+                async (req: Request, res: Response, next: NextFunction) => {
+                    const message: Message = {
+                        type: MessageType.SCENE_DATA,
+                        body: "error",
+                    };
+                    const sceneName: string = req.body.name as string;
+                    const getGameService: GetGameService = new GetGameService();
+                    const game: Game = getGameService.getGame(sceneName);
+                    const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService(game.scene);
+                    message.body = differenceChecker.differenceSet.toString();
+                    res.send(message);
+                });
+
         return router;
     }
 }
