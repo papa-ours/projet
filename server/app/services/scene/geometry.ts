@@ -14,10 +14,14 @@ export class Geometry implements GeometryData {
     ) { }
 
     public static fromGeometryData(other: GeometryData): Geometry {
-        return new Geometry( other.position, other.rotation,
-                             other.color, other.size,
-                             other.type, other.isModified,
-                            );
+        return new Geometry(
+            other.position,
+            other.rotation,
+            other.color,
+            other.size,
+            other.type,
+            other.isModified,
+        );
     }
 
     public isPositionEqual( position: VectorInterface): boolean {
