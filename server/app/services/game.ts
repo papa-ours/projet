@@ -1,17 +1,27 @@
 import { GameType, HasId } from "../../../common/communication/game-description";
+import { SceneData } from "../../../common/communication/geometry";
+import { VectorInterface } from "../../../common/communication/vector-interface";
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
 import { Pixel } from "../../../common/images/pixel";
+import { SceneDifferenceRestorationService } from "./scene/scene-difference-restoration";
 import { FileIO } from "./utils/file-io.util";
 
 export class Game implements HasId {
     public images: BMPImage[];
     public differenceImage: DifferenceImage;
+    public scene: SceneData;
 
     public constructor(public id: string, name: string, public type: GameType) {
         this.images = [];
-        this.setupImages(name);
+        // triple equal problem
+        // tslint:disable-next-line:triple-equals
+        if (type == GameType.Free) {
+            this.setupScene(name);
+        } else {
+            this.setupImages(name);
+        }
     }
 
     private setupImages(name: string): void {
@@ -40,5 +50,22 @@ export class Game implements HasId {
 
     private async saveModifiedImage(): Promise<{}> {
         return FileIO.writeFile(`uploads/${this.id}.bmp`, Buffer.from(this.images[ImageType.Modified].toArray()));
+    }
+
+    private setupScene(name: string): void {
+        FileIO.readFile(`uploads/${name}-data.txt`).then((data: Buffer) =>
+            this.scene = JSON.parse(data.toString()),
+        );
+    }
+
+    public restoreModifiedScene(position: VectorInterface): void {
+        const differenceRestoration: SceneDifferenceRestorationService = new SceneDifferenceRestorationService(this.scene);
+        this.scene = differenceRestoration.getSceneAfterDifferenceUpdate(position);
+        this.saveModifiedScene();
+    }
+
+    private saveModifiedScene(): void {
+        FileIO.writeFile(`uploads/${this.id}-data.txt`, Buffer.from(JSON.stringify(this.scene)))
+            .catch((err: Error) => console.error(err));
     }
 }
