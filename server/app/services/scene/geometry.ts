@@ -4,13 +4,14 @@ import { Vector } from "./vector";
 
 export class Geometry implements GeometryData {
 
-    public constructor( public  position: VectorInterface,
-                        public rotation: VectorInterface,
-                        public color: number,
-                        public size: number,
-                        public type: GeometryType,
-                        public isModified: boolean,
-                       ) {}
+    public constructor(
+        public position: VectorInterface,
+        public rotation: VectorInterface,
+        public color: number,
+        public size: number,
+        public type: GeometryType,
+        public isModified: boolean,
+    ) { }
 
     public static fromGeometryData(other: GeometryData): Geometry {
         return new Geometry( other.position, other.rotation,
@@ -28,11 +29,12 @@ export class Geometry implements GeometryData {
     }
 
     public isEqual(geometry: GeometryData): boolean {
-        return ( this.color === geometry.color &&
-                 this.size === geometry.size &&
-                 this.isPositionEqual(geometry.position) &&
-                 this.isRotationEqual(geometry.rotation)
-                );
+        return (
+            this.color === geometry.color &&
+            this.size === geometry.size &&
+            this.isPositionEqual(geometry.position) &&
+            this.isRotationEqual(geometry.rotation)
+        );
 
     }
 }
