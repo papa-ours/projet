@@ -10,7 +10,6 @@ export class SceneDifferenceRestorationService {
     public constructor(private scene: SceneData) { }
 
     private findGeometry(collection: GeometryData[], position: VectorInterface): GeometryData | undefined {
-
         return collection.find(
             (geometry: GeometryData) => Geometry.fromGeometryData(geometry).isPositionEqual(position),
         );
@@ -70,7 +69,6 @@ export class SceneDifferenceRestorationService {
         }
 
         return this.scene;
-
     }
 
 }
