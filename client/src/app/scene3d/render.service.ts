@@ -77,7 +77,7 @@ export class RenderService {
     }
 
     public translateCameraXAxis(x: number): void{
-        this.camera.translateX(x);
+        this.deltaX = x;
     }
 
     public rotateCameraY(y: number): void{
