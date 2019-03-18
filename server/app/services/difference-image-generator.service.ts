@@ -8,7 +8,6 @@ import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
 import { AWSFilesUtil } from "./utils/aws-files.util";
 
-
 @injectable()
 export class DifferenceImageGenerator {
 
