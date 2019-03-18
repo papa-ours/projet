@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import { Message, MessageType } from "../../../common/communication/message";
+import { DBConnectionService } from "../services/db-connection.service";
 import { GetGameService } from "../services/get-game.service";
 import Types from "../types";
 
@@ -35,9 +36,8 @@ export class CreateGameController {
         router.post(
             "/sheet/",
             (req: Request, res: Response, next: NextFunction) => {
-                this.getGameService.reinitializeScores(req.body.id, req.body.type);
-
-                res.send();
+                DBConnectionService.getInstance().reinitializeScores(req.body.id, req.body.type)
+                .then(() => res.send());
             });
 
         return router;
