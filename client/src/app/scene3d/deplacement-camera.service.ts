@@ -15,7 +15,7 @@ export class DeplacementCameraService {
     private static render3dOriginalImage: RenderService;
     private static render3dModifiedImage: RenderService;
 
-    public static setElementRef(elementRefOriginal: ElementRef, elementRefModifie: ElementRef){
+    public static setElementRef(elementRefOriginal: ElementRef, elementRefModifie: ElementRef): void {
         DeplacementCameraService.elementRefOriginal = elementRefOriginal;
         DeplacementCameraService.elementRefModifie = elementRefModifie;
     }
