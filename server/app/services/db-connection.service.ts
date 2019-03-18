@@ -2,6 +2,7 @@ import { injectable } from "inversify";
 import * as mongoose from "mongoose";
 import "reflect-metadata";
 import { GameSheet, GameType } from "../../../common/communication/game-description";
+import { TopScores } from "./score/top-scores";
 
 @injectable()
 export class DBConnectionService {
@@ -56,5 +57,12 @@ export class DBConnectionService {
         return documents.map((document: mongoose.Document) => {
             return document.toObject();
         });
+    }
+
+    public async reinitializeScores(id: string, type: GameType): Promise<{}> {
+        const TOP_SCORES_LENGTH: number = 2;
+        const topScores: TopScores[] = [...Array(TOP_SCORES_LENGTH)].map(() => new TopScores());
+
+        return mongoose.models.GameSheet.updateOne({id: id, type: type}, {topScores: topScores}).exec();
     }
 }
