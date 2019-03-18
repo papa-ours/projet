@@ -83,9 +83,13 @@ export class GetGameService {
 
     public deleteGameSheet(id: string, type: GameType): void {
         const gameSheet: GameSheet = this.getGameSheet(id, type);
-        const index: number = GetGameService.gameSheets[type].indexOf(gameSheet);
+        const index: number = GetGameService.gameSheets[type].findIndex((currentGameSheet: GameSheet) => {
+            return currentGameSheet === gameSheet;
+        });
 
-        GetGameService.gameSheets[type].splice(index, 1);
+        if (index !== -1) {
+            GetGameService.gameSheets[type].splice(index, 1);
+        }
     }
 
     public reinitializeScores(id: string, type: GameType): void {
