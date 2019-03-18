@@ -65,7 +65,7 @@ export class GameSheetComponent implements OnInit {
     }
 
     public createGame(): void {
-        console.log("CREATING A PVP GAME");
+        throw Error("Method not implemented!");
     }
 
     public actionConfirmed(isActionConfirmed: boolean): void {
