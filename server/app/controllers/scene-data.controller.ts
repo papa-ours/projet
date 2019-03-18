@@ -4,6 +4,7 @@ import { inject, injectable } from "inversify";
 import * as multer from "multer";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { GeometryData, Modification, ModificationType, SceneData } from "../../../common/communication/geometry";
+import { MessageType } from "../../../common/communication/message";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
 import { AWSFilesUtil } from "../services/utils/aws-files.util";
@@ -36,7 +37,11 @@ export class SceneDataController {
                 await AWSFilesUtil.writeFile(`${scene.name}-data.json`, Buffer.from(JSON.stringify(scene)))
                     .catch((err: Error) => console.error(err));
                 const SERVER_URL: string = `${SERVER_ADDRESS}/api/gamesheet/free/`;
-                Axios.post(SERVER_URL, { name: scene.name });
+                await Axios.post(SERVER_URL, { name: scene.name });
+                res.send({
+                    type: MessageType.GAME_FREE_VIEW_GENERATION,
+                    body: "",
+                });
         });
 
         return router;

@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { GameSheet, GameType } from "../../../../common/communication/game-description";
+import { GameSheetService } from "../game-sheet.service";
 
 @Component({
     selector: "app-game-sheet",
@@ -14,15 +15,18 @@ export class GameSheetComponent implements OnInit {
         "#C0C0C0",
         "#CD7F32",
     ];
+    public isConfirmPanelShown: boolean;
+    public actionMessage: string;
     @Input() public type: GameType;
     @Input() public description: GameSheet;
     @Input() private isAdmin: boolean;
     @ViewChild("btn1") private btn1: ElementRef;
     @ViewChild("btn2") private btn2: ElementRef;
 
-    public constructor(private router: Router) {
+    public constructor(private router: Router, private gameSheetService: GameSheetService) {
         this.source = "";
         this.isAdmin = false;
+        this.isConfirmPanelShown = false;
     }
 
     public ngOnInit(): void {
@@ -33,13 +37,41 @@ export class GameSheetComponent implements OnInit {
         this.btn2.nativeElement.textContent = this.isAdmin ? "Réinitialiser" : "Créer";
     }
 
-    public play(): void {
-        if (!this.isAdmin) {
-            this.router.navigateByUrl(`/game/${this.description.name}/${this.type}`)
-            .catch((err: Error) => {
-                console.error(err);
-            });
-        }
+    public delete(): void {
+        this.gameSheetService.deleteGameSheet(this.description.id, this.type)
+                .subscribe(() => {
+                    location.reload();
+                });
     }
 
+    public reinitializeScores(): void {
+        this.gameSheetService.reinitializeScores(this.description.id, this.type)
+        .subscribe(() => {
+            location.reload();
+        });
+    }
+
+    public showConfirmPanel(message: string): void {
+        this.isConfirmPanelShown = true;
+        this.actionMessage = message;
+    }
+
+    public play(): void {
+        this.router.navigateByUrl(`/game/${this.description.name}/${this.type}`)
+        .catch((err: Error) => {
+            console.error(err);
+        });
+    }
+
+    public createGame(): void {
+        throw Error("Method not implemented!");
+    }
+
+    public actionConfirmed(isActionConfirmed: boolean): void {
+        if (isActionConfirmed) {
+            this.actionMessage === "supprimer" ? this.delete() : this.reinitializeScores();
+        }
+
+        this.isConfirmPanelShown = false;
+    }
 }
