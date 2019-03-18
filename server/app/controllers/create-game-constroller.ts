@@ -28,9 +28,8 @@ export class CreateGameController {
         router.delete(
             "/sheet/:id/:type",
             (req: Request, res: Response, next: NextFunction) => {
-                this.getGameService.deleteGameSheet(req.params.id, req.params.type);
-
-                res.send();
+                DBConnectionService.getInstance().deleteGameSheet(req.params.id, req.params.type)
+                .then(() => res.send());
             });
 
         router.post(
