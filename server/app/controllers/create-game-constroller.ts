@@ -5,7 +5,7 @@ import { GetGameService } from "../services/get-game.service";
 import Types from "../types";
 
 @injectable()
-export class GetGameController {
+export class CreateGameController {
 
     public constructor(@inject(Types.GetGameService) private getGameService: GetGameService) { }
 
