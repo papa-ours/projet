@@ -16,16 +16,6 @@ describe("game sheet generation", () => {
         getGameService.emptyGames();
     });
 
-    it("should create a gamesheet and put it in the getGameService", () => {
-        const name: string = "nom";
-        gameSheetGenerator.createGameSheet(name, 0, false);
-        const expected: GameSheet | undefined = getGameService.getGameDescriptions(0).find((gamesheet: GameSheet) => {
-            return gamesheet.name === name;
-        });
-
-        expect(expected).to.not.equal(undefined);
-    });
-
     it("should create a topscore with the correct length", () => {
         const name: string = "name";
         const topscoreLength: number = 2;
