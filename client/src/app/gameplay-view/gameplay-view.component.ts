@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from "../../../../common/communication/constants";
@@ -25,6 +25,8 @@ export class GameplayViewComponent implements OnInit {
     public images: string[];
     public requiredDifferences: number;
     public type: GameType;
+    @ViewChild("originalScene", {read: ElementRef}) originalSceneElement: ElementRef;
+    @ViewChild("modifiedScene", {read: ElementRef}) modifiedSceneElement: ElementRef;
 
     public constructor(
         private route: ActivatedRoute,
@@ -46,7 +48,7 @@ export class GameplayViewComponent implements OnInit {
             });
             this.setImagesPath();
             DeplacementCameraService.activateDeplacement();
-        });
+    });
     }
 
     private setImagesPath(): void {
