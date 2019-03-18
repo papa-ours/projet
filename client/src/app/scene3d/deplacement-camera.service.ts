@@ -4,7 +4,7 @@ import { RenderService } from "./render.service";
 export class DeplacementCameraService {
 
     private static readonly RIGHT_CLICK: number = 2;
-    private static readonly DISTANCE: number = 50;
+    private static readonly DISTANCE: number = 10;
     private static readonly FORWARD: string = "w";
     private static readonly LEFT: string = "a";
     private static readonly RIGHT: string = "d";
