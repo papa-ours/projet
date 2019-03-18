@@ -41,10 +41,11 @@ export class Gameplay3dComponent implements AfterViewInit {
         const position: VectorInterface | undefined = this.rayCaster.findObject(mousePosition);
         if (position) {
             this.difference3DCheckerService.isPositionDifference(position, this.id).subscribe(
-                (response: boolean) => {if (response) {
-                    this.foundDifference();
-                }
-            });
+                (response: boolean) => {
+                    if (response) {
+                        this.foundDifference();
+                    }
+                });
         }
     }
 
