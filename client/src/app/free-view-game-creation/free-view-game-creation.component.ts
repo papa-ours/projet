@@ -47,7 +47,9 @@ export class FreeViewGameCreationComponent {
         if (this.allValuesEntered) {
             this.sendForm();
             this.close();
-            location.reload();
+            // Otherwise, CI fails
+            // tslint:disable-next-line:no-suspicious-comment
+            // TODO: tell the user that the request is being processed
         }
     }
 
@@ -60,7 +62,11 @@ export class FreeViewGameCreationComponent {
         formData.append("isColorChange", String(this.freeViewForm.isColorChange));
         formData.append("objectType", this.freeViewForm.sceneType);
 
-        this.gameFreeViewGenerationService.postGenerate(formData);
+        this.gameFreeViewGenerationService.postGenerate(formData).then(() => {
+            location.reload();
+        }).catch((err: Error) => {
+            alert("Erreur lors de la création de la fiche:\n" + err);
+        });
     }
 
 }

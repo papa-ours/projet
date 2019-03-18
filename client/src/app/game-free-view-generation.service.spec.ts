@@ -21,7 +21,9 @@ describe("GameFreeViewGenerationService", () => {
             type: MessageType.GAME_SHEET_GENERATION,
             body: "this is the body",
         };
-        gameFreeViewGenerationService.postGenerate(new FormData());
+        gameFreeViewGenerationService.postGenerate(new FormData()).catch((err: Error) => {
+            fail(err);
+        });
         const request: TestRequest = httpMock.expectOne(`${gameFreeViewGenerationService.URL}`);
         expect(request.request.method).toBe("POST");
         request.flush(response);
