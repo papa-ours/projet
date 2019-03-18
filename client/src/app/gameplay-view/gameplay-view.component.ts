@@ -74,10 +74,10 @@ export class GameplayViewComponent implements OnInit {
     }
 
     public identificationError(): void {
-        this.displayErrorFeedback();
+        this.showErrorFeedback();
         this.playWrongSound();
     }
-    private displayErrorFeedback(): void {
+    private showErrorFeedback(): void {
         const ONE_SEC: number = 1000;
         const NORMAL_CURSOR: string = "context-menu";
         const ERROR_CURSOR: string = "not-allowed";
