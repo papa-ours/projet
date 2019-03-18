@@ -1,19 +1,19 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
-import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 import { GameplayService } from "../gameplay.service";
+import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 
 @Component({
     selector: "app-gameplay-view",
     templateUrl: "./gameplay-view.component.html",
     styleUrls: ["./gameplay-view.component.css"],
 })
-export class GameplayViewComponent implements OnInit {
+export class GameplayViewComponent implements OnInit, AfterViewInit {
 
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
     private readonly SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
@@ -51,7 +51,7 @@ export class GameplayViewComponent implements OnInit {
     }
 
     public ngAfterViewInit(): void{
-        DeplacementCameraService.setElementRef(this.originalSceneElement, this.modifiedSceneElement)
+        DeplacementCameraService.setElementRef(this.originalSceneElement, this.modifiedSceneElement);
         DeplacementCameraService.activateDeplacement();
     }
 
