@@ -10,8 +10,9 @@ export class CheatModeService {
     private readonly ONE_SECONDE: number = 1000;
     private isActivated: boolean;
     private timeoutPointer: number;
+    private geometries: GeometryData[];
 
-    public constructor(private originalRender: RenderService, private modifiedRender: RenderService) { 
+    public constructor(private originalRender: RenderService, private modifiedRender: RenderService) {
         this.isActivated = false;
     }
 
@@ -22,7 +23,7 @@ export class CheatModeService {
                        object.position.y === geometry.position.y &&
                        object.position.z === geometry.position.z;
 
-        });
+            });
     }
 
     private setVisibility(renderer: RenderService, geometry: GeometryData): void {
@@ -33,7 +34,7 @@ export class CheatModeService {
     }
 
     private flashGeometries(geometries: GeometryData[]): void {
-        for (const geometry of geometries) {
+        for (const geometry of this.geometries) {
             this.setVisibility(this.originalRender, geometry);
             this.setVisibility(this.modifiedRender, geometry);
         }
@@ -43,7 +44,12 @@ export class CheatModeService {
       return  window.setInterval(() => this.flashGeometries(geometries), this.ONE_SECONDE / this.ratePerSec);
     }
 
+    public updtaeGeometries(geometries: GeometryData[]): void {
+        this.geometries = geometries;
+    }
+
     public tuggleCheatMode(geometries: GeometryData[]): void {
+        this.updtaeGeometries(geometries);
         if (this.isActivated) {
             clearInterval(this.timeoutPointer);
         } else {
