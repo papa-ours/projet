@@ -35,7 +35,7 @@ export class CheatModeService {
         }
     }
 
-    private setDifferenceVisibility(visibility: boolean): void {
+    private setDifferencesVisibility(visibility: boolean): void {
         for (const geometry of this.geometries) {
             this.setVisibility(this.originalRender, geometry, visibility);
             this.setVisibility(this.modifiedRender, geometry, visibility);
@@ -44,7 +44,7 @@ export class CheatModeService {
 
     private alternateVisibility(): void {
         this.isVisible = this.isVisible ? false : true;
-        this.setDifferenceVisibility(this.isVisible);
+        this.setDifferencesVisibility(this.isVisible);
     }
 
     private startCheatMode(): number {
@@ -59,7 +59,7 @@ export class CheatModeService {
         this.updtaeGeometries(geometries);
         if (this.isActivated) {
             clearInterval(this.timeoutPointer);
-            this.setDifferenceVisibility(true);
+            this.setDifferencesVisibility(true);
         } else {
             this.timeoutPointer = this.startCheatMode();
         }
