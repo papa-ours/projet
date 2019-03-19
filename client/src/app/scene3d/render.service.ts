@@ -64,6 +64,13 @@ export class RenderService {
         this.camera.add(new THREE.PointLight(lightColor, highIntensity));
     }
 
+    private addSceneLight(): void {
+        const lowIntensity: number = 0.3;
+        const lightColor: number = 0xFFFFFF;
+        this.scene.add(this.camera);
+        this.scene.add(new THREE.AmbientLight(lightColor,lowIntensity));
+    }
+
     public initialize(container: HTMLDivElement, scene: THREE.Scene): void {
         this.container = container;
         this.scene = scene;
