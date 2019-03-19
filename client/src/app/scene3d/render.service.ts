@@ -44,7 +44,7 @@ export class RenderService {
     private render(): void {
         requestAnimationFrame(() => this.render());
         this.camera.translateX(this.deltaX);
-        this.camera.translateZ(this.deltaZ)
+        this.camera.translateZ(this.deltaZ);
         this.renderer.render(this.scene, this.camera);
     }
 
