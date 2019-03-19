@@ -6,8 +6,14 @@ import { RenderService } from "../scene3d/render.service";
     providedIn: "root",
 })
 export class CheatModeService {
+    private readonly ratePerSec: number = 4;
+    private readonly ONE_SECONDE: number = 1000;
+    private isActivated: boolean;
+    private timeoutPointer: NodeJS.Timeout;
 
-    public constructor(private originalRender: RenderService, private modifiedRender: RenderService) { }
+    public constructor(private originalRender: RenderService, private modifiedRender: RenderService) { 
+        this.isActivated = false;
+    }
 
     private findGeometry(renderer: RenderService, geometry: GeometryData): THREE.Object3D | undefined {
         return renderer.scene.children.find(
@@ -24,6 +30,26 @@ export class CheatModeService {
             const object: THREE.Object3D = this.findGeometry(renderer, geometry) as THREE.Object3D;
             object.visible = object.visible ? false : true;
         }
+    }
+
+    private flashGeometries(geometries: GeometryData[]): void {
+        for (const geometry of geometries) {
+            this.setVisibility(this.originalRender, geometry);
+            this.setVisibility(this.modifiedRender, geometry);
+        }
+    }
+
+    private startCheatMode(geometries: GeometryData[]): NodeJS.Timeout {
+      return  setInterval(() => this.flashGeometries(geometries), this.ONE_SECONDE / this.ratePerSec);
+    }
+
+    public tuggleCheatMode(geometries: GeometryData[]): void {
+        if (this.isActivated) {
+            clearInterval(this.timeoutPointer);
+        } else {
+            this.timeoutPointer = this.startCheatMode(geometries);
+        }
+        this.isActivated = this.isActivated ? false : true;
     }
 
 }
