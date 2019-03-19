@@ -11,9 +11,11 @@ export class CheatModeService {
     private isActivated: boolean;
     private timeoutPointer: number;
     private geometries: GeometryData[];
+    private isVisible: boolean;
 
     public constructor(private originalRender: RenderService, private modifiedRender: RenderService) {
         this.isActivated = false;
+        this.isVisible = true;
     }
 
     private findGeometry(renderer: RenderService, geometry: GeometryData): THREE.Object3D | undefined {
@@ -26,22 +28,27 @@ export class CheatModeService {
             });
     }
 
-    private setVisibility(renderer: RenderService, geometry: GeometryData): void {
+    private setVisibility(renderer: RenderService, geometry: GeometryData, visibility: boolean): void {
         if (this.findGeometry(renderer, geometry) !== undefined) {
             const object: THREE.Object3D = this.findGeometry(renderer, geometry) as THREE.Object3D;
-            object.visible = object.visible ? false : true;
+            object.visible = visibility;
         }
     }
 
-    private flashGeometries(): void {
+    private setDifferenceVisibility(visibility: boolean): void {
         for (const geometry of this.geometries) {
-            this.setVisibility(this.originalRender, geometry);
-            this.setVisibility(this.modifiedRender, geometry);
+            this.setVisibility(this.originalRender, geometry, visibility);
+            this.setVisibility(this.modifiedRender, geometry, visibility);
         }
+    }
+
+    private alternateVisibility(): void {
+        this.isVisible = this.isVisible ? false : true;
+        this.setDifferenceVisibility(this.isVisible);
     }
 
     private startCheatMode(): number {
-      return  window.setInterval(() => this.flashGeometries(), this.ONE_SECONDE / this.ratePerSec);
+        return window.setInterval(() => this.alternateVisibility(), this.ONE_SECONDE / this.ratePerSec);
     }
 
     public updtaeGeometries(geometries: GeometryData[]): void {
