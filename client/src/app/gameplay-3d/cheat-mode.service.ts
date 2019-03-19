@@ -33,15 +33,15 @@ export class CheatModeService {
         }
     }
 
-    private flashGeometries(geometries: GeometryData[]): void {
+    private flashGeometries(): void {
         for (const geometry of this.geometries) {
             this.setVisibility(this.originalRender, geometry);
             this.setVisibility(this.modifiedRender, geometry);
         }
     }
 
-    private startCheatMode(geometries: GeometryData[]): number {
-      return  window.setInterval(() => this.flashGeometries(geometries), this.ONE_SECONDE / this.ratePerSec);
+    private startCheatMode(): number {
+      return  window.setInterval(() => this.flashGeometries(), this.ONE_SECONDE / this.ratePerSec);
     }
 
     public updtaeGeometries(geometries: GeometryData[]): void {
@@ -53,7 +53,7 @@ export class CheatModeService {
         if (this.isActivated) {
             clearInterval(this.timeoutPointer);
         } else {
-            this.timeoutPointer = this.startCheatMode(geometries);
+            this.timeoutPointer = this.startCheatMode();
         }
         this.isActivated = this.isActivated ? false : true;
     }
