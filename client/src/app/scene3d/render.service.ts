@@ -79,6 +79,13 @@ export class RenderService {
         this.startRenderingLoop();
     }
 
+    public reInitialize(container: HTMLDivElement, scene: THREE.Scene): void {
+        this.container = container;
+        this.scene = scene;
+        this.addSceneLight();
+        this.startRenderingLoop();
+    }
+
     public setDeltaZ(z: number): void{
         this.deltaZ = z;
     }
