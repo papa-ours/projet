@@ -23,7 +23,7 @@ export class Scene implements SceneData {
         );
     }
 
-    public isColorChange(position: VectorInterface): boolean {
+    public isColorChangeAtPosition(position: VectorInterface): boolean {
         const original: GeometryData | undefined = Scene.findGeometry(this.originalScene, position);
         const modified: GeometryData | undefined = Scene.findGeometry(this.modifiedScene, position);
 
