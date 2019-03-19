@@ -62,7 +62,6 @@ export class DeplacementCameraService {
             case DeplacementCameraService.FORWARD:
             DeplacementCameraService.render3dOriginalImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
             DeplacementCameraService.render3dModifiedImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
-            console.log("2");
             break;
             case DeplacementCameraService.LEFT:
             DeplacementCameraService.render3dOriginalImage.setDeltaX(-DeplacementCameraService.DISTANCE);
