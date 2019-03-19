@@ -56,6 +56,9 @@ export class Gameplay3dComponent implements AfterViewInit {
     private foundDifference(): void {
         this.foundDifferenceEvent.emit();
         this.differenceCounter++;
+        this.difference3DCheckerService.getAllDifference(this.id).subscribe(
+            (geometries: GeometryData[]) => this.cheatModeService.updtaeGeometries(geometries),
+        );
     }
 
     @HostListener("document:keypress", ["$event"])
