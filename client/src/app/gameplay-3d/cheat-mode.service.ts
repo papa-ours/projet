@@ -59,6 +59,7 @@ export class CheatModeService {
         this.updtaeGeometries(geometries);
         if (this.isActivated) {
             clearInterval(this.timeoutPointer);
+            this.setDifferenceVisibility(true);
         } else {
             this.timeoutPointer = this.startCheatMode();
         }
