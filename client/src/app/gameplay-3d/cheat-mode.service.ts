@@ -9,7 +9,7 @@ export class CheatModeService {
     private readonly ratePerSec: number = 4;
     private readonly ONE_SECONDE: number = 1000;
     private isActivated: boolean;
-    private timeoutPointer: NodeJS.Timeout;
+    private timeoutPointer: number;
 
     public constructor(private originalRender: RenderService, private modifiedRender: RenderService) { 
         this.isActivated = false;
@@ -39,8 +39,8 @@ export class CheatModeService {
         }
     }
 
-    private startCheatMode(geometries: GeometryData[]): NodeJS.Timeout {
-      return  setInterval(() => this.flashGeometries(geometries), this.ONE_SECONDE / this.ratePerSec);
+    private startCheatMode(geometries: GeometryData[]): number {
+      return  window.setInterval(() => this.flashGeometries(geometries), this.ONE_SECONDE / this.ratePerSec);
     }
 
     public tuggleCheatMode(geometries: GeometryData[]): void {
