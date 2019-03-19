@@ -1,9 +1,11 @@
 import { expect } from "chai";
-import { SceneData } from "../../../../common/communication/geometry";
+import { REQUIRED_DIFFERENCES_1P } from "../../../../common/communication/constants";
+import { Modification, ModificationType, SceneData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { DeepCloner } from "../utils/deep-cloner";
 import { SceneDataGeneratorService } from "./scene-data-generator";
 import { SceneDifferenceCheckerService } from "./scene-difference-checker";
+import { SceneDataDifferenceService } from "./scene-difference-generator";
 
 describe("SceneDifferenceChecker", () => {
     const sizeOfScene: number = 10;
@@ -66,6 +68,23 @@ describe("SceneDifferenceChecker", () => {
             scene.modifiedScene[0].color = scene.originalScene[0].color + 1 ;
             sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
             expect(sceneDifferenceChecker.checkDifference(position)).to.equal(true);
+        });
+    });
+
+    describe("differences", () => {
+        beforeEach(() => {
+            const differenceGenerator: SceneDataDifferenceService = new SceneDataDifferenceService();
+            const modifications: Modification[] = [
+                {type: ModificationType.ADD, isActive: true},
+                {type: ModificationType.CHANGE_COLOR, isActive: true},
+                {type: ModificationType.DELETE, isActive: true},
+            ];
+            scene.modifiedScene = differenceGenerator.getDifference(scene.originalScene, modifications);
+        });
+
+        it("should detect the excate number of differences", () => {
+            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
+            expect(sceneDifferenceChecker.differences.length).to.deep.equal(REQUIRED_DIFFERENCES_1P);
         });
     });
 });
