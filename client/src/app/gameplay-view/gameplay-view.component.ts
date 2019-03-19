@@ -1,19 +1,16 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from "../../../../common/communication/constants";
+import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
-import { ImageType } from "../../../../common/images/image-type";
-import { DifferenceCheckerService } from "../difference-checker.service";
 import { GameplayService } from "../gameplay.service";
-import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 
 @Component({
     selector: "app-gameplay-view",
     templateUrl: "./gameplay-view.component.html",
     styleUrls: ["./gameplay-view.component.css"],
 })
-export class GameplayViewComponent implements OnInit, AfterViewInit {
+export class GameplayViewComponent implements OnInit {
 
     public readonly nbPlayers: number;
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
@@ -23,17 +20,14 @@ export class GameplayViewComponent implements OnInit, AfterViewInit {
     public images: string[];
     public requiredDifferences: number;
     public type: GameType;
-    @ViewChild("originalScene", {read: ElementRef}) originalSceneElement: ElementRef;
-    @ViewChild("modifiedScene", {read: ElementRef}) modifiedSceneElement: ElementRef;
     public chrono: number;
-    private name: string;
-    private id: string;
     private isChronoRunning: boolean;
 
     public constructor(
         private route: ActivatedRoute,
-        private differenceCheckerService: DifferenceCheckerService,
         private gameplayService: GameplayService,
+        public name: string,
+        public id: string,
     ) {
         this.nbPlayers = 1;
         this.requiredDifferences = this.nbPlayers === 1 ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
@@ -42,7 +36,6 @@ export class GameplayViewComponent implements OnInit, AfterViewInit {
         this.chrono = 0;
         this.isChronoRunning = false;
     }
-
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
@@ -50,42 +43,16 @@ export class GameplayViewComponent implements OnInit, AfterViewInit {
             this.gameplayService.getGameId(this.name, this.type).subscribe((id: string) => {
                 this.id = id;
             });
-            this.setImagesPath();
             this.startChrono();
         });
     }
 
-    public ngAfterViewInit(): void{
-        DeplacementCameraService.setElementRef(this.originalSceneElement, this.modifiedSceneElement);
-        DeplacementCameraService.activateDeplacement();
-    }
-
-    private setImagesPath(): void {
-        this.images[ImageType.Original] = `${SERVER_ADDRESS}/${this.name}-originalImage.bmp`;
-        this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
-    }
-
-    public checkDifference(position: [number, number]): void {
-        this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
-            .subscribe((isDifference: boolean) => {
-                if (isDifference) {
-                    this.differenceFound();
-                }
-            },
-        );
-    }
-
-    private differenceFound(): void {
-        this.foundDifferencesCounter++;
+    public updateGameplay(): void {
+        this.foundDifferencesCounter ++;
         if (this.foundDifferencesCounter === REQUIRED_DIFFERENCES_1P) {
             this.isChronoRunning = false;
         }
-        this.updateDifferenceImage();
         this.playSound();
-    }
-
-    private updateDifferenceImage(): void {
-        this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.id}.bmp?${this.foundDifferencesCounter}`;
     }
 
     private playSound(): void {

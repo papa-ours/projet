@@ -5,9 +5,9 @@ import * as THREE from "three";
 export class RenderService {
 
     private container: HTMLDivElement;
-    private camera: THREE.PerspectiveCamera;
+    public camera: THREE.PerspectiveCamera;
     private renderer: THREE.WebGLRenderer;
-    private scene: THREE.Scene;
+    public scene: THREE.Scene;
     public deltaX: number = 0;
     public deltaZ: number = 0;
 
