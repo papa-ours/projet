@@ -28,7 +28,7 @@ export class DeplacementCameraService {
         DeplacementCameraService.render3dModifiedImage = renderService;
     }
 
-    public static activateDeplacement(): void {
+    public static activateMovement(): void {
         document.body.addEventListener("keypress", DeplacementCameraService.moveCamera, false);
         document.body.addEventListener("keyup", DeplacementCameraService.resetCameraSpeed, false);
 

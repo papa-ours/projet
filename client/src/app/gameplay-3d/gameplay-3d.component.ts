@@ -39,7 +39,7 @@ export class Gameplay3dComponent implements AfterViewInit {
         this.modifiedScene = this.scenes.toArray()[SceneType.modifiedScene];
         this.rayCaster = new RaycasterService(this.originalScene.renderService, this.modifiedScene.renderService);
         DeplacementCameraService.setElementRef(this.originalSceneElement, this.modifiedSceneElement);
-        DeplacementCameraService.activateDeplacement();
+        DeplacementCameraService.activateMovement();
     }
 
     public checkDifference(mousePosition: VectorInterface): void {
