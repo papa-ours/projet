@@ -6,7 +6,7 @@ import { RenderService } from "../scene3d/render.service";
     providedIn: "root",
 })
 export class CheatModeService {
-    private readonly ratePerSec: number = 4;
+    private readonly ratePerSec: number = 8;
     private readonly ONE_SECONDE: number = 1000;
     private readonly emissiveColor: number = 0xFF0000;
     private readonly neutralColor: number = 0x000000;
