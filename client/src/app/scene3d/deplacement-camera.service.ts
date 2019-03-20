@@ -40,16 +40,16 @@ export class DeplacementCameraService {
 
     private static activateMovementMouse(): void {
         // tslint:disable-next-line: max-line-length
-        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
+        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", DeplacementCameraService.onMouseClick, false);
         // tslint:disable-next-line: max-line-length
-        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mouseup", DeplacementCameraService.startRotationCamera, false);
+        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mouseup", DeplacementCameraService.onMouseClick, false);
         // tslint:disable-next-line: max-line-length
-        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
+        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mousedown", DeplacementCameraService.onMouseClick, false);
         // tslint:disable-next-line: max-line-length
-        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mouseup", DeplacementCameraService.startRotationCamera, false);
+        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mouseup", DeplacementCameraService.onMouseClick, false);
     }
 
-    private static startRotationCamera(mouseEvent: MouseEvent): void {
+    private static onMouseClick(mouseEvent: MouseEvent): void {
         if (mouseEvent.button === this.RIGHT_CLICK) {
             if (mouseEvent.type === "mouseup") {
                 document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
