@@ -22,11 +22,6 @@ export interface ChatTime {
     seconds: string;
 }
 
-export enum GameMode {
-    SOLO,
-    PVP,
-}
-
 export enum DifferenceIdentification {
     DifferenceFound,
     ErrorIdentification,
