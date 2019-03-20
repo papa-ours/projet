@@ -30,7 +30,7 @@ export class DeplacementCameraService {
 
     public static activateMovement(): void {
         DeplacementCameraService.activateMovementKeyBoard();
-
+        DeplacementCameraService.activateMovementMouse();
         DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", (mouseEvent: MouseEvent) => {
             if (mouseEvent.button === this.RIGHT_CLICK) {
                 document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
@@ -60,7 +60,11 @@ export class DeplacementCameraService {
         document.body.addEventListener("keypress", DeplacementCameraService.moveCamera, false);
         document.body.addEventListener("keyup", DeplacementCameraService.resetCameraSpeed, false);
     }
-    
+
+    private static activateMovementMouse(): void {
+
+    }
+
     private static moveCamera(keyEvent: KeyboardEvent): void {
         switch (keyEvent.key) {
             case DeplacementCameraService.FORWARD:
