@@ -31,10 +31,6 @@ export class DeplacementCameraService {
     public static activateMovement(): void {
         DeplacementCameraService.activateMovementKeyBoard();
         DeplacementCameraService.activateMovementMouse();
-        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
-        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mouseup", DeplacementCameraService.startRotationCamera, false);
-        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
-        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mouseup", DeplacementCameraService.startRotationCamera, false);
     }
 
     private static activateMovementKeyBoard(): void {
@@ -43,7 +39,10 @@ export class DeplacementCameraService {
     }
 
     private static activateMovementMouse(): void {
-
+        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
+        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mouseup", DeplacementCameraService.startRotationCamera, false);
+        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
+        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mouseup", DeplacementCameraService.startRotationCamera, false);
     }
 
     private static startRotationCamera(mouseEvent: MouseEvent): void {
