@@ -29,14 +29,16 @@ export class CreateGameController {
             "/sheet/:id/:type",
             (req: Request, res: Response, next: NextFunction) => {
                 DBConnectionService.getInstance().deleteGameSheet(req.params.id, req.params.type)
-                .then(() => res.send());
+                .then(() => res.send())
+                .catch((error: Error) => console.error(error.message));
             });
 
         router.post(
             "/sheet/",
             (req: Request, res: Response, next: NextFunction) => {
                 DBConnectionService.getInstance().reinitializeScores(req.body.id, req.body.type)
-                .then(() => res.send());
+                .then(() => res.send())
+                .catch((error: Error) => console.error(error.message));
             });
 
         return router;
