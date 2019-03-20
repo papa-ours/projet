@@ -8,6 +8,8 @@ import { RenderService } from "../scene3d/render.service";
 export class CheatModeService {
     private readonly ratePerSec: number = 4;
     private readonly ONE_SECONDE: number = 1000;
+    private readonly emissiveColor: number = 0xFF0000;
+    private readonly neutralColor: number = 0x000000;
     private isActivated: boolean;
     private timeoutPointer: number;
     private geometries: GeometryData[];
@@ -30,8 +32,9 @@ export class CheatModeService {
 
     private setVisibility(renderer: RenderService, geometry: GeometryData, visibility: boolean): void {
         if (this.findGeometry(renderer, geometry) !== undefined) {
-            const object: THREE.Object3D = this.findGeometry(renderer, geometry) as THREE.Object3D;
-            object.visible = visibility;
+            const object: THREE.Mesh = this.findGeometry(renderer, geometry) as THREE.Mesh;
+            const objectMaterial: THREE.MeshLambertMaterial = object.material as THREE.MeshLambertMaterial;
+            objectMaterial.emissive.setHex(visibility ?  this.neutralColor : this.emissiveColor);
         }
     }
 
