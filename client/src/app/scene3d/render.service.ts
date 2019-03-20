@@ -8,8 +8,8 @@ export class RenderService {
     public camera: THREE.PerspectiveCamera;
     private renderer: THREE.WebGLRenderer;
     public scene: THREE.Scene;
-    public deltaX: number = 0;
-    public deltaZ: number = 0;
+    public deltaX: number;
+    public deltaZ: number;
 
     private readonly CAMERA_Z: number = 400;
     private readonly FIELD_OF_VIEW: number = 45;
@@ -20,6 +20,10 @@ export class RenderService {
     private readonly MOUVEMENT_INTERVAL: number = 10;
     private readonly ROTATION_CONSTANT: number = 800;
 
+    public constructor() {
+        this.deltaX = 0;
+        this.deltaZ = 0;
+    }
     private createCamera(): void {
         const aspectRatio: number = this.getAspectRatio();
         this.camera = new THREE.PerspectiveCamera(
