@@ -39,9 +39,13 @@ export class DeplacementCameraService {
     }
 
     private static activateMovementMouse(): void {
+        // tslint:disable-next-line: max-line-length
         DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
+        // tslint:disable-next-line: max-line-length
         DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mouseup", DeplacementCameraService.startRotationCamera, false);
+        // tslint:disable-next-line: max-line-length
         DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
+        // tslint:disable-next-line: max-line-length
         DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mouseup", DeplacementCameraService.startRotationCamera, false);
     }
 
