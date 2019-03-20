@@ -100,10 +100,10 @@ export class RenderService {
     }
 
     public rotateCameraY(y: number): void {
-        this.camera.rotateY(y / 900);
+        this.camera.rotateY(y / this.ROTATION_CONSTANT);
     }
 
     public rotateCameraX(x: number): void {
-        this.camera.rotateX(x / 900);
+        this.camera.rotateX(x / this.ROTATION_CONSTANT);
     }
 }
