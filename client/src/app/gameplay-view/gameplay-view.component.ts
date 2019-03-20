@@ -73,6 +73,7 @@ export class GameplayViewComponent implements OnInit {
 
     public updateGameplay(): void {
         this.foundDifferencesCounter ++;
+        this.socketService.sendFoundDiffrenceMessage();
         if (this.foundDifferencesCounter === this.requiredDifferences) {
             this.isChronoRunning = false;
             this.canClick = false;
@@ -88,6 +89,7 @@ export class GameplayViewComponent implements OnInit {
     }
 
     public identificationError(): void {
+        this.socketService.sendErrorIdentificationMessage();
         this.showErrorMessage();
         this.showCursorError();
         this.playWrongSound();
