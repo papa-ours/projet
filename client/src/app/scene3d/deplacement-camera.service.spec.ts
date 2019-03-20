@@ -30,7 +30,7 @@ describe("DeplacementCameraService", () => {
 
     });
 
-     it("", () => {
+    it("", () => {
         console.log(render1);
         DeplacementCameraService.activateDeplacement();
         var e = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
