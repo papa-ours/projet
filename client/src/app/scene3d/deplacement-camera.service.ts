@@ -50,7 +50,7 @@ export class DeplacementCameraService {
     }
 
     private static onMouseClick(mouseEvent: MouseEvent): void {
-        if (mouseEvent.button === this.RIGHT_CLICK) {
+        if (mouseEvent.button === DeplacementCameraService.RIGHT_CLICK) {
             if (mouseEvent.type === "mouseup") {
                 document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
             } else if (mouseEvent.type === "mousedown") {
