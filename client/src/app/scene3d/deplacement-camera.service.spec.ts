@@ -35,7 +35,7 @@ describe("DeplacementCameraService", () => {
         DeplacementCameraService.activateMovement();
         var e = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
         spyOn(render1,"setDeltaZ");
-        DeplacementCameraService["moveCamera"](e);
+        DeplacementCameraService["setCameraSpeed"](e);
         console.log(render1);
         expect(render1.setDeltaZ).toHaveBeenCalled();
 
