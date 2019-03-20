@@ -15,26 +15,10 @@ export abstract class AbstractGame implements HasId {
 
     public constructor(public id: string, name: string, public type: GameType) {
         this.images = [];
-        // triple equal problem
-        // tslint:disable-next-line:triple-equals
-        if (type == GameType.Free) {
-            this.setupScene(name);
-        } else {
-            this.setupImages(name);
-        }
+        this.setUp(name);
     }
 
-    private setupImages(name: string): void {
-        const imageTypes: string[] = ["original", "modified", "difference"];
-        imageTypes.forEach(async (type: string, index: number) => {
-            const data: Uint8Array = await FileIO.readFile(`uploads/${name}-${type}Image.bmp`);
-            if (index === ImageType.Difference) {
-                this.differenceImage = DifferenceImage.fromArray(data);
-            } else {
-                this.images[index] = BMPImage.fromArray(data);
-            }
-        });
-    }
+    protected abstract setUp(name: string): void;
 
     public async restoreModifiedImage(x: number, y: number): Promise<{}> {
         const index: number = this.differenceImage.getIndex({ i: x, j: y });
@@ -50,12 +34,6 @@ export abstract class AbstractGame implements HasId {
 
     private async saveModifiedImage(): Promise<{}> {
         return FileIO.writeFile(`uploads/${this.id}.bmp`, Buffer.from(this.images[ImageType.Modified].toArray()));
-    }
-
-    private setupScene(name: string): void {
-        FileIO.readFile(`uploads/${name}-data.txt`).then((data: Buffer) =>
-            this.scene = JSON.parse(data.toString()),
-        );
     }
 
     public restoreModifiedScene(position: VectorInterface): void {
