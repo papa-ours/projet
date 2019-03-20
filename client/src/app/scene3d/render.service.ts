@@ -17,6 +17,8 @@ export class RenderService {
     private readonly NEAR_CLIPPING_PANE: number = 1;
     private readonly FAR_CLIPPING_PANE: number = 10000;
 
+    private readonly MOUVEMENT_INTERVAL: number = 10;
+
     private createCamera(): void {
         const aspectRatio: number = this.getAspectRatio();
         this.camera = new THREE.PerspectiveCamera(
