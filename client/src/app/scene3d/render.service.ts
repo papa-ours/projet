@@ -18,6 +18,7 @@ export class RenderService {
     private readonly FAR_CLIPPING_PANE: number = 10000;
 
     private readonly MOUVEMENT_INTERVAL: number = 10;
+    private readonly ROTATION_CONSTANT: number = 800;
 
     private createCamera(): void {
         const aspectRatio: number = this.getAspectRatio();
