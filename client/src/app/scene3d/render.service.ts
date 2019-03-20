@@ -68,7 +68,7 @@ export class RenderService {
         const lowIntensity: number = 0.3;
         const lightColor: number = 0xFFFFFF;
         this.scene.add(this.camera);
-        this.scene.add(new THREE.AmbientLight(lightColor,lowIntensity));
+        this.scene.add(new THREE.AmbientLight(lightColor, lowIntensity));
     }
 
     public initialize(container: HTMLDivElement, scene: THREE.Scene): void {
@@ -90,19 +90,19 @@ export class RenderService {
         this.startRenderingLoop();
     }
 
-    public setDeltaZ(z: number): void{
+    public setDeltaZ(z: number): void {
         this.deltaZ = z;
     }
 
-    public setDeltaX(x: number): void{
+    public setDeltaX(x: number): void {
         this.deltaX = x;
     }
 
-    public rotateCameraY(y: number): void{
+    public rotateCameraY(y: number): void {
         this.camera.rotateY(y / 900);
     }
 
-    public rotateCameraX(x: number): void{
+    public rotateCameraX(x: number): void {
         this.camera.rotateX(x / 900);
     }
 }
