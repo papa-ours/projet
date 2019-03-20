@@ -34,7 +34,7 @@ export class DeplacementCameraService {
     }
 
     private static activateMovementKeyBoard(): void {
-        document.body.addEventListener("keypress", DeplacementCameraService.moveCamera, false);
+        document.body.addEventListener("keypress", DeplacementCameraService.setCameraSpeed, false);
         document.body.addEventListener("keyup", DeplacementCameraService.resetCameraSpeed, false);
     }
 
@@ -59,7 +59,7 @@ export class DeplacementCameraService {
         }
     }
 
-    private static moveCamera(keyEvent: KeyboardEvent): void {
+    private static setCameraSpeed(keyEvent: KeyboardEvent): void {
         switch (keyEvent.key) {
             case DeplacementCameraService.FORWARD:
                 DeplacementCameraService.render3dOriginalImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
