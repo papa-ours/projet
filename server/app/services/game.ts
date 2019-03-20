@@ -15,7 +15,7 @@ export class Game implements HasId {
 
     public constructor(public id: string, name: string, public type: GameType) {
         this.images = [];
-        // probleme de triple egale
+        // triple equal problem
         // tslint:disable-next-line:triple-equals
         if (type == GameType.Free) {
             this.setupScene(name);
@@ -53,11 +53,9 @@ export class Game implements HasId {
     }
 
     private setupScene(name: string): void {
-        const sceneTypes: string[] = ["original"];
-        sceneTypes.forEach(async () => {
-            const data: Buffer = await FileIO.readFile(`uploads/${name}-data.txt`);
-            this.scene = JSON.parse(data.toString());
-        });
+        FileIO.readFile(`uploads/${name}-data.txt`).then((data: Buffer) =>
+            this.scene = JSON.parse(data.toString()),
+        );
     }
 
     public restoreModifiedScene(position: VectorInterface): void {
@@ -68,6 +66,6 @@ export class Game implements HasId {
 
     private saveModifiedScene(): void {
         FileIO.writeFile(`uploads/${this.id}-data.txt`, Buffer.from(JSON.stringify(this.scene)))
-        .catch((err: Error) => console.error(err));
+            .catch((err: Error) => console.error(err));
     }
 }

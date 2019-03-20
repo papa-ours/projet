@@ -24,6 +24,22 @@ export class CreateGameController {
                 res.send(message);
             });
 
+        router.delete(
+            "/sheet/:id/:type",
+            (req: Request, res: Response, next: NextFunction) => {
+                this.getGameService.deleteGameSheet(req.params.id, req.params.type);
+
+                res.send();
+            });
+
+        router.post(
+            "/sheet/",
+            (req: Request, res: Response, next: NextFunction) => {
+                this.getGameService.reinitializeScores(req.body.id, req.body.type);
+
+                res.send();
+            });
+
         return router;
     }
 }

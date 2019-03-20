@@ -20,7 +20,7 @@ export class RaycasterService {
         const boundingRect: ClientRect = container.getBoundingClientRect();
         const ratioX: number = (event.clientX - boundingRect.left) / container.clientWidth;
         const ratioY: number = (event.clientY - boundingRect.top) / container.clientHeight;
-        // formule pour convertire la position en x et en y tslint disable pour le * 2
+        // formula for converting x, y coordinates tslint disable for  * 2
         // tslint:disable-next-line:no-magic-numbers
         const x: number = (ratioX * 2) - 1;
         // tslint:disable-next-line:no-magic-numbers

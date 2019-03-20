@@ -26,7 +26,6 @@ export class GameplayViewComponent implements OnInit {
     public showError: boolean;
     public clickPosition: Position;
     public chrono: number;
-
     private isChronoRunning: boolean;
 
     @ViewChild("container") private containerRef: ElementRef;
@@ -67,8 +66,12 @@ export class GameplayViewComponent implements OnInit {
         }
     }
 
-    public updateView(): void {
+    public updateGameplay(): void {
         this.foundDifferencesCounter ++;
+        if (this.foundDifferencesCounter === this.requiredDifferences) {
+            this.isChronoRunning = false;
+            this.canClick = false;
+        }
         this.playCorrectSound();
     }
 

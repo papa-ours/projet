@@ -6,7 +6,7 @@ export class Vector implements VectorInterface {
         public x: number,
         public y: number,
         public z: number,
-    ) {}
+    ) { }
 
     public static fromVector(other: VectorInterface): Vector {
         return new Vector(other.x, other.y, other.z);
@@ -33,6 +33,6 @@ export class Vector implements VectorInterface {
     }
 
     public equals(other: VectorInterface): boolean {
-        return ( this.x === other.x && this.y === other.y && this.z === other.z );
+        return this.x === other.x && this.y === other.y && this.z === other.z;
     }
 }

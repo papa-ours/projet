@@ -20,6 +20,6 @@ export class Difference3DCheckerService {
 
         return this.http.post<Message>(this.URL, { position, name, type })
             .pipe(map((message: Message) => JSON.parse(message.body)),
-            );
+        );
     }
 }

@@ -20,10 +20,10 @@
     <div #container class="images-chat-container">
         <div [style.left.px]="clickPosition.i" [style.top.px]="clickPosition.j" class="error-tag" *ngIf="showError">ERREUR</div>
         <div *ngIf="type==0; else scenes"> 
-            <app-gameplay-2d (foundDifferenceEvent)="updateView()" (errorIdentificationEvent)="identificationError()" [id]="id" [name]="name" [canClick]="canClick"></app-gameplay-2d>
+            <app-gameplay-2d (foundDifferenceEvent)="updateGameplay()" (errorIdentificationEvent)="identificationError()" [id]="id" [name]="name" [canClick]="canClick"></app-gameplay-2d>
         </div>
         <ng-template #scenes>
-            <app-gameplay-3d (foundDifferenceEvent)="updateView()" (errorIdentificationEvent)="identificationError()" [id]="id" [name]="name" [width]="500" [height]="375" [canClick]="canClick"></app-gameplay-3d>
+            <app-gameplay-3d (foundDifferenceEvent)="updateGameplay()" (errorIdentificationEvent)="identificationError()" [id]="id" [name]="name" [width]="500" [height]="375" [canClick]="canClick"></app-gameplay-3d>
         </ng-template>
         <app-chat-messages></app-chat-messages>
     </div>

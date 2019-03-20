@@ -1,5 +1,5 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from "@angular/core";
-import { Position } from "../../../../common/images/position";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
 
 @Component({
   selector: "app-game-image",
@@ -13,7 +13,7 @@ export class GameImageComponent {
 
     @Input() public source: string;
     @ViewChild("image") private imageElement: ElementRef;
-    @Output() private checkDifference: EventEmitter<Position>;
+    @Output() private checkDifference: EventEmitter<VectorInterface>;
 
     public constructor() {
         this.checkDifference = new EventEmitter();
@@ -25,6 +25,6 @@ export class GameImageComponent {
         const x: number = event.x - imageRectangle.left;
         const y: number = event.y - imageRectangle.top;
 
-        this.checkDifference.emit({i: x, j: y});
+        this.checkDifference.emit({x: x, y: y, z: 0});
     }
 }
