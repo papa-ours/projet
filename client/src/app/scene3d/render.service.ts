@@ -43,8 +43,6 @@ export class RenderService {
 
     private render(): void {
         requestAnimationFrame(() => this.render());
-        this.camera.translateX(this.deltaX);
-        this.camera.translateZ(this.deltaZ);
         this.renderer.render(this.scene, this.camera);
     }
 
@@ -77,6 +75,10 @@ export class RenderService {
         this.createCamera();
         this.addLight();
         this.startRenderingLoop();
+        setInterval(() => {
+            this.camera.translateX(this.deltaX);
+            this.camera.translateZ(this.deltaZ);
+        }, 10);
     }
 
     public reInitialize(container: HTMLDivElement, scene: THREE.Scene): void {
@@ -95,10 +97,10 @@ export class RenderService {
     }
 
     public rotateCameraY(y: number): void{
-        this.camera.rotateY(y * Math.PI / 3600);
+        this.camera.rotateY(y / 900);
     }
 
     public rotateCameraX(x: number): void{
-        this.camera.rotateX(x * Math.PI / 3600);
+        this.camera.rotateX(x / 900);
     }
 }
