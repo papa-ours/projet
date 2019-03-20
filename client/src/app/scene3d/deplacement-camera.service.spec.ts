@@ -31,20 +31,13 @@ describe("DeplacementCameraService", () => {
     });
 
     it("", () => {
-        console.log(render1);
         DeplacementCameraService.activateMovement();
         var e = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
         spyOn(render1,"setDeltaZ");
         DeplacementCameraService["setCameraSpeed"](e);
-        console.log(render1);
         expect(render1.setDeltaZ).toHaveBeenCalled();
 
      });
 
-    /*it("should set ", () => {
-        spyOnProperty(DeplacementCameraService, "setElementRef", "set");
-        DeplacementCameraService.setElementRef = element, element;
-
-    });*/
 
 });
