@@ -32,26 +32,26 @@ export class DeplacementCameraService {
         document.body.addEventListener("keypress", DeplacementCameraService.moveCamera, false);
         document.body.addEventListener("keyup", DeplacementCameraService.resetCameraSpeed, false);
 
-        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", (e: MouseEvent) => {
-            if (e.button === this.RIGHT_CLICK) {
+        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", (mouseEvent: MouseEvent) => {
+            if (mouseEvent.button === this.RIGHT_CLICK) {
                 document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
         });
 
-        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mouseup", (e: MouseEvent) => {
-            if (e.button === this.RIGHT_CLICK) {
+        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mouseup", (mouseEvent: MouseEvent) => {
+            if (mouseEvent.button === this.RIGHT_CLICK) {
                 document.body.removeEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
         });
 
-        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mousedown", (e: MouseEvent) => {
-            if (e.button === this.RIGHT_CLICK) {
+        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mousedown", (mouseEvent: MouseEvent) => {
+            if (mouseEvent.button === this.RIGHT_CLICK) {
                 document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
         });
 
-        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mouseup", (e: MouseEvent) => {
-            if (e.button === this.RIGHT_CLICK) {
+        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mouseup", (mouseEvent: MouseEvent) => {
+            if (mouseEvent.button === this.RIGHT_CLICK) {
                 document.body.removeEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
         });
