@@ -1,7 +1,8 @@
 import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
-import { DifferenceIdentification, GameMode } from "../../common/communication/message";
+import { GameType } from "../../common/communication/game-description";
+import { DifferenceIdentification } from "../../common/communication/message";
 import { ChatMessagePvpService } from "./services/chat-message-pvp.service";
 import { ChatMessageSoloService } from "./services/chat-message-solo.service";
 import { ChatMessageService } from "./services/chat-message.service";
@@ -61,11 +62,12 @@ export class Socket {
     }
 
     private setupGameMode(socket: SocketIO.Socket): void {
-        socket.on("setGameMode", (gameMode: GameMode) => {
-            gameMode === GameMode.SOLO ? this.chatMessageService = new ChatMessageSoloService(this.usersContainerService,
-                                                                                              this.getCurrentTimeService) :
-                                         this.chatMessageService = new ChatMessagePvpService(this.usersContainerService,
-                                                                                             this.getCurrentTimeService);
+        socket.on("setGameMode", (gameType: GameType) => {
+            // triple equal problem
+            // tslint:disable-next-line:triple-equals
+            gameType == GameType.Simple ?
+                this.chatMessageService = new ChatMessageSoloService(this.usersContainerService, this.getCurrentTimeService) :
+                this.chatMessageService = new ChatMessagePvpService(this.usersContainerService, this.getCurrentTimeService);
         });
     }
 

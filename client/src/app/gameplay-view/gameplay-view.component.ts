@@ -3,7 +3,6 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
-import { GameMode } from "../../../../common/communication/message";
 import { Position } from "../../../../common/images/position";
 import { GameplayService } from "../gameplay.service";
 import { SocketService } from "../socket.service";
@@ -29,7 +28,6 @@ export class GameplayViewComponent implements OnInit {
     public clickPosition: Position;
     public chrono: number;
     private isChronoRunning: boolean;
-    private gameMode: GameMode;
 
     @ViewChild("container") private containerRef: ElementRef;
 
@@ -40,8 +38,8 @@ export class GameplayViewComponent implements OnInit {
         public name: string,
         public id: string,
     ) {
-        this.gameMode = GameMode.SOLO;
-        this.requiredDifferences = this.gameMode === GameMode.SOLO ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
+        this.nbPlayers = 1;
+        this.requiredDifferences = this.nbPlayers === 1 ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
         this.foundDifferencesCounter = 0;
         this.images = [];
         this.canClick = true;
@@ -56,7 +54,6 @@ export class GameplayViewComponent implements OnInit {
             this.gameplayService.getGameId(this.name, this.type).subscribe((id: string) => {
                 this.id = id;
             });
-            this.socketService.sendGameMode(this.gameMode);
             this.startChrono();
         });
         const SOUND_VOLUME: number = 0.2;
@@ -73,7 +70,7 @@ export class GameplayViewComponent implements OnInit {
 
     public updateGameplay(): void {
         this.foundDifferencesCounter ++;
-        this.socketService.sendFoundDiffrenceMessage();
+        this.socketService.sendFoundDiffrenceMessage(this.type);
         if (this.foundDifferencesCounter === this.requiredDifferences) {
             this.isChronoRunning = false;
             this.canClick = false;
@@ -89,7 +86,7 @@ export class GameplayViewComponent implements OnInit {
     }
 
     public identificationError(): void {
-        this.socketService.sendErrorIdentificationMessage();
+        this.socketService.sendErrorIdentificationMessage(this.type);
         this.showErrorMessage();
         this.showCursorError();
         this.playWrongSound();
