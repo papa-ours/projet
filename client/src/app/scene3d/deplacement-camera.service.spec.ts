@@ -1,6 +1,6 @@
+import { ElementRef, Injectable } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
 import { DeplacementCameraService } from "./deplacement-camera.service";
-import { ElementRef, Injectable } from "@angular/core";
 import { RenderService } from "./render.service";
 
 @Injectable()
