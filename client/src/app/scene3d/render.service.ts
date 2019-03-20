@@ -80,7 +80,7 @@ export class RenderService {
         setInterval(() => {
             this.camera.translateX(this.deltaX);
             this.camera.translateZ(this.deltaZ);
-        }, 10);
+        }, this.MOUVEMENT_INTERVAL);
     }
 
     public reInitialize(container: HTMLDivElement, scene: THREE.Scene): void {
