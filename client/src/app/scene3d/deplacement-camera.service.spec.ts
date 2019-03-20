@@ -13,7 +13,7 @@ describe("DeplacementCameraService", () => {
             providers: [
                 DeplacementCameraService,
                 RenderService,
-                {provide: ElementRef, useClass: MockElementRef},
+                ElementRef,
             ],
         });
         render1 = TestBed.get(RenderService);
