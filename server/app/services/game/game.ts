@@ -8,7 +8,7 @@ import { Pixel } from "../../../../common/images/pixel";
 import { SceneDifferenceRestorationService } from "../scene/scene-difference-restoration";
 import { FileIO } from "../utils/file-io.util";
 
-export class AbstractGame implements HasId {
+export abstract class AbstractGame implements HasId {
     public images: BMPImage[];
     public differenceImage: DifferenceImage;
     public scene: SceneData;

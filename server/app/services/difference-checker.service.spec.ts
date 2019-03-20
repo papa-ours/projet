@@ -1,15 +1,15 @@
 import { expect } from "chai";
 import { GameType } from "../../../common/communication/game-description";
 import { DifferenceCheckerService } from "./difference-checker.service";
-import { AbstractGame } from "./game/game";
+import { SimpleGame } from "./game/simple-game";
 
 describe("Difference Checker", () => {
     const differenceChecker: DifferenceCheckerService = new DifferenceCheckerService();
-    let game: AbstractGame;
+    let game: SimpleGame;
 
     beforeEach((done: Mocha.Done) => {
         const ONE_SECOND: number = 1000;
-        game = new AbstractGame("0", "voiture", GameType.Simple);
+        game = new SimpleGame("0", "voiture", GameType.Simple);
         setTimeout(done, ONE_SECOND);
     });
 

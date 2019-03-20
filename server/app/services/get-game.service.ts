@@ -1,7 +1,9 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { GameSheet, GameType, HasId } from "../../../common/communication/game-description";
+import { FreeGame } from "./game/free-game";
 import { AbstractGame } from "./game/game";
+import { SimpleGame } from "./game/simple-game";
 import { TopScores } from "./score/top-scores";
 
 @injectable()
@@ -45,7 +47,9 @@ export class GetGameService {
 
     public createGame(name: string, type: GameType): string {
         const id: string = this.generateUniqueId(GetGameService.games);
-        const game: AbstractGame = new AbstractGame(id, name, type);
+        // triple equal problem
+        // tslint:disable-next-line:triple-equals
+        const game: AbstractGame = type == GameType.Free ? new FreeGame(id, name, type) : new SimpleGame(id, name, type);
         GetGameService.games.push(game);
 
         return id;

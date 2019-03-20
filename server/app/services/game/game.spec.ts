@@ -1,10 +1,11 @@
 import { expect } from "chai";
 import { GameType } from "../../../../common/communication/game-description";
-import { AbstractGame } from "./game";
 import { Position } from "../utils/circle-area";
+import { AbstractGame } from "./game";
+import { SimpleGame } from "./simple-game";
 
 describe("Game", () => {
-    const game: AbstractGame = new AbstractGame("0", "voiture", GameType.Simple);
+    const game: AbstractGame = new SimpleGame("0", "voiture", GameType.Simple);
     const ONE_SECOND: number = 1000;
 
     it("should restore the difference like the original image", () => {
