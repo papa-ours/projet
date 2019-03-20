@@ -1,14 +1,14 @@
-import { GameType, HasId } from "../../../common/communication/game-description";
-import { SceneData } from "../../../common/communication/geometry";
-import { VectorInterface } from "../../../common/communication/vector-interface";
-import { BMPImage } from "../../../common/images/bmp-image";
-import { DifferenceImage } from "../../../common/images/difference-image";
-import { ImageType } from "../../../common/images/image-type";
-import { Pixel } from "../../../common/images/pixel";
-import { SceneDifferenceRestorationService } from "./scene/scene-difference-restoration";
-import { FileIO } from "./utils/file-io.util";
+import { GameType, HasId } from "../../../../common/communication/game-description";
+import { SceneData } from "../../../../common/communication/geometry";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
+import { BMPImage } from "../../../../common/images/bmp-image";
+import { DifferenceImage } from "../../../../common/images/difference-image";
+import { ImageType } from "../../../../common/images/image-type";
+import { Pixel } from "../../../../common/images/pixel";
+import { SceneDifferenceRestorationService } from "../scene/scene-difference-restoration";
+import { FileIO } from "../utils/file-io.util";
 
-export class Game implements HasId {
+export class AbstractGame implements HasId {
     public images: BMPImage[];
     public differenceImage: DifferenceImage;
     public scene: SceneData;

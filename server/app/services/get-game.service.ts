@@ -1,13 +1,13 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { GameSheet, GameType, HasId } from "../../../common/communication/game-description";
-import { Game } from "./game";
+import { AbstractGame } from "./game/game";
 import { TopScores } from "./score/top-scores";
 
 @injectable()
 export class GetGameService {
 
-    private static readonly games: Game[] = [];
+    private static readonly games: AbstractGame[] = [];
     private static readonly gameSheets: [GameSheet[], GameSheet[]] = [[], []];
 
     public addGameSheet(gameSheet: GameSheet, type: GameType): void {
@@ -27,8 +27,8 @@ export class GetGameService {
         return gameSheet;
     }
 
-    public getGame(id: string): Game {
-        const game: Game | undefined = GetGameService.games.find((currentGame: Game) => {
+    public getGame(id: string): AbstractGame {
+        const game: AbstractGame | undefined = GetGameService.games.find((currentGame: AbstractGame) => {
             return currentGame.id === id;
         });
 
@@ -45,7 +45,7 @@ export class GetGameService {
 
     public createGame(name: string, type: GameType): string {
         const id: string = this.generateUniqueId(GetGameService.games);
-        const game: Game = new Game(id, name, type);
+        const game: AbstractGame = new AbstractGame(id, name, type);
         GetGameService.games.push(game);
 
         return id;
