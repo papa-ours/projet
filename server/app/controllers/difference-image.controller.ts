@@ -7,7 +7,7 @@ import { Message, MessageType } from "../../../common/communication/message";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { DifferenceImageGenerator } from "../services/difference-image-generator.service";
 import { DifferencesFinderService } from "../services/differences-finder.service";
-import { FileWriterUtil } from "../services/utils/file-writer.util";
+import { FileIO } from "../services/utils/file-io.util";
 import Types from "../types";
 
 @injectable()
@@ -60,7 +60,7 @@ export class DifferenceImageController {
     }
 
     private writeFile(data: Uint8Array, name: string): void {
-        FileWriterUtil.writeFile(`uploads/${name}-differenceImage.bmp`, Buffer.from(data))
+        FileIO.writeFile(`uploads/${name}-differenceImage.bmp`, Buffer.from(data))
             .catch((err: Error) => {
                 console.error(err);
             });
