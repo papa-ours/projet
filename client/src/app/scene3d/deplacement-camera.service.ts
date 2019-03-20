@@ -59,8 +59,12 @@ export class DeplacementCameraService {
 
     private static startRotationCamera(mouseEvent: MouseEvent): void {
         if (mouseEvent.button === this.RIGHT_CLICK) {
-            document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
+            if (mouseEvent.type === "mouseup") {
+                document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
+            } else if (mouseEvent.type === "mousedown") {
+                document.body.removeEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
             }
+        }
     }
 
     private static moveCamera(keyEvent: KeyboardEvent): void {
