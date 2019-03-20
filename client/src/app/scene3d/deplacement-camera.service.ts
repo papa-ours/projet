@@ -31,23 +31,15 @@ export class DeplacementCameraService {
     public static activateMovement(): void {
         DeplacementCameraService.activateMovementKeyBoard();
         DeplacementCameraService.activateMovementMouse();
-        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", (mouseEvent: MouseEvent) => {
-            if (mouseEvent.button === this.RIGHT_CLICK) {
-                document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
-                }
-        });
+        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
 
         DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mouseup", (mouseEvent: MouseEvent) => {
-            if (mouseEvent.button === this.RIGHT_CLICK) {
+            if (mouseEvent.button === this.RIGHT_CLICK && mouseEvent.type === "mouseup") {
                 document.body.removeEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
                 }
         });
 
-        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mousedown", (mouseEvent: MouseEvent) => {
-            if (mouseEvent.button === this.RIGHT_CLICK) {
-                document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
-                }
-        });
+        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
 
         DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mouseup", (mouseEvent: MouseEvent) => {
             if (mouseEvent.button === this.RIGHT_CLICK) {
@@ -63,6 +55,12 @@ export class DeplacementCameraService {
 
     private static activateMovementMouse(): void {
 
+    }
+
+    private static startRotationCamera(mouseEvent: MouseEvent): void {
+        if (mouseEvent.button === this.RIGHT_CLICK) {
+            document.body.addEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
+            }
     }
 
     private static moveCamera(keyEvent: KeyboardEvent): void {
