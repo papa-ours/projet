@@ -60,21 +60,21 @@ export class DeplacementCameraService {
     private static moveCamera(keyEvent: KeyboardEvent): void {
         switch (keyEvent.key) {
             case DeplacementCameraService.FORWARD:
-            DeplacementCameraService.render3dOriginalImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
-            DeplacementCameraService.render3dModifiedImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
-            break;
+                DeplacementCameraService.render3dOriginalImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
+                DeplacementCameraService.render3dModifiedImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
+                break;
             case DeplacementCameraService.LEFT:
-            DeplacementCameraService.render3dOriginalImage.setDeltaX(-DeplacementCameraService.DISTANCE);
-            DeplacementCameraService.render3dModifiedImage.setDeltaX(-DeplacementCameraService.DISTANCE);
-            break;
+                DeplacementCameraService.render3dOriginalImage.setDeltaX(-DeplacementCameraService.DISTANCE);
+                DeplacementCameraService.render3dModifiedImage.setDeltaX(-DeplacementCameraService.DISTANCE);
+                break;
             case DeplacementCameraService.BACKWARD:
-            DeplacementCameraService.render3dOriginalImage.setDeltaZ(DeplacementCameraService.DISTANCE);
-            DeplacementCameraService.render3dModifiedImage.setDeltaZ(DeplacementCameraService.DISTANCE);
-            break;
+                DeplacementCameraService.render3dOriginalImage.setDeltaZ(DeplacementCameraService.DISTANCE);
+                DeplacementCameraService.render3dModifiedImage.setDeltaZ(DeplacementCameraService.DISTANCE);
+                break;
             case DeplacementCameraService.RIGHT:
-            DeplacementCameraService.render3dOriginalImage.setDeltaX(DeplacementCameraService.DISTANCE);
-            DeplacementCameraService.render3dModifiedImage.setDeltaX(DeplacementCameraService.DISTANCE);
-            break;
+                DeplacementCameraService.render3dOriginalImage.setDeltaX(DeplacementCameraService.DISTANCE);
+                DeplacementCameraService.render3dModifiedImage.setDeltaX(DeplacementCameraService.DISTANCE);
+                break;
             default:
         }
     }
