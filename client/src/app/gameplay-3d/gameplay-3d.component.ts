@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, EventEmitter, Input, Output, QueryList, ViewChildren, ViewChild, ElementRef } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
+import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 import { RaycasterService } from "../scene3d/raycaster.service";
 import { Scene3dComponent } from "../scene3d/scene3d.component";
 import { Difference3DCheckerService } from "./difference3d-checker.service";
-import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 
 enum SceneType {
     originalScene,
