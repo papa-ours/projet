@@ -57,8 +57,8 @@ export class DeplacementCameraService {
         });
     }
 
-    private static moveCamera(e: KeyboardEvent): void {
-        switch (e.key) {
+    private static moveCamera(keyEvent: KeyboardEvent): void {
+        switch (keyEvent.key) {
             case DeplacementCameraService.FORWARD:
             DeplacementCameraService.render3dOriginalImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
             DeplacementCameraService.render3dModifiedImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
@@ -79,8 +79,8 @@ export class DeplacementCameraService {
         }
     }
 
-    private static resetCameraSpeed(e: KeyboardEvent): void {
-        switch (e.key) {
+    private static resetCameraSpeed(keyEvent: KeyboardEvent): void {
+        switch (keyEvent.key) {
             case DeplacementCameraService.FORWARD:
             DeplacementCameraService.render3dOriginalImage.setDeltaZ(0);
             DeplacementCameraService.render3dModifiedImage.setDeltaZ(0);
