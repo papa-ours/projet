@@ -24,17 +24,17 @@ export class SocketService {
     }
 
     public sendFoundDiffrenceMessage(gameType: GameType): void {
-        this.sendGameMode(gameType);
+        this.sendGameType(gameType);
         this.socket.emit("foundDifference");
     }
 
     public sendErrorIdentificationMessage(gameType: GameType): void {
-        this.sendGameMode(gameType);
+        this.sendGameType(gameType);
         this.socket.emit("errorIdentification");
     }
 
-    public sendGameMode(gameType: GameType): void {
-        this.socket.emit("setGameMode", gameType);
+    public sendGameType(gameType: GameType): void {
+        this.socket.emit("setGameType", gameType);
     }
 
     public getChatMessage = () => {

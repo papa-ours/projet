@@ -30,7 +30,7 @@ export class Socket {
             this.setupFoundDifference(socket);
             this.setupErrorIdentification(socket);
             this.setupDisconnect(socket);
-            this.setupGameMode(socket);
+            this.setupGameType(socket);
         });
     }
 
@@ -61,8 +61,8 @@ export class Socket {
         });
     }
 
-    private setupGameMode(socket: SocketIO.Socket): void {
-        socket.on("setGameMode", (gameType: GameType) => {
+    private setupGameType(socket: SocketIO.Socket): void {
+        socket.on("setGameType", (gameType: GameType) => {
             // triple equal problem
             // tslint:disable-next-line:triple-equals
             gameType == GameType.Simple ?
