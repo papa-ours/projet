@@ -32,20 +32,9 @@ export class DeplacementCameraService {
         DeplacementCameraService.activateMovementKeyBoard();
         DeplacementCameraService.activateMovementMouse();
         DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
-
-        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mouseup", (mouseEvent: MouseEvent) => {
-            if (mouseEvent.button === this.RIGHT_CLICK && mouseEvent.type === "mouseup") {
-                document.body.removeEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
-                }
-        });
-
+        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener("mouseup", DeplacementCameraService.startRotationCamera, false);
         DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mousedown", DeplacementCameraService.startRotationCamera, false);
-
-        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mouseup", (mouseEvent: MouseEvent) => {
-            if (mouseEvent.button === this.RIGHT_CLICK) {
-                document.body.removeEventListener("mousemove", DeplacementCameraService.rotateCamera, false);
-                }
-        });
+        DeplacementCameraService.elementRefModified.nativeElement.addEventListener("mouseup", DeplacementCameraService.startRotationCamera, false);
     }
 
     private static activateMovementKeyBoard(): void {
