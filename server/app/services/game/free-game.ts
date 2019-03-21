@@ -9,7 +9,7 @@ export class FreeGame extends AbstractGame {
 
     public scene: SceneData;
 
-    public constructor(id: string, name: string) {
+    private constructor(id: string, name: string) {
         super(id, name, GameType.Free);
     }
 

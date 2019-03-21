@@ -11,7 +11,7 @@ export class SimpleGame extends AbstractGame {
     public images: BMPImage[];
     public differenceImage: DifferenceImage;
 
-    public constructor(id: string, name: string) {
+    private constructor(id: string, name: string) {
         super(id, name, GameType.Simple);
         this.images = [];
     }
