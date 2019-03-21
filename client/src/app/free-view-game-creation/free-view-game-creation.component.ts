@@ -24,7 +24,7 @@ export class FreeViewGameCreationComponent {
             isAdding: false,
             isRemoval: false,
             isColorChange: false,
-            sceneType: "",
+            sceneType: "geometric",
         };
         this.closeForm = new EventEmitter();
         this.formError = false;
