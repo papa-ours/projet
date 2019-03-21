@@ -2,9 +2,10 @@ import { GameType, HasId } from "../../../../common/communication/game-descripti
 
 export abstract class AbstractGame implements HasId {
 
-    public constructor(public id: string, name: string, public readonly type: GameType) {
-        this.setUp(name);
-    }
+    public constructor(
+        public id: string,
+        public readonly type: GameType,
+    ) { }
 
     protected abstract async setUp(name: string): Promise<{}>;
 
