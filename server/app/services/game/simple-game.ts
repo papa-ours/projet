@@ -16,6 +16,12 @@ export class SimpleGame extends AbstractGame {
         this.images = [];
     }
 
+    public static async create(id: string, name: string): Promise<SimpleGame> {
+        const game: SimpleGame = new SimpleGame(id, name);
+
+        return game.setUp(name).then(() => game);
+    }
+
     protected async setUp(name: string): Promise<{}> {
         const imageTypes: string[] = ["original", "modified", "difference"];
 

@@ -13,6 +13,12 @@ export class FreeGame extends AbstractGame {
         super(id, name, GameType.Free);
     }
 
+    public static async create(id: string, name: string): Promise<FreeGame> {
+        const game: FreeGame = new FreeGame(id, name);
+
+        return game.setUp(name).then(() => game);
+    }
+
     protected async setUp(name: string): Promise<{}> {
         return FileIO.readFile(`uploads/${name}-data.txt`).then((data: Buffer) =>
             this.scene = JSON.parse(data.toString()),
