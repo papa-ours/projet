@@ -30,7 +30,7 @@ export class FreeViewGameCreationComponent {
         this.formError = false;
     }
 
-    public isAIntInRange(): boolean {
+    public isNbObjectValid(): boolean {
         return !Number.isNaN(this.freeViewForm.nbObjects) &&
                 Number(this.freeViewForm.nbObjects) <= this.NB_OBJECTS_MAX &&
                 Number(this.freeViewForm.nbObjects) >= this.NB_OBJECTS_MIN;

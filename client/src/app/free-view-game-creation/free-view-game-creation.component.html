@@ -23,7 +23,7 @@
     <div class="info">
             Nombre d'objets :
             <input class="nbObjects-input" type="number" [(ngModel)]="freeViewForm.nbObjects"><br>
-            <div class="error-message" *ngIf="!isAIntInRange() && formError">
+            <div class="error-message" *ngIf="!isNbObjectValid() && formError">
                 La valeur doit être un nombre entre 10 et 200
             </div>
     </div>
