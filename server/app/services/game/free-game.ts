@@ -1,3 +1,4 @@
+import { GameType } from "../../../../common/communication/game-description";
 import { SceneData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { SceneDifferenceRestorationService } from "../scene/scene-difference-restoration";
@@ -7,6 +8,10 @@ import { AbstractGame } from "./game";
 export class FreeGame extends AbstractGame {
 
     public scene: SceneData;
+
+    public constructor(id: string, name: string) {
+        super(id, name, GameType.Free);
+    }
 
     protected setUp(name: string): void {
         FileIO.readFile(`uploads/${name}-data.txt`).then((data: Buffer) =>

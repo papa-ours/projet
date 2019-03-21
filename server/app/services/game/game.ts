@@ -2,7 +2,7 @@ import { GameType, HasId } from "../../../../common/communication/game-descripti
 
 export abstract class AbstractGame implements HasId {
 
-    public constructor(public id: string, name: string, public type: GameType) {
+    public constructor(public id: string, name: string, public readonly type: GameType) {
         this.setUp(name);
     }
 

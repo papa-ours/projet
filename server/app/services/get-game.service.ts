@@ -49,7 +49,7 @@ export class GetGameService {
         const id: string = this.generateUniqueId(GetGameService.games);
         // triple equal problem
         // tslint:disable-next-line:triple-equals
-        const game: AbstractGame = type == GameType.Free ? new FreeGame(id, name, type) : new SimpleGame(id, name, type);
+        const game: AbstractGame = type == GameType.Free ? new FreeGame(id, name) : new SimpleGame(id, name);
         GetGameService.games.push(game);
 
         return id;
