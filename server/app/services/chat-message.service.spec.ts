@@ -55,4 +55,13 @@ describe.only("chat-message-service", () => {
             setTimeout(done, 0);
         });
     });
+
+    it("should send a message if an error identification occured", (done: Mocha.Func) => {
+        socketClient.emit("errorIdentification");
+        const expected: string = "Erreur.";
+        socketClient.on("chatMessage", (result: ChatMessage) => {
+            expect(result.text).to.deep.equals(expected);
+            setTimeout(done, 0);
+        });
+    });
 });
