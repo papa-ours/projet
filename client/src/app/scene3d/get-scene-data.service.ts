@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { of, Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { SERVER_ADDRESS } from "../../../../common/communication/constants";
+import { S3_BUCKET_URL, SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { SceneData } from "../../../../common/communication/geometry";
 
 @Injectable({
@@ -14,7 +14,7 @@ export class GetSceneDataService {
     public constructor(private http: HttpClient) { }
 
     public getSceneData(name: string): Observable<SceneData> {
-        return this.http.get<SceneData>(`https://s3.amazonaws.com/uploads-diffs/${name}-data.json`)
+        return this.http.get<SceneData>(`${S3_BUCKET_URL}/${name}-data.json`)
             .pipe(catchError(this.handleError<SceneData>("getSceneData")),
         );
     }
