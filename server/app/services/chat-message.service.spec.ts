@@ -46,4 +46,13 @@ describe.only("chat-message-service", () => {
             setTimeout(done, 0);
         });
     });
+
+    it("should send a message if a difference is found", (done: Mocha.Func) => {
+        socketClient.emit("foundDifference");
+        const expected: string = "Différence trouvée.";
+        socketClient.on("chatMessage", (result: ChatMessage) => {
+            expect(result.text).to.deep.equals(expected);
+            setTimeout(done, 0);
+        });
+    });
 });
