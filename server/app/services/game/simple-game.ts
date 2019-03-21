@@ -1,3 +1,4 @@
+import { GameType } from "../../../../common/communication/game-description";
 import { BMPImage } from "../../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../../common/images/difference-image";
 import { ImageType } from "../../../../common/images/image-type";
@@ -6,6 +7,14 @@ import { FileIO } from "../utils/file-io.util";
 import { AbstractGame } from "./game";
 
 export class SimpleGame extends AbstractGame {
+
+    public images: BMPImage[];
+    public differenceImage: DifferenceImage;
+
+    public constructor(id: string, name: string, type: GameType) {
+        super(id, name, type);
+        this.images = [];
+    }
 
     protected setUp(name: string): void {
         const imageTypes: string[] = ["original", "modified", "difference"];
