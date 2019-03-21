@@ -56,8 +56,8 @@ describe("GetGameService", () => {
         expect(gameSheet.id.length).to.equals(ID_LENGTH);
     });
 
-    it("should create a game properly", () => {
-        const id: string = getGameService.createGame("voiture", GameType.Simple);
+    it("should create a game properly", async () => {
+        const id: string = await getGameService.createGame("voiture", GameType.Simple);
         const game: AbstractGame = getGameService.getGame(id);
 
         expect(game.id).to.equals(id);

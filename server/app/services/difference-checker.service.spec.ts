@@ -6,10 +6,8 @@ describe("Difference Checker", () => {
     const differenceChecker: DifferenceCheckerService = new DifferenceCheckerService();
     let game: SimpleGame;
 
-    beforeEach((done: Mocha.Done) => {
-        const ONE_SECOND: number = 1000;
-        game = new SimpleGame("0", "voiture");
-        setTimeout(done, ONE_SECOND);
+    beforeEach(async () => {
+        game = await SimpleGame.create("0", "voiture");
     });
 
     it("should return false if there is no difference at the position", () => {
