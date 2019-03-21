@@ -3,27 +3,47 @@ import * as io from "socket.io-client";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { ChatMessage } from "../../../common/communication/message";
 import { container } from "../inversify.config";
+import { Server } from "../server";
+import { Socket } from "../socket";
 import Types from "../types";
 import { UsersContainerService } from "./users-container.service";
 
-describe("chat-message-service", () => {
+// tslint:disable:max-func-body-length
+describe.only("chat-message-service", () => {
+    const server: Server = container.get<Server>(Types.Server);
+    server.init();
+    const socket: Socket = container.get<Socket>(Types.Socket);
+    socket.init(server.getServer());
+
     const userContainerService: UsersContainerService = container.get<UsersContainerService>(Types.UsersContainerService);
+    let socketClient: SocketIOClient.Socket;
 
-    it.only("should broadcast new user to all users", (done: Mocha.Func) => {
-        const SOCKET1: SocketIOClient.Socket = io.connect(SERVER_ADDRESS);
-        const USERNAME1: string = "username1";
-        const expected: string = `${USERNAME1} vient de se connecter.`;
-
-        userContainerService.addUser({name: USERNAME1, socketId: SOCKET1.id});
-
-        SOCKET1.on("connection", () => {
-            SOCKET1.emit("newUser");
-            SOCKET1.on("chatMessage", (message: ChatMessage) => {
-                expect(message.text).to.deep.equal(expected);
-                SOCKET1.disconnect();
-                setTimeout(done, 0);
-            });
+    beforeEach((done: Mocha.Func) => {
+        socketClient = io.connect(SERVER_ADDRESS, { forceNew: true, reconnectionDelay: 0 });
+        socketClient.on("connect", () => {
+            console.log("je suis connecté");
+            const username: string = "Virasone";
+            userContainerService.addUser({name: username, socketId: socketClient.id});
+            setTimeout(done, 0);
+        });
+        socketClient.on("disconnect", () => {
+            console.log("je suis déconnecté");
         });
     });
 
+    afterEach((done: Mocha.Func) => {
+        if (socketClient.connected) {
+            socketClient.disconnect();
+          }
+        setTimeout(done, 0);
+    });
+
+    it("should send a message if a new user is connected", (done: Mocha.Func) => {
+        socketClient.emit("newUser");
+        const expected: string = "Virasone vient de se connecter.";
+        socketClient.on("chatMessage", (result: ChatMessage) => {
+            expect(result.text).to.deep.equals(expected);
+            setTimeout(done, 0);
+        });
+    });
 });
