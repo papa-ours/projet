@@ -6,6 +6,6 @@ export abstract class AbstractGame implements HasId {
         this.setUp(name);
     }
 
-    protected abstract setUp(name: string): void;
+    protected abstract async setUp(name: string): Promise<{}>;
 
 }

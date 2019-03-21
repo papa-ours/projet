@@ -16,16 +16,17 @@ export class SimpleGame extends AbstractGame {
         this.images = [];
     }
 
-    protected setUp(name: string): void {
+    protected async setUp(name: string): Promise<{}> {
         const imageTypes: string[] = ["original", "modified", "difference"];
-        imageTypes.forEach(async (type: string, index: number) => {
+
+        return Promise.all(imageTypes.map((type: string, index: number) => async () => {
             const data: Uint8Array = await FileIO.readFile(`uploads/${name}-${type}Image.bmp`);
             if (index === ImageType.Difference) {
                 this.differenceImage = DifferenceImage.fromArray(data);
             } else {
                 this.images[index] = BMPImage.fromArray(data);
             }
-        });
+        }));
     }
 
     public async restoreModifiedImage(x: number, y: number): Promise<{}> {

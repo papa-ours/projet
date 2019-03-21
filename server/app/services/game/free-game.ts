@@ -13,8 +13,8 @@ export class FreeGame extends AbstractGame {
         super(id, name, GameType.Free);
     }
 
-    protected setUp(name: string): void {
-        FileIO.readFile(`uploads/${name}-data.txt`).then((data: Buffer) =>
+    protected async setUp(name: string): Promise<{}> {
+        return FileIO.readFile(`uploads/${name}-data.txt`).then((data: Buffer) =>
             this.scene = JSON.parse(data.toString()),
         );
     }
