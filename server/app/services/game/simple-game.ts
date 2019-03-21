@@ -25,7 +25,7 @@ export class SimpleGame extends AbstractGame {
     protected async setUp(name: string): Promise<{}> {
         const imageTypes: string[] = ["original", "modified", "difference"];
 
-        return Promise.all(imageTypes.map((type: string, index: number) => async () => {
+        return Promise.all(imageTypes.map(async (type: string, index: number) => {
             const data: Uint8Array = await FileIO.readFile(`uploads/${name}-${type}Image.bmp`);
             if (index === ImageType.Difference) {
                 this.differenceImage = DifferenceImage.fromArray(data);
