@@ -8,8 +8,8 @@ export class RenderService {
     public camera: THREE.PerspectiveCamera;
     private renderer: THREE.WebGLRenderer;
     public scene: THREE.Scene;
-    private deltaX: number;
-    private deltaZ: number;
+    private speedX: number;
+    private speedZ: number;
 
     private readonly CAMERA_Z: number = 400;
     private readonly FIELD_OF_VIEW: number = 45;
@@ -21,8 +21,8 @@ export class RenderService {
     private readonly ROTATION_CONSTANT: number = 800;
 
     public constructor() {
-        this.deltaX = 0;
-        this.deltaZ = 0;
+        this.speedX = 0;
+        this.speedZ = 0;
     }
     private createCamera(): void {
         const aspectRatio: number = this.getAspectRatio();
@@ -83,8 +83,8 @@ export class RenderService {
         this.addLight();
         this.startRenderingLoop();
         setInterval(() => {
-            this.camera.translateX(this.deltaX);
-            this.camera.translateZ(this.deltaZ);
+            this.camera.translateX(this.speedX);
+            this.camera.translateZ(this.speedZ);
         },          this.MOUVEMENT_INTERVAL);
     }
 
@@ -96,11 +96,11 @@ export class RenderService {
     }
 
     public setDeltaZ(z: number): void {
-        this.deltaZ = z;
+        this.speedZ = z;
     }
 
     public setDeltaX(x: number): void {
-        this.deltaX = x;
+        this.speedX = x;
     }
 
     public rotateCameraY(y: number): void {
