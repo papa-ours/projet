@@ -1,7 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from "../../../../common/communication/constants";
+import {
+    REQUIRED_DIFFERENCES_1P,
+    REQUIRED_DIFFERENCES_2P,
+    S3_BUCKET_URL,
+    SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
 import { ImageType } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
@@ -53,8 +57,8 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private setImagesPath(): void {
-        this.images[ImageType.Original] = `https://s3.amazonaws.com/uploads-diffs/${this.name}-originalImage.bmp`;
-        this.images[ImageType.Modified] = `https://s3.amazonaws.com/uploads-diffs/${this.name}-modifiedImage.bmp`;
+        this.images[ImageType.Original] = `${S3_BUCKET_URL}/${this.name}-originalImage.bmp`;
+        this.images[ImageType.Modified] = `${S3_BUCKET_URL}/${this.name}-modifiedImage.bmp`;
     }
 
     public checkDifference(position: [number, number]): void {
