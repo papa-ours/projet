@@ -55,7 +55,6 @@ export class FreeViewGameCreationComponent {
         } else {
             this.formError = true;
         }
-        
     }
 
     private sendForm(): void {
