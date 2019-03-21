@@ -52,7 +52,10 @@ export class FreeViewGameCreationComponent {
             // Otherwise, CI fails
             // tslint:disable-next-line:no-suspicious-comment
             // TODO: tell the user that the request is being processed
+        } else {
+            this.formError = true;
         }
+        
     }
 
     private sendForm(): void {
