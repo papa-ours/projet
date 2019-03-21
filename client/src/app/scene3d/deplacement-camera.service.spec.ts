@@ -25,11 +25,4 @@ describe("DeplacementCameraService", () => {
 
     });
 
-    it("", () => {
-        DeplacementCameraService.activateMovement();
-        const event = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
-        spyOn(render1, "setDeltaZ");
-        DeplacementCameraService["setCameraSpeed"](event);
-        expect(render1.setDeltaZ).toHaveBeenCalled();
-    });
 });
