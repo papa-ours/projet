@@ -1,6 +1,7 @@
 import { BMPImage } from "../../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../../common/images/difference-image";
 import { ImageType } from "../../../../common/images/image-type";
+import { Pixel } from "../../../../common/images/pixel";
 import { FileIO } from "../utils/file-io.util";
 import { AbstractGame } from "./game";
 
@@ -16,5 +17,21 @@ export class SimpleGame extends AbstractGame {
                 this.images[index] = BMPImage.fromArray(data);
             }
         });
+    }
+
+    public async restoreModifiedImage(x: number, y: number): Promise<{}> {
+        const index: number = this.differenceImage.getIndex({ i: x, j: y });
+        const difference: number[] = this.differenceImage.getDifferenceAt(index);
+
+        difference.forEach((differenceIndex: number) => {
+            this.images[ImageType.Modified].placePixel(differenceIndex, this.images[ImageType.Original].pixelAt(differenceIndex));
+            this.differenceImage.placePixel(differenceIndex, Pixel.WHITE_PIXEL);
+        });
+
+        return this.saveModifiedImage();
+    }
+
+    private async saveModifiedImage(): Promise<{}> {
+        return FileIO.writeFile(`uploads/${this.id}.bmp`, Buffer.from(this.images[ImageType.Modified].toArray()));
     }
 }

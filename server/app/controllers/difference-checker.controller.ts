@@ -3,7 +3,8 @@ import { inject, injectable } from "inversify";
 import { Message, MessageType } from "../../../common/communication/message";
 import { VectorInterface } from "../../../common/communication/vector-interface";
 import { DifferenceCheckerService } from "../services/difference-checker.service";
-import { AbstractGame } from "../services/game/game";
+import { FreeGame } from "../services/game/free-game";
+import { SimpleGame } from "../services/game/simple-game";
 import { GetGameService } from "../services/get-game.service";
 import { SceneDifferenceCheckerService } from "../services/scene/scene-difference-checker";
 import Types from "../types";
@@ -32,7 +33,7 @@ export class DifferenceCheckerController {
                 };
 
                 try {
-                    const game: AbstractGame = getGameService.getGame(id);
+                    const game: SimpleGame = getGameService.getGame(id) as SimpleGame;
 
                     let isDifference: boolean = false;
                     isDifference = this.differenceChecker.isPositionDifference(x, y, game);
@@ -58,7 +59,7 @@ export class DifferenceCheckerController {
                 };
                 const sceneName: string = req.body.name as string;
                 const getGameService: GetGameService = new GetGameService();
-                const game: AbstractGame = getGameService.getGame(sceneName);
+                const game: FreeGame = getGameService.getGame(sceneName) as FreeGame;
                 const position: VectorInterface = req.body.position;
                 const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService(game.scene);
                 const isModification: boolean = differenceChecker.checkDifference(position);
