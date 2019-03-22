@@ -43,8 +43,9 @@ export class DBConnectionService {
         });
     }
 
-    public closeConnection(): void {
-        mongoose.disconnect().catch((error: Error) => console.error(error.message));
+    public closeConnection(): Promise<void> {
+        return mongoose.disconnect()
+        .catch((error: Error) => console.error(error.message));
     }
 
     public async saveGameSheet(gameSheet: GameSheet, type: GameType): Promise<mongoose.Document> {
