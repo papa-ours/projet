@@ -29,7 +29,7 @@ export class GetGameService {
         const game: AbstractGame = type == GameType.Free ? await FreeGame.create(id, name) : await SimpleGame.create(id, name);
         GetGameService.games.push(game);
 
-        return id;
+        return new Promise<string>((resolve: Function) => resolve(id));
     }
 
     private generateId(): string {
