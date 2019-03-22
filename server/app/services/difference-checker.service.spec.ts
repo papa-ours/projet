@@ -1,16 +1,13 @@
 import { expect } from "chai";
-import { GameType } from "../../../common/communication/game-description";
 import { DifferenceCheckerService } from "./difference-checker.service";
-import { Game } from "./game";
+import { SimpleGame } from "./game/simple-game";
 
 describe("Difference Checker", () => {
     const differenceChecker: DifferenceCheckerService = new DifferenceCheckerService();
-    let game: Game;
+    let game: SimpleGame;
 
-    beforeEach((done: Mocha.Done) => {
-        const ONE_SECOND: number = 1000;
-        game = new Game("0", "voiture", GameType.Simple);
-        setTimeout(done, ONE_SECOND);
+    beforeEach(async () => {
+        game = await SimpleGame.create("0", "voiture");
     });
 
     it("should return false if there is no difference at the position", () => {
