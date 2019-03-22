@@ -26,8 +26,13 @@ export class GetGameService {
         const id: string = this.generateUniqueId(GetGameService.games);
         // triple equal problem
         // tslint:disable-next-line:triple-equals
-        const game: AbstractGame = type == GameType.Free ? await FreeGame.create(id, name) : await SimpleGame.create(id, name);
-        GetGameService.games.push(game);
+        const game: AbstractGame | void = type == GameType.Free ?
+                            await FreeGame.create(id, name).catch((error: Error) => console.error(error.message)) :
+                            await SimpleGame.create(id, name).catch((error: Error) => console.error(error.message));
+
+        if (game) {
+            GetGameService.games.push(game);
+        }
 
         return new Promise<string>((resolve: Function) => resolve(id));
     }
