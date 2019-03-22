@@ -5,8 +5,8 @@ import { GameSheet, GameType } from "../../../common/communication/game-descript
 import { TopScores } from "./score/top-scores";
 
 interface DeleteResponse {
-    ok?: number | undefined;
-    n?: number | undefined;
+    ok?: number;
+    n?: number;
 }
 
 @injectable()
