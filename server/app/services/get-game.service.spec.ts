@@ -1,14 +1,12 @@
 import { expect } from "chai";
 import { GameType } from "../../../common/communication/game-description";
+import { container } from "../inversify.config";
+import Types from "../types";
 import { AbstractGame } from "./game/game";
 import { GetGameService } from "./get-game.service";
 
 describe("GetGameService", () => {
-    let getGameService: GetGameService;
-
-    beforeEach(() => {
-        getGameService = new GetGameService();
-    });
+    const getGameService: GetGameService = container.get<GetGameService>(Types.GetGameService);
 
     after(() => {
         getGameService.emptyGames();
