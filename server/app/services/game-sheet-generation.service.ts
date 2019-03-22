@@ -29,7 +29,7 @@ export class GameSheetGenerationService {
         this.db.connect().then(() => {
             this.db.saveGameSheet(gameSheet, type)
             .catch((error: Error) => console.error(error.message));
-        });
+        }).catch((err: Error) => console.error(err.message));
     }
 
     private generateTopScores(): TopScores[] {
