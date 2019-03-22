@@ -35,12 +35,8 @@ describe.only("chat-message-service", () => {
     });
 
     afterEach((done: Mocha.Func) => {
-        if (socketClient1.connected) {
-            socketClient1.disconnect();
-          }
-        if (socketClient2.connected) {
-            socketClient2.disconnect();
-        }
+        socketClient1.disconnect();
+        socketClient2.disconnect();
         setTimeout(done, 0);
     });
 
@@ -66,6 +62,15 @@ describe.only("chat-message-service", () => {
         socketClient1.emit("errorIdentification");
         const expected: string = "Erreur.";
         socketClient1.on("chatMessage", (result: ChatMessage) => {
+            expect(result.text).to.deep.equals(expected);
+            setTimeout(done, 0);
+        });
+    });
+
+    it("should send a message if a user is disconnected", (done: Mocha.Func) => {
+        socketClient1.disconnect();
+        const expected: string = "Username1 vient de se déconnecter.";
+        socketClient2.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
             setTimeout(done, 0);
         });
