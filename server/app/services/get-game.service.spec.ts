@@ -22,10 +22,12 @@ describe("GetGameService", () => {
 
     it("should create an id with the correct length", () => {
         const ID_LENGTH: number = 25;
-        getGameService.createGame("voiture", GameType.Simple).then((id: string) => {
+        getGameService.createGame("voiture", GameType.Simple)
+        .then((id: string) => {
             const game: AbstractGame = getGameService.getGame(id);
             expect(game.id.length).to.equals(ID_LENGTH);
-        });
+        })
+        .catch((error: Error) => console.error(error.message));
     });
 
     it("should create a game properly", async () => {
