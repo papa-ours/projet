@@ -30,9 +30,9 @@ export class CreateGameController {
         router.delete(
             "/sheet/:id/:type",
             (req: Request, res: Response, next: NextFunction) => {
-                this.db.connect().then(() => {
-                    this.db.deleteGameSheet(req.params.id, req.params.type)
-                    .then(() => res.send());
+                this.db.connect().then(async () => {
+                    await this.db.deleteGameSheet(req.params.id, req.params.type);
+                    res.send();
                 })
                 .catch((error: Error) => console.error(error.message));
             });
@@ -40,9 +40,9 @@ export class CreateGameController {
         router.post(
             "/sheet/",
             (req: Request, res: Response, next: NextFunction) => {
-                this.db.connect().then(() => {
-                    this.db.reinitializeScores(req.body.id, req.body.type)
-                    .then(() => res.send());
+                this.db.connect().then(async () => {
+                    await this.db.reinitializeScores(req.body.id, req.body.type);
+                    res.send();
                 })
                 .catch((error: Error) => console.error(error.message));
             });
