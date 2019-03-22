@@ -59,3 +59,30 @@ app-chat-messages {
     position: relative;
     text-align: center;
 }
+
+.disabled {
+    opacity: 0.5;
+}
+
+
+.loader {
+    position: absolute;
+    border: 12px solid #FFFFFF;
+    border-top: 12px solid var(--secondary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    left: 34%;
+    top: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 5;
+}
+  
+@keyframes spin {
+    0% { 
+        transform: rotate(0deg); 
+    }
+    100% { 
+        transform: rotate(360deg); 
+    }
+}

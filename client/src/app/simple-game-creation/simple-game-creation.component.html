@@ -25,7 +25,8 @@
     <div class="error-message">{{errorMessage}}</div>
 
     <div class="button-section"> 
-        <button class="cancel-btn" (click)="close()">Annuler</button>
+        <div *ngIf="loading" class="loader"></div>
         <button class="create-btn" (click)="submitForm()">Créer</button>
+        <button class="cancel-btn" (click)="close()">Annuler</button>
     </div>
 </div>

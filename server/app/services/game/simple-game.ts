@@ -3,6 +3,7 @@ import { BMPImage } from "../../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../../common/images/difference-image";
 import { ImageType } from "../../../../common/images/image-type";
 import { Pixel } from "../../../../common/images/pixel";
+import { AWSFilesUtil } from "../utils/aws-files.util";
 import { FileIO } from "../utils/file-io.util";
 import { AbstractGame } from "./game";
 
@@ -26,7 +27,7 @@ export class SimpleGame extends AbstractGame {
         const imageTypes: string[] = ["original", "modified", "difference"];
 
         return Promise.all(imageTypes.map(async (type: string, index: number) => {
-            const data: Uint8Array = await FileIO.readFile(`uploads/${name}-${type}Image.bmp`);
+            const data: Uint8Array = (await AWSFilesUtil.readFile(`${name}-${type}Image.bmp`)).Body as Uint8Array;
             if (index === ImageType.Difference) {
                 this.differenceImage = DifferenceImage.fromArray(data);
             } else {

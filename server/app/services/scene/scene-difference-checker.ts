@@ -31,7 +31,6 @@ export class SceneDifferenceCheckerService {
     }
 
     public checkDifference(position: VectorInterface): boolean {
-
         return this.differenceSet.some((geometry: GeometryData) => Geometry.fromGeometryData(geometry).isPositionEqual(position));
     }
 }

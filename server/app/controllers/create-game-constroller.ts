@@ -1,13 +1,16 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import { Message, MessageType } from "../../../common/communication/message";
+import { DBConnectionService } from "../services/db-connection.service";
 import { GetGameService } from "../services/get-game.service";
 import Types from "../types";
 
 @injectable()
 export class CreateGameController {
 
-    public constructor(@inject(Types.GetGameService) private getGameService: GetGameService) { }
+    public constructor(
+        @inject(Types.GetGameService) private getGameService: GetGameService,
+        @inject(Types.DBConnectionService) private db: DBConnectionService) { }
 
     public get router(): Router {
         const router: Router = Router();
@@ -27,17 +30,21 @@ export class CreateGameController {
         router.delete(
             "/sheet/:id/:type",
             (req: Request, res: Response, next: NextFunction) => {
-                this.getGameService.deleteGameSheet(req.params.id, req.params.type);
-
-                res.send();
+                this.db.connect().then(async () => {
+                    await this.db.deleteGameSheet(req.params.id, req.params.type);
+                    res.send();
+                })
+                .catch((error: Error) => console.error(error.message));
             });
 
         router.post(
             "/sheet/",
             (req: Request, res: Response, next: NextFunction) => {
-                this.getGameService.reinitializeScores(req.body.id, req.body.type);
-
-                res.send();
+                this.db.connect().then(async () => {
+                    await this.db.reinitializeScores(req.body.id, req.body.type);
+                    res.send();
+                })
+                .catch((error: Error) => console.error(error.message));
             });
 
         return router;

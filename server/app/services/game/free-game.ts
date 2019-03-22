@@ -1,7 +1,10 @@
+import { AWSError, S3 } from "aws-sdk";
+import { PromiseResult } from "aws-sdk/lib/request";
 import { GameType } from "../../../../common/communication/game-description";
 import { SceneData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { SceneDifferenceRestorationService } from "../scene/scene-difference-restoration";
+import { AWSFilesUtil } from "../utils/aws-files.util";
 import { FileIO } from "../utils/file-io.util";
 import { AbstractGame } from "./game";
 
@@ -20,8 +23,8 @@ export class FreeGame extends AbstractGame {
     }
 
     protected async setUp(name: string): Promise<{}> {
-        return FileIO.readFile(`uploads/${name}-data.txt`).then((data: Buffer) =>
-            this.scene = JSON.parse(data.toString()),
+        return AWSFilesUtil.readFile(`${name}-data.json`).then((result: PromiseResult<S3.GetObjectOutput, AWSError>) =>
+            this.scene = JSON.parse((result.Body as Buffer).toString()),
         );
     }
 
