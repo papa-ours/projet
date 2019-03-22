@@ -3,14 +3,12 @@ import "reflect-metadata";
 import { GameSheet, GameType } from "../../../common/communication/game-description";
 import Types from "../types";
 import { DBConnectionService } from "./db-connection.service";
-import { GetGameService } from "./get-game.service";
 import { TopScores } from "./score/top-scores";
 
 @injectable()
 export class GameSheetGenerationService {
 
     public constructor(
-        @inject(Types.GetGameService) private getGameService: GetGameService,
         @inject(Types.DBConnectionService) private db: DBConnectionService) {}
 
     public createGameSheet(name: string, type: GameType, saveGameSheet: boolean = true): GameSheet {
@@ -28,7 +26,6 @@ export class GameSheetGenerationService {
     }
 
     private saveGameSheet(gameSheet: GameSheet, type: GameType): void {
-        this.getGameService.addGameSheet(gameSheet, type);
         this.db.connect().then(() => {
             this.db.saveGameSheet(gameSheet, type).then(this.db.closeConnection)
             .catch((error: Error) => console.error(error.message));
