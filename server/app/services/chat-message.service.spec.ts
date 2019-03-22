@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import * as io from "socket.io-client";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
+import { GameType } from "../../../common/communication/game-description";
 import { ChatMessage } from "../../../common/communication/message";
 import { container } from "../inversify.config";
 import { Server } from "../server";
@@ -71,6 +72,16 @@ describe.only("chat-message-service", () => {
         socketClient1.disconnect();
         const expected: string = "Username1 vient de se déconnecter.";
         socketClient2.on("chatMessage", (result: ChatMessage) => {
+            expect(result.text).to.deep.equals(expected);
+            setTimeout(done, 0);
+        });
+    });
+
+    it("should switch to PVP message and send an error message", (done: Mocha.Func) => {
+        socketClient1.emit("setGameType", GameType.Free);
+        socketClient1.emit("errorIdentification");
+        const expected: string = "Erreur par Username1.";
+        socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
             setTimeout(done, 0);
         });
