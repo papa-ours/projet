@@ -83,9 +83,11 @@ export class GameplayViewComponent implements OnInit {
     }
 
     public identificationError(): void {
-        this.showErrorMessage();
-        this.showCursorError();
-        this.playWrongSound();
+        if (this.foundDifferencesCounter !== this.requiredDifferences) {
+            this.showErrorMessage();
+            this.showCursorError();
+            this.playWrongSound();
+        }
     }
     private showErrorMessage(): void {
         const ONE_SECOND: number = 1000;
