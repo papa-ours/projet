@@ -7,25 +7,31 @@ import { GetGameService } from "./get-game.service";
 
 describe("GetGameService", () => {
     const getGameService: GetGameService = container.get<GetGameService>(Types.GetGameService);
+    let gameId: string;
+
+    before((done: Mocha.Done) => {
+        getGameService.createGame("voiture", GameType.Simple).then((id: string) => {
+            gameId = id;
+            done();
+        });
+    });
 
     after(() => {
         getGameService.emptyGames();
     });
 
     it("should return throw an error if there's no corresponding id", () => {
-        const id: string = "1";
+        const fakeId: string = "1";
 
         expect(() => {
-            return getGameService.getGame(id);
+            return getGameService.getGame(fakeId);
         }).to.throws("Aucune Game n'a le id 1");
     });
 
     it("should create an id with the correct length", () => {
         const ID_LENGTH: number = 25;
-        getGameService.createGame("voiture", GameType.Simple).then((id: string) => {
-            const game: AbstractGame = getGameService.getGame(id);
-            expect(game.id.length).to.equals(ID_LENGTH);
-        });
+        const game: AbstractGame = getGameService.getGame(gameId);
+        expect(game.id.length).to.equals(ID_LENGTH);
     });
 
     it("should create a game properly", async () => {
