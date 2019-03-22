@@ -23,7 +23,7 @@ export class GameplayViewComponent implements OnInit {
     public requiredDifferences: number;
     public type: GameType;
     public canClick: boolean;
-    public showError: boolean;
+    public isErrorMessageVisible: boolean;
     public clickPosition: Position;
     public chrono: number;
     private isChronoRunning: boolean;
@@ -41,7 +41,7 @@ export class GameplayViewComponent implements OnInit {
         this.foundDifferencesCounter = 0;
         this.images = [];
         this.canClick = true;
-        this.showError = false;
+        this.isErrorMessageVisible = false;
         this.chrono = 0;
         this.isChronoRunning = false;
     }
@@ -91,10 +91,10 @@ export class GameplayViewComponent implements OnInit {
     }
     private showErrorMessage(): void {
         const ONE_SECOND: number = 1000;
-        this.showError = true;
+        this.isErrorMessageVisible = true;
         setTimeout(
             () => {
-                this.showError = false;
+                this.isErrorMessageVisible = false;
             },
             ONE_SECOND);
     }
