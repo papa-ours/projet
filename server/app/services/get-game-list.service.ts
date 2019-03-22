@@ -6,7 +6,7 @@ import { DBConnectionService } from "./db-connection.service";
 @injectable()
 export class GetGameListService {
 
-    private constructor(@inject(Types.DBConnectionService) private db: DBConnectionService) {}
+    public constructor(@inject(Types.DBConnectionService) private db: DBConnectionService) {}
 
     public async getGameList(): Promise<GameLists> {
         const simpleGameSheets: GameSheet[] = await this.db.getGameSheets(GameType.Simple);
