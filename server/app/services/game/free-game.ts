@@ -23,10 +23,9 @@ export class FreeGame extends AbstractGame {
     }
 
     protected async setUp(name: string): Promise<{}> {
-        return AWSFilesUtil.readFile(`${name}-data.json`).then((result: PromiseResult<S3.GetObjectOutput, AWSError>) => {
-            const data: Buffer = result.Body as Buffer;
-            this.scene = JSON.parse(data.toString());
-        });
+        return AWSFilesUtil.readFile(`${name}-data.json`).then((result: PromiseResult<S3.GetObjectOutput, AWSError>) =>
+            this.scene = JSON.parse((result.Body as Buffer).toString()),
+        );
     }
 
     public restoreModifiedScene(position: VectorInterface): void {
