@@ -57,7 +57,9 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     private getScene(name: string): void {
         this.getSceneData.getSceneData(name).subscribe((sceneData: SceneData) => {
             const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
-            this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
+            this.sceneGeneratorService.createScene(geometryData).then((scene: THREE.Scene) => {
+                this.renderService.initialize(this.container, scene);
+            });
         });
     }
 

@@ -1,0 +1,48 @@
+newmtl erazer
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0.35 0.35 0.35
+Ni 1
+Ns 0
+Tf 1 1 1
+d 1
+map_Kd pencil_diffuse.tga
+map_bump pencil_bump.tga
+bump pencil_bump.tga
+
+newmtl metalend
+Ka 0 0 0
+Kd 0.566259 0.569844 0.57021
+Ks 0.895 0.895 0.895
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+map_Kd pencil_diffuse.tga
+map_bump pencil_bump.tga
+bump pencil_bump.tga
+
+newmtl painted
+Ka 0 0 0
+Kd 0.784314 0.784314 0.784314
+Ks 0.455 0.455 0.455
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+map_Kd pencil_diffuse.tga
+map_bump pencil_bump.tga
+bump pencil_bump.tga
+
+newmtl tip
+Ka 0 0 0
+Kd 0.624664 0.628586 0.628987
+Ks 0 0 0
+Ni 1
+Ns 400
+Tf 1 1 1
+d 1
+map_Kd pencil_diffuse.tga
+map_bump pencil_bump.tga
+bump pencil_bump.tga
+
