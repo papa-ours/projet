@@ -32,7 +32,7 @@ export class DBConnectionService {
         });
     }
 
-    public closeConnection(): Promise<void> {
+    public async closeConnection(): Promise<void> {
         return mongoose.disconnect()
         .catch((error: Error) => console.error(error.message));
     }
