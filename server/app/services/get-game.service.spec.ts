@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { GameSheet, GameType, TopScoresInterface } from "../../../common/communication/game-description";
-import { Game } from "./game";
+import { AbstractGame } from "./game/game";
 import { GetGameService } from "./get-game.service";
 
 describe("GetGameService", () => {
@@ -56,9 +56,9 @@ describe("GetGameService", () => {
         expect(gameSheet.id.length).to.equals(ID_LENGTH);
     });
 
-    it("should create a game properly", () => {
-        const id: string = getGameService.createGame("voiture", GameType.Simple);
-        const game: Game = getGameService.getGame(id);
+    it("should create a game properly", async () => {
+        const id: string = await getGameService.createGame("voiture", GameType.Simple);
+        const game: AbstractGame = getGameService.getGame(id);
 
         expect(game.id).to.equals(id);
     });

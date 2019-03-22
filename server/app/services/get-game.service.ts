@@ -1,13 +1,15 @@
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { GameSheet, GameType, HasId } from "../../../common/communication/game-description";
-import { Game } from "./game";
+import { FreeGame } from "./game/free-game";
+import { AbstractGame } from "./game/game";
+import { SimpleGame } from "./game/simple-game";
 import { TopScores } from "./score/top-scores";
 
 @injectable()
 export class GetGameService {
 
-    private static readonly games: Game[] = [];
+    private static readonly games: AbstractGame[] = [];
     private static readonly gameSheets: [GameSheet[], GameSheet[]] = [[], []];
 
     public addGameSheet(gameSheet: GameSheet, type: GameType): void {
@@ -27,8 +29,8 @@ export class GetGameService {
         return gameSheet;
     }
 
-    public getGame(id: string): Game {
-        const game: Game | undefined = GetGameService.games.find((currentGame: Game) => {
+    public getGame(id: string): AbstractGame {
+        const game: AbstractGame | undefined = GetGameService.games.find((currentGame: AbstractGame) => {
             return currentGame.id === id;
         });
 
@@ -43,9 +45,11 @@ export class GetGameService {
         return GetGameService.gameSheets[type];
     }
 
-    public createGame(name: string, type: GameType): string {
+    public async createGame(name: string, type: GameType): Promise<string> {
         const id: string = this.generateUniqueId(GetGameService.games);
-        const game: Game = new Game(id, name, type);
+        // triple equal problem
+        // tslint:disable-next-line:triple-equals
+        const game: AbstractGame = type == GameType.Free ? await FreeGame.create(id, name) : await SimpleGame.create(id, name);
         GetGameService.games.push(game);
 
         return id;
