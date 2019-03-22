@@ -9,8 +9,10 @@ export class GetGameListService {
     public constructor(@inject(Types.DBConnectionService) private db: DBConnectionService) {}
 
     public async getGameList(): Promise<GameLists> {
+        await this.db.connect();
         const simpleGameSheets: GameSheet[] = await this.db.getGameSheets(GameType.Simple);
         const freeGameSheets: GameSheet[] = await this.db.getGameSheets(GameType.Free);
+        await this.db.closeConnection();
 
         return new Promise((resolve: (gameLists: GameLists) => void) => {
             resolve({
