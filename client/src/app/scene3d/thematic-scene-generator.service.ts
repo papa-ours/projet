@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
-import { THEMATIC_OBJECTS } from "./thematic-object";
+import { ThematicObject, THEMATIC_OBJECTS } from "./thematic-object";
 import { ThematicObjectGeneratorService } from "./thematic-object-generator.service";
 
 @Injectable({
@@ -8,13 +8,22 @@ import { ThematicObjectGeneratorService } from "./thematic-object-generator.serv
 })
 export class ThematicSceneGeneratorService {
 
+    private scene: THREE.Scene;
+
     public constructor(public thematicObjectGeneratorService: ThematicObjectGeneratorService) {
-        this.create();
     }
 
-    private create(): void {
-        this.thematicObjectGeneratorService.createObject(THEMATIC_OBJECTS[6]).then((group: THREE.Group) => {
-            console.log(group);
+    public async createScene(): Promise<THREE.Scene> {
+        this.scene = new THREE.Scene();
+        THEMATIC_OBJECTS.forEach(async (object: ThematicObject) => this.addObject);
+
+        return this.scene;
+    }
+
+    private async addObject(object: ThematicObject): Promise<void> {
+        return this.thematicObjectGeneratorService.createObject(object).then((group: THREE.Group) => {
+            group.scale.set(40, 40, 40);
+            this.scene.add(group);
         });
     }
 }
