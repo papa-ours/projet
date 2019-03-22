@@ -1,18 +1,19 @@
 import { expect } from "chai";
 import { GameSheet } from "../../../common/communication/game-description";
+import { container } from "../inversify.config";
+import Types from "../types";
 import { GameSheetGenerationService } from "./game-sheet-generation.service";
 import { GetGameService } from "./get-game.service";
 
 describe("game sheet generation", () => {
     let gameSheetGenerator: GameSheetGenerationService;
-    const getGameService: GetGameService = new GetGameService();
+    const getGameService: GetGameService = container.get<GetGameService>(Types.GetGameService);
 
     beforeEach(() => {
-        gameSheetGenerator = new GameSheetGenerationService(getGameService);
+        gameSheetGenerator = container.get<GameSheetGenerationService>(Types.GameSheetGenerationService);
     });
 
     after(() => {
-        getGameService.emptyGameSheets();
         getGameService.emptyGames();
     });
 
