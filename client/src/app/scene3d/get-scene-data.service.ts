@@ -13,8 +13,11 @@ export class GetSceneDataService {
     public readonly URL: string = `${SERVER_ADDRESS}`;
     public constructor(private http: HttpClient) { }
 
-    public getSceneData(name: string): Observable<SceneData> {
-        return this.http.get<SceneData>(`${S3_BUCKET_URL}/${name}-data.json`)
+    public getSceneData(name: string, getFromS3: boolean): Observable<SceneData> {
+        const server: string = getFromS3 ? S3_BUCKET_URL : SERVER_ADDRESS;
+        const extension: string = getFromS3 ? "json" : "txt";
+
+        return this.http.get<SceneData>(`${server}/${name}-data.${extension}`)
             .pipe(catchError(this.handleError<SceneData>("getSceneData")),
         );
     }

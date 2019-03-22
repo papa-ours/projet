@@ -1,18 +1,13 @@
 import { expect } from "chai";
-import { GameType } from "../../../common/communication/game-description";
-import { container } from "../inversify.config";
-import Types from "../types";
 import { DifferenceCheckerService } from "./difference-checker.service";
-import { Game } from "./game";
+import { SimpleGame } from "./game/simple-game";
 
 describe("Difference Checker", () => {
-    const differenceChecker: DifferenceCheckerService = container.get<DifferenceCheckerService>(Types.DifferenceCheckerService);
-    let game: Game;
+    const differenceChecker: DifferenceCheckerService = new DifferenceCheckerService();
+    let game: SimpleGame;
 
-    before((done: Mocha.Done) => {
-        const FIVE_SECONDS: number = 5000;
-        game = new Game("0", "voiture", GameType.Simple);
-        setTimeout(done, FIVE_SECONDS);
+    beforeEach(async () => {
+        game = await SimpleGame.create("0", "voiture");
     });
 
     it("should return false if there is no difference at the position", () => {

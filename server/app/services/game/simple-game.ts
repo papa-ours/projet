@@ -1,30 +1,39 @@
-import { GameType, HasId } from "../../../common/communication/game-description";
-import { BMPImage } from "../../../common/images/bmp-image";
-import { DifferenceImage } from "../../../common/images/difference-image";
-import { ImageType } from "../../../common/images/image-type";
-import { Pixel } from "../../../common/images/pixel";
-import { AWSFilesUtil } from "./utils/aws-files.util";
-import { FileIO } from "./utils/file-io.util";
+import { GameType } from "../../../../common/communication/game-description";
+import { BMPImage } from "../../../../common/images/bmp-image";
+import { DifferenceImage } from "../../../../common/images/difference-image";
+import { ImageType } from "../../../../common/images/image-type";
+import { Pixel } from "../../../../common/images/pixel";
+import { AWSFilesUtil } from "../utils/aws-files.util";
+import { FileIO } from "../utils/file-io.util";
+import { AbstractGame } from "./game";
 
-export class Game implements HasId {
+export class SimpleGame extends AbstractGame {
+
     public images: BMPImage[];
     public differenceImage: DifferenceImage;
 
-    public constructor(public id: string, name: string, public type: GameType) {
+    private constructor(id: string) {
+        super(id, GameType.Simple);
         this.images = [];
-        this.setupImages(name);
     }
 
-    private setupImages(name: string): void {
+    public static async create(id: string, name: string): Promise<SimpleGame> {
+        const game: SimpleGame = new SimpleGame(id);
+
+        return game.setUp(name).then(() => game);
+    }
+
+    protected async setUp(name: string): Promise<{}> {
         const imageTypes: string[] = ["original", "modified", "difference"];
-        imageTypes.forEach(async (type: string, index: number) => {
+
+        return Promise.all(imageTypes.map(async (type: string, index: number) => {
             const data: Uint8Array = (await AWSFilesUtil.readFile(`${name}-${type}Image.bmp`)).Body as Uint8Array;
             if (index === ImageType.Difference) {
                 this.differenceImage = DifferenceImage.fromArray(data);
             } else {
                 this.images[index] = BMPImage.fromArray(data);
             }
-        });
+        }));
     }
 
     public async restoreModifiedImage(x: number, y: number): Promise<{}> {

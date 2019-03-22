@@ -16,6 +16,8 @@ import { GameImageComponent } from "./game-image/game-image.component";
 import { GameListViewComponent } from "./game-list-view/game-list-view.component";
 import { GameListComponent } from "./game-list/game-list.component";
 import { GameSheetComponent } from "./game-sheet/game-sheet.component";
+import { Gameplay2DComponent } from "./gameplay-2d/gameplay-2d.component";
+import { Gameplay3dComponent } from "./gameplay-3d/gameplay-3d.component";
 import { GameplayViewComponent } from "./gameplay-view/gameplay-view.component";
 import { InitialViewComponent } from "./initial-view/initial-view.component";
 import { RenderService } from "./scene3d/render.service";
@@ -37,6 +39,8 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         GameplayViewComponent,
         ChatMessagesComponent,
         GameImageComponent,
+        Gameplay2DComponent,
+        Gameplay3dComponent,
         ConfirmActionComponent,
     ],
     imports: [
@@ -52,6 +56,9 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         DifferenceCheckerService,
         FileIO,
         RenderService,
+        GameplayViewComponent,
+        Gameplay2DComponent,
+        {provide: String, useValue: "stringValue"},
     ],
     bootstrap: [AppComponent],
 })
