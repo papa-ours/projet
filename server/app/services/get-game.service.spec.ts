@@ -13,7 +13,6 @@ describe("GetGameService", () => {
     });
 
     after(() => {
-        getGameService.emptyGameSheets();
         getGameService.emptyGames();
     });
 
@@ -23,31 +22,6 @@ describe("GetGameService", () => {
         expect(() => {
             return getGameService.getGame(id);
         }).to.throws("Aucune Game n'a le id 1");
-    });
-
-    it("should return undefined if there's no corresponding gamesheet with id", () => {
-        const id: string = "1";
-
-        expect(() => {
-            getGameService.getGameSheet(id, 0);
-        }).to.throws("Aucune GameSheet n'a le id 1");
-    });
-
-    it("should return the GameSheetDescription properly if it's empty", () => {
-        const expected: GameSheet[] = [];
-        const result: GameSheet[] = getGameService.getGameDescriptions(0);
-        expect(result).to.deep.equal(expected);
-    });
-
-    it("should add the game in the GameService properly", () => {
-        getGameService.addGameSheet(gameSheet, 0);
-        expect(getGameService.getGameSheet(gameSheet.id, 0)).to.equal(gameSheet);
-    });
-
-    it("should return the GameSheetDescription properly", () => {
-        const expected: GameSheet[] = [gameSheet];
-        const result: GameSheet[] = getGameService.getGameDescriptions(0);
-        expect(result).to.deep.equal(expected);
     });
 
     it("should create an id with the correct length", () => {
