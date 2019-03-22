@@ -16,50 +16,56 @@ describe.only("chat-message-service", () => {
     socket.init(server.getServer());
 
     const userContainerService: UsersContainerService = container.get<UsersContainerService>(Types.UsersContainerService);
-    let socketClient: SocketIOClient.Socket;
+    let socketClient1: SocketIOClient.Socket;
+    let socketClient2: SocketIOClient.Socket;
 
     beforeEach((done: Mocha.Func) => {
-        socketClient = io.connect(SERVER_ADDRESS, { forceNew: true, reconnectionDelay: 0 });
-        socketClient.on("connect", () => {
-            console.log("je suis connecté");
-            const username: string = "Virasone";
-            userContainerService.addUser({name: username, socketId: socketClient.id});
-            setTimeout(done, 0);
-        });
-        socketClient.on("disconnect", () => {
-            console.log("je suis déconnecté");
+        socketClient1 = io.connect(SERVER_ADDRESS, { forceNew: true, reconnectionDelay: 0 });
+        socketClient1.on("connect", () => {
+            const username1: string = "Username1";
+            userContainerService.addUser({name: username1, socketId: socketClient1.id});
+
+            socketClient2 = io.connect(SERVER_ADDRESS, { forceNew: true, reconnectionDelay: 0 });
+            socketClient2.on("connect", () => {
+                const username2: string = "Username2";
+                userContainerService.addUser({name: username2, socketId: socketClient2.id});
+                setTimeout(done, 0);
+            });
         });
     });
 
     afterEach((done: Mocha.Func) => {
-        if (socketClient.connected) {
-            socketClient.disconnect();
+        if (socketClient1.connected) {
+            socketClient1.disconnect();
           }
+        if (socketClient2.connected) {
+            socketClient2.disconnect();
+        }
         setTimeout(done, 0);
     });
 
     it("should send a message if a new user is connected", (done: Mocha.Func) => {
-        socketClient.emit("newUser");
-        const expected: string = "Virasone vient de se connecter.";
-        socketClient.on("chatMessage", (result: ChatMessage) => {
+        socketClient1.emit("newUser");
+        const expected: string = "Username1 vient de se connecter.";
+        socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
             setTimeout(done, 0);
         });
     });
 
     it("should send a message if a difference is found", (done: Mocha.Func) => {
-        socketClient.emit("foundDifference");
+        socketClient1.emit("foundDifference");
         const expected: string = "Différence trouvée.";
-        socketClient.on("chatMessage", (result: ChatMessage) => {
+        socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
             setTimeout(done, 0);
         });
     });
 
     it("should send a message if an error identification occured", (done: Mocha.Func) => {
-        socketClient.emit("errorIdentification");
+        socketClient1.emit("errorIdentification");
         const expected: string = "Erreur.";
-        socketClient.on("chatMessage", (result: ChatMessage) => {
+        socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
             setTimeout(done, 0);
         });
