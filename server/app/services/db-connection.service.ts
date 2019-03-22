@@ -24,7 +24,9 @@ export class DBConnectionService {
 
     public constructor() {
         this.connect().catch((error: Error) => console.error(error.message));
-        mongoose.model("GameSheet", this.gameSheetSchema);
+        if (!mongoose.models.GameSheet) {
+            mongoose.model("GameSheet", this.gameSheetSchema);
+        }
     }
 
     public static getInstance(): DBConnectionService {
