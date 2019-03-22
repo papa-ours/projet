@@ -1,12 +1,10 @@
 import { expect } from "chai";
-import { GameSheet, GameType, TopScoresInterface } from "../../../common/communication/game-description";
+import { GameType } from "../../../common/communication/game-description";
 import { AbstractGame } from "./game/game";
 import { GetGameService } from "./get-game.service";
 
 describe("GetGameService", () => {
     let getGameService: GetGameService;
-    const topScoreInterface: TopScoresInterface[] = [];
-    const gameSheet: GameSheet = {id: "", name: "car", topScores: topScoreInterface};
 
     beforeEach(() => {
         getGameService = new GetGameService();
@@ -26,8 +24,10 @@ describe("GetGameService", () => {
 
     it("should create an id with the correct length", () => {
         const ID_LENGTH: number = 25;
-
-        expect(gameSheet.id.length).to.equals(ID_LENGTH);
+        getGameService.createGame("voiture", GameType.Simple).then((id: string) => {
+            const game: AbstractGame = getGameService.getGame(id);
+            expect(game.id.length).to.equals(ID_LENGTH);
+        });
     });
 
     it("should create a game properly", async () => {
