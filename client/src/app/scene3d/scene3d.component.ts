@@ -1,11 +1,12 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input ,
          OnChanges, Output, SimpleChange, SimpleChanges, ViewChild} from "@angular/core";
-import { GeometryData, SceneData } from "../../../../common/communication/geometry";
+// import { GeometryData, SceneData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { GetSceneDataService } from "./get-scene-data.service";
 import { RaycasterService } from "./raycaster.service";
 import { RenderService } from "./render.service";
 import { SceneGeneratorService } from "./scene-generator.service";
+import { ThematicSceneGeneratorService } from "./thematic-scene-generator.service";
 
 @Component({
     selector: "app-scene3d",
@@ -26,8 +27,9 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
 
     public constructor(
         public renderService: RenderService,
-        private getSceneData: GetSceneDataService,
-        private sceneGeneratorService: SceneGeneratorService,
+        // private getSceneData: GetSceneDataService,
+        // private sceneGeneratorService: SceneGeneratorService,
+        public thematicSceneGeneratorService: ThematicSceneGeneratorService,
         ) {
         this.name = "";
         this.renderService = new RenderService();
@@ -55,11 +57,16 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     }
 
     private getScene(name: string): void {
-        const getFromS3: boolean = this.differenceCounter === 0 || this.differenceCounter === undefined;
-        this.getSceneData.getSceneData(name, getFromS3).subscribe((sceneData: SceneData) => {
-            const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
-            this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
+
+        this.thematicSceneGeneratorService.createScene().then((scene: THREE.Scene) => {
+            this.renderService.initialize(this.container, scene);
         });
+
+        // const getFromS3: boolean = this.differenceCounter === 0 || this.differenceCounter === undefined;
+        // this.getSceneData.getSceneData(name, getFromS3).subscribe((sceneData: SceneData) => {
+        //     const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
+        //     this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
+        // });
     }
 
     @HostListener("click", ["$event"])
