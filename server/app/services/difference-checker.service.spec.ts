@@ -10,7 +10,7 @@ describe("Difference Checker", () => {
         SimpleGame.create("0", "voiture").then((createdGame: SimpleGame) => {
             game = createdGame;
             done();
-        });
+        }).catch((err: Error) => console.error(err.message));
     });
 
     it("should return false if there is no difference at the position", () => {
