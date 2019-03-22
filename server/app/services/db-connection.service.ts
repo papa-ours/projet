@@ -21,7 +21,6 @@ export class DBConnectionService {
     public connected: boolean = false;
 
     public constructor() {
-        this.connect().catch((error: Error) => console.error(error.message));
         if (!mongoose.models.GameSheet) {
             mongoose.model("GameSheet", this.gameSheetSchema);
         }
