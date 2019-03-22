@@ -14,8 +14,9 @@ export class UsersContainerService {
     }
 
     public getUsernameBySocketId(id: string): string {
+        const PREFIX: string = "/#";
         const user: User | undefined = UsersContainerService.users.find((u: User) => {
-            return u.socketId === id;
+            return u.socketId === (PREFIX + id);
         });
 
         return user ? user.name : "";
