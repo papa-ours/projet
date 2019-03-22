@@ -27,7 +27,7 @@ export class GameSheetGenerationService {
 
     private saveGameSheet(gameSheet: GameSheet, type: GameType): void {
         this.db.connect().then(() => {
-            this.db.saveGameSheet(gameSheet, type).then(this.db.closeConnection)
+            this.db.saveGameSheet(gameSheet, type)
             .catch((error: Error) => console.error(error.message));
         });
     }

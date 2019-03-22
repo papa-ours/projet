@@ -11,7 +11,6 @@ export class GetGameListService {
     public async getGameList(): Promise<GameLists> {
         const simpleGameSheets: GameSheet[] = await this.db.getGameSheets(GameType.Simple);
         const freeGameSheets: GameSheet[] = await this.db.getGameSheets(GameType.Free);
-        this.db.closeConnection();
 
         return new Promise((resolve: (gameLists: GameLists) => void) => {
             resolve({

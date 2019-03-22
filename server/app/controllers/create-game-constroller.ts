@@ -32,10 +32,7 @@ export class CreateGameController {
             (req: Request, res: Response, next: NextFunction) => {
                 this.db.connect().then(() => {
                     this.db.deleteGameSheet(req.params.id, req.params.type)
-                    .then(() => {
-                        res.send();
-                        this.db.closeConnection();
-                    });
+                    .then(() => res.send());
                 })
                 .catch((error: Error) => console.error(error.message));
             });
@@ -45,10 +42,7 @@ export class CreateGameController {
             (req: Request, res: Response, next: NextFunction) => {
                 this.db.connect().then(() => {
                     this.db.reinitializeScores(req.body.id, req.body.type)
-                    .then(() => {
-                        this.db.closeConnection();
-                        res.send();
-                    });
+                    .then(() => res.send());
                 })
                 .catch((error: Error) => console.error(error.message));
             });
