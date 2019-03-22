@@ -8,7 +8,10 @@ import Types from "../types";
 @injectable()
 export class GameSheetGenerationController {
 
-    public constructor(@inject(Types.GameSheetGenerationService) private gameSheetGenerationService: GameSheetGenerationService) {
+    public constructor(
+        @inject(Types.GameSheetGenerationService) private gameSheetGenerationService: GameSheetGenerationService,
+
+    ) {
 
     }
 
@@ -32,6 +35,15 @@ export class GameSheetGenerationController {
                 res.send({
                     type: MessageType.GAME_SHEET_GENERATION,
                     message: "",
+                });
+            });
+
+        router.put(
+            "/score/:id/:name/:time",
+            (req: Request, res: Response, next: NextFunction) => {
+                res.send({
+                    type: MessageType.SCORE_UPDATE,
+                    message: "TODO",
                 });
             });
 
