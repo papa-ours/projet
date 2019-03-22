@@ -86,4 +86,14 @@ describe.only("chat-message-service", () => {
             setTimeout(done, 0);
         });
     });
+
+    it("should switch to PVP message and send found identification message", (done: Mocha.Func) => {
+        socketClient1.emit("setGameType", GameType.Free);
+        socketClient1.emit("foundDifference");
+        const expected: string = "Différence trouvée par Username1.";
+        socketClient1.on("chatMessage", (result: ChatMessage) => {
+            expect(result.text).to.deep.equals(expected);
+            setTimeout(done, 0);
+        });
+    });
 });
