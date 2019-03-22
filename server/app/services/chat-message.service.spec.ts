@@ -41,12 +41,15 @@ describe.only("chat-message-service", () => {
         setTimeout(done, 0);
     });
 
-    it("should send a message if a new user is connected", (done: Mocha.Func) => {
+    it("should send a message to all users if a new user is connected", (done: Mocha.Func) => {
         socketClient1.emit("newUser");
         const expected: string = "Username1 vient de se connecter.";
-        socketClient1.on("chatMessage", (result: ChatMessage) => {
-            expect(result.text).to.deep.equals(expected);
-            setTimeout(done, 0);
+        socketClient1.on("chatMessage", (result1: ChatMessage) => {
+            expect(result1.text).to.deep.equals(expected);
+            socketClient2.on("chatMessage", (result2: ChatMessage) => {
+                expect(result2.text).to.deep.equals(expected);
+                setTimeout(done, 0);
+            });
         });
     });
 
@@ -68,7 +71,7 @@ describe.only("chat-message-service", () => {
         });
     });
 
-    it("should send a message if a user is disconnected", (done: Mocha.Func) => {
+    it("should send a message to all users if a user is disconnected", (done: Mocha.Func) => {
         socketClient1.disconnect();
         const expected: string = "Username1 vient de se déconnecter.";
         socketClient2.on("chatMessage", (result: ChatMessage) => {
