@@ -7,14 +7,6 @@ import { GetGameService } from "./get-game.service";
 
 describe("GetGameService", () => {
     const getGameService: GetGameService = container.get<GetGameService>(Types.GetGameService);
-    let gameId: string;
-
-    before((done: Mocha.Done) => {
-        getGameService.createGame("voiture", GameType.Simple).then((id: string) => {
-            gameId = id;
-            done();
-        });
-    });
 
     after(() => {
         getGameService.emptyGames();
@@ -30,14 +22,15 @@ describe("GetGameService", () => {
 
     it("should create an id with the correct length", () => {
         const ID_LENGTH: number = 25;
-        const game: AbstractGame = getGameService.getGame(gameId);
-        expect(game.id.length).to.equals(ID_LENGTH);
+        getGameService.createGame("voiture", GameType.Simple).then((id: string) => {
+            const game: AbstractGame = getGameService.getGame(id);
+            expect(game.id.length).to.equals(ID_LENGTH);
+        });
     });
 
     it("should create a game properly", async () => {
         const id: string = await getGameService.createGame("voiture", GameType.Simple);
         const game: AbstractGame = getGameService.getGame(id);
-
         expect(game.id).to.equals(id);
     });
 });
