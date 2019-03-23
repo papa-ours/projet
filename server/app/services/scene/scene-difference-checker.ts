@@ -17,13 +17,9 @@ export class SceneDifferenceCheckerService {
     }
 
     private isPositionInCollection(newGeometry: GeometryData, collection: GeometryData[]): boolean {
-        for (const geometry of collection) {
-            if (Geometry.fromGeometryData(geometry).isPositionEqual(newGeometry.position)) {
-                return true;
-            }
-        }
-
-        return false;
+        return collection.some(
+            (geometry: GeometryData) => (Geometry.fromGeometryData(geometry).isPositionEqual(newGeometry.position)),
+        );
     }
 
     private getDifferences(original: GeometryData[], modified: GeometryData[]): GeometryData[] {
