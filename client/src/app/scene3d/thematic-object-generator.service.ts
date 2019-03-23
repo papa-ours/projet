@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
 import * as OBJLoader from "three-obj-loader";
-import { ThematicObject, THEMATIC_OBJECTS } from "./thematic-object";
+import { ThematicObject, THEMATIC_OBJECTS } from "../../../../common/communication/thematic-object";
 
 @Injectable({
     providedIn: "root",

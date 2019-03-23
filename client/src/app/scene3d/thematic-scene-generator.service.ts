@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
-import { ThematicObject, THEMATIC_OBJECTS } from "./thematic-object";
+import { ThematicObject, THEMATIC_OBJECTS } from "../../../../common/communication/thematic-object";
 import { ThematicObjectGeneratorService } from "./thematic-object-generator.service";
 
 @Injectable({
