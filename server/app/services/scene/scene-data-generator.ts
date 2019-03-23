@@ -105,7 +105,8 @@ export class SceneDataGeneratorService {
     public getRandomThematicObjectType(): ThematicObjectType {
         const thematicObjectTypes: ThematicObjectType[] = [
             ThematicObjectType.APPLE, ThematicObjectType.CALCULATOR,
-            ThematicObjectType.COFFEE_MUG,
+            ThematicObjectType.COFFEE_MUG, ThematicObjectType.BANANA,
+            ThematicObjectType.ORANGE, ThematicObjectType.SODA_CAN,
         ];
 
         return thematicObjectTypes[Math.floor(Math.random() * thematicObjectTypes.length)];
