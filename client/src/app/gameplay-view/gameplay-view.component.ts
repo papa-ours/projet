@@ -46,6 +46,14 @@ export class GameplayViewComponent implements OnInit {
         this.chrono = 0;
         this.isChronoRunning = false;
     }
+
+    private static playSound(sound: HTMLAudioElement): void {
+        sound.currentTime = 0;
+        sound.play().catch((err: Error) => {
+            console.error(err);
+        });
+    }
+
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
@@ -73,14 +81,14 @@ export class GameplayViewComponent implements OnInit {
             this.isChronoRunning = false;
             this.canClick = false;
         }
-        this.playSound(this.CORRECT_SOUND);
+        GameplayViewComponent.playSound(this.CORRECT_SOUND);
     }
 
     public identificationError(): void {
         if (this.foundDifferencesCounter !== this.requiredDifferences) {
             this.showErrorMessage();
             this.showCursorError();
-            this.playSound(this.WRONG_SOUND);
+            GameplayViewComponent.playSound(this.WRONG_SOUND);
         }
     }
     private showErrorMessage(): void {
@@ -103,13 +111,6 @@ export class GameplayViewComponent implements OnInit {
                 this.canClick = true;
             },
             this.ERROR_TIMEOUT);
-    }
-
-    private playSound(sound: HTMLAudioElement): void {
-        sound.currentTime = 0;
-        sound.play().catch((err: Error) => {
-            console.error(err);
-        });
     }
 
     private startChrono(): void {
