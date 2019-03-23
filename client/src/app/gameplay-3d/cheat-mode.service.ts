@@ -6,10 +6,10 @@ import { RenderService } from "../scene3d/render.service";
     providedIn: "root",
 })
 export class CheatModeService {
-    private readonly ratePerSec: number = 8;
+    private static readonly ratePerSec: number = 8;
+    private static readonly emissiveColor: number = 0xFF0000;
+    private static readonly neutralColor: number = 0x000000;
     private readonly ONE_SECONDE: number = 1000;
-    private readonly emissiveColor: number = 0xFF0000;
-    private readonly neutralColor: number = 0x000000;
     private isActivated: boolean;
     private timeoutPointer: number;
     private geometries: GeometryData[];
@@ -34,7 +34,7 @@ export class CheatModeService {
         if (this.findGeometry(renderer, geometry) !== undefined) {
             const object: THREE.Mesh = this.findGeometry(renderer, geometry) as THREE.Mesh;
             const objectMaterial: THREE.MeshStandardMaterial = object.material as THREE.MeshStandardMaterial;
-            objectMaterial.emissive.setHex(visibility ?  this.neutralColor : this.emissiveColor);
+            objectMaterial.emissive.setHex(visibility ?  CheatModeService.neutralColor : CheatModeService.emissiveColor);
         }
     }
 
@@ -51,7 +51,7 @@ export class CheatModeService {
     }
 
     private startCheatMode(): number {
-        return window.setInterval(() => this.alternateVisibility(), this.ONE_SECONDE / this.ratePerSec);
+        return window.setInterval(() => this.alternateVisibility(), this.ONE_SECONDE / CheatModeService.ratePerSec);
     }
 
     public updateGeometries(geometries: GeometryData[]): void {
