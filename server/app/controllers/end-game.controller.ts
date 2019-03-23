@@ -23,7 +23,7 @@ export class DifferenceCheckerController {
                 try {
                     await Promise.all([
                         this.scoreUpdaterService.putScore(req.body.id, req.body.name, req.body.time),
-                        this.getGameService.getGame(req.body.id).cleanUp(),
+                        this.getGameService.removeGame(req.body.id),
                     ]);
                     res.send({
                         body: "",
