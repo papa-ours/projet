@@ -61,8 +61,8 @@ export class DifferenceCheckerController {
                 const getGameService: GetGameService = new GetGameService();
                 const game: FreeGame = getGameService.getGame(sceneName) as FreeGame;
                 const position: VectorInterface = req.body.position;
-                const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService(game.scene);
-                const isModification: boolean = differenceChecker.checkDifference(position);
+                const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService();
+                const isModification: boolean = differenceChecker.checkDifference(game.scene, position);
                 if (isModification) {
                     game.restoreModifiedScene(position);
                 }
@@ -80,9 +80,9 @@ export class DifferenceCheckerController {
                     try {
                         const sceneName: string = req.body.name as string;
                         const getGameService: GetGameService = new GetGameService();
-                        const game: Game = getGameService.getGame(sceneName);
-                        const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService(game.scene);
-                        message.body = JSON.stringify(differenceChecker.differences);
+                        const game: FreeGame = getGameService.getGame(sceneName) as FreeGame;
+                        const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService();
+                        message.body = JSON.stringify(differenceChecker.getDifferences(game.scene));
                     } catch (err) {
                         message.body = err.message;
                     }
