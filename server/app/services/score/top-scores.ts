@@ -2,9 +2,11 @@ import { TopScoresInterface } from "../../../../common/communication/game-descri
 import { Score } from "./score";
 
 export class TopScores implements TopScoresInterface {
+
+    public static readonly SCORE_LENGTH: number = 3;
+
     public scores: Score[];
     public scoresStrings: string[];
-    private readonly SCORE_LENGTH: number = 3;
 
     public constructor() {
         this.createScores();
@@ -13,7 +15,7 @@ export class TopScores implements TopScoresInterface {
     }
 
     private createScores(): void {
-        this.scores = [...Array(this.SCORE_LENGTH)].map(() => {
+        this.scores = [...Array(TopScores.SCORE_LENGTH)].map(() => {
             return new Score();
         });
     }
