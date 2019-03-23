@@ -106,7 +106,7 @@ export class DeplacementCameraService {
         DeplacementCameraService.forEachScene((render: RenderService) => render.rotateCameraY(e.movementY));
     }
 
-    private static forEachScene(func: (render: RenderService) => void) {
+    private static forEachScene(func: (render: RenderService) => void): void {
         func(DeplacementCameraService.render3dOriginalImage);
         func(DeplacementCameraService.render3dModifiedImage);
     }
