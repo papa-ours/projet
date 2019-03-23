@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import * as io from "socket.io-client";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { GameType } from "../../../common/communication/game-description";
@@ -38,8 +38,7 @@ export class SocketService {
     }
 
     public getChatMessage = () => {
-        // tslint:disable:no-any
-        return Observable.create((observer: any) => {
+        return Observable.create((observer: Subject<ChatMessage>) => {
             this.socket.on("chatMessage", (data: ChatMessage) => {
                 observer.next(data);
             });
