@@ -30,6 +30,11 @@ export class ThematicSceneGeneratorService {
                 const group: THREE.Group = this.thematicObjectGeneratorService.getObject(THEMATIC_OBJECTS[data.thematicObjectType]);
                 group.position.set(data.position.x, data.position.y, data.position.z);
                 group.rotation.set(data.rotation.x, data.rotation.y, data.rotation.z);
+                group.traverse((object: THREE.Object3D) => {
+                    if (object instanceof THREE.Mesh) {
+                        object.material = new THREE.MeshPhongMaterial({color: data.color});
+                    }
+                });
                 const scale: number = this.calculateScale(THEMATIC_OBJECTS[data.thematicObjectType], data.size);
                 group.scale.set(scale, scale, scale);
                 this.scene.add(group);
