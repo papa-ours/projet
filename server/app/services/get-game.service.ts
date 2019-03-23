@@ -47,6 +47,13 @@ export class GetGameService {
         return new Promise<string>((resolve: Function) => resolve(id));
     }
 
+    public async removeGame(id: string): Promise<{}> {
+        const index: number = this.getGameIndex(id);
+        const game: AbstractGame = GetGameService.games.splice(index, 1)[0];
+
+        return game.cleanUp();
+    }
+
     private generateId(): string {
         const POSSIBLE_VALUES: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         const ID_LENGTH: number = 25;
