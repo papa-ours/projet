@@ -1,9 +1,12 @@
+import { AWSError } from "aws-sdk";
+import { GetObjectOutput } from "aws-sdk/clients/s3";
+import { PromiseResult } from "aws-sdk/lib/request";
 import { injectable } from "inversify";
 import "reflect-metadata";
 import { BMPImage } from "../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../common/images/difference-image";
 import { ImageType } from "../../../common/images/image-type";
-import { FileIO } from "./utils/file-io.util";
+import { AWSFilesUtil } from "./utils/aws-files.util";
 
 @injectable()
 export class DifferenceImageGenerator {
@@ -18,13 +21,13 @@ export class DifferenceImageGenerator {
     }
 
     public async generateDifferenceImage(name: string, paths: string[]): Promise<DifferenceImage> {
-        const readFiles: Promise<Buffer>[] = paths.map(async(path: string) => {
-            return FileIO.readFile(path);
+        const readFiles: Promise<PromiseResult<GetObjectOutput, AWSError>>[] = paths.map(async(path: string) => {
+            return AWSFilesUtil.readFile(path);
         });
 
-        return Promise.all(readFiles).then((buffers: Buffer[]) => {
-            buffers.forEach((buffer: Buffer, index: number) => {
-                this.imagesData[index] = new Uint8Array(buffer);
+        return Promise.all(readFiles).then((buffers: PromiseResult<GetObjectOutput, AWSError>[]) => {
+            buffers.forEach((res: PromiseResult<GetObjectOutput, AWSError>, index: number) => {
+                this.imagesData[index] = res.Body as Uint8Array;
             });
 
             return this.generate();

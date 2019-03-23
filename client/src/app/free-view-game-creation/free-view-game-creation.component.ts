@@ -13,6 +13,7 @@ export class FreeViewGameCreationComponent {
     public readonly OPTION_MAX_NAME_LENGTH: number = 15;
     private readonly NB_OBJECTS_MIN: number = 10;
     private readonly NB_OBJECTS_MAX: number = 200;
+    public loading: boolean;
 
     public freeViewForm: FreeViewForm;
     @Output() public closeForm: EventEmitter<boolean>;
@@ -26,6 +27,7 @@ export class FreeViewGameCreationComponent {
             sceneType: "",
         };
         this.closeForm = new EventEmitter();
+        this.loading = false;
     }
 
     public isAIntInRange(): boolean {
@@ -62,6 +64,7 @@ export class FreeViewGameCreationComponent {
         formData.append("isColorChange", String(this.freeViewForm.isColorChange));
         formData.append("objectType", this.freeViewForm.sceneType);
 
+        this.loading = true;
         this.gameFreeViewGenerationService.postGenerate(formData).then(() => {
             location.reload();
         }).catch((err: Error) => {

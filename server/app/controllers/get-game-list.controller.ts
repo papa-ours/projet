@@ -14,10 +14,10 @@ export class GetGameListController {
 
         router.get(
             "/",
-            (req: Request, res: Response, next: NextFunction) => {
+            async (req: Request, res: Response, next: NextFunction) => {
                 const message: Message = {
                     type: MessageType.USERNAME_VALIDATION,
-                    body: JSON.stringify(this.getGameListService.getGameList()),
+                    body: JSON.stringify(await this.getGameListService.getGameList()),
                 };
 
                 res.send(message);
