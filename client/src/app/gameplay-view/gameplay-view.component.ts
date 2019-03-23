@@ -73,21 +73,14 @@ export class GameplayViewComponent implements OnInit {
             this.isChronoRunning = false;
             this.canClick = false;
         }
-        this.playCorrectSound();
-    }
-
-    private playCorrectSound(): void {
-        this.CORRECT_SOUND.currentTime = 0;
-        this.CORRECT_SOUND.play().catch((err: Error) => {
-            console.error(err);
-        });
+        this.playSound(this.CORRECT_SOUND);
     }
 
     public identificationError(): void {
         if (this.foundDifferencesCounter !== this.requiredDifferences) {
             this.showErrorMessage();
             this.showCursorError();
-            this.playWrongSound();
+            this.playSound(this.WRONG_SOUND);
         }
     }
     private showErrorMessage(): void {
@@ -112,9 +105,9 @@ export class GameplayViewComponent implements OnInit {
             this.ERROR_TIMEOUT);
     }
 
-    private playWrongSound(): void {
-        this.WRONG_SOUND.currentTime = 0;
-        this.WRONG_SOUND.play().catch((err: Error) => {
+    private playSound(sound: HTMLAudioElement): void {
+        sound.currentTime = 0;
+        sound.play().catch((err: Error) => {
             console.error(err);
         });
     }
