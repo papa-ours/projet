@@ -32,4 +32,14 @@ describe("CheatModeService", () => {
         const cheatModeService: CheatModeService = new CheatModeService(originalRenderer, modifiedRenderer);
         expect(cheatModeService).toBeTruthy();
     });
+
+    it("should activate when toggle is called and canceled when called again", () => {
+        originalRenderer.initialize(div, sceneGenerator.createScene(geometry));
+        modifiedRenderer.initialize(div, sceneGenerator.createScene(modifiedGeometry));
+        const cheatModeService: CheatModeService = new CheatModeService(originalRenderer, modifiedRenderer);
+        cheatModeService.toggleCheatMode(geometry);
+        expect(cheatModeService["isActivated"]).toBeTruthy();
+        cheatModeService.toggleCheatMode(geometry);
+        expect(cheatModeService["isActivated"]).toBeFalsy();
+    });
 });
