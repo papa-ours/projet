@@ -11,7 +11,13 @@ export interface GeometryData {
    thematicObjectType?: ThematicObjectType;
 }
 
+export enum SceneType {
+    GEOMETRIC,
+    THEMATIC,
+}
+
 export interface SceneData {
+    type: SceneType;
     name: string;
     originalScene: GeometryData[];
     modifiedScene: GeometryData[];
