@@ -55,7 +55,7 @@ describe("CheatModeService", () => {
         expect(cheatModeService["isActivated"]).toBeFalsy();
     });
 
-    it("should change the emissive color 4 times per seconds for the modified scene", () => {
+    it("should change the emissive color 4 times per seconds for the modified scene a color change", () => {
         // tslint:disable:no-magic-numbers
         cheatModeService.toggleCheatMode(geometry);
         let mesh: THREE.Mesh = cheatModeService["modifiedRender"].scene.children[0] as THREE.Mesh;
@@ -73,7 +73,7 @@ describe("CheatModeService", () => {
         // tslint:enable:no-magic-numbers
     });
 
-    it("should change the emissive color 4 times per seconds for the original scene", () => {
+    it("should change the emissive color 4 times per seconds for the original scene on a color change", () => {
         // tslint:disable:no-magic-numbers
         cheatModeService.toggleCheatMode(geometry);
         let mesh: THREE.Mesh = cheatModeService["originalRender"].scene.children[0] as THREE.Mesh;
