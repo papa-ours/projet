@@ -17,6 +17,7 @@ export class GameplayViewComponent implements OnInit {
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
     private readonly CORRECT_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
     private readonly WRONG_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
+    private readonly ERROR_TIMEOUT: number = 1000;
 
     public foundDifferencesCounter: number;
     public images: string[];
@@ -90,17 +91,15 @@ export class GameplayViewComponent implements OnInit {
         }
     }
     private showErrorMessage(): void {
-        const ONE_SECOND: number = 1000;
         this.isErrorMessageVisible = true;
         setTimeout(
             () => {
                 this.isErrorMessageVisible = false;
             },
-            ONE_SECOND);
+            this.ERROR_TIMEOUT);
     }
 
     private showCursorError(): void {
-        const ONE_SECOND: number = 1000;
         const NORMAL_CURSOR: string = "context-menu";
         const ERROR_CURSOR: string = "not-allowed";
         this.containerRef.nativeElement.style.cursor = ERROR_CURSOR;
@@ -110,7 +109,7 @@ export class GameplayViewComponent implements OnInit {
                 this.containerRef.nativeElement.style.cursor = NORMAL_CURSOR;
                 this.canClick = true;
             },
-            ONE_SECOND);
+            this.ERROR_TIMEOUT);
     }
 
     private playWrongSound(): void {
