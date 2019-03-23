@@ -80,7 +80,7 @@ export class DifferenceCheckerController {
                     try {
                         const sceneName: string = req.body.name as string;
                         const getGameService: GetGameService = new GetGameService();
-                        const game: Game = getGameService.getGame(sceneName);
+                        const game: FreeGame = getGameService.getGame(sceneName) as FreeGame;
                         const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService(game.scene);
                         message.body = JSON.stringify(differenceChecker.differences);
                     } catch (err) {
