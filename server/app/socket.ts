@@ -2,8 +2,7 @@ import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
 import { GameType } from "../../common/communication/game-description";
-import { ChatMessagePvpService } from "./services/chat-message-pvp.service";
-import { ChatMessageSoloService } from "./services/chat-message-solo.service";
+import { container } from "./inversify.config";
 import { ChatMessageService } from "./services/chat-message.service";
 import { GetCurrentTimeService } from "./services/get-current-time.service";
 import { UsersContainerService } from "./services/users-container.service";
@@ -18,7 +17,7 @@ export class Socket {
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
         @inject(Types.GetCurrentTimeService) public getCurrentTimeService: GetCurrentTimeService,
     ) {
-        this.chatMessageService = new ChatMessageSoloService(this.usersContainerService, this.getCurrentTimeService);
+        this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService);
     }
 
     public init(server: http.Server): void {
@@ -77,8 +76,8 @@ export class Socket {
         // triple equal problem
         // tslint:disable-next-line:triple-equals
         gameType == GameType.Simple ?
-            this.chatMessageService = new ChatMessageSoloService(this.usersContainerService, this.getCurrentTimeService) :
-            this.chatMessageService = new ChatMessagePvpService(this.usersContainerService, this.getCurrentTimeService);
+            this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService) :
+            this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessagePvpService);
     }
 
     private deleteUser(id: string): void {
