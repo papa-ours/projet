@@ -12,16 +12,16 @@ describe("CheatModeService", () => {
         color: 0xFF00FF,
         size: 65,
         type: 2,
-        position: {x: 0, y: 0, z: 0},
-        rotation: {x: 0, y: 0, z: 0},
+        position: { x: 0, y: 0, z: 0 },
+        rotation: { x: 0, y: 0, z: 0 },
         isModified: false,
     }];
     const modifiedGeometry: GeometryData[] = [{
         color: 0x00FF00,
         size: 65,
         type: 2,
-        position: {x: 0, y: 0, z: 0},
-        rotation: {x: 0, y: 0, z: 0},
+        position: { x: 0, y: 0, z: 0 },
+        rotation: { x: 0, y: 0, z: 0 },
         isModified: false,
     }];
     const div: HTMLDivElement = document.createElement("div");
