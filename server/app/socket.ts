@@ -32,6 +32,10 @@ export class Socket {
         });
     }
 
+    public getIO(): SocketIO.Server {
+        return this.io;
+    }
+
     public sendBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): void {
         this.ChangeGameType(gameMode);
         this.chatMessageService.sendBestTimeMessage(this.io, username, position, gameName);
