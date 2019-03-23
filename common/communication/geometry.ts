@@ -1,3 +1,4 @@
+import { ThematicObjectType } from "./thematic-object";
 import { VectorInterface } from "./vector-interface";
 
 export interface GeometryData {
@@ -7,6 +8,7 @@ export interface GeometryData {
    size: number;
    type: GeometryType;
    isModified: boolean;
+   thematicObjectType?: ThematicObjectType;
 }
 
 export interface SceneData {
