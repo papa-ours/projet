@@ -14,9 +14,14 @@ export class ChatMessageSoloService extends ChatMessageService {
         super(usersContainerService, getCurrentTimeService);
     }
 
-    public getIdentificationMessage(username: string, isDifferenceFound: boolean): string {
+    public getIdentificationMessage(username: string, isDifferenceFound: boolean): ChatMessage {
+        const textMessage: string = isDifferenceFound ? "Différence trouvée." : "Erreur.";
 
-        return isDifferenceFound ? "Différence trouvée." : "Erreur.";
+        return {
+            chatTime: this.getCurrentTimeService.getCurrentTime(),
+            username: username,
+            text: textMessage,
+        };
     }
 
     public getBestTimeMessage(username: string, position: number, gameName: string): ChatMessage {
