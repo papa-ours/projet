@@ -16,16 +16,20 @@ export class GetGameService {
         GetGameService.gameSheets[type].push(gameSheet);
     }
 
-    public getGame(id: string): AbstractGame {
-        const game: AbstractGame | undefined = GetGameService.games.find((currentGame: AbstractGame) => {
+    public getGameIndex(id: string): number {
+        return GetGameService.games.findIndex((currentGame: AbstractGame) => {
             return currentGame.id === id;
         });
+    }
 
-        if (!game) {
+    public getGame(id: string): AbstractGame {
+        const index: number = this.getGameIndex(id);
+
+        if (index === -1) {
             throw new RangeError("Aucune Game n'a le id " + id);
         }
 
-        return game;
+        return GetGameService.games[index];
     }
 
     public async createGame(name: string, type: GameType): Promise<string> {
