@@ -5,9 +5,6 @@ import { SceneGeneratorService } from "../scene3d/scene-generator.service";
 import { CheatModeService } from "./cheat-mode.service";
 
 describe("CheatModeService", () => {
-    const originalRenderer: RenderService = new RenderService();
-    const modifiedRenderer: RenderService = new RenderService();
-    const sceneGenerator: SceneGeneratorService = new SceneGeneratorService(new GeometryFactoryService());
     const geometry: GeometryData[] = [{
         color: 0xFF00FF,
         size: 65,
@@ -24,8 +21,12 @@ describe("CheatModeService", () => {
         rotation: { x: 0, y: 0, z: 0 },
         isModified: false,
     }];
+    const originalRenderer: RenderService = new RenderService();
+    const modifiedRenderer: RenderService = new RenderService();
+    const sceneGenerator: SceneGeneratorService = new SceneGeneratorService(new GeometryFactoryService());
     const div: HTMLDivElement = document.createElement("div");
     let cheatModeService: CheatModeService;
+
     beforeEach(() => {
         originalRenderer.initialize(div, sceneGenerator.createScene(geometry));
         modifiedRenderer.initialize(div, sceneGenerator.createScene(modifiedGeometry));
