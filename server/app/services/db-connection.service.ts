@@ -68,10 +68,19 @@ export class DBConnectionService {
     }
 
     public async putScore(gameSheetId: string, name: string, time: number): Promise<{}> {
-        return {};
-    }
+        const now: Date = new Date();
 
-    public async deleteWorstScore(gameSheetId: string): Promise<{}> {
-        return {};
+        return mongoose.models.GameSheet.findOneAndUpdate(
+            {id: gameSheetId},
+            {
+                $push: {
+                    topScores: {
+                        $each: [{name, time, now}],
+                        $sort: {time: -1, date: -1},
+                        $slice: TopScores.SCORE_LENGTH,
+                    },
+                },
+            },
+        );
     }
 }
