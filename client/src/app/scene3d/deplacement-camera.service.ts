@@ -62,20 +62,16 @@ export class DeplacementCameraService {
     private static setCameraSpeed(keyEvent: KeyboardEvent): void {
         switch (keyEvent.key) {
             case DeplacementCameraService.FORWARD:
-                DeplacementCameraService.render3dOriginalImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
-                DeplacementCameraService.render3dModifiedImage.setDeltaZ(-DeplacementCameraService.DISTANCE);
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaZ(-DeplacementCameraService.DISTANCE));
                 break;
             case DeplacementCameraService.LEFT:
-                DeplacementCameraService.render3dOriginalImage.setDeltaX(-DeplacementCameraService.DISTANCE);
-                DeplacementCameraService.render3dModifiedImage.setDeltaX(-DeplacementCameraService.DISTANCE);
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaX(-DeplacementCameraService.DISTANCE));
                 break;
             case DeplacementCameraService.BACKWARD:
-                DeplacementCameraService.render3dOriginalImage.setDeltaZ(DeplacementCameraService.DISTANCE);
-                DeplacementCameraService.render3dModifiedImage.setDeltaZ(DeplacementCameraService.DISTANCE);
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaZ(DeplacementCameraService.DISTANCE));
                 break;
             case DeplacementCameraService.RIGHT:
-                DeplacementCameraService.render3dOriginalImage.setDeltaX(DeplacementCameraService.DISTANCE);
-                DeplacementCameraService.render3dModifiedImage.setDeltaX(DeplacementCameraService.DISTANCE);
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaX(DeplacementCameraService.DISTANCE));
                 break;
             default:
         }
