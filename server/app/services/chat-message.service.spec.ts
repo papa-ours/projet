@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import * as io from "socket.io-client";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
-import { GameType } from "../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../common/communication/game-description";
 import { ChatMessage } from "../../../common/communication/message";
 import { container } from "../inversify.config";
 import { Server } from "../server";
@@ -10,7 +10,7 @@ import Types from "../types";
 import { UsersContainerService } from "./users-container.service";
 
 // tslint:disable:max-func-body-length
-describe.only("chat-message-service", () => {
+describe("chat-message-service", () => {
     const server: Server = container.get<Server>(Types.Server);
     server.init();
     const socket: Socket = container.get<Socket>(Types.Socket);
@@ -85,6 +85,38 @@ describe.only("chat-message-service", () => {
         socketClient2.on("chatMessage", (result: ChatMessage) => {
             expect(decodeURIComponent(escape(result.text))).to.deep.equals(expected);
             setTimeout(done, 0);
+        });
+    });
+
+    it("should send a message to all users if a best time solo is beaten", (done: Mocha.Func) => {
+        const username: string = "username";
+        const position: number = 2;
+        const gameName: string = "Voiture";
+        const gameMode: GameMode = GameMode.Solo;
+        socket.sendBestTimeMessage(username, position, gameName, gameMode);
+        const expected: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en solo`;
+        socketClient1.on("chatMessage", (result1: ChatMessage) => {
+            expect(result1.text).to.deep.equals(expected);
+            socketClient2.on("chatMessage", (result2: ChatMessage) => {
+                expect(result2.text).to.deep.equals(expected);
+                setTimeout(done, 0);
+            });
+        });
+    });
+
+    it("should send a message to all users if a best time pvp is beaten", (done: Mocha.Func) => {
+        const username: string = "username";
+        const position: number = 2;
+        const gameName: string = "Voiture";
+        const gameMode: GameMode = GameMode.Pvp;
+        socket.sendBestTimeMessage(username, position, gameName, gameMode);
+        const expected: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en un contre un`;
+        socketClient1.on("chatMessage", (result1: ChatMessage) => {
+            expect(result1.text).to.deep.equals(expected);
+            socketClient2.on("chatMessage", (result2: ChatMessage) => {
+                expect(result2.text).to.deep.equals(expected);
+                setTimeout(done, 0);
+            });
         });
     });
 
