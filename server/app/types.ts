@@ -22,4 +22,5 @@ export default {
         DifferenceCheckerController: Symbol("DifferenceCheckerController"),
         UsersContainerService: Symbol("UsersContainerService"),
         ScoreUpdaterService: Symbol("ScoreUpdaterService"),
+        EndGameController: Symbol("EndGameController"),
 };
