@@ -5,7 +5,7 @@ import { ScoreUpdaterService } from "../services/score-updater.service";
 import Types from "../types";
 
 @injectable()
-export class DifferenceCheckerController {
+export class EndGameController {
 
     public constructor(
         @inject(Types.ScoreUpdaterService) private scoreUpdaterService: ScoreUpdaterService,
