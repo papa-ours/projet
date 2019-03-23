@@ -9,7 +9,6 @@ import { Socket } from "../socket";
 import Types from "../types";
 import { UsersContainerService } from "./users-container.service";
 
-// tslint:disable:max-func-body-length
 describe("chat-message-service", () => {
     const server: Server = container.get<Server>(Types.Server);
     server.init();
@@ -28,8 +27,6 @@ describe("chat-message-service", () => {
 
             socketClient2 = io.connect(SERVER_ADDRESS, { forceNew: true, reconnectionDelay: 0 });
             socketClient2.on("connect", () => {
-                const username2: string = "Username2";
-                userContainerService.addUser({name: username2, socketId: socketClient2.id});
                 setTimeout(done, 0);
             });
         });
@@ -61,6 +58,26 @@ describe("chat-message-service", () => {
         });
     });
 
+    it("should not send a connection message to all users if a new user has no username", (done: Mocha.Func) => {
+        socketClient2.emit("newUser");
+        const expected: boolean = false;
+        let receivedMessage: boolean = false;
+        socketClient1.on("chatMessage", (result1: ChatMessage) => {
+            receivedMessage = true;
+            socketClient2.on("chatMessage", (result2: ChatMessage) => {
+                receivedMessage = true;
+            });
+        });
+        const TWO_SEC: number = 2000;
+        setTimeout(
+            () => {
+                expect(expected).to.be.equal(receivedMessage);
+                setTimeout(done, 0);
+            },
+            TWO_SEC,
+        );
+    });
+
     it("should send a message if a difference is found", (done: Mocha.Func) => {
         socketClient1.emit("foundDifference");
         const expected: string = "Différence trouvée.";
@@ -77,6 +94,26 @@ describe("chat-message-service", () => {
             expect(result.text).to.deep.equals(expected);
             setTimeout(done, 0);
         });
+    });
+
+    it("should not send a foundDifference message to all users if a new user has no username", (done: Mocha.Func) => {
+        socketClient2.emit("foundDifference");
+        const expected: boolean = false;
+        let receivedMessage: boolean = false;
+        socketClient1.on("chatMessage", (result1: ChatMessage) => {
+            receivedMessage = true;
+            socketClient2.on("chatMessage", (result2: ChatMessage) => {
+                receivedMessage = true;
+            });
+        });
+        const TWO_SEC: number = 2000;
+        setTimeout(
+            () => {
+                expect(expected).to.be.equal(receivedMessage);
+                setTimeout(done, 0);
+            },
+            TWO_SEC,
+        );
     });
 
     it("should send a message to all users if a user is disconnected", (done: Mocha.Func) => {
