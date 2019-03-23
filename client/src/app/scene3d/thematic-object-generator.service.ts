@@ -47,7 +47,7 @@ export class ThematicObjectGeneratorService {
             throw RangeError("Object requested does not exist");
         }
 
-        return group;
+        return group.clone();
     }
 
     public async createObject(thematicObject: ThematicObject): Promise<THREE.Group> {
