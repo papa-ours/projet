@@ -12,7 +12,10 @@ import Types from "../types";
 @injectable()
 export class DifferenceCheckerController {
 
-    public constructor(@inject(Types.DifferenceCheckerService) private differenceChecker: DifferenceCheckerService) {
+    public constructor(
+        @inject(Types.DifferenceCheckerService) private differenceChecker: DifferenceCheckerService,
+        @inject(Types.GetGameService) private getGameService: GetGameService,
+    ) {
 
     }
 
@@ -22,7 +25,6 @@ export class DifferenceCheckerController {
         router.get(
             "/:id/:x/:y",
             async (req: Request, res: Response, next: NextFunction) => {
-                const getGameService: GetGameService = new GetGameService();
                 const x: number = parseInt(req.params.x, 10);
                 const y: number = parseInt(req.params.y, 10);
                 const id: string = req.params.id;
@@ -33,7 +35,7 @@ export class DifferenceCheckerController {
                 };
 
                 try {
-                    const game: SimpleGame = getGameService.getGame(id) as SimpleGame;
+                    const game: SimpleGame = this.getGameService.getGame(id) as SimpleGame;
 
                     let isDifference: boolean = false;
                     isDifference = this.differenceChecker.isPositionDifference(x, y, game);
