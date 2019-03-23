@@ -57,7 +57,7 @@ export class Gameplay3dComponent implements AfterViewInit {
         this.foundDifferenceEvent.emit();
         this.differenceCounter++;
         this.difference3DCheckerService.getAllDifference(this.id).subscribe(
-            (geometries: GeometryData[]) => this.cheatModeService.updtaeGeometries(geometries),
+            (geometries: GeometryData[]) => this.cheatModeService.updateGeometries(geometries),
         );
     }
 
@@ -66,7 +66,7 @@ export class Gameplay3dComponent implements AfterViewInit {
         const keyType: string = "t";
         if (keyboardEvent.key.toLowerCase() === keyType) {
             this.difference3DCheckerService.getAllDifference(this.id).subscribe(
-                (geometries: GeometryData[]) => this.cheatModeService.tuggleCheatMode(geometries),
+                (geometries: GeometryData[]) => this.cheatModeService.toggleCheatMode(geometries),
             );
         }
     }

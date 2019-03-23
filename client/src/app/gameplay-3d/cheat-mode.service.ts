@@ -54,12 +54,12 @@ export class CheatModeService {
         return window.setInterval(() => this.alternateVisibility(), this.ONE_SECONDE / this.ratePerSec);
     }
 
-    public updtaeGeometries(geometries: GeometryData[]): void {
+    public updateGeometries(geometries: GeometryData[]): void {
         this.geometries = geometries;
     }
 
-    public tuggleCheatMode(geometries: GeometryData[]): void {
-        this.updtaeGeometries(geometries);
+    public toggleCheatMode(geometries: GeometryData[]): void {
+        this.updateGeometries(geometries);
         if (this.isActivated) {
             clearInterval(this.timeoutPointer);
             this.setDifferencesVisibility(true);
