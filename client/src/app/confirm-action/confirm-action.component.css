@@ -1,6 +1,7 @@
 .panel {
     position: absolute;
     left: 40%;
+    top: 30vh;
     padding: 30px;
     background-color: var(--header-color);
     width: auto;
