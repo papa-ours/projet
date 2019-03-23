@@ -9,9 +9,8 @@ export class ScoreUpdaterService {
 
     }
 
-    public async putScore(gameSheetId: string, name: string, time: number): Promise<{}> {
-        await this.dbConnectionService.putScore(gameSheetId, name, time);
+    public async putScore(gameSheetId: string, name: string, time: number): Promise<void> {
 
-        return this.dbConnectionService.deleteWorstScore(gameSheetId);
+        return this.dbConnectionService.putScore(gameSheetId, name, time);
     }
 }
