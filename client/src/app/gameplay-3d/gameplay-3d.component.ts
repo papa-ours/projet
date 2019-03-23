@@ -25,8 +25,8 @@ export class Gameplay3dComponent implements AfterViewInit {
     private modifiedScene: Scene3dComponent;
     private rayCaster: RaycasterService;
     public differenceCounter: number;
-    @ViewChild("originalScene", {read: ElementRef}) public originalSceneElement: ElementRef;
-    @ViewChild("modifiedScene", {read: ElementRef}) public modifiedSceneElement: ElementRef;
+    @ViewChild("originalScene", {read: ElementRef}) private originalSceneElement: ElementRef;
+    @ViewChild("modifiedScene", {read: ElementRef}) private modifiedSceneElement: ElementRef;
     @ViewChildren(Scene3dComponent) private scenes: QueryList<Scene3dComponent>;
 
     public constructor(private difference3DCheckerService: Difference3DCheckerService) {
