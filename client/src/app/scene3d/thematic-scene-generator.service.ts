@@ -15,16 +15,19 @@ export class ThematicSceneGeneratorService {
 
     public async createScene(): Promise<THREE.Scene> {
         this.scene = new THREE.Scene();
-        await Promise.all(THEMATIC_OBJECTS.map((object: ThematicObject) => this.addObject(object)));
+
+        this.thematicObjectGeneratorService.waitForObjects().then(() =>
+            THEMATIC_OBJECTS.map((object: ThematicObject) => this.addObject(object)),
+        );
 
         return this.scene;
     }
 
-    private async addObject(object: ThematicObject): Promise<void> {
-        return this.thematicObjectGeneratorService.createObject(object).then((group: THREE.Group) => {
-            // group.position.set(Math.random() * 200, Math.random() * 200, Math.random() * 200);
-            group.position.set(object.baseScale, object.baseScale, object.baseScale);
-            this.scene.add(group);
-        }).catch((error: Error) => console.error(error.message));
+    private addObject(object: ThematicObject): void {
+        try {
+            this.scene.add(this.thematicObjectGeneratorService.getObject(object));
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 }
