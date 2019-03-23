@@ -13,5 +13,6 @@ export abstract class AbstractGame implements HasId {
     }
 
     protected abstract async setUp(name: string): Promise<{}>;
+    public abstract async cleanUp(): Promise<{}>;
 
 }

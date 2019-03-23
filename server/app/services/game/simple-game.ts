@@ -36,6 +36,10 @@ export class SimpleGame extends AbstractGame {
         }));
     }
 
+    public async cleanUp(): Promise<{}> {
+        return FileIO.deleteFile(`uploads/${this.id}.bmp`);
+    }
+
     public async restoreModifiedImage(x: number, y: number): Promise<{}> {
         const index: number = this.differenceImage.getIndex({ i: x, j: y });
         const difference: number[] = this.differenceImage.getDifferenceAt(index);

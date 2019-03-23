@@ -28,6 +28,10 @@ export class FreeGame extends AbstractGame {
         );
     }
 
+    public async cleanUp(): Promise<{}> {
+        return FileIO.deleteFile(`uploads/${this.id}-data.txt`);
+    }
+
     public restoreModifiedScene(position: VectorInterface): void {
         const differenceRestoration: SceneDifferenceRestorationService = new SceneDifferenceRestorationService(this.scene);
         this.scene = differenceRestoration.getSceneAfterDifferenceUpdate(position);
