@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { ChatMessage, DifferenceIdentification } from "../../../common/communication/message";
+import { ChatMessage } from "../../../common/communication/message";
 import Types from "../types";
 import { GetCurrentTimeService } from "./get-current-time.service";
 import { UsersContainerService } from "./users-container.service";
@@ -12,13 +12,13 @@ export abstract class ChatMessageService {
         @inject(Types.GetCurrentTimeService) public getCurrentTimeService: GetCurrentTimeService,
     ) {}
 
-    public abstract getIdentificationMessage(username: string, identification: DifferenceIdentification): string;
+    public abstract getIdentificationMessage(username: string, isDifferenceFound: boolean): string;
     public abstract getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage;
 
-    public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, identification: DifferenceIdentification): void {
+    public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, isDifferenceFound: boolean): void {
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
-            const textMessage: string = this.getIdentificationMessage(username, identification);
+            const textMessage: string = this.getIdentificationMessage(username, isDifferenceFound);
             const message: ChatMessage = {
                 chatTime: this.getCurrentTimeService.getCurrentTime(),
                 username: username,

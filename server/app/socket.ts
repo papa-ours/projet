@@ -2,7 +2,6 @@ import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
 import { GameType } from "../../common/communication/game-description";
-import { DifferenceIdentification } from "../../common/communication/message";
 import { ChatMessagePvpService } from "./services/chat-message-pvp.service";
 import { ChatMessageSoloService } from "./services/chat-message-solo.service";
 import { ChatMessageService } from "./services/chat-message.service";
@@ -43,13 +42,15 @@ export class Socket {
 
     private setupFoundDifference(socket: SocketIO.Socket): void {
         socket.on("foundDifference", () => {
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, DifferenceIdentification.DifferenceFound);
+            const isDifferenceFound: boolean = true;
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound);
         });
     }
 
     private setupErrorIdentification(socket: SocketIO.Socket): void {
         socket.on("errorIdentification", () => {
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, DifferenceIdentification.ErrorIdentification);
+            const isDifferenceFound: boolean = false;
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound);
         });
     }
 

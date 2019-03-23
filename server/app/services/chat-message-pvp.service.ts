@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { ChatMessage, DifferenceIdentification } from "../../../common/communication/message";
+import { ChatMessage } from "../../../common/communication/message";
 import { ChatMessageService } from "./chat-message.service";
 import { GetCurrentTimeService } from "./get-current-time.service";
 import { UsersContainerService } from "./users-container.service";
@@ -14,10 +14,9 @@ export class ChatMessagePvpService extends ChatMessageService {
         super(usersContainerService, getCurrentTimeService);
     }
 
-    public getIdentificationMessage(username: string, identification: DifferenceIdentification): string {
+    public getIdentificationMessage(username: string, isDifferenceFound: boolean): string {
 
-        return identification === DifferenceIdentification.DifferenceFound ? `Différence trouvée par ${username}.` :
-                                                                             `Erreur par ${username}.`;
+        return isDifferenceFound ? `Différence trouvée par ${username}.` : `Erreur par ${username}.`;
     }
 
     public getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage {
