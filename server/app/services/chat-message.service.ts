@@ -44,6 +44,5 @@ export abstract class ChatMessageService {
     private getConnectionMessage(isConnected: boolean, username: string): string {
 
         return isConnected ? `${username} vient de se déconnecter.` : `${username} vient de se connecter.`;
-
     }
 }

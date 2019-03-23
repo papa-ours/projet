@@ -17,16 +17,16 @@ export class ChatMessageSoloService extends ChatMessageService {
     public getIdentificationMessage(username: string, identification: DifferenceIdentification): string {
 
         return identification === DifferenceIdentification.DifferenceFound ? "Différence trouvée." : "Erreur.";
-
     }
 
     public getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage {
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         const textMessage: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${nomJeu} en solo`;
 
-        return {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                username: socket.id,
-                text: textMessage};
-
+        return {
+            chatTime: this.getCurrentTimeService.getCurrentTime(),
+            username: socket.id,
+            text: textMessage,
+        };
     }
 }
