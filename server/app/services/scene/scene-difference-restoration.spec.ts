@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { SceneData } from "../../../../common/communication/geometry";
+import { SceneData, SceneType } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { DeepCloner } from "../utils/deep-cloner";
 import { SceneDataGeneratorService } from "./scene-data-generator";
@@ -12,6 +12,7 @@ describe("SceneDifferenceRestoration", () => {
         name: "test",
         originalScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
         modifiedScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
+        type: SceneType.GEOMETRIC,
     };
     let sceneDifferenceRestoration: SceneDifferenceRestorationService;
 
