@@ -3,6 +3,7 @@ import { inject, injectable } from "inversify";
 import { GameType } from "../../../common/communication/game-description";
 import { MessageType } from "../../../common/communication/message";
 import { GameSheetGenerationService } from "../services/game-sheet-generation.service";
+import { ScoreUpdaterService } from "../services/score-updater.service";
 import Types from "../types";
 
 @injectable()
@@ -10,7 +11,7 @@ export class GameSheetGenerationController {
 
     public constructor(
         @inject(Types.GameSheetGenerationService) private gameSheetGenerationService: GameSheetGenerationService,
-
+        @inject(Types.ScoreUpdaterService) private scoreUpdaterService: ScoreUpdaterService,
     ) {
 
     }
@@ -41,10 +42,18 @@ export class GameSheetGenerationController {
         router.put(
             "/score/:id/:name/:time",
             (req: Request, res: Response, next: NextFunction) => {
-                res.send({
-                    type: MessageType.SCORE_UPDATE,
-                    message: "TODO",
-                });
+                try {
+                    this.scoreUpdaterService.putScore(req.body.id, req.body.name, req.body.time as number);
+                    res.send({
+                        type: MessageType.SCORE_UPDATE,
+                        message: "",
+                    });
+                } catch (error) {
+                    res.send({
+                        type: MessageType.SCORE_UPDATE,
+                        message: error,
+                    });
+                }
             });
 
         return router;
