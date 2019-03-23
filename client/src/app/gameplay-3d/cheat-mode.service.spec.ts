@@ -6,7 +6,7 @@ import { SceneGeneratorService } from "../scene3d/scene-generator.service";
 import { CheatModeService } from "./cheat-mode.service";
 
 describe("CheatModeService", () => {
-    const geometry: GeometryData[] = [
+    const ORIGINAL_GEOMETRY: GeometryData[] = [
         {
         color: 0xFF00FF,
         size: 65,
@@ -24,7 +24,7 @@ describe("CheatModeService", () => {
             isModified: true,
         },
     ];
-    const modifiedGeometry: GeometryData[] = [
+    const MODIFIED_GEOMETRY: GeometryData[] = [
         {
             color: 0x00FF00,
             size: 65,
@@ -49,8 +49,8 @@ describe("CheatModeService", () => {
     let cheatModeService: CheatModeService;
 
     beforeEach(() => {
-        originalRenderer.initialize(div, sceneGenerator.createScene(geometry));
-        modifiedRenderer.initialize(div, sceneGenerator.createScene(modifiedGeometry));
+        originalRenderer.initialize(div, sceneGenerator.createScene(ORIGINAL_GEOMETRY));
+        modifiedRenderer.initialize(div, sceneGenerator.createScene(MODIFIED_GEOMETRY));
         cheatModeService = new CheatModeService(originalRenderer, modifiedRenderer);
     });
 
@@ -59,15 +59,15 @@ describe("CheatModeService", () => {
     });
 
     it("should activate when toggle is called and canceled when called again", () => {
-        cheatModeService.toggleCheatMode(geometry);
+        cheatModeService.toggleCheatMode(ORIGINAL_GEOMETRY);
         expect(cheatModeService["isActivated"]).toBeTruthy();
-        cheatModeService.toggleCheatMode(geometry);
+        cheatModeService.toggleCheatMode(ORIGINAL_GEOMETRY);
         expect(cheatModeService["isActivated"]).toBeFalsy();
     });
 
     it("should change the emissive color 4 times per seconds for the modified scene a color change", () => {
         // tslint:disable:no-magic-numbers
-        cheatModeService.toggleCheatMode(geometry);
+        cheatModeService.toggleCheatMode(ORIGINAL_GEOMETRY);
         let mesh: THREE.Mesh = cheatModeService["modifiedRender"].scene.children[0] as THREE.Mesh;
         let material: THREE.MeshStandardMaterial = mesh.material as THREE.MeshStandardMaterial;
         let prevColor: number =  material.emissive.getHex();
@@ -85,7 +85,7 @@ describe("CheatModeService", () => {
 
     it("should change the emissive color 4 times per seconds for the original scene on a color change", () => {
         // tslint:disable:no-magic-numbers
-        cheatModeService.toggleCheatMode(geometry);
+        cheatModeService.toggleCheatMode(ORIGINAL_GEOMETRY);
         let mesh: THREE.Mesh = cheatModeService["originalRender"].scene.children[0] as THREE.Mesh;
         let material: THREE.MeshStandardMaterial = mesh.material as THREE.MeshStandardMaterial;
         let prevColor: number =  material.emissive.getHex();
@@ -103,7 +103,7 @@ describe("CheatModeService", () => {
 
     it("should change the emissive color 4 times per seconds for the orginal scene when an object is deleted", () => {
         // tslint:disable:no-magic-numbers
-        cheatModeService.toggleCheatMode(geometry);
+        cheatModeService.toggleCheatMode(ORIGINAL_GEOMETRY);
         let mesh: THREE.Mesh = cheatModeService["originalRender"].scene.children[1] as THREE.Mesh;
         let material: THREE.MeshStandardMaterial = mesh.material as THREE.MeshStandardMaterial;
         let prevColor: number =  material.emissive.getHex();
@@ -121,7 +121,7 @@ describe("CheatModeService", () => {
 
     it("should change the emissive color 4 times per seconds for the modified scene when an object is added", () => {
         // tslint:disable:no-magic-numbers
-        cheatModeService.toggleCheatMode(geometry);
+        cheatModeService.toggleCheatMode(ORIGINAL_GEOMETRY);
         let mesh: THREE.Mesh = cheatModeService["modifiedRender"].scene.children[1] as THREE.Mesh;
         let material: THREE.MeshStandardMaterial = mesh.material as THREE.MeshStandardMaterial;
         let prevColor: number =  material.emissive.getHex();
