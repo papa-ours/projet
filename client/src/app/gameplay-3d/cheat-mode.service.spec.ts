@@ -101,7 +101,7 @@ describe("CheatModeService", () => {
         // tslint:enable:no-magic-numbers
     });
 
-    it("should change the emissive color 4 times per seconds for the original scene when an object is added", () => {
+    it("should change the emissive color 4 times per seconds for the orginal scene when an object is deleted", () => {
         // tslint:disable:no-magic-numbers
         cheatModeService.toggleCheatMode(geometry);
         let mesh: THREE.Mesh = cheatModeService["originalRender"].scene.children[1] as THREE.Mesh;
