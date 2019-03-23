@@ -39,10 +39,10 @@ export class CheatModeService {
     }
 
     private setDifferencesVisibility(visibility: boolean): void {
-        for (const geometry of this.geometries) {
+        this.geometries.forEach((geometry: GeometryData) => {
             this.setVisibility(this.originalRender, geometry, visibility);
             this.setVisibility(this.modifiedRender, geometry, visibility);
-        }
+        });
     }
 
     private alternateVisibility(): void {
