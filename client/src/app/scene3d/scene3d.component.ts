@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input ,
          OnChanges, Output, SimpleChange, SimpleChanges, ViewChild} from "@angular/core";
-// import { GeometryData, SceneData } from "../../../../common/communication/geometry";
+import { GeometryData, SceneData, SceneType } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { GetSceneDataService } from "./get-scene-data.service";
 import { RaycasterService } from "./raycaster.service";
@@ -27,8 +27,8 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
 
     public constructor(
         public renderService: RenderService,
-        // private getSceneData: GetSceneDataService,
-        // private sceneGeneratorService: SceneGeneratorService,
+        private getSceneData: GetSceneDataService,
+        private sceneGeneratorService: SceneGeneratorService,
         public thematicSceneGeneratorService: ThematicSceneGeneratorService,
         ) {
         this.name = "";
@@ -57,16 +57,16 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     }
 
     private getScene(name: string): void {
-
-        this.thematicSceneGeneratorService.createScene().then((scene: THREE.Scene) => {
-            this.renderService.initialize(this.container, scene);
+        const getFromS3: boolean = this.differenceCounter === 0 || this.differenceCounter === undefined;
+        this.getSceneData.getSceneData(name, getFromS3).subscribe(async (sceneData: SceneData) => {
+            const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
+            this.renderService.initialize(
+                this.container,
+                sceneData.type === SceneType.GEOMETRIC ?
+                    this.sceneGeneratorService.createScene(geometryData) :
+                    await this.thematicSceneGeneratorService.createScene(geometryData),
+            );
         });
-
-        // const getFromS3: boolean = this.differenceCounter === 0 || this.differenceCounter === undefined;
-        // this.getSceneData.getSceneData(name, getFromS3).subscribe((sceneData: SceneData) => {
-        //     const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
-        //     this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
-        // });
     }
 
     @HostListener("click", ["$event"])
