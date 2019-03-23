@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import { GeometryData } from "../../../../common/communication/geometry";
 import { GeometryFactoryService } from "../scene3d/geometry-factory.service";
 import { RenderService } from "../scene3d/render.service";
@@ -42,5 +43,22 @@ describe("CheatModeService", () => {
         expect(cheatModeService["isActivated"]).toBeTruthy();
         cheatModeService.toggleCheatMode(geometry);
         expect(cheatModeService["isActivated"]).toBeFalsy();
+    });
+
+    it("should change the emissive color 4 times per seconds for the original scene", () => {
+        // tslint:disable:no-magic-numbers
+        cheatModeService.toggleCheatMode(geometry);
+        let mesh: THREE.Mesh = cheatModeService["modifiedRender"].scene.children[0] as THREE.Mesh;
+        let material: THREE.MeshStandardMaterial = mesh.material as THREE.MeshStandardMaterial;
+        let prevColor: number =  material.emissive.getHex();
+
+        const interval: number = window.setInterval(() => {
+            mesh = cheatModeService["modifiedRender"].scene.children[0] as THREE.Mesh;
+            material = mesh.material as THREE.MeshStandardMaterial;
+            const color: number =  material.emissive.getHex();
+            expect(prevColor !== color).toBeTruthy();
+            prevColor = color;
+        },                                          253);
+        setTimeout(() => (clearInterval(interval)), 1100);
     });
 });
