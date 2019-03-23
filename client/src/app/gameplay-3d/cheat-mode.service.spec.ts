@@ -34,8 +34,6 @@ describe("CheatModeService", () => {
     });
 
     it("should be created", () => {
-        originalRenderer.initialize(div, sceneGenerator.createScene(geometry));
-        modifiedRenderer.initialize(div, sceneGenerator.createScene(modifiedGeometry));
         expect(cheatModeService).toBeTruthy();
     });
 
