@@ -7,7 +7,7 @@ import { GeometryData, Modification, ModificationType, SceneData } from "../../.
 import { MessageType } from "../../../common/communication/message";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
-import { FileIO } from "../services/utils/file-io.util";
+import { AWSFilesUtil } from "../services/utils/aws-files.util";
 import Types from "../types";
 
 @injectable()
@@ -34,7 +34,7 @@ export class SceneDataController {
             ]),
             async (req: Request, res: Response, next: NextFunction) => {
                 const scene: SceneData = this.getSceneData(req);
-                FileIO.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)))
+                await AWSFilesUtil.writeFile(`${scene.name}-data.json`, Buffer.from(JSON.stringify(scene)))
                     .catch((err: Error) => console.error(err));
                 const SERVER_URL: string = `${SERVER_ADDRESS}/api/gamesheet/free/`;
                 await Axios.post(SERVER_URL, { name: scene.name });
