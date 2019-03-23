@@ -2,6 +2,7 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 import { GeometryData, GeometryType } from "../../../../common/communication/geometry";
 import { SKYBOX_MAX, SKYBOX_MIN } from "../../../../common/communication/skybox";
+import { ThematicObjectType } from "../../../../common/communication/thematic-object";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { RandomNumber } from "../utils/random-number";
 import { GeometryIntersection } from "./geometry-intersection";
@@ -91,11 +92,23 @@ export class SceneDataGeneratorService {
         this.validateNumberOfObjects(numberOfObjects);
         const geometryData: GeometryData[] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
-            const size: number | undefined = sizes ? sizes[Math.floor(Math.random() * sizes.length)] : undefined;
-            geometryData.push(this.getRandomNonIntersectingGeometryData(geometryData, size, type));
+            const thematicObjectType: ThematicObjectType | undefined = sizes ? this.getRandomThematicObjectType() : undefined;
+            const size: number | undefined = thematicObjectType && sizes ? sizes[thematicObjectType] : undefined;
+            const data: GeometryData = this.getRandomNonIntersectingGeometryData(geometryData, size, type);
+            data.thematicObjectType = thematicObjectType;
+            geometryData.push(data);
         }
 
         return geometryData;
+    }
+
+    public getRandomThematicObjectType(): ThematicObjectType {
+        const thematicObjectTypes: ThematicObjectType[] = [
+            ThematicObjectType.APPLE, ThematicObjectType.CALCULATOR,
+            ThematicObjectType.COFFEE_MUG,
+        ];
+
+        return thematicObjectTypes[Math.floor(Math.random() * thematicObjectTypes.length)];
     }
 
 }
