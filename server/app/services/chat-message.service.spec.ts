@@ -41,6 +41,14 @@ describe.only("chat-message-service", () => {
         setTimeout(done, 0);
     });
 
+    after((done: Mocha.Func) => {
+        socketClient1.disconnect();
+        socketClient2.disconnect();
+        socket.getIO().close();
+        server.getServer().close();
+        setTimeout(done, 0);
+    });
+
     it("should send a message to all users if a new user is connected", (done: Mocha.Func) => {
         socketClient1.emit("newUser");
         const expected: string = "Username1 vient de se connecter.";
