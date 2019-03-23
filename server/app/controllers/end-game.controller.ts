@@ -17,6 +17,25 @@ export class DifferenceCheckerController {
     public get router(): Router {
         const router: Router = Router();
 
+        router.get(
+            "/:id/:name/:time",
+            async (req: Request, res: Response) => {
+                try {
+                    await Promise.all([
+                        this.scoreUpdaterService.putScore(req.body.id, req.body.name, req.body.time),
+                        this.getGameService.getGame(req.body.id).cleanUp(),
+                    ]);
+                    res.send({
+                        body: "",
+                    });
+                } catch (error) {
+                    res.send({
+                        body: error,
+                    });
+                }
+            },
+        );
+
         return router;
     }
 }
