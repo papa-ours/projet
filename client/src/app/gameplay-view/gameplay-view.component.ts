@@ -60,8 +60,8 @@ export class GameplayViewComponent implements OnInit {
             this.type = params["type"];
             this.gameplayService.getGameId(this.name, this.type).subscribe((id: string) => {
                 this.id = id;
+                this.startChrono();
             });
-            this.startChrono();
         });
         const SOUND_VOLUME: number = 0.2;
         this.CORRECT_SOUND.volume = SOUND_VOLUME;
