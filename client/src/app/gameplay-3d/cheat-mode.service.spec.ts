@@ -45,7 +45,7 @@ describe("CheatModeService", () => {
         expect(cheatModeService["isActivated"]).toBeFalsy();
     });
 
-    it("should change the emissive color 4 times per seconds for the original scene", () => {
+    it("should change the emissive color 4 times per seconds for the modified scene", () => {
         // tslint:disable:no-magic-numbers
         cheatModeService.toggleCheatMode(geometry);
         let mesh: THREE.Mesh = cheatModeService["modifiedRender"].scene.children[0] as THREE.Mesh;
@@ -60,5 +60,24 @@ describe("CheatModeService", () => {
             prevColor = color;
         },                                          253);
         setTimeout(() => (clearInterval(interval)), 1100);
+        // tslint:enable:no-magic-numbers
+    });
+
+    it("should change the emissive color 4 times per seconds for the original scene", () => {
+        // tslint:disable:no-magic-numbers
+        cheatModeService.toggleCheatMode(geometry);
+        let mesh: THREE.Mesh = cheatModeService["originalRender"].scene.children[0] as THREE.Mesh;
+        let material: THREE.MeshStandardMaterial = mesh.material as THREE.MeshStandardMaterial;
+        let prevColor: number =  material.emissive.getHex();
+
+        const interval: number = window.setInterval(() => {
+            mesh = cheatModeService["originalRender"].scene.children[0] as THREE.Mesh;
+            material = mesh.material as THREE.MeshStandardMaterial;
+            const color: number =  material.emissive.getHex();
+            expect(prevColor !== color).toBeTruthy();
+            prevColor = color;
+        },                                          253);
+        setTimeout(() => (clearInterval(interval)), 1100);
+        // tslint:enable:no-magic-numbers
     });
 });
