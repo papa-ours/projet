@@ -1,7 +1,7 @@
 import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
-import { GameType } from "../../common/communication/game-description";
+import { GameMode } from "../../common/communication/game-description";
 import { container } from "./inversify.config";
 import { ChatMessageService } from "./services/chat-message.service";
 import { GetCurrentTimeService } from "./services/get-current-time.service";
@@ -32,8 +32,8 @@ export class Socket {
         });
     }
 
-    public sendBestTimeMessage(username: string, position: number, gameName: string, gameType: GameType): void {
-        this.ChangeGameType(gameType);
+    public sendBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): void {
+        this.ChangeGameType(gameMode);
         this.chatMessageService.sendBestTimeMessage(this.io, username, position, gameName);
     }
 
@@ -67,15 +67,13 @@ export class Socket {
     }
 
     private setupGameType(socket: SocketIO.Socket): void {
-        socket.on("setGameType", (gameType: GameType) => {
-            this.ChangeGameType(gameType);
+        socket.on("setGameType", (gameMode: GameMode) => {
+            this.ChangeGameType(gameMode);
         });
     }
 
-    private ChangeGameType(gameType: GameType): void {
-        // triple equal problem
-        // tslint:disable-next-line:triple-equals
-        gameType == GameType.Simple ?
+    private ChangeGameType(gameMode: GameMode): void {
+        gameMode === GameMode.Solo ?
             this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService) :
             this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessagePvpService);
     }
