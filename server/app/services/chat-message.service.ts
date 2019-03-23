@@ -13,7 +13,7 @@ export abstract class ChatMessageService {
     ) {}
 
     public abstract getIdentificationMessage(username: string, isDifferenceFound: boolean): string;
-    public abstract getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage;
+    public abstract getBestTimeMessage(username: string, position: number, gameName: String): ChatMessage;
 
     public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, isDifferenceFound: boolean): void {
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
@@ -40,6 +40,11 @@ export abstract class ChatMessageService {
             io.emit("chatMessage", message);
         }
     }
+
+    public sendBestTimeMessage(io: SocketIO.Server, username: string, position: number, gameName: string): void {
+        const message: ChatMessage = this.getBestTimeMessage(username, position, gameName);
+        io.emit("chatMessage", message);
+}
 
     private getConnectionMessage(isConnected: boolean, username: string): string {
 

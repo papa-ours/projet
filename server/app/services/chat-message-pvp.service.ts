@@ -19,13 +19,12 @@ export class ChatMessagePvpService extends ChatMessageService {
         return isDifferenceFound ? `Différence trouvée par ${username}.` : `Erreur par ${username}.`;
     }
 
-    public getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage {
-        const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
-        const textMessage: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${nomJeu} en un contre un`;
+    public getBestTimeMessage(username: string, position: number, gameName: string): ChatMessage {
+        const textMessage: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en un contre un`;
 
         return {
             chatTime: this.getCurrentTimeService.getCurrentTime(),
-            username: socket.id,
+            username: username,
             text: textMessage,
         };
     }

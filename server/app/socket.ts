@@ -33,6 +33,11 @@ export class Socket {
         });
     }
 
+    public sendBestTimeMessage(username: string, position: number, gameName: string, gameType: GameType): void {
+        this.ChangeGameType(gameType);
+        this.chatMessageService.sendBestTimeMessage(this.io, username, position, gameName);
+    }
+
     private setupNewUser(socket: SocketIO.Socket): void {
        socket.on("newUser", () => {
             const isConnected: boolean = false;
@@ -64,12 +69,16 @@ export class Socket {
 
     private setupGameType(socket: SocketIO.Socket): void {
         socket.on("setGameType", (gameType: GameType) => {
-            // triple equal problem
-            // tslint:disable-next-line:triple-equals
-            gameType == GameType.Simple ?
-                this.chatMessageService = new ChatMessageSoloService(this.usersContainerService, this.getCurrentTimeService) :
-                this.chatMessageService = new ChatMessagePvpService(this.usersContainerService, this.getCurrentTimeService);
+            this.ChangeGameType(gameType);
         });
+    }
+
+    private ChangeGameType(gameType: GameType): void {
+        // triple equal problem
+        // tslint:disable-next-line:triple-equals
+        gameType == GameType.Simple ?
+            this.chatMessageService = new ChatMessageSoloService(this.usersContainerService, this.getCurrentTimeService) :
+            this.chatMessageService = new ChatMessagePvpService(this.usersContainerService, this.getCurrentTimeService);
     }
 
     private deleteUser(id: string): void {

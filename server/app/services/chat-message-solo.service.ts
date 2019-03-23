@@ -19,13 +19,12 @@ export class ChatMessageSoloService extends ChatMessageService {
         return isDifferenceFound ? "Différence trouvée." : "Erreur.";
     }
 
-    public getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage {
-        const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
-        const textMessage: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${nomJeu} en solo`;
+    public getBestTimeMessage(username: string, position: number, gameName: string): ChatMessage {
+        const textMessage: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en solo`;
 
         return {
             chatTime: this.getCurrentTimeService.getCurrentTime(),
-            username: socket.id,
+            username: username,
             text: textMessage,
         };
     }
