@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import * as io from "socket.io-client";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
-import { GameType } from "../../../common/communication/game-description";
+import { GameMode } from "../../../common/communication/game-description";
 import { ChatMessage } from "../../../common/communication/message";
 
 @Injectable({
@@ -23,23 +23,22 @@ export class SocketService {
         this.socket.emit("newUser");
     }
 
-    public sendFoundDiffrenceMessage(gameType: GameType): void {
-        this.sendGameType(gameType);
+    public sendFoundDiffrenceMessage(gameMode: GameMode): void {
+        this.sendGameType(gameMode);
         this.socket.emit("foundDifference");
     }
 
-    public sendErrorIdentificationMessage(gameType: GameType): void {
-        this.sendGameType(gameType);
+    public sendErrorIdentificationMessage(gameMode: GameMode): void {
+        this.sendGameType(gameMode);
         this.socket.emit("errorIdentification");
     }
 
-    public sendGameType(gameType: GameType): void {
-        this.socket.emit("setGameType", gameType);
+    public sendGameType(gameMode: GameMode): void {
+        this.socket.emit("setGameType", gameMode);
     }
 
     public getChatMessage = () => {
-        // tslint:disable:no-any
-        return Observable.create((observer: any) => {
+        return Observable.create((observer: Subject<ChatMessage>) => {
             this.socket.on("chatMessage", (data: ChatMessage) => {
                 observer.next(data);
             });

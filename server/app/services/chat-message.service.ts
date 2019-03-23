@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { ChatMessage, DifferenceIdentification } from "../../../common/communication/message";
+import { ChatMessage } from "../../../common/communication/message";
 import Types from "../types";
 import { GetCurrentTimeService } from "./get-current-time.service";
 import { UsersContainerService } from "./users-container.service";
@@ -12,16 +12,13 @@ export abstract class ChatMessageService {
         @inject(Types.GetCurrentTimeService) public getCurrentTimeService: GetCurrentTimeService,
     ) {}
 
-    public abstract getIdentificationMessage(username: string, identification: DifferenceIdentification): string;
-    public abstract getBestTimeMessage(socket: SocketIO.Socket, position: number, nomJeu: String): ChatMessage;
+    public abstract getIdentificationMessage(username: string, isDifferenceFound: boolean): ChatMessage;
+    public abstract getBestTimeMessage(username: string, position: number, gameName: String): ChatMessage;
 
-    public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, identification: DifferenceIdentification): void {
+    public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, isDifferenceFound: boolean): void {
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
-            const textMessage: string = this.getIdentificationMessage(username, identification);
-            const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                                          username: username,
-                                          text: textMessage};
+            const message: ChatMessage = this.getIdentificationMessage(username, isDifferenceFound);
             socket.emit("chatMessage", message);
         }
     }
@@ -29,18 +26,23 @@ export abstract class ChatMessageService {
     public sendConnectionMessage(socket: SocketIO.Socket, io: SocketIO.Server, isConnected: boolean): void {
         const username: string = this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
-            const textMessage: string = this.getConnectionMessage(isConnected, username);
-            const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                                          username: username,
-                                          text: textMessage};
+            const message: ChatMessage = this.getConnectionMessage(isConnected, username);
             io.emit("chatMessage", message);
         }
     }
 
-    private getConnectionMessage(isConnected: boolean, username: string): string {
+    public sendBestTimeMessage(io: SocketIO.Server, username: string, position: number, gameName: string): void {
+        const message: ChatMessage = this.getBestTimeMessage(username, position, gameName);
+        io.emit("chatMessage", message);
+}
 
-        return isConnected ? `${username} vient de se déconnecter.` :
-                             `${username} vient de se connecter.`;
+    private getConnectionMessage(isConnected: boolean, username: string): ChatMessage {
+        const textMessage: string = isConnected ? `${username} vient de se déconnecter.` : `${username} vient de se connecter.`;
 
+        return {
+            chatTime: this.getCurrentTimeService.getCurrentTime(),
+            username: username,
+            text: textMessage,
+        };
     }
 }

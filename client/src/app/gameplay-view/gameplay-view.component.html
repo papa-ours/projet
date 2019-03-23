@@ -17,7 +17,9 @@
         </span>
     </div>
 
-    <div #container class="images-chat-container">
+    
+    <div *ngIf="!isChronoRunning" class="loader"></div>
+    <div #container class="images-chat-container" [class.disabled]="!isChronoRunning">
         <div [style.left.px]="clickPosition.i" [style.top.px]="clickPosition.j" class="error-tag" *ngIf="showError">ERREUR</div>
         <div *ngIf="type==0; else scenes"> 
             <app-gameplay-2d (foundDifferenceEvent)="updateGameplay()" (errorIdentificationEvent)="identificationError()" [id]="id" [name]="name" [canClick]="canClick"></app-gameplay-2d>

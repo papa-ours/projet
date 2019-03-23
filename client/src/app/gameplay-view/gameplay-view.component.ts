@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild  } from "@angula
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
-import { GameType } from "../../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../../common/communication/game-description";
 import { Position } from "../../../../common/images/position";
 import { GameplayService } from "../gameplay.service";
 import { SocketService } from "../socket.service";
@@ -14,7 +14,7 @@ import { SocketService } from "../socket.service";
 })
 export class GameplayViewComponent implements OnInit {
 
-    public readonly nbPlayers: number;
+    public readonly gameMode: GameMode;
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
     private readonly CORRECT_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
     private readonly WRONG_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
@@ -38,8 +38,8 @@ export class GameplayViewComponent implements OnInit {
         public name: string,
         public id: string,
     ) {
-        this.nbPlayers = 1;
-        this.requiredDifferences = this.nbPlayers === 1 ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
+        this.gameMode = GameMode.Solo;
+        this.requiredDifferences = this.gameMode === GameMode.Solo ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
         this.foundDifferencesCounter = 0;
         this.images = [];
         this.canClick = true;
@@ -53,8 +53,8 @@ export class GameplayViewComponent implements OnInit {
             this.type = params["type"];
             this.gameplayService.getGameId(this.name, this.type).subscribe((id: string) => {
                 this.id = id;
+                this.startChrono();
             });
-            this.startChrono();
         });
         const SOUND_VOLUME: number = 0.2;
         this.CORRECT_SOUND.volume = SOUND_VOLUME;
@@ -70,7 +70,7 @@ export class GameplayViewComponent implements OnInit {
 
     public updateGameplay(): void {
         this.foundDifferencesCounter ++;
-        this.socketService.sendFoundDiffrenceMessage(this.type);
+        this.socketService.sendFoundDiffrenceMessage(this.gameMode);
         if (this.foundDifferencesCounter === this.requiredDifferences) {
             this.isChronoRunning = false;
             this.canClick = false;
@@ -86,7 +86,7 @@ export class GameplayViewComponent implements OnInit {
     }
 
     public identificationError(): void {
-        this.socketService.sendErrorIdentificationMessage(this.type);
+        this.socketService.sendErrorIdentificationMessage(this.gameMode);
         this.showErrorMessage();
         this.showCursorError();
         this.playWrongSound();

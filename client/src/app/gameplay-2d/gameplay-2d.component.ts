@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { SERVER_ADDRESS } from "../../../../common/communication/constants";
+import { S3_BUCKET_URL, SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { ImageType } from "../../../../common/images/image-type";
@@ -34,8 +34,8 @@ export class Gameplay2DComponent implements OnInit {
     }
 
     private setImagesPath(): void {
-        this.imagesUrl[ImageType.Original] = `${SERVER_ADDRESS}/${this.name}-originalImage.bmp`;
-        this.imagesUrl[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
+        this.imagesUrl[ImageType.Original] = `${S3_BUCKET_URL}/${this.name}-originalImage.bmp`;
+        this.imagesUrl[ImageType.Modified] = `${S3_BUCKET_URL}/${this.name}-modifiedImage.bmp`;
     }
 
     public checkDifference(position: VectorInterface): void {

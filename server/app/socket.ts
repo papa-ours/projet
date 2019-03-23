@@ -1,10 +1,8 @@
 import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
-import { GameType } from "../../common/communication/game-description";
-import { DifferenceIdentification } from "../../common/communication/message";
-import { ChatMessagePvpService } from "./services/chat-message-pvp.service";
-import { ChatMessageSoloService } from "./services/chat-message-solo.service";
+import { GameMode } from "../../common/communication/game-description";
+import { container } from "./inversify.config";
 import { ChatMessageService } from "./services/chat-message.service";
 import { GetCurrentTimeService } from "./services/get-current-time.service";
 import { UsersContainerService } from "./services/users-container.service";
@@ -19,7 +17,7 @@ export class Socket {
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
         @inject(Types.GetCurrentTimeService) public getCurrentTimeService: GetCurrentTimeService,
     ) {
-        this.chatMessageService = new ChatMessageSoloService(this.usersContainerService, this.getCurrentTimeService);
+        this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService);
     }
 
     public init(server: http.Server): void {
@@ -34,6 +32,11 @@ export class Socket {
         });
     }
 
+    public sendBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): void {
+        this.ChangeGameType(gameMode);
+        this.chatMessageService.sendBestTimeMessage(this.io, username, position, gameName);
+    }
+
     private setupNewUser(socket: SocketIO.Socket): void {
        socket.on("newUser", () => {
             const isConnected: boolean = false;
@@ -43,13 +46,15 @@ export class Socket {
 
     private setupFoundDifference(socket: SocketIO.Socket): void {
         socket.on("foundDifference", () => {
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, DifferenceIdentification.DifferenceFound);
+            const isDifferenceFound: boolean = true;
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound);
         });
     }
 
     private setupErrorIdentification(socket: SocketIO.Socket): void {
         socket.on("errorIdentification", () => {
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, DifferenceIdentification.ErrorIdentification);
+            const isDifferenceFound: boolean = false;
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound);
         });
     }
 
@@ -62,13 +67,15 @@ export class Socket {
     }
 
     private setupGameType(socket: SocketIO.Socket): void {
-        socket.on("setGameType", (gameType: GameType) => {
-            // triple equal problem
-            // tslint:disable-next-line:triple-equals
-            gameType == GameType.Simple ?
-                this.chatMessageService = new ChatMessageSoloService(this.usersContainerService, this.getCurrentTimeService) :
-                this.chatMessageService = new ChatMessagePvpService(this.usersContainerService, this.getCurrentTimeService);
+        socket.on("setGameType", (gameMode: GameMode) => {
+            this.ChangeGameType(gameMode);
         });
+    }
+
+    private ChangeGameType(gameMode: GameMode): void {
+        gameMode === GameMode.Solo ?
+            this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService) :
+            this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessagePvpService);
     }
 
     private deleteUser(id: string): void {
