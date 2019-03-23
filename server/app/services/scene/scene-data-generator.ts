@@ -35,9 +35,9 @@ export class SceneDataGeneratorService {
         const maxAngle: number = Math.PI;
 
         return {
-            x: RandomNumber.randomFloat(0, maxAngle),
-            y: isYFixed ? 0 : RandomNumber.randomFloat(0, maxAngle),
-            z: RandomNumber.randomFloat(0, maxAngle),
+            x: isYFixed ? 0 : RandomNumber.randomFloat(0, maxAngle),
+            y: RandomNumber.randomFloat(0, maxAngle),
+            z: isYFixed ? 0 : RandomNumber.randomFloat(0, maxAngle),
         };
     }
 
