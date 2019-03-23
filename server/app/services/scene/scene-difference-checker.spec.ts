@@ -82,7 +82,7 @@ describe("SceneDifferenceChecker", () => {
             scene.modifiedScene = differenceGenerator.getDifference(scene.originalScene, modifications);
         });
 
-        it("should detect the excate number of differences", () => {
+        it("should detect the excat number of differences", () => {
             sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
             expect(sceneDifferenceChecker.differences.length).to.deep.equal(REQUIRED_DIFFERENCES_1P);
         });
