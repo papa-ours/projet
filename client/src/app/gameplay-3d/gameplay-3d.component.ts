@@ -61,13 +61,10 @@ export class Gameplay3dComponent implements AfterViewInit {
         );
     }
 
-    @HostListener("document:keypress", ["$event"])
-    public toggleCheatMode(keyboardEvent: KeyboardEvent): void {
-        const keyType: string = "t";
-        if (keyboardEvent.key.toLowerCase() === keyType) {
-            this.difference3DCheckerService.getAllDifference(this.id).subscribe(
-                (geometries: GeometryData[]) => this.cheatModeService.toggleCheatMode(geometries),
-            );
-        }
+    @HostListener("document:keyup.t", ["$event"])
+    public toggleCheatMode(): void {
+        this.difference3DCheckerService.getAllDifference(this.id).subscribe(
+            (geometries: GeometryData[]) => this.cheatModeService.toggleCheatMode(geometries),
+        );
     }
 }
