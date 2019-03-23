@@ -92,12 +92,10 @@ export class DeplacementCameraService {
                 DeplacementCameraService.render3dModifiedImage.setDeltaX(0);
                 break;
             case DeplacementCameraService.BACKWARD:
-                DeplacementCameraService.render3dOriginalImage.setDeltaZ(0);
-                DeplacementCameraService.render3dModifiedImage.setDeltaZ(0);
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaZ(0));
                 break;
             case DeplacementCameraService.RIGHT:
-                DeplacementCameraService.render3dOriginalImage.setDeltaX(0);
-                DeplacementCameraService.render3dModifiedImage.setDeltaX(0);
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaX(0));
                 break;
             default:
         }
