@@ -21,5 +21,5 @@ export default {
         DifferenceCheckerService: Symbol("DifferenceCheckerService"),
         DifferenceCheckerController: Symbol("DifferenceCheckerController"),
         UsersContainerService: Symbol("UsersContainerService"),
-        ScoreUpdaterService: Symbol("ScoreUpdaterService");
+        ScoreUpdaterService: Symbol("ScoreUpdaterService"),
 };
