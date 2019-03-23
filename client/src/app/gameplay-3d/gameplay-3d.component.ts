@@ -62,7 +62,7 @@ export class Gameplay3dComponent implements AfterViewInit {
     }
 
     @HostListener("document:keypress", ["$event"])
-    public cheatMode(keyboardEvent: KeyboardEvent): void {
+    public toggleCheatMode(keyboardEvent: KeyboardEvent): void {
         const keyType: string = "t";
         if (keyboardEvent.key.toLowerCase() === keyType) {
             this.difference3DCheckerService.getAllDifference(this.id).subscribe(
