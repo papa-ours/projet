@@ -19,9 +19,11 @@ export abstract class ChatMessageService {
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
             const textMessage: string = this.getIdentificationMessage(username, identification);
-            const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                                          username: username,
-                                          text: textMessage};
+            const message: ChatMessage = {
+                chatTime: this.getCurrentTimeService.getCurrentTime(),
+                username: username,
+                text: textMessage,
+            };
             socket.emit("chatMessage", message);
         }
     }
@@ -30,17 +32,18 @@ export abstract class ChatMessageService {
         const username: string = this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
             const textMessage: string = this.getConnectionMessage(isConnected, username);
-            const message: ChatMessage = {chatTime: this.getCurrentTimeService.getCurrentTime(),
-                                          username: username,
-                                          text: textMessage};
+            const message: ChatMessage = {
+                chatTime: this.getCurrentTimeService.getCurrentTime(),
+                username: username,
+                text: textMessage,
+            };
             io.emit("chatMessage", message);
         }
     }
 
     private getConnectionMessage(isConnected: boolean, username: string): string {
 
-        return isConnected ? `${username} vient de se déconnecter.` :
-                             `${username} vient de se connecter.`;
+        return isConnected ? `${username} vient de se déconnecter.` : `${username} vient de se connecter.`;
 
     }
 }
