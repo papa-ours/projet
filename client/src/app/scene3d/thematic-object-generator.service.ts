@@ -15,14 +15,22 @@ export class ThematicObjectGeneratorService {
         OBJLoader(THREE);
         this.objLoader = new THREE.OBJLoader();
         this.objLoader.setPath("../../assets/3d-objects/");
-        if (!ThematicObjectGeneratorService.areObjectsLoaded) {
-            this.createAllObjects()
-                .then((objectPairs: [string, THREE.Group][]) => {
-                    ThematicObjectGeneratorService.areObjectsLoaded = true;
-                    ThematicObjectGeneratorService.objects = new Map(objectPairs);
-                })
-                .catch((error: Error) => console.error(error.message));
-        }
+    }
+
+    public async waitForObjects(): Promise<{}> {
+        return new Promise((resolve: Function) => {
+            if (!ThematicObjectGeneratorService.areObjectsLoaded) {
+                this.createAllObjects()
+                    .then((objectPairs: [string, THREE.Group][]) => {
+                        ThematicObjectGeneratorService.areObjectsLoaded = true;
+                        ThematicObjectGeneratorService.objects = new Map(objectPairs);
+                        resolve();
+                    })
+                    .catch((error: Error) => console.error(error.message));
+            } else {
+                resolve();
+            }
+        });
     }
 
     private createAllObjects(): Promise<[string, THREE.Group][]> {
