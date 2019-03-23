@@ -4,6 +4,8 @@ import { GameType, HasId } from "../../../../common/communication/game-descripti
 export abstract class AbstractGame implements HasId {
 
     public differenceCount: number;
+    private startTime: Date;
+    public username: string;
 
     public constructor(
         public id: string,
@@ -15,4 +17,12 @@ export abstract class AbstractGame implements HasId {
     protected abstract async setUp(name: string): Promise<{}>;
     public abstract async cleanUp(): Promise<{}>;
 
+    public start(username: string): void {
+        this.username = username;
+        this.startTime = new Date();
+    }
+
+    public get time(): number {
+        return new Date().getUTCSeconds() - this.startTime.getUTCSeconds();
+    }
 }
