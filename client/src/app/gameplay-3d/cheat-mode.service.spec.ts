@@ -25,18 +25,20 @@ describe("CheatModeService", () => {
         isModified: false,
     }];
     const div: HTMLDivElement = document.createElement("div");
+    let cheatModeService: CheatModeService;
+    beforeEach(() => {
+        originalRenderer.initialize(div, sceneGenerator.createScene(geometry));
+        modifiedRenderer.initialize(div, sceneGenerator.createScene(modifiedGeometry));
+        cheatModeService = new CheatModeService(originalRenderer, modifiedRenderer);
+    });
 
     it("should be created", () => {
         originalRenderer.initialize(div, sceneGenerator.createScene(geometry));
         modifiedRenderer.initialize(div, sceneGenerator.createScene(modifiedGeometry));
-        const cheatModeService: CheatModeService = new CheatModeService(originalRenderer, modifiedRenderer);
         expect(cheatModeService).toBeTruthy();
     });
 
     it("should activate when toggle is called and canceled when called again", () => {
-        originalRenderer.initialize(div, sceneGenerator.createScene(geometry));
-        modifiedRenderer.initialize(div, sceneGenerator.createScene(modifiedGeometry));
-        const cheatModeService: CheatModeService = new CheatModeService(originalRenderer, modifiedRenderer);
         cheatModeService.toggleCheatMode(geometry);
         expect(cheatModeService["isActivated"]).toBeTruthy();
         cheatModeService.toggleCheatMode(geometry);
