@@ -67,10 +67,11 @@ export class DBConnectionService {
         return mongoose.models.GameSheet.deleteOne({id: id, type: type});
     }
 
-    public async putScore(gameSheetId: string, name: string, time: number): Promise<{}> {
+    public async putScore(gameSheetId: string, name: string, time: number): Promise<void> {
         const now: Date = new Date();
+        const instance: typeof mongoose = await this.connect();
 
-        return mongoose.models.GameSheet.findOneAndUpdate(
+        return instance.models.GameSheet.findOneAndUpdate(
             {id: gameSheetId},
             {
                 $push: {
@@ -81,6 +82,6 @@ export class DBConnectionService {
                     },
                 },
             },
-        );
+        ).then(() => instance.disconnect());
     }
 }
