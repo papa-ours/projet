@@ -75,7 +75,7 @@ describe.only("chat-message-service", () => {
         socketClient1.disconnect();
         const expected: string = "Username1 vient de se déconnecter.";
         socketClient2.on("chatMessage", (result: ChatMessage) => {
-            expect(result.text).to.deep.equals(expected);
+            expect(decodeURIComponent(escape(result.text))).to.deep.equals(expected);
             setTimeout(done, 0);
         });
     });
