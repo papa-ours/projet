@@ -96,7 +96,7 @@ export class DBConnectionService {
                     topScoresSolo: {
                         $each: [{username, time, date: now}],
                         $sort: {time: 1},
-                        $slice: 3,
+                        $slice: TopScores.SCORE_LENGTH,
                     },
                 },
             },
