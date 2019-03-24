@@ -7,8 +7,6 @@ import { RenderService } from "../scene3d/render.service";
 })
 export class CheatModeService {
     private static readonly BLINKING_FREQUENCY: number = 8;
-    private static readonly EMISSIVE_COLOR: number = 0xFF0000;
-    private static readonly NEUTRAL_COLOR: number = 0x000000;
     private readonly ONE_SECONDE: number = 1000;
     private isActivated: boolean;
     private timeoutPointer: number;
@@ -33,8 +31,7 @@ export class CheatModeService {
     private setVisibility(renderer: RenderService, geometry: GeometryData, visibility: boolean): void {
         if (this.findGeometry(renderer, geometry) !== undefined) {
             const object: THREE.Mesh = this.findGeometry(renderer, geometry) as THREE.Mesh;
-            const objectMaterial: THREE.MeshStandardMaterial = object.material as THREE.MeshStandardMaterial;
-            objectMaterial.emissive.setHex(visibility ?  CheatModeService.NEUTRAL_COLOR : CheatModeService.EMISSIVE_COLOR);
+            object.visible = visibility;
         }
     }
 
