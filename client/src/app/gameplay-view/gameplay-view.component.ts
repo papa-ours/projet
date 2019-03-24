@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
+import { ConnectionService } from "../connection.service";
 import { GameplayService } from "../gameplay.service";
 
 @Component({
@@ -26,6 +27,7 @@ export class GameplayViewComponent implements OnInit {
     public constructor(
         private route: ActivatedRoute,
         private gameplayService: GameplayService,
+        private connectionService: ConnectionService,
         public name: string,
         public id: string,
     ) {
@@ -40,7 +42,7 @@ export class GameplayViewComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
             this.type = params["type"];
-            this.gameplayService.getGameId(this.name, this.type).subscribe((id: string) => {
+            this.gameplayService.getGameId(this.name, this.type, this.connectionService.username).subscribe((id: string) => {
                 this.id = id;
                 this.startChrono();
             });
