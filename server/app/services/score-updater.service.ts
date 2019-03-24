@@ -11,6 +11,6 @@ export class ScoreUpdaterService {
 
     public async putScore(gameSheetId: string, name: string, time: number): Promise<void> {
 
-        return this.dbConnectionService.putScore(gameSheetId, name, time);
+        return this.dbConnectionService.putSoloScore(gameSheetId, name, time);
     }
 }

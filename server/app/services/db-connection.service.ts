@@ -15,7 +15,8 @@ export class DBConnectionService {
     public readonly gameSheetSchema: mongoose.Schema = new mongoose.Schema({
         name: String,
         id: String,
-        topScores: Array,
+        topScoresSolo: Array,
+        topScores1v1: Array,
         type: Number,
     });
     public connected: boolean = false;
@@ -67,7 +68,7 @@ export class DBConnectionService {
         return mongoose.models.GameSheet.deleteOne({id: id, type: type});
     }
 
-    public async putScore(gameSheetId: string, name: string, time: number): Promise<void> {
+    public async putSoloScore(gameSheetId: string, name: string, time: number): Promise<void> {
         const now: Date = new Date();
         const instance: typeof mongoose = await this.connect();
 
@@ -75,7 +76,7 @@ export class DBConnectionService {
             {id: gameSheetId},
             {
                 $push: {
-                    topScores: {
+                    topScoresSolo: {
                         $each: [{name, time, now}],
                         $sort: {time: -1, date: -1},
                         $slice: TopScores.SCORE_LENGTH,
