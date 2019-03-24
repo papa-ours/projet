@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
+import { SceneType } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { RenderService } from "./render.service";
 
@@ -33,25 +34,28 @@ export class RaycasterService {
         render.camera.updateMatrixWorld(false);
         this.rayCaster.setFromCamera(this.mouse.clone(), render.camera);
 
-        return this.rayCaster.intersectObjects(render.scene.children);
+        return this.rayCaster.intersectObjects(render.scene.children, true);
     }
 
-    private getNearestPosition(intersections: THREE.Intersection[]): VectorInterface | undefined {
+    private getNearestPosition(intersections: THREE.Intersection[], type: SceneType): VectorInterface | undefined {
         if (intersections.length > 0) {
-            return intersections[this.nearestObjectIndex].object.position;
+            const object: THREE.Object3D = intersections[this.nearestObjectIndex].object;
+            const group: THREE.Object3D = object.parent as THREE.Object3D;
+
+            return  type === SceneType.THEMATIC ? group.position : object.position;
         }
 
         return undefined;
     }
 
-    public findObject(position: VectorInterface): VectorInterface | undefined {
+    public findObject(position: VectorInterface, scenetype: SceneType ): VectorInterface | undefined {
         this.mouse.x = position.x;
         this.mouse.y = position.y;
         let intersections: THREE.Intersection[] = this.getIntersections(this.originalRender);
-        let intersectionPosition: VectorInterface | undefined = this.getNearestPosition(intersections);
+        let intersectionPosition: VectorInterface | undefined = this.getNearestPosition(intersections, scenetype);
         if (intersectionPosition === undefined) {
             intersections = this.getIntersections(this.modifiedRender);
-            intersectionPosition = this.getNearestPosition(intersections);
+            intersectionPosition = this.getNearestPosition(intersections, scenetype);
         }
 
         return intersectionPosition;
