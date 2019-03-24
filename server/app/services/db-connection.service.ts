@@ -75,7 +75,9 @@ export class DBConnectionService {
         const TOP_SCORES_LENGTH: number = 2;
         const topScores: TopScores[] = [...Array(TOP_SCORES_LENGTH)].map(() => TopScores.generateTopScores());
 
-        return mongoose.models.GameSheet.updateOne({id: id, type: type}, {topScores: topScores}).exec();
+        return this.performRequest((instance: typeof mongoose) => {
+            return mongoose.models.GameSheet.updateOne({id: id, type: type}, {topScores: topScores}).exec();
+        });
     }
 
     public async deleteGameSheet(id: string, type: GameType): Promise<DeleteResponse> {
