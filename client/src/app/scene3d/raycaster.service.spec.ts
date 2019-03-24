@@ -14,6 +14,14 @@ describe("RaycasterService", () => {
         rotation: { x: 0, y: 0, z: 0 },
         isModified: false,
         },
+        {
+            color: 0x0000FF,
+            size: 65,
+            type: 2,
+            position: { x: 0, y: 0, z: -500 },
+            rotation: { x: 0, y: 0, z: 0 },
+            isModified: false,
+        },
     ];
     const MODIFIED_GEOMETRY: GeometryData[] = [
         {
@@ -67,4 +75,14 @@ describe("RaycasterService", () => {
         const raycastedPosition: VectorInterface | undefined = raycasterService.findObject(position, 0);
         expect(raycastedPosition).toBeUndefined();
     });
+
+    it("should always return the nearest object position when raycasted", () => {
+        const position: VectorInterface = {x: 0, y: 0, z: 0};
+        const raycastedPosition: VectorInterface = raycasterService.findObject(position, 0) as VectorInterface;
+        expect(raycastedPosition).toBeDefined();
+        expect(raycastedPosition.x).toEqual(position.x);
+        expect(raycastedPosition.y).toEqual(position.y);
+        expect(raycastedPosition.z).toEqual(position.z);
+    });
+
 });
