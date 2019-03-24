@@ -21,9 +21,10 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     @Input() public type: number;
     @Input() public differenceCounter: number;
     @Input() public id: string;
-    @Output() private difference3DEvent: EventEmitter<VectorInterface>;
+    @Output() private difference3DEvent: EventEmitter<[VectorInterface, SceneType]>;
     @ViewChild("container")
     private containerRef: ElementRef;
+    private sceneType: SceneType;
 
     public constructor(
         public renderService: RenderService,
@@ -33,7 +34,7 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
         ) {
         this.name = "";
         this.renderService = new RenderService();
-        this.difference3DEvent = new EventEmitter<VectorInterface>();
+        this.difference3DEvent = new EventEmitter<[VectorInterface, SceneType]>();
     }
 
     public get container(): HTMLDivElement {
@@ -60,6 +61,7 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
         const getFromS3: boolean = this.differenceCounter === 0 || this.differenceCounter === undefined;
         this.getSceneData.getSceneData(name, getFromS3).subscribe(async (sceneData: SceneData) => {
             const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
+            this.sceneType = sceneData.type;
             this.renderService.initialize(
                 this.container,
                 sceneData.type === SceneType.GEOMETRIC ?
@@ -71,7 +73,7 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
 
     @HostListener("click", ["$event"])
     public mouseClicked(mouseEvent: MouseEvent): void {
-            this.difference3DEvent.emit(RaycasterService.getMousePosition(mouseEvent, this.container));
+            this.difference3DEvent.emit([RaycasterService.getMousePosition(mouseEvent, this.container), this.sceneType]);
     }
 
 }
