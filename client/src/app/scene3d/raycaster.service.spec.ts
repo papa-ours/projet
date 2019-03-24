@@ -1,12 +1,28 @@
-import { TestBed } from "@angular/core/testing";
-
-import { RaycasterService } from "./raycaster.service";
+import { GeometryData } from "../../../../common/communication/geometry";
 
 describe("RaycasterService", () => {
-    beforeEach(() => TestBed.configureTestingModule({}));
+    const ORIGINAL_GEOMETRY: GeometryData[] = [
+        {
+        color: 0xFF00FF,
+        size: 65,
+        type: 2,
+        position: { x: 0, y: 0, z: 0 },
+        rotation: { x: 0, y: 0, z: 0 },
+        isModified: false,
+        },
+    ];
+    const MODIFIED_GEOMETRY: GeometryData[] = [
+        {
+            color: 0x00FF00,
+            size: 65,
+            type: 2,
+            position: { x: 0, y: 0, z: 0 },
+            rotation: { x: 0, y: 0, z: 0 },
+            isModified: true,
+        },
+    ];
 
     it("should be created", () => {
-        const service: RaycasterService = TestBed.get(RaycasterService);
-        expect(service).toBeTruthy();
+        expect(raycasterService).toBeTruthy();
     });
 });
