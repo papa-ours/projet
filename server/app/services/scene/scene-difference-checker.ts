@@ -8,30 +8,30 @@ import { Scene } from "./scene";
 @injectable()
 export class SceneDifferenceCheckerService {
 
-    public differences: GeometryData[];
-    public scene: Scene;
-
-    public constructor(sceneData: SceneData) {
-        this.scene = Scene.fromSceneData(sceneData);
-        this.differences = this.getDifferences(sceneData.originalScene, sceneData.modifiedScene);
-    }
-
     private isGeometryInCollection(newGeometry: GeometryData, collection: GeometryData[]): boolean {
         return collection.some(
             (geometry: GeometryData) => (Geometry.fromGeometryData(geometry).isPositionEqual(newGeometry.position)),
         );
     }
 
-    private getDifferences(original: GeometryData[], modified: GeometryData[]): GeometryData[] {
-        const suppression: GeometryData[] = original.filter((geometry: GeometryData) => !this.isGeometryInCollection(geometry, modified));
-        const adding: GeometryData[] = modified.filter((geometry: GeometryData) => !this.isGeometryInCollection(geometry, original));
-        const color: GeometryData[] = original.filter((geometry: GeometryData) => this.scene.isColorChangeAtPosition(geometry.position));
+    public getDifferences(sceneData: SceneData): GeometryData[] {
+        const scene: Scene = Scene.fromSceneData(sceneData);
+        const suppression: GeometryData[] = scene.originalScene.filter(
+            (geometry: GeometryData) => !this.isGeometryInCollection(geometry, scene.modifiedScene),
+        );
+        const adding: GeometryData[] = scene.modifiedScene.filter(
+            (geometry: GeometryData) => !this.isGeometryInCollection(geometry, scene.originalScene),
+        );
+        const color: GeometryData[] = scene.originalScene.filter(
+            (geometry: GeometryData) => scene.isColorChangeAtPosition(geometry.position),
+        );
 
         return [...suppression, ...adding, ...color];
     }
 
-    public checkDifference(position: VectorInterface): boolean {
+    public checkDifference(sceneData: SceneData, position: VectorInterface): boolean {
+        const differences: GeometryData[] = this.getDifferences(sceneData);
 
-        return this.differences.some((geometry: GeometryData) => Geometry.fromGeometryData(geometry).isPositionEqual(position));
+        return differences.some((geometry: GeometryData) => Geometry.fromGeometryData(geometry).isPositionEqual(position));
     }
 }
