@@ -47,7 +47,10 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     }
     public ngOnChanges(changes: SimpleChanges): void {
         const differenceChange: SimpleChange = changes.differenceCounter;
-        if (this.container.firstChild && differenceChange.currentValue > differenceChange.previousValue) {
+        if (this.container.firstChild &&
+            differenceChange !== undefined &&
+            differenceChange.currentValue > differenceChange.previousValue
+        ) {
             this.container.removeChild(this.container.firstChild);
             this.getScene(this.id);
         }
@@ -75,5 +78,4 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     public mouseClicked(mouseEvent: MouseEvent): void {
             this.difference3DEvent.emit([RaycasterService.getMousePosition(mouseEvent, this.container), this.sceneType]);
     }
-
 }

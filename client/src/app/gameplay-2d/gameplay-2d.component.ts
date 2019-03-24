@@ -14,10 +14,12 @@ export class Gameplay2DComponent implements OnInit {
 
     @Input() private name: string;
     @Input() private id: string;
+    @Input() private canClick: boolean;
     public imagesUrl: string[];
     public type: GameType;
     private foundDifferencesCounter: number;
     @Output() public foundDifferenceEvent: EventEmitter<void>;
+    @Output() public errorIdentificationEvent: EventEmitter<void>;
 
     public constructor(
         private differenceCheckerService: DifferenceCheckerService,
@@ -25,6 +27,7 @@ export class Gameplay2DComponent implements OnInit {
         this.imagesUrl = [];
         this.foundDifferencesCounter = 0;
         this.foundDifferenceEvent = new EventEmitter<void>();
+        this.errorIdentificationEvent = new EventEmitter<void>();
     }
     public ngOnInit(): void {
         this.setImagesPath();
@@ -36,13 +39,13 @@ export class Gameplay2DComponent implements OnInit {
     }
 
     public checkDifference(position: VectorInterface): void {
-        this.differenceCheckerService.isPositionDifference(this.id, position.x, position.y)
-            .subscribe((isDifference: boolean) => {
-                if (isDifference) {
-                    this.differenceFound();
-                }
-            },
-        );
+        if (this.canClick) {
+            this.differenceCheckerService.isPositionDifference(this.id, position.x, position.y)
+                .subscribe((isDifference: boolean) => {
+                    isDifference ? this.differenceFound() : this.errorIdentificationEvent.emit();
+                },
+            );
+        }
     }
 
     private differenceFound(): void {
