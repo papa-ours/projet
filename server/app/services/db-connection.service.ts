@@ -79,7 +79,9 @@ export class DBConnectionService {
     }
 
     public async deleteGameSheet(id: string, type: GameType): Promise<DeleteResponse> {
-        return mongoose.models.GameSheet.deleteOne({id: id, type: type});
+        return this.performRequest((instance: typeof mongoose) => {
+            return mongoose.models.GameSheet.deleteOne({id: id, type: type});
+        });
     }
 
     public async getGameSheetId(name: string, type: GameType): Promise<string> {
