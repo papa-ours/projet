@@ -1,6 +1,11 @@
 import { ElementRef } from "@angular/core";
 import { RenderService } from "./render.service";
 
+interface RenderElement {
+    elementRef: ElementRef;
+    render: RenderService;
+}
+
 export class DeplacementCameraService {
 
     private static readonly RIGHT_CLICK: number = 2;
@@ -10,22 +15,20 @@ export class DeplacementCameraService {
     private static readonly RIGHT: string = "d";
     private static readonly BACKWARD: string = "s";
 
-    private static elementRefOriginal: ElementRef;
-    private static elementRefModified: ElementRef;
-    private static render3dOriginalImage: RenderService;
-    private static render3dModifiedImage: RenderService;
+    private static renderElementOriginal: RenderElement = { } as RenderElement;
+    private static renderElementModified: RenderElement = { } as RenderElement;
 
     public static setElementRef(elementRefOriginal: ElementRef, elementRefModified: ElementRef): void {
-        DeplacementCameraService.elementRefOriginal = elementRefOriginal;
-        DeplacementCameraService.elementRefModified = elementRefModified;
+        DeplacementCameraService.renderElementOriginal.elementRef = elementRefOriginal;
+        DeplacementCameraService.renderElementModified.elementRef = elementRefModified;
     }
 
     public static setRender3dOriginalImage(renderService: RenderService): void {
-        DeplacementCameraService.render3dOriginalImage = renderService;
+        DeplacementCameraService.renderElementOriginal.render = renderService;
     }
 
     public static setRender3dModifiedImage(renderService: RenderService): void {
-        DeplacementCameraService.render3dModifiedImage = renderService;
+        DeplacementCameraService.renderElementModified.render = renderService;
     }
 
     public static activateMovement(): void {
@@ -39,22 +42,22 @@ export class DeplacementCameraService {
     }
 
     private static activateMovementMouse(): void {
-        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener(
+        DeplacementCameraService.renderElementOriginal.elementRef.nativeElement.addEventListener(
             "mousedown",
             DeplacementCameraService.onMouseClick,
             false,
             );
-        DeplacementCameraService.elementRefOriginal.nativeElement.addEventListener(
+        DeplacementCameraService.renderElementOriginal.elementRef.nativeElement.addEventListener(
             "mouseup",
             DeplacementCameraService.onMouseClick,
             false,
             );
-        DeplacementCameraService.elementRefModified.nativeElement.addEventListener(
+        DeplacementCameraService.renderElementModified.elementRef.nativeElement.addEventListener(
             "mousedown",
             DeplacementCameraService.onMouseClick,
             false,
             );
-        DeplacementCameraService.elementRefModified.nativeElement.addEventListener(
+        DeplacementCameraService.renderElementModified.elementRef.nativeElement.addEventListener(
             "mouseup",
             DeplacementCameraService.onMouseClick,
             false);
@@ -112,7 +115,7 @@ export class DeplacementCameraService {
     }
 
     private static forEachScene(func: (render: RenderService) => void): void {
-        func(DeplacementCameraService.render3dOriginalImage);
-        func(DeplacementCameraService.render3dModifiedImage);
+        func(DeplacementCameraService.renderElementOriginal.render);
+        func(DeplacementCameraService.renderElementModified.render);
     }
 }
