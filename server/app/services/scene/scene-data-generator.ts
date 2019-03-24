@@ -7,6 +7,12 @@ import { VectorInterface } from "../../../../common/communication/vector-interfa
 import { RandomNumber } from "../utils/random-number";
 import { GeometryIntersection } from "./geometry-intersection";
 
+export interface ThematicObjectData {
+    thematicType: ThematicObjectType;
+    size: number;
+    geometricType: GeometryType;
+}
+
 @injectable()
 export class SceneDataGeneratorService {
     private readonly BASECOLOR: number = 0xFFFFFF;
@@ -63,11 +69,11 @@ export class SceneDataGeneratorService {
         return geometryTypes[Math.floor(Math.random() * geometryTypes.length)];
     }
 
-    public getRandomGeometryData(size?: number, type?: GeometryType): GeometryData {
-        const randomPosition: VectorInterface = this.getRandomPosition(size !== undefined);
-        const randomRotation: VectorInterface = this.getRandomRotation(size !== undefined);
+    public getRandomGeometryData(thematicObjectData?: ThematicObjectData): GeometryData {
+        const randomPosition: VectorInterface = this.getRandomPosition(thematicObjectData !== undefined);
+        const randomRotation: VectorInterface = this.getRandomRotation(thematicObjectData !== undefined);
         const randomColor: number = this.getRandomColor();
-        const randomSize: number = size ? this.getRandomSize(size) : this.getRandomSize();
+        const randomSize: number = thematicObjectData ? this.getRandomSize(thematicObjectData.size) : this.getRandomSize();
 
         return {
             position: randomPosition,
@@ -75,18 +81,17 @@ export class SceneDataGeneratorService {
             color: randomColor,
             size: randomSize,
             isModified: false,
-            type: type ? type : this.getRandomGeometryType(),
+            type: thematicObjectData ? thematicObjectData.geometricType : this.getRandomGeometryType(),
         };
     }
 
-    public getRandomNonIntersectingGeometryData(collection: GeometryData[], size?: number,
-                                                type?: GeometryType, thematicObjectType?: ThematicObjectType): GeometryData {
+    public getRandomNonIntersectingGeometryData(collection: GeometryData[], thematicObjectData?: ThematicObjectData): GeometryData {
         let geometry: GeometryData;
         do {
-            geometry = this.getRandomGeometryData(size, type);
+            geometry = this.getRandomGeometryData(thematicObjectData);
         } while (GeometryIntersection.intersectsWithCollection(geometry, collection));
 
-        geometry.thematicObjectType = thematicObjectType;
+        geometry.thematicObjectType = thematicObjectData ? thematicObjectData.thematicType : undefined;
 
         return geometry;
     }
@@ -95,11 +100,8 @@ export class SceneDataGeneratorService {
         this.validateNumberOfObjects(numberOfObjects);
         const geometryData: GeometryData[] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
-            const thematicObjectType: ThematicObjectType | undefined = sizes ? this.getRandomThematicObjectType() : undefined;
-            const size: number | undefined = thematicObjectType && sizes ? sizes[thematicObjectType] : undefined;
-            const data: GeometryData = this.getRandomNonIntersectingGeometryData(geometryData, size, type, thematicObjectType);
-            data.thematicObjectType = thematicObjectType;
-            geometryData.push(data);
+            const thematicObjectData: ThematicObjectData | undefined = sizes ? this.getRandomThematicObjectData(sizes) : undefined;
+            geometryData.push(this.getRandomNonIntersectingGeometryData(geometryData, thematicObjectData));
         }
 
         return geometryData;
@@ -112,6 +114,16 @@ export class SceneDataGeneratorService {
         ];
 
         return thematicObjectTypes[Math.floor(Math.random() * thematicObjectTypes.length)];
+    }
+
+    public getRandomThematicObjectData(sizes: number[]): ThematicObjectData {
+        const thematicObjectType: ThematicObjectType = this.getRandomThematicObjectType();
+
+        return {
+            thematicType: thematicObjectType,
+            size: sizes[thematicObjectType],
+            geometricType: GeometryType.CUBE,
+        };
     }
 
 }
