@@ -2,8 +2,8 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { S3_BUCKET_URL } from "../../../../common/communication/constants";
 import { GameSheet, GameType } from "../../../../common/communication/game-description";
-import { GameSheetService } from "../game-sheet.service";
 import { ImageTypeName } from "../../../../common/images/image-type";
+import { GameSheetService } from "../game-sheet.service";
 
 @Component({
     selector: "app-game-sheet",
