@@ -7,6 +7,8 @@ import Types from "../types";
 @injectable()
 export class EndGameController {
 
+    private static readonly BASE_10: number = 10;
+
     public constructor(
         @inject(Types.ScoreUpdaterService) private scoreUpdaterService: ScoreUpdaterService,
         @inject(Types.GetGameService) private getGameService: GetGameService,
@@ -22,8 +24,11 @@ export class EndGameController {
             async (req: Request, res: Response) => {
                 try {
                     await Promise.all([
-                        this.scoreUpdaterService.putScore(req.body.id, req.body.name, req.body.time),
-                        this.getGameService.removeGame(req.body.id),
+                        this.scoreUpdaterService.putScore(
+                            req.params.id,
+                            req.params.name,
+                            parseInt(req.params.time, EndGameController.BASE_10)),
+                        this.getGameService.removeGame(req.params.id),
                     ]);
                     res.send({
                         body: "",
