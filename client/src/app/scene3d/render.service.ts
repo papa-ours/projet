@@ -99,7 +99,7 @@ export class RenderService {
         this.speedZ = z;
     }
 
-    public setDeltaX(x: number): void {
+    public setSpeedX(x: number): void {
         this.speedX = x;
     }
 

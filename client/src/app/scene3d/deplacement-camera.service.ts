@@ -76,13 +76,13 @@ export class DeplacementCameraService {
                 DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaZ(-DeplacementCameraService.DISTANCE));
                 break;
             case DeplacementCameraService.LEFT:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaX(-DeplacementCameraService.DISTANCE));
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(-DeplacementCameraService.DISTANCE));
                 break;
             case DeplacementCameraService.BACKWARD:
                 DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaZ(DeplacementCameraService.DISTANCE));
                 break;
             case DeplacementCameraService.RIGHT:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaX(DeplacementCameraService.DISTANCE));
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(DeplacementCameraService.DISTANCE));
                 break;
             default:
         }
@@ -94,13 +94,13 @@ export class DeplacementCameraService {
                 DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaZ(0));
                 break;
             case DeplacementCameraService.LEFT:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaX(0));
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(0));
                 break;
             case DeplacementCameraService.BACKWARD:
                 DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaZ(0));
                 break;
             case DeplacementCameraService.RIGHT:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaX(0));
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(0));
                 break;
             default:
         }
