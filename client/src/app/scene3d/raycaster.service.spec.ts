@@ -46,7 +46,7 @@ describe("RaycasterService", () => {
         expect(raycasterService).toBeTruthy();
     });
 
-    it("should a position beetween -1 and 1", () => {
+    it("should return a position beetween -1 and 1 on getMousePosition", () => {
         const event: MouseEvent = new MouseEvent("mouseEvent", {clientX: 0, clientY: 0});
         const position: VectorInterface = RaycasterService.getMousePosition(event, originalContainer);
         expect(position.x).toBeGreaterThanOrEqual(-1);
@@ -54,5 +54,11 @@ describe("RaycasterService", () => {
         expect(position.y).toBeGreaterThanOrEqual(-1);
         expect(position.y).toBeLessThanOrEqual(1);
         expect(position.z).toEqual(0);
+    });
+
+    it("should return the position of an object raycasted if it exists", () => {
+        const position: VectorInterface = {x: 0, y: 0, z: 0};
+        const raycastedPosition: VectorInterface | undefined = raycasterService.findObject(position, 0);
+        expect(raycastedPosition).toBeDefined();
     });
 });
