@@ -15,7 +15,7 @@ describe("SceneDifferenceChecker", () => {
         originalScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
         modifiedScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
     };
-    let sceneDifferenceChecker: SceneDifferenceCheckerService;
+    const sceneDifferenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService();
 
     describe("deletion", () => {
         beforeEach(() => {
@@ -23,15 +23,13 @@ describe("SceneDifferenceChecker", () => {
         });
         it("should return false if object is not deleted at the position specified", () => {
             const position: VectorInterface = scene.originalScene[0].position;
-            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
-            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(false);
+            expect(sceneDifferenceChecker.checkDifference(scene, position)).to.equal(false);
         });
 
         it("should return true if object is deleted at the position specified", () => {
             const position: VectorInterface = scene.originalScene[0].position;
             scene.modifiedScene.splice(0, 1);
-            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
-            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(true);
+            expect(sceneDifferenceChecker.checkDifference(scene, position)).to.equal(true);
         });
     });
 
@@ -41,15 +39,13 @@ describe("SceneDifferenceChecker", () => {
         });
         it("should return false if object is not added at the position specified", () => {
             const position: VectorInterface = scene.originalScene[0].position;
-            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
-            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(false);
+            expect(sceneDifferenceChecker.checkDifference(scene, position)).to.equal(false);
         });
 
         it("should return true if object is added at the position specified", () => {
             scene.modifiedScene.push(sceneDataGeneratorService.getRandomGeometryData());
-            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
             const position: VectorInterface = scene.modifiedScene[scene.modifiedScene.length - 1].position;
-            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(true);
+            expect(sceneDifferenceChecker.checkDifference(scene, position)).to.equal(true);
         });
     });
 
@@ -59,15 +55,13 @@ describe("SceneDifferenceChecker", () => {
         });
         it("should return false if object has the same color at the position specified", () => {
             const position: VectorInterface = scene.originalScene[0].position;
-            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
-            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(false);
+            expect(sceneDifferenceChecker.checkDifference(scene, position)).to.equal(false);
         });
 
         it("should return true if object has a differente color at the position specified", () => {
             const position: VectorInterface = scene.originalScene[0].position;
             scene.modifiedScene[0].color = scene.originalScene[0].color + 1 ;
-            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
-            expect(sceneDifferenceChecker.checkDifference(position)).to.equal(true);
+            expect(sceneDifferenceChecker.checkDifference(scene, position)).to.equal(true);
         });
     });
 
@@ -83,8 +77,7 @@ describe("SceneDifferenceChecker", () => {
         });
 
         it("should detect the excat number of differences", () => {
-            sceneDifferenceChecker = new SceneDifferenceCheckerService(scene);
-            expect(sceneDifferenceChecker.differences.length).to.deep.equal(REQUIRED_DIFFERENCES_1P);
+            expect(sceneDifferenceChecker.getDifferences(scene).length).to.deep.equal(REQUIRED_DIFFERENCES_1P);
         });
     });
 });
