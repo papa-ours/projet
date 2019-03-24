@@ -38,4 +38,11 @@ describe("DeplacementCameraService", () => {
         expect(render1.setSpeedZ).toHaveBeenCalled();
     });
 
+    it("should change the speedX on a a key press", () => {
+        spyOn(render1, "setSpeedX");
+        const event: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "a", shiftKey : false});
+        DeplacementCameraService["setCameraSpeed"](event);
+        expect(render1.setSpeedX).toHaveBeenCalled();
+    });
+
 });
