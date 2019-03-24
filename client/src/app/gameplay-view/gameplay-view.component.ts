@@ -18,13 +18,14 @@ export class GameplayViewComponent implements OnInit {
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
     private readonly CORRECT_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
     private readonly WRONG_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
+    private readonly ERROR_TIMEOUT: number = 1000;
 
     public foundDifferencesCounter: number;
     public images: string[];
     public requiredDifferences: number;
     public type: GameType;
     public canClick: boolean;
-    public showError: boolean;
+    public isErrorMessageVisible: boolean;
     public clickPosition: Position;
     public chrono: number;
     private isChronoRunning: boolean;
@@ -43,10 +44,18 @@ export class GameplayViewComponent implements OnInit {
         this.foundDifferencesCounter = 0;
         this.images = [];
         this.canClick = true;
-        this.showError = false;
+        this.isErrorMessageVisible = false;
         this.chrono = 0;
         this.isChronoRunning = false;
     }
+
+    private static playSound(sound: HTMLAudioElement): void {
+        sound.currentTime = 0;
+        sound.play().catch((err: Error) => {
+            console.error(err);
+        });
+    }
+
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
@@ -75,34 +84,27 @@ export class GameplayViewComponent implements OnInit {
             this.isChronoRunning = false;
             this.canClick = false;
         }
-        this.playCorrectSound();
-    }
-
-    private playCorrectSound(): void {
-        this.CORRECT_SOUND.currentTime = 0;
-        this.CORRECT_SOUND.play().catch((err: Error) => {
-            console.error(err);
-        });
+        GameplayViewComponent.playSound(this.CORRECT_SOUND);
     }
 
     public identificationError(): void {
-        this.socketService.sendErrorIdentificationMessage(this.gameMode);
-        this.showErrorMessage();
-        this.showCursorError();
-        this.playWrongSound();
+        if (this.foundDifferencesCounter !== this.requiredDifferences) {
+            this.socketService.sendErrorIdentificationMessage(this.gameMode);
+            this.showErrorMessage();
+            this.showCursorError();
+            GameplayViewComponent.playSound(this.WRONG_SOUND);
+        }
     }
     private showErrorMessage(): void {
-        const ONE_SECOND: number = 1000;
-        this.showError = true;
+        this.isErrorMessageVisible = true;
         setTimeout(
             () => {
-                this.showError = false;
+                this.isErrorMessageVisible = false;
             },
-            ONE_SECOND);
+            this.ERROR_TIMEOUT);
     }
 
     private showCursorError(): void {
-        const ONE_SECOND: number = 1000;
         const NORMAL_CURSOR: string = "context-menu";
         const ERROR_CURSOR: string = "not-allowed";
         this.containerRef.nativeElement.style.cursor = ERROR_CURSOR;
@@ -112,14 +114,7 @@ export class GameplayViewComponent implements OnInit {
                 this.containerRef.nativeElement.style.cursor = NORMAL_CURSOR;
                 this.canClick = true;
             },
-            ONE_SECOND);
-    }
-
-    private playWrongSound(): void {
-        this.WRONG_SOUND.currentTime = 0;
-        this.WRONG_SOUND.play().catch((err: Error) => {
-            console.error(err);
-        });
+            this.ERROR_TIMEOUT);
     }
 
     private startChrono(): void {
