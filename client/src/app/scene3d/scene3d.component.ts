@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input
          OnChanges, Output, SimpleChange, SimpleChanges, ViewChild} from "@angular/core";
 import { GeometryData, SceneData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
+import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 import { GetSceneDataService } from "./get-scene-data.service";
 import { RaycasterService } from "./raycaster.service";
 import { RenderService } from "./render.service";
@@ -44,7 +45,10 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     }
     public ngOnChanges(changes: SimpleChanges): void {
         const differenceChange: SimpleChange = changes.differenceCounter;
-        if (this.container.firstChild && differenceChange.currentValue > differenceChange.previousValue) {
+        if (this.container.firstChild &&
+            differenceChange !== undefined &&
+            differenceChange.currentValue > differenceChange.previousValue
+        ) {
             this.container.removeChild(this.container.firstChild);
             this.getScene(this.id);
         }
@@ -55,9 +59,16 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     }
 
     private getScene(name: string): void {
-        this.getSceneData.getSceneData(name).subscribe((sceneData: SceneData) => {
+        const getFromS3: boolean = this.differenceCounter === 0 || this.differenceCounter === undefined;
+        this.getSceneData.getSceneData(name, getFromS3).subscribe((sceneData: SceneData) => {
             const geometryData: GeometryData[] = this.type ? sceneData.modifiedScene : sceneData.originalScene;
-            this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
+            if (this.renderService.scene != null) {
+                this.renderService.reInitialize(this.container, this.sceneGeneratorService.createScene(geometryData));
+            } else {
+                this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
+                this.type ? DeplacementCameraService.setRender3dModifiedImage(this.renderService) :
+                            DeplacementCameraService.setRender3dOriginalImage(this.renderService);
+            }
         });
     }
 
@@ -65,5 +76,4 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     public mouseClicked(mouseEvent: MouseEvent): void {
             this.difference3DEvent.emit(RaycasterService.getMousePosition(mouseEvent, this.container));
     }
-
 }

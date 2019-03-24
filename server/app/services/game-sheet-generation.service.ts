@@ -2,21 +2,38 @@ import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { GameSheet, GameType } from "../../../common/communication/game-description";
 import Types from "../types";
+import { DBConnectionService } from "./db-connection.service";
 import { GetGameService } from "./get-game.service";
 import { TopScores } from "./score/top-scores";
 
 @injectable()
 export class GameSheetGenerationService {
 
-    public constructor(@inject(Types.GetGameService) private getGameService: GetGameService) {}
+    public constructor(
+        @inject(Types.DBConnectionService) private db: DBConnectionService,
+        @inject(Types.GetGameService) private getGameService: GetGameService,
+        ) {}
 
-    public createGameSheet(name: string, type: GameType): void {
+    public createGameSheet(name: string, type: GameType, saveGameSheet: boolean = true): GameSheet {
         const gameSheet: GameSheet = {
             id: "",
             name: name,
             topScores: this.generateTopScores(),
         };
         this.getGameService.addGameSheet(gameSheet, type);
+
+        if (saveGameSheet) {
+            this.saveGameSheet(gameSheet, type);
+        }
+
+        return gameSheet;
+    }
+
+    private saveGameSheet(gameSheet: GameSheet, type: GameType): void {
+        this.db.connect().then(() => {
+            this.db.saveGameSheet(gameSheet, type)
+            .catch((error: Error) => console.error(error.message));
+        }).catch((err: Error) => console.error(err.message));
     }
 
     private generateTopScores(): TopScores[] {
