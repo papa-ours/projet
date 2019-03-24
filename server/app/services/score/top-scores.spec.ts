@@ -6,7 +6,7 @@ describe("Top Scores", () => {
     let topScores: TopScores;
 
     beforeEach(() => {
-        topScores = TopScores.DEFAULT_TOP_SCORES;
+        topScores = TopScores.generateTopScores();
     });
 
     it("should be sorted", () => {

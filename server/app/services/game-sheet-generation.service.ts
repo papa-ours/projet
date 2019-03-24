@@ -39,6 +39,6 @@ export class GameSheetGenerationService {
     private generateTopScores(): TopScores[] {
         const TOP_SCORES_LENGTH: number = 2;
 
-        return [...Array(TOP_SCORES_LENGTH)].map(() => TopScores.DEFAULT_TOP_SCORES);
+        return [...Array(TOP_SCORES_LENGTH)].map(() => TopScores.generateTopScores());
     }
 }

@@ -67,7 +67,7 @@ export class DBConnectionService {
 
     public async reinitializeScores(id: string, type: GameType): Promise<{}> {
         const TOP_SCORES_LENGTH: number = 2;
-        const topScores: TopScores[] = [...Array(TOP_SCORES_LENGTH)].map(() => TopScores.DEFAULT_TOP_SCORES);
+        const topScores: TopScores[] = [...Array(TOP_SCORES_LENGTH)].map(() => TopScores.generateTopScores());
 
         return mongoose.models.GameSheet.updateOne({id: id, type: type}, {topScores: topScores}).exec();
     }
