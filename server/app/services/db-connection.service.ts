@@ -99,6 +99,6 @@ export class DBConnectionService {
                     },
                 },
             },
-        ).exec().then(() => instance.disconnect());
+        ).exec().then(async () => instance.disconnect());
     }
 }
