@@ -26,7 +26,7 @@ export class ThematicSceneGeneratorService {
 
     private addObject(data: GeometryData): void {
         try {
-            if (data.thematicObjectType) {
+            if (data.thematicObjectType !== undefined) {
                 const group: THREE.Group = this.thematicObjectGeneratorService.getObject(data.thematicObjectType);
                 group.position.set(data.position.x, data.position.y, data.position.z);
                 group.rotation.set(data.rotation.x, data.rotation.y, data.rotation.z);
