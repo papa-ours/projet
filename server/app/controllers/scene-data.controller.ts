@@ -74,7 +74,8 @@ export class SceneDataController {
         const modifications: Modification[] = this.getModifications(req);
         const originalGeometry: GeometryData[] = this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects), sizes, type);
 
-        const modifiedGeometry: GeometryData[] = this.sceneDataDifferenceService.getDifference(originalGeometry, modifications);
+        const modifiedGeometry: GeometryData[] = 
+            this.sceneDataDifferenceService.getDifference(originalGeometry, modifications, sizes, type);
 
         return { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry, type: sceneType };
     }
