@@ -42,7 +42,8 @@ export class DBConnectionService {
         const gameSheetDocument: mongoose.Document = new mongoose.models.GameSheet({
             name: gameSheet.name,
             id: gameSheet.id,
-            topScores: gameSheet.topScores,
+            topScoresSolo: gameSheet.topScores[0],
+            topScores1v1: gameSheet.topScores[1],
             type: type,
         });
 
