@@ -14,11 +14,11 @@ export class UsersContainerService {
     }
 
     public getUsernameBySocketId(id: string): string {
-        const user: User | undefined = UsersContainerService.users.find((u: User) => {
-            return u.socketId === id;
+        const foundUser: User | undefined = UsersContainerService.users.find((user: User) => {
+            return user.socketId === id;
         });
 
-        return user ? user.name : "";
+        return foundUser ? foundUser.name : "";
     }
 
     public addUser(user: User): void {
