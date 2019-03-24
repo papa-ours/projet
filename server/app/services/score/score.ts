@@ -1,15 +1,18 @@
 import { ScoreInterface } from "../../../../common/communication/game-description";
-import { RandomNumber } from "../utils/random-number";
 
 export class Score implements ScoreInterface {
-    public minutes: number;
-    public seconds: number;
-    public username: string;
 
-    public constructor() {
-        this.makeMinutes();
-        this.makeSeconds();
-        this.makeUsername();
+    public static readonly SECONDS_PER_MINUTES: number = 60;
+
+    public constructor(public time: number, public username: string) {
+    }
+
+    public get seconds(): number {
+        return this.time % Score.SECONDS_PER_MINUTES;
+    }
+
+    public get minutes(): number {
+        return Math.floor(this.time / Score.SECONDS_PER_MINUTES);
     }
 
     public toString(): string {
@@ -17,9 +20,7 @@ export class Score implements ScoreInterface {
     }
 
     public toNumber(): number {
-        const SECONDS_PER_MINUTES: number = 60;
-
-        return this.minutes * SECONDS_PER_MINUTES + this.seconds;
+        return this.minutes * Score.SECONDS_PER_MINUTES + this.seconds;
     }
 
     private secondsToString(): string {
