@@ -22,7 +22,7 @@ describe("Difference3DCheckerService", () => {
         expect(differenceCheckerService).toBeTruthy();
     });
 
-    it("should be a POST REQUEST and should return a boolean value on isPositionDifference", () => {
+    it("should be a POST REQUEST that returns a boolean value on isPositionDifference", () => {
         const response: Message = {
             type: MessageType.SCENE_DATA,
             body: "true",
@@ -36,7 +36,7 @@ describe("Difference3DCheckerService", () => {
         request.flush(response);
     });
 
-    it("should be a POST REQUEST and should return a data set of geometry on getAllDifferences", () => {
+    it("should be a POST REQUEST that returns a data set of geometry on getAllDifferences", () => {
         const result: GeometryData[] = [{
             color: 0xFFFFFF,
             size: 10,
