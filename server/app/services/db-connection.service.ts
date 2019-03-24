@@ -25,6 +25,7 @@ export class DBConnectionService {
     public constructor() {
         if (!mongoose.models.GameSheet) {
             mongoose.model("GameSheet", this.gameSheetSchema);
+            mongoose.set("useFindAndModify", false);
         }
     }
 
