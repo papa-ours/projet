@@ -3,7 +3,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as multer from "multer";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
-import { GeometryData, GeometryType, Modification, ModificationType, SceneData, SceneType } from "../../../common/communication/geometry";
+import { GeometryData, Modification, ModificationType, SceneData, SceneType } from "../../../common/communication/geometry";
 import { MessageType } from "../../../common/communication/message";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
@@ -74,7 +74,7 @@ export class SceneDataController {
         const modifications: Modification[] = this.getModifications(req);
         const originalGeometry: GeometryData[] = this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects), sizes);
 
-        const modifiedGeometry: GeometryData[] = 
+        const modifiedGeometry: GeometryData[] =
             this.sceneDataDifferenceService.getDifference(originalGeometry, modifications, sizes);
 
         return { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry, type: sceneType };
