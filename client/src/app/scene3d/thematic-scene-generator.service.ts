@@ -21,7 +21,14 @@ export class ThematicSceneGeneratorService {
             geometryData.map((data: GeometryData) => this.addObject(data)),
         );
 
+        this.scene.add(this.createDesk());
+        this.setBackgroundImage();
+
         return this.scene;
+    }
+
+    private setBackgroundImage(): void {
+        this.scene.background = ThematicObjectGeneratorService.backgroundImage;
     }
 
     private addObject(data: GeometryData): void {
@@ -42,6 +49,21 @@ export class ThematicSceneGeneratorService {
         } catch (error) {
             console.error(error.message);
         }
+    }
+
+    private createDesk(): THREE.Group {
+        const desk: THREE.Group = ThematicObjectGeneratorService.desk;
+        desk.scale.set(3200, 3200, 3200);
+        desk.rotateY(Math.PI / 2);
+        desk.position.set(0, this.getHeightFromObjet(desk) * -0.5, 0);
+
+        return desk;
+    }
+
+    private getHeightFromObjet(object: THREE.Object3D): number {
+        const box: THREE.Box3 = new THREE.Box3().setFromObject(object);
+
+        return box.max.sub(box.min).y;
     }
 
     private calculateScale(thematicObjectType: ThematicObjectType, size: number): number {
