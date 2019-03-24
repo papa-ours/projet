@@ -61,4 +61,10 @@ describe("RaycasterService", () => {
         const raycastedPosition: VectorInterface | undefined = raycasterService.findObject(position, 0);
         expect(raycastedPosition).toBeDefined();
     });
+
+    it("should return undifined if raycasted in a position where there is no object", () => {
+        const position: VectorInterface = {x: -1, y: -1, z: 0};
+        const raycastedPosition: VectorInterface | undefined = raycasterService.findObject(position, 0);
+        expect(raycastedPosition).toBeDefined();
+    });
 });
