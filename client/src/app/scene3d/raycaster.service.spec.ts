@@ -1,5 +1,8 @@
 import { GeometryData } from "../../../../common/communication/geometry";
-
+import { GeometryFactoryService } from "./geometry-factory.service";
+import { RaycasterService } from "./raycaster.service";
+import { RenderService } from "./render.service";
+import { SceneGeneratorService } from "./scene-generator.service";
 describe("RaycasterService", () => {
     const ORIGINAL_GEOMETRY: GeometryData[] = [
         {
@@ -21,6 +24,17 @@ describe("RaycasterService", () => {
             isModified: true,
         },
     ];
+    const originalRenderer: RenderService = new RenderService();
+    const modifiedRenderer: RenderService = new RenderService();
+    const sceneGenerator: SceneGeneratorService = new SceneGeneratorService(new GeometryFactoryService());
+    const div: HTMLDivElement = document.createElement("div");
+    let raycasterService: RaycasterService;
+
+    beforeAll(() => {
+        originalRenderer.initialize(div, sceneGenerator.createScene(ORIGINAL_GEOMETRY));
+        modifiedRenderer.initialize(div, sceneGenerator.createScene(MODIFIED_GEOMETRY));
+        raycasterService = new RaycasterService(originalRenderer, modifiedRenderer);
+    });
 
     it("should be created", () => {
         expect(raycasterService).toBeTruthy();
