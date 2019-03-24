@@ -8,6 +8,7 @@ import * as multerS3 from "multer-s3";
 import { REQUIRED_DIFFERENCES_1P, SERVER_ADDRESS } from "../../../common/communication/constants";
 import { Message, MessageType } from "../../../common/communication/message";
 import { DifferenceImage } from "../../../common/images/difference-image";
+import { ImageTypeName } from "../../../common/images/image-type";
 import { DifferenceImageGenerator } from "../services/difference-image-generator.service";
 import { DifferencesFinderService } from "../services/differences-finder.service";
 import { AWSFilesUtil } from "../services/utils/aws-files.util";
@@ -30,8 +31,8 @@ export class DifferenceImageController {
             "/",
             upload.fields([
                 {name: "name", maxCount: 1},
-                {name: "originalImage", maxCount: 1},
-                {name: "modifiedImage", maxCount: 1},
+                {name: ImageTypeName.Original, maxCount: 1},
+                {name: ImageTypeName.Modified, maxCount: 1},
             ]),
             async (req: Request, res: Response, next: NextFunction) => {
                 const name: string = req.body.name;
@@ -41,7 +42,7 @@ export class DifferenceImageController {
                     const differenceImage: DifferenceImage =
                     await this.differenceImageGenerator.generateDifferenceImage(
                         name,
-                        [`${name}-originalImage.bmp`, `${name}-modifiedImage.bmp`],
+                        [`${name}-${ImageTypeName.Original}.bmp`, `${name}-${ImageTypeName.Modified}.bmp`],
                     );
 
                     if (!this.verifyNumberOfDifferences(differenceImage)) {
@@ -64,7 +65,7 @@ export class DifferenceImageController {
     }
 
     private async writeFile(data: Uint8Array, name: string): Promise<PromiseResult<aws.S3.PutObjectOutput, aws.AWSError>> {
-         return AWSFilesUtil.writeFile(`${name}-differenceImage.bmp`, Buffer.from(data));
+         return AWSFilesUtil.writeFile(`${name}-${ImageTypeName.Difference}.bmp`, Buffer.from(data));
     }
 
     private createMulterObject(): multer.Instance {
