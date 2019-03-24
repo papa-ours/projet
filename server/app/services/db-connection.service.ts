@@ -95,11 +95,10 @@ export class DBConnectionService {
                 $push: {
                     topScoresSolo: {
                         $each: [{name, time, now}],
-                        $sort: {time: -1, date: -1},
-                        $slice: TopScores.SCORE_LENGTH,
+                        $sort: {time: 1, date: -1},
                     },
                 },
             },
-        ).then(async () => instance.disconnect());
+        ).exec().then(() => instance.disconnect());
     }
 }
