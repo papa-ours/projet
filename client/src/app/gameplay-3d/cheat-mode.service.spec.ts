@@ -90,13 +90,13 @@ describe("CheatModeService", () => {
         let prevVisibility: boolean =  mesh.visible;
 
         const interval: number = window.setInterval(
-        () => {
-            mesh = cheatModeService["originalRender"].scene.children[0] as THREE.Mesh;
-            const visibility: boolean =  mesh.visible;
-            expect(prevVisibility !== visibility).toBeTruthy();
-            prevVisibility = visibility;
-        },
-        253);
+            () => {
+                mesh = cheatModeService["originalRender"].scene.children[0] as THREE.Mesh;
+                const visibility: boolean =  mesh.visible;
+                expect(prevVisibility !== visibility).toBeTruthy();
+                prevVisibility = visibility;
+            },
+            253);
         setTimeout(() => (clearInterval(interval)), 1100);
         // tslint:enable:no-magic-numbers
     });
@@ -108,13 +108,13 @@ describe("CheatModeService", () => {
         let prevVisibility: boolean =  mesh.visible;
 
         const interval: number = window.setInterval(
-        () => {
-            mesh = cheatModeService["originalRender"].scene.children[1] as THREE.Mesh;
-            const visibility: boolean =  mesh.visible;
-            expect(prevVisibility !== visibility).toBeTruthy();
-            prevVisibility = visibility;
-        },
-        253);
+            () => {
+                mesh = cheatModeService["originalRender"].scene.children[1] as THREE.Mesh;
+                const visibility: boolean =  mesh.visible;
+                expect(prevVisibility !== visibility).toBeTruthy();
+                prevVisibility = visibility;
+            },
+            253);
         setTimeout(() => (clearInterval(interval)), 1100);
         // tslint:enable:no-magic-numbers
     });
@@ -126,13 +126,13 @@ describe("CheatModeService", () => {
         let prevVisibility: boolean =  mesh.visible;
 
         const interval: number = window.setInterval(
-        () => {
-            mesh = cheatModeService["modifiedRender"].scene.children[1] as THREE.Mesh;
-            const visibility: boolean =  mesh.visible;
-            expect(prevVisibility !== visibility).toBeTruthy();
-            prevVisibility = visibility;
-        },
-        253);
+            () => {
+                mesh = cheatModeService["modifiedRender"].scene.children[1] as THREE.Mesh;
+                const visibility: boolean =  mesh.visible;
+                expect(prevVisibility !== visibility).toBeTruthy();
+                prevVisibility = visibility;
+            },
+            253);
         setTimeout(() => (clearInterval(interval)), 1100);
         // tslint:enable:no-magic-numbers
     });
