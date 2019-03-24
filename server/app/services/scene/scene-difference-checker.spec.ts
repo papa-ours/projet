@@ -67,7 +67,7 @@ describe("SceneDifferenceChecker", () => {
 
     describe("differences", () => {
         beforeEach(() => {
-            const differenceGenerator: SceneDataDifferenceService = new SceneDataDifferenceService();
+            const differenceGenerator: SceneDataDifferenceService = new SceneDataDifferenceService(new SceneDataGeneratorService());
             const modifications: Modification[] = [
                 {type: ModificationType.ADD, isActive: true},
                 {type: ModificationType.CHANGE_COLOR, isActive: true},

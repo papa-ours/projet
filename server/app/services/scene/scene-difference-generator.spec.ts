@@ -9,7 +9,7 @@ describe("SceneDataDifference", () => {
     let sceneDataGeneratorService: SceneDataGeneratorService;
 
     beforeEach(() => {
-        sceneDataDifference = new SceneDataDifferenceService();
+        sceneDataDifference = new SceneDataDifferenceService(new SceneDataGeneratorService());
         sceneDataGeneratorService = new SceneDataGeneratorService();
     });
 
