@@ -10,25 +10,11 @@ export class TopScores implements TopScoresInterface {
 
     public constructor() {
         this.createScores();
-        this.sortScores();
-        this.createScoreStrings();
-    }
-
-    private createScores(): void {
-        this.scores = [...Array(TopScores.SCORE_LENGTH)].map(() => {
-            return new Score();
-        });
     }
 
     private createScoreStrings(): void {
         this.scoresStrings = this.scores.map((score: Score) => {
             return score.toString();
-        });
-    }
-
-    private sortScores(): void {
-        this.scores.sort((firstScore: Score, secondScore: Score): number => {
-            return firstScore.toNumber() - secondScore.toNumber();
         });
     }
 }
