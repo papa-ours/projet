@@ -2,8 +2,8 @@ import { injectable } from "inversify";
 import * as mongoose from "mongoose";
 import "reflect-metadata";
 import { GameSheet, GameType } from "../../../common/communication/game-description";
-import { TopScores } from "./score/top-scores";
 import { Score } from "./score/score";
+import { TopScores } from "./score/top-scores";
 
 interface DeleteResponse {
     ok?: number;
