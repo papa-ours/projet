@@ -3,7 +3,6 @@ import { inject, injectable } from "inversify";
 import { GameType } from "../../../common/communication/game-description";
 import { MessageType } from "../../../common/communication/message";
 import { GameSheetGenerationService } from "../services/game-sheet-generation.service";
-import { ScoreUpdaterService } from "../services/score-updater.service";
 import Types from "../types";
 
 @injectable()
@@ -11,7 +10,6 @@ export class GameSheetGenerationController {
 
     public constructor(
         @inject(Types.GameSheetGenerationService) private gameSheetGenerationService: GameSheetGenerationService,
-        @inject(Types.ScoreUpdaterService) private scoreUpdaterService: ScoreUpdaterService,
     ) {
 
     }
