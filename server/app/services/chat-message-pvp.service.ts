@@ -24,14 +24,4 @@ export class ChatMessagePvpService extends ChatMessageService {
             text: textMessage,
         };
     }
-
-    public getBestTimeMessage(username: string, position: number, gameName: string): ChatMessage {
-        const textMessage: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en un contre un`;
-
-        return {
-            chatTime: this.getCurrentTimeService.getCurrentTime(),
-            username: username,
-            text: textMessage,
-        };
-    }
 }

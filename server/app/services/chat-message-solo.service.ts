@@ -24,14 +24,4 @@ export class ChatMessageSoloService extends ChatMessageService {
             text: textMessage,
         };
     }
-
-    public getBestTimeMessage(username: string, position: number, gameName: string): ChatMessage {
-        const textMessage: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en solo`;
-
-        return {
-            chatTime: this.getCurrentTimeService.getCurrentTime(),
-            username: username,
-            text: textMessage,
-        };
-    }
 }

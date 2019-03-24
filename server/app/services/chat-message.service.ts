@@ -1,4 +1,5 @@
 import { inject, injectable } from "inversify";
+import { GameMode } from "../../../common/communication/game-description";
 import { ChatMessage } from "../../../common/communication/message";
 import Types from "../types";
 import { GetCurrentTimeService } from "./get-current-time.service";
@@ -13,7 +14,6 @@ export abstract class ChatMessageService {
     ) {}
 
     public abstract getIdentificationMessage(username: string, isDifferenceFound: boolean): ChatMessage;
-    public abstract getBestTimeMessage(username: string, position: number, gameName: String): ChatMessage;
 
     public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, isDifferenceFound: boolean): void {
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
@@ -31,10 +31,21 @@ export abstract class ChatMessageService {
         }
     }
 
-    public sendBestTimeMessage(io: SocketIO.Server, username: string, position: number, gameName: string): void {
-        const message: ChatMessage = this.getBestTimeMessage(username, position, gameName);
+    public sendBestTimeMessage(io: SocketIO.Server, username: string, position: number, gameName: string, gameMode: GameMode): void {
+        const message: ChatMessage = this.getBestTimeMessage(username, position, gameName, gameMode);
         io.emit("chatMessage", message);
 }
+
+    private getBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): ChatMessage {
+        const gameModetext: string = gameMode === GameMode.Solo ? "solo" : "un contre un";
+        const text: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en ${gameModetext}`;
+
+        return {
+            chatTime: this.getCurrentTimeService.getCurrentTime(),
+            username: username,
+            text: text,
+        };
+    }
 
     private getConnectionMessage(isConnected: boolean, username: string): ChatMessage {
         const textMessage: string = isConnected ? `${username} vient de se déconnecter.` : `${username} vient de se connecter.`;
