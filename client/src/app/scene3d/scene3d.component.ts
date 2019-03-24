@@ -66,7 +66,7 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
                 this.renderService.reInitialize(this.container, this.sceneGeneratorService.createScene(geometryData));
             } else {
                 this.renderService.initialize(this.container, this.sceneGeneratorService.createScene(geometryData));
-                this.type ? DeplacementCameraService.setRender3dModifiedImage(this.renderService) : 
+                this.type ? DeplacementCameraService.setRender3dModifiedImage(this.renderService) :
                             DeplacementCameraService.setRender3dOriginalImage(this.renderService);
             }
         });
