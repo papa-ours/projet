@@ -9,6 +9,8 @@ import { ThematicObject, ThematicObjectType, THEMATIC_OBJECTS } from "../../../.
 export class ThematicObjectGeneratorService {
     public static areObjectsLoaded: boolean = false;
     private static objects: THREE.Group[];
+    public static desk: THREE.Group;
+    public static backgroundImage: THREE.Texture;
     public static sizes: number[];
     private objLoader: THREE.OBJLoader;
 
@@ -19,8 +21,10 @@ export class ThematicObjectGeneratorService {
     }
 
     public async waitForObjects(): Promise<{}> {
-        return new Promise((resolve: Function) => {
+        return new Promise(async (resolve: Function) => {
             if (!ThematicObjectGeneratorService.areObjectsLoaded) {
+                ThematicObjectGeneratorService.desk = await this.loadDesk();
+                ThematicObjectGeneratorService.backgroundImage = await this.loadBackground();
                 this.createAllObjects()
                     .then((groups: THREE.Group[]) => {
                         ThematicObjectGeneratorService.areObjectsLoaded = true;
@@ -34,6 +38,18 @@ export class ThematicObjectGeneratorService {
                 resolve();
             }
         });
+    }
+
+    private loadBackground(): Promise<THREE.Texture> {
+        const loader: THREE.TextureLoader = new THREE.TextureLoader();
+
+        return new Promise((resolve: (texture: THREE.Texture) => void) =>
+            loader.load(
+                "../../assets/background.jpg",
+                resolve,
+                undefined,
+                (error: ErrorEvent) => console.error(error.message),
+            ));
     }
 
     private scaleObjects(): void {
@@ -69,6 +85,16 @@ export class ThematicObjectGeneratorService {
                     (error: ErrorEvent) => console.error(error.message),
                 ));
         }));
+    }
+
+    private loadDesk(): Promise<THREE.Group> {
+        return new Promise((resolve: (group: THREE.Group) => void) =>
+            this.objLoader.load(
+                "desk/desk.obj",
+                resolve,
+                undefined,
+                (error: ErrorEvent) => console.error(error.message),
+            ));
     }
 
     public getObject(thematicObjectType: ThematicObjectType): THREE.Group {
