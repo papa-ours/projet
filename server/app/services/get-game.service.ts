@@ -1,6 +1,8 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { GameSheet, GameType, HasId } from "../../../common/communication/game-description";
+import Types from "../types";
+import { DBConnectionService } from "./db-connection.service";
 import { FreeGame } from "./game/free-game";
 import { AbstractGame } from "./game/game";
 import { SimpleGame } from "./game/simple-game";
@@ -10,6 +12,12 @@ export class GetGameService {
 
     private static readonly games: AbstractGame[] = [];
     private static readonly gameSheets: [GameSheet[], GameSheet[]] = [[], []];
+
+    public constructor(
+        @inject(Types.DBConnectionService) private dbConnectionService: DBConnectionService,
+    ) {
+
+    }
 
     public addGameSheet(gameSheet: GameSheet, type: GameType): void {
         gameSheet.id = this.generateUniqueId(GetGameService.gameSheets[type]);
@@ -30,6 +38,10 @@ export class GetGameService {
         }
 
         return GetGameService.games[index];
+    }
+
+    public async getSheetId(name: string, type: GameType): Promise<string> {
+        return this.dbConnectionService.getGameSheetId(name, type);
     }
 
     public async createGame(name: string, type: GameType, username: string): Promise<string> {
