@@ -11,8 +11,8 @@ export const THEMATIC_OBJECTS: ThematicObject[] = [
     {name: "book", baseScale: 6},
     {name: "stapler", baseScale: 1},
     {name: "scissors", baseScale: 10},
-    {name: "can", baseScale: 8},
-    {name: "pencils", baseScale: 10},
+    {name: "can", baseScale: 12},
+    {name: "pencils", baseScale: 15},
     {name: "car", baseScale: 0.5},
 ];
 
