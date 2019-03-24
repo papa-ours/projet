@@ -21,13 +21,13 @@ describe("GetSceneDataService", () => {
     });
 
     it("should have a valid URL", () => {
-        getSceneDataService.getSceneData("Test")
+        getSceneDataService.getSceneData("Test", false)
             .subscribe((data: SceneData) => expect(data).toBeDefined());
         httpMock.expectOne(`${getSceneDataService.URL}/Test-data.txt`);
     });
 
     it("should be a GET Request", () => {
-        getSceneDataService.getSceneData("Test")
+        getSceneDataService.getSceneData("Test", false)
             .subscribe((data: SceneData) => expect(data).toBeDefined());
         const request: TestRequest = httpMock.expectOne(`${getSceneDataService.URL}/Test-data.txt`);
         expect(request.request.method).toBe("GET");
