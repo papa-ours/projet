@@ -3,6 +3,7 @@ import * as mongoose from "mongoose";
 import "reflect-metadata";
 import { GameSheet, GameType } from "../../../common/communication/game-description";
 import { TopScores } from "./score/top-scores";
+import { Score } from "./score/score";
 
 interface DeleteResponse {
     ok?: number;
@@ -42,8 +43,8 @@ export class DBConnectionService {
         const gameSheetDocument: mongoose.Document = new mongoose.models.GameSheet({
             name: gameSheet.name,
             id: gameSheet.id,
-            topScoresSolo: gameSheet.topScores[0],
-            topScores1v1: gameSheet.topScores[1],
+            topScoresSolo: (gameSheet.topScores[0] as TopScores).scores,
+            topScores1v1: (gameSheet.topScores[1] as TopScores).scores,
             type: type,
         });
 
@@ -54,7 +55,12 @@ export class DBConnectionService {
         const documents: mongoose.Document[] = await mongoose.models.GameSheet.find({type: type}).exec();
 
         return documents.map((document: mongoose.Document) => {
-            return document.toObject();
+            const gameSheet: GameSheet & {topScoresSolo: Score[], topScores1v1: Score[]} = document.toObject();
+            gameSheet.topScores = [];
+            gameSheet.topScores[0] = new TopScores(gameSheet.topScoresSolo);
+            gameSheet.topScores[1] = new TopScores(gameSheet.topScores1v1);
+
+            return gameSheet;
         });
     }
 
