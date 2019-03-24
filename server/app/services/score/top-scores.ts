@@ -8,10 +8,10 @@ export class TopScores implements TopScoresInterface {
         [...Array(TopScores.SCORE_LENGTH)].map(() => Score.DEFAULT_SCORE),
     );
 
+    public scoresStrings: string[];
+
     public constructor(public scores: Score[]) {
+        this.scoresStrings = this.scores.map((score: Score) => new Score(score.time, score.username).toString());
     }
 
-    public get scoresStrings(): string[] {
-        return this.scores.map((score: Score) => score.toString());
-    }
 }
