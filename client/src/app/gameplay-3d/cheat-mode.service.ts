@@ -33,8 +33,7 @@ export class CheatModeService {
     private setVisibility(renderer: RenderService, geometry: GeometryData, visibility: boolean): void {
         if (this.findGeometry(renderer, geometry) !== undefined) {
             const object: THREE.Mesh = this.findGeometry(renderer, geometry) as THREE.Mesh;
-            const objectMaterial: THREE.MeshStandardMaterial = object.material as THREE.MeshStandardMaterial;
-            objectMaterial.emissive.setHex(visibility ?  CheatModeService.NEUTRAL_COLOR : CheatModeService.EMISSIVE_COLOR);
+            object.visible = visibility;
         }
     }
 
