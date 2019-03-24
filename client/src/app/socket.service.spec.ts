@@ -11,6 +11,6 @@ describe("SocketService", () => {
     });
 
     it("should be created", () => {
-        expect(socketService).toBeTruthy();
+        expect(socketService).toBeDefined();
     });
 });
