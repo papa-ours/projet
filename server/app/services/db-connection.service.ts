@@ -75,6 +75,15 @@ export class DBConnectionService {
         return mongoose.models.GameSheet.deleteOne({id: id, type: type});
     }
 
+    public async getGameSheetId(name: string, type: GameType): Promise<string> {
+        const instance: typeof mongoose = await this.connect();
+
+        return instance.models.GameSheet.findOne(
+            {name: name, type: type},
+        ).exec()
+        .then(async (gameSheet: GameSheet) => instance.disconnect().then(() => gameSheet.id));
+    }
+
     public async putSoloScore(gameSheetId: string, name: string, time: number): Promise<void> {
         const now: Date = new Date();
         const instance: typeof mongoose = await this.connect();
