@@ -47,15 +47,17 @@ export class DBConnectionService {
     }
 
     public async saveGameSheet(gameSheet: GameSheet, type: GameType): Promise<mongoose.Document> {
-        const gameSheetDocument: mongoose.Document = new mongoose.models.GameSheet({
-            name: gameSheet.name,
-            id: gameSheet.id,
-            topScoresSolo: (gameSheet.topScores[0] as TopScores).scores,
-            topScores1v1: (gameSheet.topScores[1] as TopScores).scores,
-            type: type,
-        });
+        return this.performRequest((instance: typeof mongoose) => {
+            const gameSheetDocument: mongoose.Document = new mongoose.models.GameSheet({
+                name: gameSheet.name,
+                id: gameSheet.id,
+                topScoresSolo: (gameSheet.topScores[0] as TopScores).scores,
+                topScores1v1: (gameSheet.topScores[1] as TopScores).scores,
+                type: type,
+            });
 
-        return gameSheetDocument.save();
+            return gameSheetDocument.save();
+        });
     }
 
     public async getGameSheets(type: GameType): Promise<GameSheet[]> {
