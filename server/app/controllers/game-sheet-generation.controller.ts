@@ -41,9 +41,9 @@ export class GameSheetGenerationController {
 
         router.put(
             "/score/:id/:name/:time",
-            (req: Request, res: Response, next: NextFunction) => {
+            async (req: Request, res: Response, next: NextFunction) => {
                 try {
-                    this.scoreUpdaterService.putScore(req.body.id, req.body.name, req.body.time as number);
+                    await this.scoreUpdaterService.putScore(req.body.id, req.body.name, req.body.time as number);
                     res.send({
                         type: MessageType.SCORE_UPDATE,
                         message: "",
