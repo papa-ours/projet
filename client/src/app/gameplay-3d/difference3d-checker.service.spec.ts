@@ -1,5 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
+import { Message, MessageType } from "../../../../common/communication/message";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { Difference3DCheckerService } from "./difference3d-checker.service";
 
 describe("Difference3DCheckerService", () => {
@@ -17,5 +19,19 @@ describe("Difference3DCheckerService", () => {
 
     it("should be created", () => {
         expect(differenceCheckerService).toBeTruthy();
+    });
+
+    it("should be a POST REQUEST and should return a boolean value on isPositionDifference", () => {
+        const response: Message = {
+            type: MessageType.SCENE_DATA,
+            body: "true",
+        };
+        const position: VectorInterface = { x: 0, y: 0, z: 0 };
+        differenceCheckerService.isPositionDifference(position, "test").subscribe(
+            (value: boolean) => { expect(value).toBeTruthy(); },
+        );
+        const request: TestRequest = httpMock.expectOne(`${differenceCheckerService.URL}`);
+        expect(request.request.method).toBe("POST");
+        request.flush(response);
     });
 });
