@@ -73,13 +73,13 @@ export class DeplacementCameraService {
     private static setCameraSpeed(keyEvent: KeyboardEvent): void {
         switch (keyEvent.key) {
             case DeplacementCameraService.FORWARD:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaZ(-DeplacementCameraService.DISTANCE));
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedZ(-DeplacementCameraService.DISTANCE));
                 break;
             case DeplacementCameraService.LEFT:
                 DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(-DeplacementCameraService.DISTANCE));
                 break;
             case DeplacementCameraService.BACKWARD:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaZ(DeplacementCameraService.DISTANCE));
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedZ(DeplacementCameraService.DISTANCE));
                 break;
             case DeplacementCameraService.RIGHT:
                 DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(DeplacementCameraService.DISTANCE));
@@ -91,13 +91,13 @@ export class DeplacementCameraService {
     private static resetCameraSpeed(keyEvent: KeyboardEvent): void {
         switch (keyEvent.key) {
             case DeplacementCameraService.FORWARD:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaZ(0));
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedZ(0));
                 break;
             case DeplacementCameraService.LEFT:
                 DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(0));
                 break;
             case DeplacementCameraService.BACKWARD:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setDeltaZ(0));
+                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedZ(0));
                 break;
             case DeplacementCameraService.RIGHT:
                 DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(0));
