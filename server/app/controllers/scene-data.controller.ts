@@ -55,7 +55,7 @@ export class SceneDataController {
             ]),
             async (req: Request, res: Response, next: NextFunction) => {
                 const sizes: number[] = JSON.parse(req.body.sizes);
-                const scene: SceneData = this.getSceneData(req, SceneType.THEMATIC, sizes, GeometryType.CUBE);
+                const scene: SceneData = this.getSceneData(req, SceneType.THEMATIC, sizes);
                 await AWSFilesUtil.writeFile(`${scene.name}-data.json`, Buffer.from(JSON.stringify(scene)))
                     .catch((err: Error) => console.error(err));
                 const SERVER_URL: string = `${SERVER_ADDRESS}/api/gamesheet/free/`;
@@ -69,13 +69,13 @@ export class SceneDataController {
         return router;
     }
 
-    private getSceneData(req: Request, sceneType: SceneType, sizes?: number[], type?: GeometryType): SceneData {
+    private getSceneData(req: Request, sceneType: SceneType, sizes?: number[]): SceneData {
 
         const modifications: Modification[] = this.getModifications(req);
-        const originalGeometry: GeometryData[] = this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects), sizes, type);
+        const originalGeometry: GeometryData[] = this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects), sizes);
 
         const modifiedGeometry: GeometryData[] = 
-            this.sceneDataDifferenceService.getDifference(originalGeometry, modifications, sizes, type);
+            this.sceneDataDifferenceService.getDifference(originalGeometry, modifications, sizes);
 
         return { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry, type: sceneType };
     }

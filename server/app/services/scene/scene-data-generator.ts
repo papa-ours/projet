@@ -96,7 +96,7 @@ export class SceneDataGeneratorService {
         return geometry;
     }
 
-    public getSceneData(numberOfObjects: number, sizes?: number[], type?: GeometryType): GeometryData[] {
+    public getSceneData(numberOfObjects: number, sizes?: number[]): GeometryData[] {
         this.validateNumberOfObjects(numberOfObjects);
         const geometryData: GeometryData[] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
