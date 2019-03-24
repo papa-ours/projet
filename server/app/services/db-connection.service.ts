@@ -85,7 +85,7 @@ export class DBConnectionService {
         .then(async (gameSheet: GameSheet) => instance.disconnect().then(() => gameSheet.id));
     }
 
-    public async putSoloScore(gameSheetId: string, name: string, time: number): Promise<void> {
+    public async putSoloScore(gameSheetId: string, username: string, time: number): Promise<void> {
         const now: Date = new Date();
         const instance: typeof mongoose = await this.connect();
 
@@ -94,8 +94,9 @@ export class DBConnectionService {
             {
                 $push: {
                     topScoresSolo: {
-                        $each: [{name, time, now}],
-                        $sort: {time: 1, date: -1},
+                        $each: [{username, time, date: now}],
+                        $sort: {time: 1},
+                        $slice: 3,
                     },
                 },
             },
