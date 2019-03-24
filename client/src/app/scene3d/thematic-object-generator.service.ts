@@ -1,15 +1,15 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
 import * as OBJLoader from "three-obj-loader";
-import { ThematicObject, THEMATIC_OBJECTS } from "../../../../common/communication/thematic-object";
+import { ThematicObject, ThematicObjectType, THEMATIC_OBJECTS } from "../../../../common/communication/thematic-object";
 
 @Injectable({
     providedIn: "root",
 })
 export class ThematicObjectGeneratorService {
     public static areObjectsLoaded: boolean = false;
-    private static objects: Map<string, THREE.Group>;
-    public static sizes: Map<string, number>;
+    private static objects: THREE.Group[];
+    public static sizes: number[];
     private objLoader: THREE.OBJLoader;
 
     public constructor() {
@@ -22,9 +22,9 @@ export class ThematicObjectGeneratorService {
         return new Promise((resolve: Function) => {
             if (!ThematicObjectGeneratorService.areObjectsLoaded) {
                 this.createAllObjects()
-                    .then((objectPairs: [string, THREE.Group][]) => {
+                    .then((groups: THREE.Group[]) => {
                         ThematicObjectGeneratorService.areObjectsLoaded = true;
-                        ThematicObjectGeneratorService.objects = new Map(objectPairs);
+                        ThematicObjectGeneratorService.objects = groups;
                         this.createSizes();
                         resolve();
                     })
@@ -36,9 +36,9 @@ export class ThematicObjectGeneratorService {
     }
 
     private createSizes(): void {
-        ThematicObjectGeneratorService.sizes = new Map();
-        ThematicObjectGeneratorService.objects.forEach((group: THREE.Group, name: string) => {
-            ThematicObjectGeneratorService.sizes.set(name, this.calculateDimension(group));
+        ThematicObjectGeneratorService.sizes = [];
+        ThematicObjectGeneratorService.objects.forEach((group: THREE.Group, index: number) => {
+            ThematicObjectGeneratorService.sizes[index] = this.calculateDimension(group);
         });
     }
 
@@ -49,29 +49,28 @@ export class ThematicObjectGeneratorService {
         return dimensions.x > dimensions.z ? dimensions.x : dimensions.z;
     }
 
-    private createAllObjects(): Promise<[string, THREE.Group][]> {
+    private createAllObjects(): Promise<THREE.Group[]> {
         return Promise.all(THEMATIC_OBJECTS.map((thematicObject: ThematicObject) => {
-            return new Promise((resolve: (objectPair: [string, THREE.Group]) => void) =>
+            return new Promise((resolve: (group: THREE.Group) => void) =>
                 this.objLoader.load(
                     `${thematicObject.name}/${thematicObject.name}.obj`,
-                    (group: THREE.Group) => resolve([thematicObject.name, group]),
+                    resolve,
                     undefined,
                     (error: ErrorEvent) => console.error(error.message),
                 ));
         }));
     }
 
-    public getObject(thematicObject: ThematicObject): THREE.Group {
+    public getObject(thematicObjectType: ThematicObjectType): THREE.Group {
         if (!ThematicObjectGeneratorService.areObjectsLoaded) {
             throw RangeError("Objects are not loaded yet");
         }
 
-        const group: THREE.Group | undefined = ThematicObjectGeneratorService.objects.get(thematicObject.name);
-        if (!group) {
+        if (thematicObjectType > ThematicObjectGeneratorService.objects.length) {
             throw RangeError("Object requested does not exist");
         }
 
-        return group.clone();
+        return ThematicObjectGeneratorService.objects[thematicObjectType].clone();
     }
 
     public async createObject(thematicObject: ThematicObject): Promise<THREE.Group> {
