@@ -17,7 +17,7 @@ export class EndGameController {
     public get router(): Router {
         const router: Router = Router();
 
-        router.get(
+        router.post(
             "/:id/:name/:time",
             async (req: Request, res: Response) => {
                 try {
