@@ -60,16 +60,23 @@ export class DBConnectionService {
         });
     }
 
-    public async getGameSheets(type: GameType): Promise<GameSheet[]> {
-        const documents: mongoose.Document[] = await mongoose.models.GameSheet.find({type: type}).exec();
+    public async getGameSheets(types: GameType[]): Promise<Map<GameType, GameSheet[]>> {
+        return this.performRequest(async (instance: typeof mongoose) => {
+            const map: Map<GameType, GameSheet[]> = new Map();
 
-        return documents.map((document: mongoose.Document) => {
-            const gameSheet: GameSheet & {topScoresSolo: Score[], topScores1v1: Score[]} = document.toObject();
-            gameSheet.topScores = [];
-            gameSheet.topScores[0] = new TopScores(gameSheet.topScoresSolo);
-            gameSheet.topScores[1] = new TopScores(gameSheet.topScores1v1);
+            return Promise.all(types.map(async (type: GameType) => {
+                const documents: mongoose.Document[] = await mongoose.models.GameSheet.find({type: type}).exec();
+                map.set(type, []);
 
-            return gameSheet;
+                return documents.forEach((document: mongoose.Document) => {
+                    const gameSheet: GameSheet & {topScoresSolo: Score[], topScores1v1: Score[]} = document.toObject();
+                    gameSheet.topScores = [];
+                    gameSheet.topScores[0] = new TopScores(gameSheet.topScoresSolo);
+                    gameSheet.topScores[1] = new TopScores(gameSheet.topScores1v1);
+
+                    (map.get(type) as GameSheet[]).push(gameSheet);
+                });
+            })).then(() => map);
         });
     }
 
