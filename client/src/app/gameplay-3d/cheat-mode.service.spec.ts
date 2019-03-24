@@ -8,12 +8,12 @@ import { CheatModeService } from "./cheat-mode.service";
 describe("CheatModeService", () => {
     const ORIGINAL_GEOMETRY: GeometryData[] = [
         {
-        color: 0xFF00FF,
-        size: 65,
-        type: 2,
-        position: { x: 0, y: 0, z: 0 },
-        rotation: { x: 0, y: 0, z: 0 },
-        isModified: false,
+            color: 0xFF00FF,
+            size: 65,
+            type: 2,
+            position: { x: 0, y: 0, z: 0 },
+            rotation: { x: 0, y: 0, z: 0 },
+            isModified: false,
         },
         {
             color: 0x00FF00,
@@ -72,13 +72,13 @@ describe("CheatModeService", () => {
         let prevVisibility: boolean = mesh.visible;
 
         const interval: number = window.setInterval(
-        () => {
-            mesh = cheatModeService["modifiedRender"].scene.children[0] as THREE.Mesh;
-            const visibility: boolean =  mesh.visible;
-            expect(prevVisibility !== visibility).toBeTruthy();
-            prevVisibility = visibility;
-        },
-        253);
+            () => {
+                mesh = cheatModeService["modifiedRender"].scene.children[0] as THREE.Mesh;
+                const visibility: boolean =  mesh.visible;
+                expect(prevVisibility !== visibility).toBeTruthy();
+                prevVisibility = visibility;
+            },
+            253);
         setTimeout(() => (clearInterval(interval)), 1100);
         // tslint:enable:no-magic-numbers
     });
