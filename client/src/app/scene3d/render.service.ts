@@ -60,13 +60,20 @@ export class RenderService {
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
     }
 
+    private createSpotLight(height: number, intensity: number, color: number): THREE.SpotLight {
+        const spotLight: THREE.SpotLight = new THREE.SpotLight(color, intensity);
+        spotLight.position.set(0, height, 0);
+        spotLight.lookAt(new THREE.Vector3(0, 0, 0));
+
+        return spotLight;
+    }
     private addLight(): void {
-        const lowIntensity: number = 0.3;
+        const lowIntensity: number = 0.6;
         const highIntensity: number = 2;
         const lightColor: number = 0xFFFFFF;
-        this.scene.add(this.camera);
+        const lightHeight: number = 5000;
+        this.scene.add(this.createSpotLight( lightHeight, highIntensity, lightColor));
         this.scene.add(new THREE.AmbientLight(lightColor, lowIntensity));
-        this.camera.add(new THREE.PointLight(lightColor, highIntensity));
     }
 
     public initialize(container: HTMLDivElement, scene: THREE.Scene): void {
