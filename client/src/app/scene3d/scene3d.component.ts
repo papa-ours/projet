@@ -44,11 +44,10 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     }
     public ngOnChanges(changes: SimpleChanges): void {
         const differenceChange: SimpleChange = changes.differenceCounter;
-        if (
-            this.container.firstChild &&
+        if (this.container.firstChild &&
             differenceChange !== undefined &&
             differenceChange.currentValue > differenceChange.previousValue
-            ) {
+        ) {
             this.container.removeChild(this.container.firstChild);
             this.getScene(this.id);
         }
