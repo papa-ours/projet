@@ -35,7 +35,7 @@ export class ThematicSceneGeneratorService {
         try {
             if (data.thematicObjectType !== undefined) {
                 const group: THREE.Group = this.thematicObjectGeneratorService.getObject(data.thematicObjectType);
-                group.position.set(data.position.x, data.position.y, data.position.z);
+                group.position.set(data.position.x, this.getHeightFromObjet(group) * -0.5, data.position.z);
                 group.rotation.set(data.rotation.x, data.rotation.y, data.rotation.z);
                 group.traverse((object: THREE.Object3D) => {
                     if (object instanceof THREE.Mesh) {
@@ -52,10 +52,16 @@ export class ThematicSceneGeneratorService {
     }
 
     private createDesk(): THREE.Group {
-        const desk: THREE.Group = ThematicObjectGeneratorService.desk;
+        const desk: THREE.Group = ThematicObjectGeneratorService.desk.clone();
         desk.scale.set(3200, 3200, 3200);
-        desk.rotateY(Math.PI / 2);
+        desk.rotation.set(0, Math.PI / 2, 0);
         desk.position.set(0, this.getHeightFromObjet(desk) * -0.5, 0);
+
+        desk.traverse((object: THREE.Object3D) => {
+            if (object instanceof THREE.Mesh) {
+                object.material = new THREE.MeshBasicMaterial({color: 0xD4C2A0});
+            }
+        });
 
         return desk;
     }
