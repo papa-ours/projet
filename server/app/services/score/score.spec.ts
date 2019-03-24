@@ -8,6 +8,15 @@ describe("Score", () => {
         score = Score.DEFAULT_SCORE;
     });
 
+    it("should return usernames between 3 and 12 characters", () => {
+        const MIN: number = 3;
+        const MAX: number = 12;
+        const username: string = score.username;
+        const result: boolean = (username.length <= MAX) && (username.length >= MIN);
+
+        expect(result).to.equals(true);
+    });
+
     it("should format seconds properly in string", () => {
         const seconds: number = 0;
         score.time = seconds;
