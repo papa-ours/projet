@@ -82,6 +82,6 @@ export class DBConnectionService {
                     },
                 },
             },
-        ).then(() => instance.disconnect());
+        ).then(async () => instance.disconnect());
     }
 }
