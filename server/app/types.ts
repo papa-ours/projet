@@ -23,4 +23,5 @@ export default {
         UsersContainerService: Symbol("UsersContainerService"),
         ScoreUpdaterService: Symbol("ScoreUpdaterService"),
         EndGameController: Symbol("EndGameController"),
+        SceneDifferenceCheckerService: Symbol("SceneDifferenceCheckerService"),
 };

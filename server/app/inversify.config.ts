@@ -17,6 +17,7 @@ import { GameSheetGenerationService } from "./services/game-sheet-generation.ser
 import { GetGameListService } from "./services/get-game-list.service";
 import { GetGameService } from "./services/get-game.service";
 import { SceneDataGeneratorService } from "./services/scene/scene-data-generator";
+import { SceneDifferenceCheckerService } from "./services/scene/scene-difference-checker";
 import { SceneDataDifferenceService } from "./services/scene/scene-difference-generator";
 import { ScoreUpdaterService } from "./services/score-updater.service";
 import { UsernameValidatorService } from "./services/username-validator.service";
@@ -49,4 +50,5 @@ container.bind(Types.UsersContainerService).to(UsersContainerService);
 container.bind(Types.DBConnectionService).to(DBConnectionService);
 container.bind(Types.ScoreUpdaterService).to(ScoreUpdaterService);
 container.bind(Types.EndGameController).to(EndGameController);
+container.bind(Types.SceneDifferenceCheckerService).to(SceneDifferenceCheckerService);
 export { container };
