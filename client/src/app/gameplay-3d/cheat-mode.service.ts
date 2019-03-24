@@ -7,8 +7,6 @@ import { RenderService } from "../scene3d/render.service";
 })
 export class CheatModeService {
     private static readonly BLINKING_FREQUENCY: number = 8;
-    private static readonly EMISSIVE_COLOR: number = 0xFF0000;
-    private static readonly NEUTRAL_COLOR: number = 0x000000;
     private readonly ONE_SECONDE: number = 1000;
     private isActivated: boolean;
     private timeoutPointer: number;
