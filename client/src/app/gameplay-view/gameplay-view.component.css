@@ -60,10 +60,14 @@ app-chat-messages {
     text-align: center;
 }
 
+.error-tag {
+    position: absolute;
+    color: var(--danger-color);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+}
 .disabled {
     opacity: 0.5;
 }
-
 
 .loader {
     position: absolute;
