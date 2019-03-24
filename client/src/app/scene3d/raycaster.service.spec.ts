@@ -1,4 +1,5 @@
 import { GeometryData } from "../../../../common/communication/geometry";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { GeometryFactoryService } from "./geometry-factory.service";
 import { RaycasterService } from "./raycaster.service";
 import { RenderService } from "./render.service";
@@ -27,16 +28,31 @@ describe("RaycasterService", () => {
     const originalRenderer: RenderService = new RenderService();
     const modifiedRenderer: RenderService = new RenderService();
     const sceneGenerator: SceneGeneratorService = new SceneGeneratorService(new GeometryFactoryService());
-    const div: HTMLDivElement = document.createElement("div");
+    const originalContainer: HTMLDivElement = document.createElement("div");
+    const modifiedContainer: HTMLDivElement = document.createElement("div");
     let raycasterService: RaycasterService;
 
     beforeAll(() => {
-        originalRenderer.initialize(div, sceneGenerator.createScene(ORIGINAL_GEOMETRY));
-        modifiedRenderer.initialize(div, sceneGenerator.createScene(MODIFIED_GEOMETRY));
+        Object.defineProperty(originalContainer, "clientWidth", {value: 100});
+        Object.defineProperty(originalContainer, "clientHeight", {value: 100});
+        Object.defineProperty(modifiedContainer, "clientWidth", {value: 100});
+        Object.defineProperty(modifiedContainer, "clientHeight", {value: 100});
+        originalRenderer.initialize(originalContainer, sceneGenerator.createScene(ORIGINAL_GEOMETRY));
+        modifiedRenderer.initialize(modifiedContainer, sceneGenerator.createScene(MODIFIED_GEOMETRY));
         raycasterService = new RaycasterService(originalRenderer, modifiedRenderer);
     });
 
     it("should be created", () => {
         expect(raycasterService).toBeTruthy();
+    });
+
+    it("should a position beetween -1 and 1", () => {
+        const event: MouseEvent = new MouseEvent("mouseEvent", {clientX: 0, clientY: 0});
+        const position: VectorInterface = RaycasterService.getMousePosition(event, originalContainer);
+        expect(position.x).toBeGreaterThanOrEqual(-1);
+        expect(position.x).toBeLessThanOrEqual(1);
+        expect(position.y).toBeGreaterThanOrEqual(-1);
+        expect(position.y).toBeLessThanOrEqual(1);
+        expect(position.z).toEqual(0);
     });
 });
