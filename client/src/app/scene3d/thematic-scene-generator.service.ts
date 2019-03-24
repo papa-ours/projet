@@ -35,7 +35,8 @@ export class ThematicSceneGeneratorService {
         try {
             if (data.thematicObjectType !== undefined) {
                 const group: THREE.Group = this.thematicObjectGeneratorService.getObject(data.thematicObjectType);
-                group.position.set(data.position.x, this.getHeightFromObjet(group) * -0.5, data.position.z);
+                const MINUS_HALF: number = 0.5;
+                group.position.set(data.position.x, this.getHeightFromObjet(group) * MINUS_HALF, data.position.z);
                 group.rotation.set(data.rotation.x, data.rotation.y, data.rotation.z);
                 group.traverse((object: THREE.Object3D) => {
                     if (object instanceof THREE.Mesh) {
@@ -53,9 +54,12 @@ export class ThematicSceneGeneratorService {
 
     private createDesk(): THREE.Group {
         const desk: THREE.Group = ThematicObjectGeneratorService.desk.clone();
-        desk.scale.set(3200, 3200, 3200);
-        desk.rotation.set(0, Math.PI / 2, 0);
-        desk.position.set(0, this.getHeightFromObjet(desk) * -0.5, 0);
+        const SCALE: number = 3200;
+        desk.scale.set(SCALE, SCALE, SCALE);
+
+        const HALF: number = 0.5;
+        desk.rotation.set(0, Math.PI * HALF, 0);
+        desk.position.set(0, this.getHeightFromObjet(desk) * -1 * HALF, 0);
 
         desk.traverse((object: THREE.Object3D) => {
             if (object instanceof THREE.Mesh) {
