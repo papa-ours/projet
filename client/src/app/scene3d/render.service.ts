@@ -95,7 +95,7 @@ export class RenderService {
         this.startRenderingLoop();
     }
 
-    public setDeltaZ(z: number): void {
+    public setSpeedZ(z: number): void {
         this.speedZ = z;
     }
 
