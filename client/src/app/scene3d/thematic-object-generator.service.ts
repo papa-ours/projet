@@ -25,6 +25,7 @@ export class ThematicObjectGeneratorService {
                     .then((groups: THREE.Group[]) => {
                         ThematicObjectGeneratorService.areObjectsLoaded = true;
                         ThematicObjectGeneratorService.objects = groups;
+                        this.scaleObjects();
                         this.createSizes();
                         resolve();
                     })
@@ -32,6 +33,13 @@ export class ThematicObjectGeneratorService {
             } else {
                 resolve();
             }
+        });
+    }
+
+    private scaleObjects(): void {
+        ThematicObjectGeneratorService.objects.forEach((group: THREE.Group, index: number) => {
+            const scale: number = THEMATIC_OBJECTS[index].baseScale;
+            group.scale.set(scale, scale, scale);
         });
     }
 
@@ -71,6 +79,8 @@ export class ThematicObjectGeneratorService {
         if (thematicObjectType > ThematicObjectGeneratorService.objects.length) {
             throw RangeError("Object requested does not exist");
         }
+
+        console.log(THEMATIC_OBJECTS[thematicObjectType].name);
 
         return ThematicObjectGeneratorService.objects[thematicObjectType].clone();
     }
