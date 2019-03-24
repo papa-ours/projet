@@ -39,23 +39,6 @@ export class GameSheetGenerationController {
                 });
             });
 
-        router.put(
-            "/score/:id/:name/:time",
-            async (req: Request, res: Response, next: NextFunction) => {
-                try {
-                    await this.scoreUpdaterService.putScore(req.body.id, req.body.name, req.body.time as number);
-                    res.send({
-                        type: MessageType.SCORE_UPDATE,
-                        message: "",
-                    });
-                } catch (error) {
-                    res.send({
-                        type: MessageType.SCORE_UPDATE,
-                        message: error,
-                    });
-                }
-            });
-
         return router;
     }
 }
