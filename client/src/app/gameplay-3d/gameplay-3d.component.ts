@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input,
+         Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { GeometryData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
