@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
+import { GeometryData } from "../../../../common/communication/geometry";
 import { Message } from "../../../../common/communication/message";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 
@@ -19,6 +20,12 @@ export class Difference3DCheckerService {
         const type: GameType = GameType.Free;
 
         return this.http.post<Message>(this.URL, { position, name, type })
+            .pipe(map((message: Message) => JSON.parse(message.body)),
+        );
+    }
+
+    public getAllDifference(name: string): Observable<GeometryData[]> {
+        return this.http.post<Message>(`${this.URL}/differences`, {name})
             .pipe(map((message: Message) => JSON.parse(message.body)),
         );
     }
