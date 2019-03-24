@@ -1,7 +1,7 @@
 import { TestBed } from "@angular/core/testing";
 import { SocketService } from "./socket.service";
 
-fdescribe("SocketService", () => {
+describe("SocketService", () => {
     let socketService: SocketService;
     beforeEach(() => {
         TestBed.configureTestingModule({
