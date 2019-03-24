@@ -8,7 +8,7 @@ import { GetGameListController } from "./controllers/get-game-list.controller";
 import { SceneDataController } from "./controllers/scene-data.controller";
 import { UsernameController } from "./controllers/username.controller";
 import { Server } from "./server";
-import { ChatMessagePvpService } from "./services/chat-message-pvp.service";
+import { ChatMessage1vs1Service } from "./services/chat-message-1vs1.service";
 import { ChatMessageSoloService } from "./services/chat-message-solo.service";
 import { DBConnectionService } from "./services/db-connection.service";
 import { DifferenceCheckerService } from "./services/difference-checker.service";
@@ -48,7 +48,7 @@ container.bind(Types.DifferenceCheckerController).to(DifferenceCheckerController
 container.bind(Types.DifferenceCheckerService).to(DifferenceCheckerService);
 container.bind(Types.UsersContainerService).to(UsersContainerService);
 container.bind(Types.ChatMessageSoloService).to(ChatMessageSoloService);
-container.bind(Types.ChatMessagePvpService).to(ChatMessagePvpService);
+container.bind(Types.ChatMessage1vs1Service).to(ChatMessage1vs1Service);
 container.bind(Types.GetCurrentTimeService).to(GetCurrentTimeService);
 container.bind(Types.DBConnectionService).to(DBConnectionService);
 export { container };

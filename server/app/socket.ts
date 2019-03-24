@@ -78,7 +78,7 @@ export class Socket {
     private ChangeGameType(gameMode: GameMode): void {
         gameMode === GameMode.Solo ?
             this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService) :
-            this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessagePvpService);
+            this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessage1vs1Service);
     }
 
     private deleteUser(id: string): void {

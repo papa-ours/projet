@@ -141,7 +141,7 @@ describe("chat-message-service", () => {
         });
     });
 
-    it("should send a message to all users if a best time pvp is beaten", (done: Mocha.Func) => {
+    it("should send a message to all users if a best time 1vs1 is beaten", (done: Mocha.Func) => {
         const username: string = "username";
         const position: number = 2;
         const gameName: string = "Voiture";
@@ -157,7 +157,7 @@ describe("chat-message-service", () => {
         });
     });
 
-    it("should switch to PVP message and send an error message", (done: Mocha.Func) => {
+    it("should switch to 1vs1 message and send an error message", (done: Mocha.Func) => {
         socketClient1.emit("setGameType", GameType.Free);
         socketClient1.emit("errorIdentification");
         const expected: string = "Erreur par Username1.";
@@ -167,7 +167,7 @@ describe("chat-message-service", () => {
         });
     });
 
-    it("should switch to PVP message and send found identification message", (done: Mocha.Func) => {
+    it("should switch to 1vs1 message and send found identification message", (done: Mocha.Func) => {
         socketClient1.emit("setGameType", GameType.Free);
         socketClient1.emit("foundDifference");
         const expected: string = "Différence trouvée par Username1.";
