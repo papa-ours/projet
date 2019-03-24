@@ -10,7 +10,7 @@ import Types from "./types";
 
 @injectable()
 export class Socket {
-    private io: SocketIO.Server;
+    public static io: SocketIO.Server;
     private chatMessageService: ChatMessageService;
 
     public constructor(
@@ -21,9 +21,9 @@ export class Socket {
     }
 
     public init(server: http.Server): void {
-        this.io = socketio(server);
+        Socket.io = socketio(server);
 
-        this.io.on("connection", (socket: SocketIO.Socket) => {
+        Socket.io.on("connection", (socket: SocketIO.Socket) => {
             this.setupNewUser(socket);
             this.setupFoundDifference(socket);
             this.setupErrorIdentification(socket);
@@ -33,17 +33,17 @@ export class Socket {
     }
 
     public getIO(): SocketIO.Server {
-        return this.io;
+        return Socket.io;
     }
 
     public sendBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): void {
-        this.chatMessageService.sendBestTimeMessage(this.io, username, position, gameName, gameMode);
+        this.chatMessageService.sendBestTimeMessage(Socket.io, username, position, gameName, gameMode);
     }
 
     private setupNewUser(socket: SocketIO.Socket): void {
        socket.on("newUser", () => {
             const isConnected: boolean = false;
-            this.chatMessageService.sendConnectionMessage(socket, this.io, isConnected);
+            this.chatMessageService.sendConnectionMessage(socket, Socket.io, isConnected);
        });
     }
 
@@ -64,7 +64,7 @@ export class Socket {
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
             const isConnected: boolean = true;
-            this.chatMessageService.sendConnectionMessage(socket, this.io, isConnected);
+            this.chatMessageService.sendConnectionMessage(socket, Socket.io, isConnected);
             this.deleteUser(socket.id);
         });
     }
