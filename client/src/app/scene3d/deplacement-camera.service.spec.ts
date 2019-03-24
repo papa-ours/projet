@@ -13,12 +13,11 @@ describe("DeplacementCameraService", () => {
             providers: [
                 DeplacementCameraService,
                 RenderService,
-                ElementRef,
             ],
         });
         render1 = TestBed.get(RenderService);
         render2 = TestBed.get(RenderService);
-        element = new ElementRef(document.body);
+        element = new ElementRef(document);
         DeplacementCameraService.setElementRef(element, element);
         DeplacementCameraService.setRender3dModifiedImage(render1);
         DeplacementCameraService.setRender3dOriginalImage(render2);
