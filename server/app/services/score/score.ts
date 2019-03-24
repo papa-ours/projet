@@ -2,6 +2,8 @@ import { ScoreInterface } from "../../../../common/communication/game-descriptio
 
 export class Score implements ScoreInterface {
 
+    public static readonly DEFAULT_SCORE: Score = new Score(Number.POSITIVE_INFINITY, "--");
+
     public static readonly SECONDS_PER_MINUTES: number = 60;
 
     public constructor(public time: number, public username: string) {
@@ -16,7 +18,11 @@ export class Score implements ScoreInterface {
     }
 
     public toString(): string {
-        return this.username + " " + this.minutes + ":" + this.secondsToString();
+        if (Number.isFinite(this.time)) {
+            return this.username + " " + this.minutes + ":" + this.secondsToString();
+        } else {
+            return this.username + " " + "--:--";
+        }
     }
 
     public toNumber(): number {
