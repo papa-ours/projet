@@ -29,6 +29,13 @@ export class DBConnectionService {
         }
     }
 
+    private async performRequest<T>(request: (instance: typeof mongoose) => T): Promise<T> {
+        const instance: typeof mongoose = await this.connect();
+        const t: T = await request(instance);
+
+        return instance.disconnect().then(() => t);
+    }
+
     public async connect(): Promise<typeof mongoose> {
         return mongoose.connect(this.uri, {
             useNewUrlParser: true,
