@@ -32,16 +32,16 @@ export class GetGameService {
         return GetGameService.games[index];
     }
 
-    public async createGame(name: string, type: GameType): Promise<string> {
+    public async createGame(name: string, type: GameType, username: string): Promise<string> {
         const id: string = this.generateUniqueId(GetGameService.games);
         // triple equal problem
         // tslint:disable-next-line:triple-equals
         const game: AbstractGame | void = type == GameType.Free ?
                             await FreeGame.create(id, name).catch((error: Error) => console.error(error.message)) :
                             await SimpleGame.create(id, name).catch((error: Error) => console.error(error.message));
-
         if (game) {
             GetGameService.games.push(game);
+            game.start(username);
         }
 
         return new Promise<string>((resolve: Function) => resolve(id));
