@@ -1,5 +1,7 @@
+import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
+import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { Message, MessageType } from "../../../common/communication/message";
 import { VectorInterface } from "../../../common/communication/vector-interface";
 import { DifferenceCheckerService } from "../services/difference-checker.service";
@@ -42,6 +44,9 @@ export class DifferenceCheckerController {
 
                     if (isDifference) {
                         await game.restoreModifiedImage(x, y);
+                        if (game.differenceCount === 0) {
+                            Axios.post(`${SERVER_ADDRESS}/api/endgame/${game.id}/${game.username}/${game.time}`);
+                        }
                     }
 
                     message.body = isDifference.toString();
@@ -67,6 +72,9 @@ export class DifferenceCheckerController {
                 const isModification: boolean = differenceChecker.checkDifference(position);
                 if (isModification) {
                     game.restoreModifiedScene(position);
+                    if (game.differenceCount === 0) {
+                        Axios.post(`${SERVER_ADDRESS}/api/endgame/${game.id}/${game.username}/${game.time}`);
+                    }
                 }
                 message.body = String(isModification);
                 res.send(message);
