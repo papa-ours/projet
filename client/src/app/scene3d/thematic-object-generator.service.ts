@@ -38,11 +38,13 @@ export class ThematicObjectGeneratorService {
     private createSizes(): void {
         ThematicObjectGeneratorService.sizes = [];
         ThematicObjectGeneratorService.objects.forEach((group: THREE.Group, index: number) => {
-            ThematicObjectGeneratorService.sizes[index] = this.calculateDimension(group);
+            ThematicObjectGeneratorService.sizes[index] = this.calculateDimension(group, index);
         });
     }
 
-    private calculateDimension(group: THREE.Group): number {
+    private calculateDimension(group: THREE.Group, index: number): number {
+        const scale: number = THEMATIC_OBJECTS[index].baseScale;
+        group.scale.set(scale, scale, scale);
         const box: THREE.Box3 = new THREE.Box3().setFromObject(group);
         const dimensions: THREE.Vector3 = box.max.sub(box.min);
 
