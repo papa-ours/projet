@@ -6,7 +6,7 @@ describe("Top Scores", () => {
     let topScores: TopScores;
 
     beforeEach(() => {
-        topScores = new TopScores();
+        topScores = TopScores.DEFAULT_TOP_SCORES;
     });
 
     it("should be sorted", () => {
