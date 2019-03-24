@@ -79,11 +79,14 @@ export class SceneDataGeneratorService {
         };
     }
 
-    public getRandomNonIntersectingGeometryData(collection: GeometryData[], size?: number, type?: GeometryType): GeometryData {
+    public getRandomNonIntersectingGeometryData(collection: GeometryData[], size?: number,
+                                                type?: GeometryType, thematicObjectType?: ThematicObjectType): GeometryData {
         let geometry: GeometryData;
         do {
             geometry = this.getRandomGeometryData(size, type);
         } while (GeometryIntersection.intersectsWithCollection(geometry, collection));
+
+        geometry.thematicObjectType = thematicObjectType;
 
         return geometry;
     }
@@ -94,7 +97,7 @@ export class SceneDataGeneratorService {
         for (let i: number = 0; i < numberOfObjects; i++) {
             const thematicObjectType: ThematicObjectType | undefined = sizes ? this.getRandomThematicObjectType() : undefined;
             const size: number | undefined = thematicObjectType && sizes ? sizes[thematicObjectType] : undefined;
-            const data: GeometryData = this.getRandomNonIntersectingGeometryData(geometryData, size, type);
+            const data: GeometryData = this.getRandomNonIntersectingGeometryData(geometryData, size, type, thematicObjectType);
             data.thematicObjectType = thematicObjectType;
             geometryData.push(data);
         }
@@ -104,9 +107,8 @@ export class SceneDataGeneratorService {
 
     public getRandomThematicObjectType(): ThematicObjectType {
         const thematicObjectTypes: ThematicObjectType[] = [
-            ThematicObjectType.APPLE, ThematicObjectType.CALCULATOR,
+            ThematicObjectType.CALCULATOR,
             ThematicObjectType.COFFEE_MUG, ThematicObjectType.BANANA,
-            ThematicObjectType.ORANGE, ThematicObjectType.SODA_CAN,
         ];
 
         return thematicObjectTypes[Math.floor(Math.random() * thematicObjectTypes.length)];
