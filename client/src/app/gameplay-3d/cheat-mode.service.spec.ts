@@ -65,7 +65,7 @@ describe("CheatModeService", () => {
         expect(cheatModeService["isActivated"]).toBeFalsy();
     });
 
-    it("should change the emissive visibility 4 times per seconds for the modified scene a visibility change", () => {
+    it("should change the visibility 4 times per seconds for the modified scene a visibility change", () => {
         // tslint:disable:no-magic-numbers
         cheatModeService.toggleCheatMode(ORIGINAL_GEOMETRY);
         let mesh: THREE.Mesh = cheatModeService["modifiedRender"].scene.children[0] as THREE.Mesh;
@@ -83,7 +83,7 @@ describe("CheatModeService", () => {
         // tslint:enable:no-magic-numbers
     });
 
-    it("should change the emissive visibility 4 times per seconds for the original scene on a visibility change", () => {
+    it("should change the visibility 4 times per seconds for the original scene on a visibility change", () => {
         // tslint:disable:no-magic-numbers
         cheatModeService.toggleCheatMode(ORIGINAL_GEOMETRY);
         let mesh: THREE.Mesh = cheatModeService["originalRender"].scene.children[0] as THREE.Mesh;
@@ -101,7 +101,7 @@ describe("CheatModeService", () => {
         // tslint:enable:no-magic-numbers
     });
 
-    it("should change the emissive visibility 4 times per seconds for the orginal scene when an object is deleted", () => {
+    it("should change the visibility 4 times per seconds for the orginal scene when an object is deleted", () => {
         // tslint:disable:no-magic-numbers
         cheatModeService.toggleCheatMode(ORIGINAL_GEOMETRY);
         let mesh: THREE.Mesh = cheatModeService["originalRender"].scene.children[1] as THREE.Mesh;
@@ -119,7 +119,7 @@ describe("CheatModeService", () => {
         // tslint:enable:no-magic-numbers
     });
 
-    it("should change the emissive visibility 4 times per seconds for the modified scene when an object is added", () => {
+    it("should change the visibility 4 times per seconds for the modified scene when an object is added", () => {
         // tslint:disable:no-magic-numbers
         cheatModeService.toggleCheatMode(ORIGINAL_GEOMETRY);
         let mesh: THREE.Mesh = cheatModeService["modifiedRender"].scene.children[1] as THREE.Mesh;
