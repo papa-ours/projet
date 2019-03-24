@@ -13,14 +13,13 @@ interface DeleteResponse {
 @injectable()
 export class DBConnectionService {
     private readonly uri: string = "mongodb+srv://ving34:pass123@cluster0-m1gwf.mongodb.net/test?retryWrites=true";
-    public readonly gameSheetSchema: mongoose.Schema = new mongoose.Schema({
+    private readonly gameSheetSchema: mongoose.Schema = new mongoose.Schema({
         name: String,
         id: String,
         topScoresSolo: Array,
         topScores1v1: Array,
         type: Number,
     });
-    public connected: boolean = false;
 
     public constructor() {
         if (!mongoose.models.GameSheet) {
