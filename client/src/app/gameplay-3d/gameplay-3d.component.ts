@@ -20,8 +20,10 @@ export class Gameplay3dComponent implements AfterViewInit {
     @Input() public width: number;
     @Input() public height: number;
     @Input() public name: string;
+    @Input() public canClick: boolean;
     @Input() private id: string;
     @Output() public foundDifferenceEvent: EventEmitter<void>;
+    @Output() public errorIdentificationEvent: EventEmitter<void>;
     private originalScene: Scene3dComponent;
     private modifiedScene: Scene3dComponent;
     private rayCaster: RaycasterService;
@@ -31,6 +33,7 @@ export class Gameplay3dComponent implements AfterViewInit {
 
     public constructor(private difference3DCheckerService: Difference3DCheckerService) {
         this.foundDifferenceEvent = new EventEmitter<void>();
+        this.errorIdentificationEvent = new EventEmitter<void>();
         this.differenceCounter = 0;
     }
 
@@ -43,13 +46,11 @@ export class Gameplay3dComponent implements AfterViewInit {
 
     public checkDifference(mousePosition: VectorInterface): void {
         const position: VectorInterface | undefined = this.rayCaster.findObject(mousePosition);
-        if (position) {
+        if (position && this.canClick) {
             this.difference3DCheckerService.isPositionDifference(position, this.id).subscribe(
                 (response: boolean) => {
-                    if (response) {
-                        this.foundDifference();
-                    }
-                });
+                    response ? this.foundDifference() : this.errorIdentificationEvent.emit();
+            });
         }
     }
 

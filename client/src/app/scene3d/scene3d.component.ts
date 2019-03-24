@@ -69,5 +69,4 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
     public mouseClicked(mouseEvent: MouseEvent): void {
             this.difference3DEvent.emit(RaycasterService.getMousePosition(mouseEvent, this.container));
     }
-
 }

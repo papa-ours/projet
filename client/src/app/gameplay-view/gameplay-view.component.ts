@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, HostListener, OnInit, ViewChild  } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
+import { Position } from "../../../../common/images/position";
 import { GameplayService } from "../gameplay.service";
 
 @Component({
@@ -14,14 +15,21 @@ export class GameplayViewComponent implements OnInit {
 
     public readonly nbPlayers: number;
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
-    private readonly SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
+    private readonly CORRECT_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
+    private readonly WRONG_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
+    private readonly ERROR_TIMEOUT: number = 1000;
 
     public foundDifferencesCounter: number;
     public images: string[];
     public requiredDifferences: number;
     public type: GameType;
+    public canClick: boolean;
+    public isErrorMessageVisible: boolean;
+    public clickPosition: Position;
     public chrono: number;
     private isChronoRunning: boolean;
+
+    @ViewChild("container") private containerRef: ElementRef;
 
     public constructor(
         private route: ActivatedRoute,
@@ -33,9 +41,19 @@ export class GameplayViewComponent implements OnInit {
         this.requiredDifferences = this.nbPlayers === 1 ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
         this.foundDifferencesCounter = 0;
         this.images = [];
+        this.canClick = true;
+        this.isErrorMessageVisible = false;
         this.chrono = 0;
         this.isChronoRunning = false;
     }
+
+    private static playSound(sound: HTMLAudioElement): void {
+        sound.currentTime = 0;
+        sound.play().catch((err: Error) => {
+            console.error(err);
+        });
+    }
+
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
@@ -45,21 +63,54 @@ export class GameplayViewComponent implements OnInit {
                 this.startChrono();
             });
         });
+        const SOUND_VOLUME: number = 0.2;
+        this.CORRECT_SOUND.volume = SOUND_VOLUME;
+        this.WRONG_SOUND.volume = SOUND_VOLUME;
+    }
+
+    @HostListener("click", ["$event"])
+    public mouseClicked(mouseEvent: MouseEvent): void {
+        if (this.canClick) {
+            this.clickPosition = {i: mouseEvent.x, j: mouseEvent.y};
+        }
     }
 
     public updateGameplay(): void {
         this.foundDifferencesCounter ++;
-        if (this.foundDifferencesCounter === REQUIRED_DIFFERENCES_1P) {
+        if (this.foundDifferencesCounter === this.requiredDifferences) {
             this.isChronoRunning = false;
+            this.canClick = false;
         }
-        this.playSound();
+        GameplayViewComponent.playSound(this.CORRECT_SOUND);
     }
 
-    private playSound(): void {
-        this.SOUND.currentTime = 0;
-        this.SOUND.play().catch((err: Error) => {
-            console.error(err);
-        });
+    public identificationError(): void {
+        if (this.foundDifferencesCounter !== this.requiredDifferences) {
+            this.showErrorMessage();
+            this.showCursorError();
+            GameplayViewComponent.playSound(this.WRONG_SOUND);
+        }
+    }
+    private showErrorMessage(): void {
+        this.isErrorMessageVisible = true;
+        setTimeout(
+            () => {
+                this.isErrorMessageVisible = false;
+            },
+            this.ERROR_TIMEOUT);
+    }
+
+    private showCursorError(): void {
+        const NORMAL_CURSOR: string = "context-menu";
+        const ERROR_CURSOR: string = "not-allowed";
+        this.containerRef.nativeElement.style.cursor = ERROR_CURSOR;
+        this.canClick = false;
+        setTimeout(
+            () => {
+                this.containerRef.nativeElement.style.cursor = NORMAL_CURSOR;
+                this.canClick = true;
+            },
+            this.ERROR_TIMEOUT);
     }
 
     private startChrono(): void {
