@@ -5,7 +5,7 @@ describe("Score", () => {
     let score: Score;
 
     beforeEach(() => {
-        score = Score.DEFAULT_SCORE;
+        score = Score.createRandom();
     });
 
     it("should return usernames between 3 and 12 characters", () => {
