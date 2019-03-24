@@ -12,13 +12,13 @@ export class SimpleGame extends AbstractGame {
     public images: BMPImage[];
     public differenceImage: DifferenceImage;
 
-    private constructor(id: string) {
-        super(id, GameType.Simple);
+    private constructor(id: string, sheetId: string) {
+        super(id, sheetId, GameType.Simple);
         this.images = [];
     }
 
-    public static async create(id: string, name: string): Promise<SimpleGame> {
-        const game: SimpleGame = new SimpleGame(id);
+    public static async create(id: string, sheetId: string, name: string): Promise<SimpleGame> {
+        const game: SimpleGame = new SimpleGame(id, sheetId);
 
         return game.setUp(name).then(() => game);
     }
