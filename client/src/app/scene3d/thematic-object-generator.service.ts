@@ -80,8 +80,6 @@ export class ThematicObjectGeneratorService {
             throw RangeError("Object requested does not exist");
         }
 
-        console.log(THEMATIC_OBJECTS[thematicObjectType].name);
-
         return ThematicObjectGeneratorService.objects[thematicObjectType].clone();
     }
 
