@@ -87,12 +87,11 @@ export class DBConnectionService {
     }
 
     public async getGameSheetId(name: string, type: GameType): Promise<string> {
-        const instance: typeof mongoose = await this.connect();
-
-        return instance.models.GameSheet.findOne(
-            {name: name, type: type},
-        ).exec()
-        .then(async (gameSheet: GameSheet) => instance.disconnect().then(() => gameSheet.id));
+        return this.performRequest((instance: typeof mongoose) => {
+            return instance.models.GameSheet.findOne(
+                {name: name, type: type},
+            ).exec();
+        });
     }
 
     public async putSoloScore(gameSheetId: string, username: string, time: number): Promise<void> {
