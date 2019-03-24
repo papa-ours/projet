@@ -94,19 +94,20 @@ export class DBConnectionService {
 
     public async putSoloScore(gameSheetId: string, username: string, time: number): Promise<void> {
         const now: Date = new Date();
-        const instance: typeof mongoose = await this.connect();
 
-        return instance.models.GameSheet.findOneAndUpdate(
-            {id: gameSheetId},
-            {
-                $push: {
-                    topScoresSolo: {
-                        $each: [{username, time, date: now}],
-                        $sort: {time: 1},
-                        $slice: TopScores.SCORE_LENGTH,
+        return this.performRequest((instance: typeof mongoose) => {
+            instance.models.GameSheet.findOneAndUpdate(
+                {id: gameSheetId},
+                {
+                    $push: {
+                        topScoresSolo: {
+                            $each: [{username, time, date: now}],
+                            $sort: {time: 1},
+                            $slice: TopScores.SCORE_LENGTH,
+                        },
                     },
                 },
-            },
-        ).exec().then(async () => instance.disconnect());
+            ).exec();
+        });
     }
 }
