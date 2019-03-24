@@ -13,7 +13,7 @@ export class GameFreeViewGenerationService {
 
     public async postGenerate(formData: FormData): Promise<Message> {
         if (formData.get("objectType") === "thematic") {
-            formData.append("sizes", JSON.stringify(Array.from(ThematicObjectGeneratorService.sizes.values())));
+            formData.append("sizes", JSON.stringify(ThematicObjectGeneratorService.sizes));
         }
 
         return this.http.post(this.URL + formData.get("objectType"), formData).toPromise()

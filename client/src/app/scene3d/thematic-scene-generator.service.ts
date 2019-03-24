@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
 import { GeometryData } from "../../../../common/communication/geometry";
-import { ThematicObject, THEMATIC_OBJECTS } from "../../../../common/communication/thematic-object";
+import { ThematicObjectType, THEMATIC_OBJECTS } from "../../../../common/communication/thematic-object";
 import { ThematicObjectGeneratorService } from "./thematic-object-generator.service";
 
 @Injectable({
@@ -27,7 +27,7 @@ export class ThematicSceneGeneratorService {
     private addObject(data: GeometryData): void {
         try {
             if (data.thematicObjectType) {
-                const group: THREE.Group = this.thematicObjectGeneratorService.getObject(THEMATIC_OBJECTS[data.thematicObjectType]);
+                const group: THREE.Group = this.thematicObjectGeneratorService.getObject(data.thematicObjectType);
                 group.position.set(data.position.x, data.position.y, data.position.z);
                 group.rotation.set(data.rotation.x, data.rotation.y, data.rotation.z);
                 group.traverse((object: THREE.Object3D) => {
@@ -35,7 +35,7 @@ export class ThematicSceneGeneratorService {
                         object.material = new THREE.MeshPhongMaterial({color: data.color});
                     }
                 });
-                const scale: number = this.calculateScale(THEMATIC_OBJECTS[data.thematicObjectType], data.size);
+                const scale: number = this.calculateScale(data.thematicObjectType, data.size);
                 group.scale.set(scale, scale, scale);
                 this.scene.add(group);
             }
@@ -44,12 +44,13 @@ export class ThematicSceneGeneratorService {
         }
     }
 
-    private calculateScale(object: ThematicObject, size: number): number {
-        const objectSize: number | undefined = ThematicObjectGeneratorService.sizes.get(object.name);
-        if (!objectSize) {
+    private calculateScale(thematicObjectType: ThematicObjectType, size: number): number {
+        if (thematicObjectType >= ThematicObjectGeneratorService.sizes.length) {
             throw RangeError("Object size could not be found");
         }
 
-        return object.baseScale * size / objectSize;
+        const objectSize: number = ThematicObjectGeneratorService.sizes[thematicObjectType];
+
+        return THEMATIC_OBJECTS[thematicObjectType].baseScale * size / objectSize;
     }
 }
