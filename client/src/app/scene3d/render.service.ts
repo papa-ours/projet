@@ -82,10 +82,11 @@ export class RenderService {
         this.createCamera();
         this.addLight();
         this.startRenderingLoop();
-        setInterval(() => {
+        setInterval(
+            () => {
             this.camera.translateX(this.speedX);
             this.camera.translateZ(this.speedZ);
-        },          this.MOUVEMENT_INTERVAL);
+        },  this.MOUVEMENT_INTERVAL);
     }
 
     public reInitialize(container: HTMLDivElement, scene: THREE.Scene): void {
