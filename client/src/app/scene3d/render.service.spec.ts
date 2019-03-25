@@ -32,6 +32,10 @@ describe("RenderService", () => {
         render.initialize(container, scene);
         expect(render.scene).toEqual(scene);
         expect(render.camera.fov).toEqual(FIELD_OF_VIEW);
+    });
 
+    it("should reinitialize the correct scene", () => {
+        render.initialize(container, scene);
+        expect(render.scene).toEqual(scene);
     });
 });
