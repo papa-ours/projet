@@ -24,35 +24,35 @@ describe("DeplacementCameraService", () => {
 
     });
 
-    it("should change the speedZ on a w key press", () => {
+    it("should change the speedZ on a w key press, keyup and keydown event", () => {
         spyOn(render1, "setSpeedZ");
         const event: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
         DeplacementCameraService["setCameraSpeed"](event);
         expect(render1.setSpeedZ).toHaveBeenCalled();
     });
 
-    it("should change the speedZ on a s key press", () => {
+    it("should change the speedZ on a s key press, keyup and keydown event", () => {
         spyOn(render1, "setSpeedZ");
         const event: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "s", shiftKey : false});
         DeplacementCameraService["setCameraSpeed"](event);
         expect(render1.setSpeedZ).toHaveBeenCalled();
     });
 
-    it("should change the speedX on a a key press", () => {
+    it("should change the speedX on a a key press, keyup and keydown event", () => {
         spyOn(render1, "setSpeedX");
         const event: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "a", shiftKey : false});
         DeplacementCameraService["setCameraSpeed"](event);
         expect(render1.setSpeedX).toHaveBeenCalled();
     });
 
-    it("should change the speedX on a d key press", () => {
+    it("should change the speedX on a d key press, keyup and keydown event", () => {
         spyOn(render1, "setSpeedX");
         const event: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "d", shiftKey : false});
         DeplacementCameraService["setCameraSpeed"](event);
         expect(render1.setSpeedX).toHaveBeenCalled();
     });
 
-    it("should change the speedX and speedZ on a w and d key press", () => {
+    it("should change the speedX and speedZ on a w and d key press, keyup and keydown event", () => {
         spyOn(render1, "setSpeedX");
         spyOn(render1, "setSpeedZ");
         const event1: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "d", shiftKey : false});
@@ -102,4 +102,5 @@ describe("DeplacementCameraService", () => {
         DeplacementCameraService["onMouseClick"](event1);
         expect(document.body.removeEventListener).toHaveBeenCalled();
     });
+
 });
