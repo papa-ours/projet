@@ -26,6 +26,7 @@ fdescribe("ThematicSceneGeneratorService", () => {
                 thematicObjectType: 0,
             }];
             expect((await sceneService.createScene(geometryData)).type).toBe(new THREE.Scene().type);
-        });
+        })
+        .catch((error: Error) => console.error(error.message));
     });
 });
