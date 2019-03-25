@@ -28,20 +28,27 @@ export class ThematicObjectGeneratorService {
     public async waitForObjects(): Promise<{}> {
         return new Promise(async (resolve: Function) => {
             if (!ThematicObjectGeneratorService.areObjectsLoaded) {
-                ThematicObjectGeneratorService.desk = await this.loadDesk();
-                ThematicObjectGeneratorService.backgroundImage = await this.loadBackground();
-                this.createAllObjects()
+                this.createAllAssets()
                     .then((groups: THREE.Group[]) => {
                         ThematicObjectGeneratorService.areObjectsLoaded = true;
-                        ThematicObjectGeneratorService.objects = groups;
-                        this.scaleObjects();
-                        this.createSizes();
                         resolve();
                     })
                     .catch((error: Error) => console.error(error.message));
             } else {
                 resolve();
             }
+        });
+    }
+
+    private async createAllAssets(): Promise<{}> {
+        return new Promise(async (resolve: Function) => {
+            ThematicObjectGeneratorService.desk = await this.loadDesk();
+            ThematicObjectGeneratorService.backgroundImage = await this.loadBackground();
+            ThematicObjectGeneratorService.objects = await this.createAllObjects();
+            this.scaleObjects();
+            this.createSizes();
+
+            resolve();
         });
     }
 
