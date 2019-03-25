@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
-import { GameSheet, GameType, HasId } from "../../../common/communication/game-description";
+import { GameMode, GameSheet, GameType, HasId } from "../../../common/communication/game-description";
 import Types from "../types";
 import { DBConnectionService } from "./db-connection.service";
 import { FreeGame } from "./game/free-game";
@@ -50,8 +50,8 @@ export class GetGameService {
         // triple equal problem
         // tslint:disable-next-line:triple-equals
         const game: AbstractGame = type == GameType.Free ?
-                            await FreeGame.create(id, sheetId, name) :
-                            await SimpleGame.create(id, sheetId, name);
+                            await FreeGame.create(id, sheetId, GameMode.Solo, name) :
+                            await SimpleGame.create(id, sheetId, GameMode.Solo, name);
         if (game) {
             GetGameService.games.push(game);
             game.start(username);

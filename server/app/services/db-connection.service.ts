@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import * as mongoose from "mongoose";
 import "reflect-metadata";
-import { GameSheet, GameType } from "../../../common/communication/game-description";
+import { GameSheet, GameType, GameMode } from "../../../common/communication/game-description";
 import { Score } from "./score/score";
 import { TopScores } from "./score/top-scores";
 
@@ -40,6 +40,16 @@ export class DBConnectionService {
         .catch((error: Error) => console.error(error.message));
     }
 
+    private parseGameSheetDocument(doc: mongoose.Document): GameSheet {
+        const gameSheet: GameSheet & {topScoresSolo: Score[], topScores1v1: Score[]} = doc.toObject();
+        gameSheet.topScores = [
+            new TopScores(gameSheet.topScoresSolo),
+            new TopScores(gameSheet.topScores1v1),
+        ];
+
+        return gameSheet;
+    }
+
     public async saveGameSheet(gameSheet: GameSheet, type: GameType): Promise<mongoose.Document> {
         const gameSheetDocument: mongoose.Document = new mongoose.models.GameSheet({
             name: gameSheet.name,
@@ -55,15 +65,7 @@ export class DBConnectionService {
     public async getGameSheets(type: GameType): Promise<GameSheet[]> {
         const documents: mongoose.Document[] = await mongoose.models.GameSheet.find({type: type}).exec();
 
-        return documents.map((document: mongoose.Document) => {
-            const gameSheet: GameSheet & {topScoresSolo: Score[], topScores1v1: Score[]} = document.toObject();
-            gameSheet.topScores = [
-                new TopScores(gameSheet.topScoresSolo),
-                new TopScores(gameSheet.topScores1v1),
-            ];
-
-            return gameSheet;
-        });
+        return documents.map((document: mongoose.Document) => this.parseGameSheetDocument(document));
     }
 
     public async reinitializeScores(id: string, type: GameType): Promise<{}> {
@@ -86,9 +88,10 @@ export class DBConnectionService {
         .then(async (gameSheet: GameSheet) => instance.disconnect().then(() => gameSheet.id));
     }
 
-    public async putSoloScore(gameSheetId: string, username: string, time: number): Promise<void> {
+    public async putSoloScoreAndGetPosition(gameSheetId: string, username: string, time: number): Promise<number> {
         const now: Date = new Date();
         const instance: typeof mongoose = await this.connect();
+        let position: number = -1;
 
         return instance.models.GameSheet.findOneAndUpdate(
             {id: gameSheetId},
@@ -101,6 +104,17 @@ export class DBConnectionService {
                     },
                 },
             },
-        ).exec().then(async () => instance.disconnect());
+        ).exec().then(async (doc: mongoose.Document) => {
+            const gameSheet: GameSheet = this.parseGameSheetDocument(doc);
+            (gameSheet.topScores[GameMode.Solo] as TopScores).scores
+                .map((score: Score) => score.time)
+                .forEach((sheetTime: number, index: number) => {
+                    if (time < sheetTime && position === -1) {
+                        position = index;
+                    }
+                });
+
+            return instance.disconnect();
+        }).then(() => position);
     }
 }

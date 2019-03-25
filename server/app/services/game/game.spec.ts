@@ -1,9 +1,10 @@
 import { expect } from "chai";
+import { GameMode } from "../../../../common/communication/game-description";
 import { Position } from "../utils/circle-area";
 import { SimpleGame } from "./simple-game";
 
 describe("Game", async () => {
-    const game: SimpleGame = await SimpleGame.create("0", "0", "voiture");
+    const game: SimpleGame = await SimpleGame.create("0", "0", GameMode.Solo, "voiture");
     const ONE_SECOND: number = 1000;
 
     it("should restore the difference like the original image", () => {
