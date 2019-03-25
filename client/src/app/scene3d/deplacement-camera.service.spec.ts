@@ -71,4 +71,12 @@ describe("DeplacementCameraService", () => {
         expect(render1.rotateCameraX).toHaveBeenCalled();
     });
 
+    it("should rotate the camera on the y axis when the user moves on the x axis", () => {
+        render1.camera = new PerspectiveCamera();
+        spyOn(render1, "rotateCameraY");
+        const event1: MouseEvent = new MouseEvent("mousemove", {bubbles : true, cancelable : true, screenX : 50});
+        DeplacementCameraService["rotateCamera"](event1);
+        expect(render1.rotateCameraY).toHaveBeenCalled();
+    });
+
 });
