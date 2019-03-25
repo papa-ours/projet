@@ -112,16 +112,18 @@ export class DBConnectionService {
         });
     }
 
-    public async putSoloScore(gameSheetId: string, username: string, time: number): Promise<GameSheet> {
+    public async putScore(gameSheetId: string, username: string, time: number, mode: GameMode): Promise<GameSheet> {
         const now: Date = new Date();
         let gameSheet: GameSheet;
+        // tslint:disable-next-line:triple-equals
+        const table: string = mode == GameMode.Solo ? "topScoresSolo" : "topScores1v1";
 
         return this.performRequest(async (instance: typeof mongoose) => {
             return instance.models.GameSheet.findOneAndUpdate(
                 {id: gameSheetId},
                 {
                     $push: {
-                        topScoresSolo: {
+                        [table]: {
                             $each: [{username, time, date: now}],
                             $sort: {time: 1},
                             $slice: TopScores.SCORE_LENGTH,

@@ -32,7 +32,7 @@ export class EndGameController {
                         req.body.game.sheetId,
                         req.body.game.name,
                         parseInt(req.body.time, EndGameController.BASE_10),
-                    this.getGameService.removeGame(req.params.gameId),
+                        req.body.game.mode),
                     this.getGameService.removeGame(req.body.game.gameId),
                 ]).then((result: [GameSheet, {}]) => {
                     const position: number = this.scoreUpdaterService.getPosition(result[0], req.body.time, req.body.game.mode);

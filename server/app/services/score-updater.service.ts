@@ -12,13 +12,13 @@ export class ScoreUpdaterService {
 
     }
 
-    public async putSoloScore(gameSheetId: string, name: string, time: number): Promise<GameSheet> {
-        return this.dbConnectionService.putSoloScore(gameSheetId, name, time);
+    public async putScore(gameSheetId: string, name: string, time: number, mode: GameMode): Promise<GameSheet> {
+        return this.dbConnectionService.putScore(gameSheetId, name, time, mode);
     }
 
-    public getPosition(gameSheet: GameSheet, time: number): number {
+    public getPosition(gameSheet: GameSheet, time: number, mode: GameMode): number {
         let position: number = -1;
-        (gameSheet.topScores[GameMode.Solo] as TopScores).scores
+        (gameSheet.topScores[mode] as TopScores).scores
             .map((score: Score) => score.time)
             .forEach((sheetTime: number, index: number) => {
                 if (time < sheetTime) {
