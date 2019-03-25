@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { SceneData } from "../../../../common/communication/geometry";
+import { SceneData, SceneType } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { DeepCloner } from "../utils/deep-cloner";
 import { Scene } from "./scene";
@@ -12,6 +12,7 @@ describe("Scene", () => {
         name: "test",
         originalScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
         modifiedScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
+        type: SceneType.GEOMETRIC,
     };
 
     describe("color change", () => {
