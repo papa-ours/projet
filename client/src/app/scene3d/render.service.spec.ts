@@ -26,3 +26,11 @@ describe("RenderService", () => {
         const service: RenderService = TestBed.get(RenderService);
         expect(service).toBeTruthy();
     });
+
+    it("should initialize the correct camera and scene", () => {
+        render.initialize(container, scene);
+        expect(render.scene).toEqual(scene);
+        expect(render.camera.fov).toEqual(45);
+
+    });
+});
