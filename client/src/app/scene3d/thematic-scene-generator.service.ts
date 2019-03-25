@@ -21,7 +21,6 @@ export class ThematicSceneGeneratorService {
         .then(() => geometryData.map((data: GeometryData) => this.addObject(data)))
         .catch((error: Error) => console.error(error.message));
 
-
         this.scene.add(this.createDesk());
         this.setBackgroundImage();
 
