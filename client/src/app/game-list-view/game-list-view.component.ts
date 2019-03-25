@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { GameSheet } from "../../../../common/communication/game-description";
 import { ConnectionService } from "../connection.service";
 import { GameListService } from "../game-list-getter.service";
+import { ThematicObjectGeneratorService } from "../scene3d/thematic-object-generator.service";
 
 enum GameType {
     Simple,
@@ -20,13 +21,17 @@ export class GameListViewComponent implements OnInit {
     @Input() public isAdmin: boolean;
     public username: string;
     private games: GameSheet[][];
+    public areObjectsLoaded: boolean;
+
 
     public constructor(
         private route: ActivatedRoute,
         private router: Router,
         private connectionService: ConnectionService,
         private gameListService: GameListService,
+        private thematicObjectGenerator: ThematicObjectGeneratorService,
     ) {
+        this.areObjectsLoaded = false;
         this.isAdmin = false;
         this.username = "";
         this.games = [];
@@ -45,6 +50,10 @@ export class GameListViewComponent implements OnInit {
             this.games[GameType.Simple] = lists.list2d;
             this.games[GameType.Free] = lists.list3d;
         });
+
+        this.thematicObjectGenerator.waitForObjects()
+            .then(() => this.areObjectsLoaded = true)
+            .catch((error: Error) => console.error(error.message));
     }
 
     private checkUserConnection(): void {
