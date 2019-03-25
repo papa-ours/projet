@@ -17,7 +17,9 @@ export class AdminViewComponent {
         this.areObjectsLoaded = false;
         this.showForm2D = false;
         this.showForm3D = false;
-        this.thematicObjectGenerator.waitForObjects().then(() => this.areObjectsLoaded = true);
+        this.thematicObjectGenerator.waitForObjects()
+            .then(() => this.areObjectsLoaded = true)
+            .catch((error: Error) => console.error(error.message));
     }
 
     public changeShowForm2D(): void {
