@@ -16,7 +16,8 @@ fdescribe("ThematicObjectGeneratorService", () => {
         service.waitForObjects()
         .then(() => {
             expect(ThematicObjectGeneratorService.areObjectsLoaded).toBeTruthy();
-        });
+        })
+        .catch((error: Error) => console.error(error.message));
     });
 
     it("should return the right object", async () => {
@@ -25,13 +26,15 @@ fdescribe("ThematicObjectGeneratorService", () => {
         service.waitForObjects().then(() => {
             const object: THREE.Group = service.getObject(ThematicObjectType.APPLE);
             expect(object).toBeDefined();
-        });
+        })
+        .catch((error: Error) => console.error(error.message));
     });
 
     it("should throw if the object does not exist", async () => {
         const service: ThematicObjectGeneratorService = TestBed.get(ThematicObjectGeneratorService);
         service.waitForObjects().then(() => {
             expect(() => service.getObject(-1)).toThrowError("Object requested does not exist");
-        });
+        })
+        .catch((error: Error) => console.error(error.message));
     });
 });
