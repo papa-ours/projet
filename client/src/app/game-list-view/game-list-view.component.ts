@@ -23,7 +23,6 @@ export class GameListViewComponent implements OnInit {
     private games: GameSheet[][];
     public areObjectsLoaded: boolean;
 
-
     public constructor(
         private route: ActivatedRoute,
         private router: Router,
