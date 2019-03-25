@@ -15,7 +15,7 @@ export class RenderService {
     private readonly FIELD_OF_VIEW: number = 45;
 
     private readonly NEAR_CLIPPING_PANE: number = 1;
-    private readonly FAR_CLIPPING_PANE: number = 10000;
+    private readonly FAR_CLIPPING_PANE: number = 5000;
 
     private readonly MOUVEMENT_INTERVAL: number = 10;
     private readonly ROTATION_CONSTANT: number = 800;
@@ -39,13 +39,12 @@ export class RenderService {
         return this.container.clientWidth / this.container.clientHeight;
     }
 
-    private startRenderingLoop(): void {
+    private setupRenderingLoop(): void {
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setPixelRatio(devicePixelRatio);
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
 
         this.container.appendChild(this.renderer.domElement);
-        this.render();
     }
 
     private render(): void {
@@ -60,19 +59,19 @@ export class RenderService {
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
     }
 
+    private createSpotLight(height: number, intensity: number, color: number): THREE.SpotLight {
+        const spotLight: THREE.SpotLight = new THREE.SpotLight(color, intensity);
+        spotLight.position.set(0, height, 0);
+        spotLight.lookAt(new THREE.Vector3(0, 0, 0));
+
+        return spotLight;
+    }
     private addLight(): void {
-        const lowIntensity: number = 0.3;
+        const lowIntensity: number = 0.6;
         const highIntensity: number = 2;
         const lightColor: number = 0xFFFFFF;
-        this.scene.add(this.camera);
-        this.scene.add(new THREE.AmbientLight(lightColor, lowIntensity));
-        this.camera.add(new THREE.PointLight(lightColor, highIntensity));
-    }
-
-    private addSceneLight(): void {
-        const lowIntensity: number = 0.3;
-        const lightColor: number = 0xFFFFFF;
-        this.scene.add(this.camera);
+        const lightHeight: number = 5000;
+        this.scene.add(this.createSpotLight( lightHeight, highIntensity, lightColor));
         this.scene.add(new THREE.AmbientLight(lightColor, lowIntensity));
     }
 
@@ -81,7 +80,8 @@ export class RenderService {
         this.scene = scene;
         this.createCamera();
         this.addLight();
-        this.startRenderingLoop();
+        this.setupRenderingLoop();
+        this.render();
         setInterval(
             () => {
             this.camera.translateX(this.speedX);
@@ -92,8 +92,8 @@ export class RenderService {
     public reInitialize(container: HTMLDivElement, scene: THREE.Scene): void {
         this.container = container;
         this.scene = scene;
-        this.addSceneLight();
-        this.startRenderingLoop();
+        this.addLight();
+        this.setupRenderingLoop();
     }
 
     public setSpeedZ(z: number): void {

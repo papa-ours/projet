@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input,
-         Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
-import { GeometryData } from "../../../../common/communication/geometry";
+    Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { GeometryData, SceneType } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
 import { RaycasterService } from "../scene3d/raycaster.service";
@@ -8,7 +8,7 @@ import { Scene3dComponent } from "../scene3d/scene3d.component";
 import { CheatModeService } from "./cheat-mode.service";
 import { Difference3DCheckerService } from "./difference3d-checker.service";
 
-enum SceneType {
+enum Query {
     originalScene,
     modifiedScene,
 }
@@ -42,16 +42,16 @@ export class Gameplay3dComponent implements AfterViewInit {
     }
 
     public ngAfterViewInit(): void {
-        this.originalScene = this.scenes.toArray()[SceneType.originalScene];
-        this.modifiedScene = this.scenes.toArray()[SceneType.modifiedScene];
+        this.originalScene = this.scenes.toArray()[Query.originalScene];
+        this.modifiedScene = this.scenes.toArray()[Query.modifiedScene];
         this.rayCaster = new RaycasterService(this.originalScene.renderService, this.modifiedScene.renderService);
         DeplacementCameraService.setElementRef(this.originalSceneElement, this.modifiedSceneElement);
         DeplacementCameraService.activateMovement();
         this.cheatModeService = new CheatModeService(this.originalScene.renderService, this.modifiedScene.renderService);
     }
 
-    public checkDifference(mousePosition: VectorInterface): void {
-        const position: VectorInterface | undefined = this.rayCaster.findObject(mousePosition);
+    public checkDifference(difference3dEvent: [VectorInterface, SceneType]): void {
+        const position: VectorInterface | undefined = this.rayCaster.findObject(difference3dEvent[0], difference3dEvent[1]);
         if (position && this.canClick) {
             this.difference3DCheckerService.isPositionDifference(position, this.id).subscribe(
                 (response: boolean) => {
