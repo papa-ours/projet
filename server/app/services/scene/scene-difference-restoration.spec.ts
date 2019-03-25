@@ -35,7 +35,7 @@ describe("SceneDifferenceRestoration", () => {
             modificationIndex = scene.modifiedScene.length - 1;
             originalIndex = scene.originalScene.length - 1;
             expect(scene.modifiedScene[modificationIndex].position)
-                .to.deep.equal(scene.originalScene[modificationIndex].position);
+                .to.deep.equal(scene.originalScene[originalIndex].position);
         });
     });
 
@@ -58,7 +58,7 @@ describe("SceneDifferenceRestoration", () => {
             modificationIndex = scene.modifiedScene.length - 1;
             originalIndex = scene.originalScene.length - 1;
             expect(scene.modifiedScene[modificationIndex].position)
-                .to.deep.equal(scene.originalScene[modificationIndex].position);
+                .to.deep.equal(scene.originalScene[originalIndex].position);
         });
     });
 
