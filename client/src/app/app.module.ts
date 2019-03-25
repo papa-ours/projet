@@ -17,11 +17,14 @@ import { GameListViewComponent } from "./game-list-view/game-list-view.component
 import { GameListComponent } from "./game-list/game-list.component";
 import { GameSheetComponent } from "./game-sheet/game-sheet.component";
 import { Gameplay2DComponent } from "./gameplay-2d/gameplay-2d.component";
+import { Difference3DCheckerService } from "./gameplay-3d/difference3d-checker.service";
 import { Gameplay3dComponent } from "./gameplay-3d/gameplay-3d.component";
 import { GameplayViewComponent } from "./gameplay-view/gameplay-view.component";
 import { InitialViewComponent } from "./initial-view/initial-view.component";
 import { RenderService } from "./scene3d/render.service";
 import { Scene3dComponent } from "./scene3d/scene3d.component";
+import { ThematicObjectGeneratorService } from "./scene3d/thematic-object-generator.service";
+import { FileIO } from "./simple-game-creation/file-reader.util";
 import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-creation.component";
 
 @NgModule({
@@ -53,6 +56,9 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         ConnectionService,
         DifferenceImageService,
         DifferenceCheckerService,
+        ThematicObjectGeneratorService,
+        FileIO,
+        Difference3DCheckerService,
         RenderService,
         GameplayViewComponent,
         Gameplay2DComponent,

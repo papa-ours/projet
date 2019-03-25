@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { REQUIRED_DIFFERENCES_1P } from "../../../../common/communication/constants";
-import { Modification, ModificationType, SceneData } from "../../../../common/communication/geometry";
+import { Modification, ModificationType, SceneData, SceneType } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { DeepCloner } from "../utils/deep-cloner";
 import { SceneDataGeneratorService } from "./scene-data-generator";
@@ -14,6 +14,7 @@ describe("SceneDifferenceChecker", () => {
         name: "test",
         originalScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
         modifiedScene: sceneDataGeneratorService.getSceneData(sizeOfScene),
+        type: SceneType.GEOMETRIC,
     };
     const sceneDifferenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService();
 

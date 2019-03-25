@@ -21,7 +21,7 @@ describe("GameplayService", () => {
     });
 
     it("should be a GET REQUEST", () => {
-        gameplayService.getGameId("name", GameType.Simple).subscribe(
+        gameplayService.getGameId("test", GameType.Simple, "name").subscribe(
             (data: string) => { expect(data).toBeDefined();
         });
         const request: TestRequest = httpMock.expectOne(`${gameplayService.URL}name/${GameType.Simple}`);

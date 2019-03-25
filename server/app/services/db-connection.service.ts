@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import * as mongoose from "mongoose";
 import "reflect-metadata";
-import { GameSheet, GameType } from "../../../common/communication/game-description";
+import { GameMode, GameSheet, GameType } from "../../../common/communication/game-description";
 import { Score } from "./score/score";
 import { TopScores } from "./score/top-scores";
 
@@ -44,6 +44,16 @@ export class DBConnectionService {
     public async closeConnection(): Promise<void> {
         return mongoose.disconnect()
         .catch((error: Error) => console.error(error.message));
+    }
+
+    private parseGameSheetDocument(doc: mongoose.Document): GameSheet {
+        const gameSheet: GameSheet & {topScoresSolo: Score[], topScores1v1: Score[]} = doc.toObject();
+        gameSheet.topScores = [
+            new TopScores(gameSheet.topScoresSolo),
+            new TopScores(gameSheet.topScores1v1),
+        ];
+
+        return gameSheet;
     }
 
     public async saveGameSheet(gameSheet: GameSheet, type: GameType): Promise<mongoose.Document> {
@@ -106,8 +116,9 @@ export class DBConnectionService {
         });
     }
 
-    public async putSoloScore(gameSheetId: string, username: string, time: number): Promise<void> {
+    public async putSoloScoreAndGetPosition(gameSheetId: string, username: string, time: number): Promise<number> {
         const now: Date = new Date();
+        let position: number = -1;
 
         return this.performRequest(async (instance: typeof mongoose) => {
             return instance.models.GameSheet.findOneAndUpdate(
@@ -121,7 +132,18 @@ export class DBConnectionService {
                         },
                     },
                 },
-            ).exec();
+            ).exec().then(async (doc: mongoose.Document) => {
+                const gameSheet: GameSheet = this.parseGameSheetDocument(doc);
+                (gameSheet.topScores[GameMode.Solo] as TopScores).scores
+                    .map((score: Score) => score.time)
+                    .forEach((sheetTime: number, index: number) => {
+                        if (time < sheetTime && position === -1) {
+                            position = index;
+                        }
+                    });
+
+                return instance.disconnect();
+            }).then(() => position);
         });
     }
 }

@@ -13,6 +13,14 @@ export class UsersContainerService {
         UsersContainerService.users = [];
     }
 
+    public getUsernameBySocketId(id: string): string {
+        const foundUser: User | undefined = UsersContainerService.users.find((user: User) => {
+            return user.socketId === id;
+        });
+
+        return foundUser ? foundUser.name : "";
+    }
+
     public addUser(user: User): void {
         UsersContainerService.users.push(user);
     }

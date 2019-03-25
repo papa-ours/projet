@@ -1,5 +1,5 @@
 import { REQUIRED_DIFFERENCES_1P } from "../../../../common/communication/constants";
-import { GameType, HasId } from "../../../../common/communication/game-description";
+import { GameMode, GameType, HasId } from "../../../../common/communication/game-description";
 
 export abstract class AbstractGame implements HasId {
 
@@ -10,6 +10,8 @@ export abstract class AbstractGame implements HasId {
     public constructor(
         public id: string,
         public sheetId: string,
+        public name: string,
+        public gameMode: GameMode,
         public readonly type: GameType,
     ) {
         this.differenceCount = REQUIRED_DIFFERENCES_1P;

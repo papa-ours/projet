@@ -1,4 +1,4 @@
-import { GeometryData, SceneData } from "../../../../common/communication/geometry";
+import { GeometryData, SceneData, SceneType } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { Geometry } from "./geometry";
 
@@ -7,6 +7,7 @@ export class Scene implements SceneData {
         public originalScene: GeometryData[],
         public modifiedScene: GeometryData[],
         public name: string,
+        public type: SceneType,
     ) { }
 
     public static fromSceneData(other: SceneData): Scene {
@@ -14,6 +15,7 @@ export class Scene implements SceneData {
             other.originalScene,
             other.modifiedScene,
             other.name,
+            other.type,
         );
     }
 

@@ -21,8 +21,7 @@ export class UsernameController {
                 const message: Message = await this.usernameValidatorService.getUsernameValidation(req.body.name);
 
                 if (message.body === "") {
-                    const PREFIX: string = "/#";
-                    this.usersContainerService.addUser({name: req.body.name, socketId: `${PREFIX}${req.body.socketId}`});
+                    this.usersContainerService.addUser({name: req.body.name, socketId: `${req.body.socketId}`});
                 }
 
                 res.send(message);

@@ -2,10 +2,11 @@ import { Component, ElementRef, HostListener, OnInit, ViewChild  } from "@angula
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
-import { GameType } from "../../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../../common/communication/game-description";
 import { Position } from "../../../../common/images/position";
 import { ConnectionService } from "../connection.service";
 import { GameplayService } from "../gameplay.service";
+import { SocketService } from "../socket.service";
 
 @Component({
     selector: "app-gameplay-view",
@@ -14,7 +15,7 @@ import { GameplayService } from "../gameplay.service";
 })
 export class GameplayViewComponent implements OnInit {
 
-    public readonly nbPlayers: number;
+    public readonly gameMode: GameMode;
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
     private readonly CORRECT_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
     private readonly WRONG_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
@@ -35,12 +36,13 @@ export class GameplayViewComponent implements OnInit {
     public constructor(
         private route: ActivatedRoute,
         private gameplayService: GameplayService,
+        private socketService: SocketService,
         private connectionService: ConnectionService,
         public name: string,
         public id: string,
     ) {
-        this.nbPlayers = 1;
-        this.requiredDifferences = this.nbPlayers === 1 ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
+        this.gameMode = GameMode.Solo;
+        this.requiredDifferences = this.gameMode === GameMode.Solo ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
         this.foundDifferencesCounter = 0;
         this.images = [];
         this.canClick = true;
@@ -79,6 +81,7 @@ export class GameplayViewComponent implements OnInit {
 
     public updateGameplay(): void {
         this.foundDifferencesCounter ++;
+        this.socketService.sendFoundDiffrenceMessage(this.gameMode);
         if (this.foundDifferencesCounter === this.requiredDifferences) {
             this.isChronoRunning = false;
             this.canClick = false;
@@ -88,6 +91,7 @@ export class GameplayViewComponent implements OnInit {
 
     public identificationError(): void {
         if (this.foundDifferencesCounter !== this.requiredDifferences) {
+            this.socketService.sendErrorIdentificationMessage(this.gameMode);
             this.showErrorMessage();
             this.showCursorError();
             GameplayViewComponent.playSound(this.WRONG_SOUND);

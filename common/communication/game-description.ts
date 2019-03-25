@@ -13,6 +13,11 @@ export enum GameType {
     Free,
 }
 
+export enum GameMode {
+    Solo,
+    Pvp,
+}
+
 export interface GameSheetDescription {
     id: string;
     name: string;
