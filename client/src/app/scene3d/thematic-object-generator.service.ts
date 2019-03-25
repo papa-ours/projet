@@ -120,10 +120,4 @@ export class ThematicObjectGeneratorService {
 
         return ThematicObjectGeneratorService.objects[thematicObjectType].clone();
     }
-
-    public async createObject(thematicObject: ThematicObject): Promise<THREE.Group> {
-        return new Promise((resolve: (group: THREE.Group) => void) =>
-            this.objLoader.load(`${thematicObject.name}/${thematicObject.name}.obj`, resolve));
-    }
-
 }
