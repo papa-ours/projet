@@ -39,13 +39,12 @@ export class RenderService {
         return this.container.clientWidth / this.container.clientHeight;
     }
 
-    private startRenderingLoop(): void {
+    private setupRenderingLoop(): void {
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setPixelRatio(devicePixelRatio);
         this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
 
         this.container.appendChild(this.renderer.domElement);
-        this.render();
     }
 
     private render(): void {
@@ -81,7 +80,8 @@ export class RenderService {
         this.scene = scene;
         this.createCamera();
         this.addLight();
-        this.startRenderingLoop();
+        this.setupRenderingLoop();
+        this.render();
         setInterval(
             () => {
             this.camera.translateX(this.speedX);
@@ -93,7 +93,7 @@ export class RenderService {
         this.container = container;
         this.scene = scene;
         this.addLight();
-        this.startRenderingLoop();
+        this.setupRenderingLoop();
     }
 
     public setSpeedZ(z: number): void {
