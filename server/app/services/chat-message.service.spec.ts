@@ -41,7 +41,7 @@ describe("chat-message-service", () => {
     after((done: Mocha.Func) => {
         socketClient1.disconnect();
         socketClient2.disconnect();
-        socket.getIO().close();
+        Socket.io.close();
         server.getServer().close();
         setTimeout(done, 0);
     });
