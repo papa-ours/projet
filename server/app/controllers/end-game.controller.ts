@@ -1,10 +1,10 @@
 import { Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
+import { AbstractGame } from "../services/game/game";
 import { GetGameService } from "../services/get-game.service";
 import { ScoreUpdaterService } from "../services/score-updater.service";
-import Types from "../types";
 import { Socket } from "../socket";
-import { AbstractGame } from "../services/game/game";
+import Types from "../types";
 
 @injectable()
 export class EndGameController {
@@ -23,15 +23,15 @@ export class EndGameController {
         const router: Router = Router();
 
         router.post(
-            "/:id/:name/:time",
+            "/:sheetId/:gameId/:name/:time",
             async (req: Request, res: Response) => {
-                const game: AbstractGame = this.getGameService.getGame(req.params.id);
+                const game: AbstractGame = this.getGameService.getGame(req.params.gameId);
                 Promise.all([
                     this.scoreUpdaterService.putSoloScoreAndGetPosition(
-                        req.params.id,
+                        req.params.sheetId,
                         req.params.name,
                         parseInt(req.params.time, EndGameController.BASE_10)),
-                    this.getGameService.removeGame(req.params.id),
+                    this.getGameService.removeGame(req.params.gameId),
                 ]).then((result: [number, {}]) => {
                     const PODIUM: number = 3;
                     if (result[0] < PODIUM) {
