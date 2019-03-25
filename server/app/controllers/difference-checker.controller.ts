@@ -46,7 +46,7 @@ export class DifferenceCheckerController {
                     if (isDifference) {
                         await game.restoreModifiedImage(x, y);
                         if (game.differenceCount === 0) {
-                            Axios.post(`${SERVER_ADDRESS}/api/endgame/${game.sheetId}/${game.id}/${game.username}/${game.time}`);
+                            Axios.post(`${SERVER_ADDRESS}/api/endgame/`, {game, time: game.time});
                         }
                     }
 

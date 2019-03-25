@@ -24,17 +24,18 @@ export class EndGameController {
         const router: Router = Router();
 
         router.post(
-            "/:sheetId/:gameId/:name/:time",
+            "/",
             async (req: Request, res: Response) => {
-                const game: AbstractGame = this.getGameService.getGame(req.params.gameId);
+                const game: AbstractGame = this.getGameService.getGame(req.body.game.gameId);
                 Promise.all([
-                    this.scoreUpdaterService.putSoloScore(
-                        req.params.sheetId,
-                        req.params.name,
-                        parseInt(req.params.time, EndGameController.BASE_10)),
+                    this.scoreUpdaterService.putScore(
+                        req.body.game.sheetId,
+                        req.body.game.name,
+                        parseInt(req.body.time, EndGameController.BASE_10),
                     this.getGameService.removeGame(req.params.gameId),
+                    this.getGameService.removeGame(req.body.game.gameId),
                 ]).then((result: [GameSheet, {}]) => {
-                    const position: number = this.scoreUpdaterService.getPosition(result[0], req.params.time);
+                    const position: number = this.scoreUpdaterService.getPosition(result[0], req.body.time, req.body.game.mode);
                     if (position !== -1) {
                         this.socket.sendBestTimeMessage(game.username, position + 1, game.name, game.gameMode);
                     }
