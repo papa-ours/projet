@@ -57,9 +57,10 @@ export class DBConnectionService {
 
         return documents.map((document: mongoose.Document) => {
             const gameSheet: GameSheet & {topScoresSolo: Score[], topScores1v1: Score[]} = document.toObject();
-            gameSheet.topScores = [];
-            gameSheet.topScores[0] = new TopScores(gameSheet.topScoresSolo);
-            gameSheet.topScores[1] = new TopScores(gameSheet.topScores1v1);
+            gameSheet.topScores = [
+                new TopScores(gameSheet.topScoresSolo),
+                new TopScores(gameSheet.topScores1v1),
+            ];
 
             return gameSheet;
         });
