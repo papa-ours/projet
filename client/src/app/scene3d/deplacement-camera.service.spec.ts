@@ -6,7 +6,7 @@ import { PerspectiveCamera}  from "three";
 describe("DeplacementCameraService", () => {
 
     let element: ElementRef;
-    let render1: RenderService;
+    let renderOriginal: RenderService;
     let render2: RenderService;
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -15,72 +15,72 @@ describe("DeplacementCameraService", () => {
                 RenderService,
             ],
         });
-        render1 = TestBed.get(RenderService);
+        renderOriginal = TestBed.get(RenderService);
         render2 = TestBed.get(RenderService);
         element = new ElementRef(document);
         DeplacementCameraService.setElementRef(element, element);
-        DeplacementCameraService.setRender3dModifiedImage(render1);
+        DeplacementCameraService.setRender3dModifiedImage(renderOriginal);
         DeplacementCameraService.setRender3dOriginalImage(render2);
 
     });
 
     it("should change the speedZ on a w key press, keyup and keydown event", () => {
-        spyOn(render1, "setSpeedZ");
+        spyOn(renderOriginal, "setSpeedZ");
         const event: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
         DeplacementCameraService["setCameraSpeed"](event);
-        expect(render1.setSpeedZ).toHaveBeenCalled();
+        expect(renderOriginal.setSpeedZ).toHaveBeenCalled();
     });
 
     it("should change the speedZ on a s key press, keyup and keydown event", () => {
-        spyOn(render1, "setSpeedZ");
+        spyOn(renderOriginal, "setSpeedZ");
         const event: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "s", shiftKey : false});
         DeplacementCameraService["setCameraSpeed"](event);
-        expect(render1.setSpeedZ).toHaveBeenCalled();
+        expect(renderOriginal.setSpeedZ).toHaveBeenCalled();
     });
 
     it("should change the speedX on a a key press, keyup and keydown event", () => {
-        spyOn(render1, "setSpeedX");
+        spyOn(renderOriginal, "setSpeedX");
         const event: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "a", shiftKey : false});
         DeplacementCameraService["setCameraSpeed"](event);
-        expect(render1.setSpeedX).toHaveBeenCalled();
+        expect(renderOriginal.setSpeedX).toHaveBeenCalled();
     });
 
     it("should change the speedX on a d key press, keyup and keydown event", () => {
-        spyOn(render1, "setSpeedX");
+        spyOn(renderOriginal, "setSpeedX");
         const event: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "d", shiftKey : false});
         DeplacementCameraService["setCameraSpeed"](event);
-        expect(render1.setSpeedX).toHaveBeenCalled();
+        expect(renderOriginal.setSpeedX).toHaveBeenCalled();
     });
 
     it("should change the speedX and speedZ on a w and d key press, keyup and keydown event", () => {
-        spyOn(render1, "setSpeedX");
-        spyOn(render1, "setSpeedZ");
+        spyOn(renderOriginal, "setSpeedX");
+        spyOn(renderOriginal, "setSpeedZ");
         const event1: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "d", shiftKey : false});
         const event2: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
         DeplacementCameraService["setCameraSpeed"](event1);
         DeplacementCameraService["setCameraSpeed"](event2);
-        expect(render1.setSpeedX).toHaveBeenCalled();
-        expect(render1.setSpeedZ).toHaveBeenCalled();
+        expect(renderOriginal.setSpeedX).toHaveBeenCalled();
+        expect(renderOriginal.setSpeedZ).toHaveBeenCalled();
     });
 
     it("should rotate the camera on the X axis when the user moves on the y axis", () => {
-        render1.camera = new PerspectiveCamera();
-        spyOn(render1, "rotateCameraX");
+        renderOriginal.camera = new PerspectiveCamera();
+        spyOn(renderOriginal, "rotateCameraX");
         const event1: MouseEvent = new MouseEvent("mousemove", {bubbles : true, cancelable : true, screenY : 50});
         DeplacementCameraService["rotateCamera"](event1);
-        expect(render1.rotateCameraX).toHaveBeenCalled();
+        expect(renderOriginal.rotateCameraX).toHaveBeenCalled();
     });
 
     it("should rotate the camera on the y axis when the user moves on the x axis", () => {
-        render1.camera = new PerspectiveCamera();
-        spyOn(render1, "rotateCameraY");
+        renderOriginal.camera = new PerspectiveCamera();
+        spyOn(renderOriginal, "rotateCameraY");
         const event1: MouseEvent = new MouseEvent("mousemove", {bubbles : true, cancelable : true, screenX : 50});
         DeplacementCameraService["rotateCamera"](event1);
-        expect(render1.rotateCameraY).toHaveBeenCalled();
+        expect(renderOriginal.rotateCameraY).toHaveBeenCalled();
     });
 
     it("should add the mousemove event listener when the user right click", () => {
-        render1.camera = new PerspectiveCamera();
+        renderOriginal.camera = new PerspectiveCamera();
         spyOn(document.body, "addEventListener");
         const event1: MouseEvent = new MouseEvent("mousedown", {bubbles : true, cancelable : true, button : 2});
         DeplacementCameraService["onMouseClick"](event1);
@@ -88,7 +88,7 @@ describe("DeplacementCameraService", () => {
     });
 
     it("should not add the mousemove event listener when the user left click", () => {
-        render1.camera = new PerspectiveCamera();
+        renderOriginal.camera = new PerspectiveCamera();
         spyOn(document.body, "addEventListener");
         const event1: MouseEvent = new MouseEvent("mousedown", {bubbles : true, cancelable : true, button : 1});
         DeplacementCameraService["onMouseClick"](event1);
@@ -96,7 +96,7 @@ describe("DeplacementCameraService", () => {
     });
 
     it("should remove the mousemove event when the user release the right click", () => {
-        render1.camera = new PerspectiveCamera();
+        renderOriginal.camera = new PerspectiveCamera();
         spyOn(document.body, "removeEventListener");
         const event1: MouseEvent = new MouseEvent("mouseup", {bubbles : true, cancelable : true, button : 2});
         DeplacementCameraService["onMouseClick"](event1);
