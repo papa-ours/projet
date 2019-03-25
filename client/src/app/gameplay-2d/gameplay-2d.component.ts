@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { S3_BUCKET_URL, SERVER_ADDRESS } from "../../../../common/communication/constants";
+import { REQUIRED_DIFFERENCES_1P, S3_BUCKET_URL, SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { ImageType } from "../../../../common/images/image-type";
@@ -55,7 +55,9 @@ export class Gameplay2DComponent implements OnInit {
     }
 
     private updateDifferenceImage(): void {
-        this.imagesUrl[ImageType.Modified] = `${SERVER_ADDRESS}/${this.id}.bmp?${this.foundDifferencesCounter}`;
+        this.imagesUrl[ImageType.Modified] = this.foundDifferencesCounter === REQUIRED_DIFFERENCES_1P ?
+            `${S3_BUCKET_URL}/${this.name}-originalImage.bmp` :
+            `${SERVER_ADDRESS}/${this.id}.bmp?${this.foundDifferencesCounter}`;
     }
 
 }

@@ -10,7 +10,7 @@ import { SocketService } from "./socket.service";
 export class ConnectionService {
 
     public connected: boolean;
-    public username: String;
+    public username: string;
     public readonly BASE_URL: string = `${SERVER_ADDRESS}/api/user/`;
 
     public constructor(

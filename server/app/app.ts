@@ -7,6 +7,7 @@ import * as logger from "morgan";
 import { CreateGameController } from "./controllers/create-game-constroller";
 import { DifferenceCheckerController } from "./controllers/difference-checker.controller";
 import { DifferenceImageController } from "./controllers/difference-image.controller";
+import { EndGameController } from "./controllers/end-game.controller";
 import { GameSheetGenerationController } from "./controllers/game-sheet-generation.controller";
 import { GetGameListController } from "./controllers/get-game-list.controller";
 import { SceneDataController } from "./controllers/scene-data.controller";
@@ -27,6 +28,7 @@ export class Application {
         @inject(Types.DifferenceImageController) private differenceImageController: DifferenceImageController,
         @inject(Types.DifferenceCheckerController) private differenceCheckerController: DifferenceCheckerController,
         @inject(Types.UsernameController) private usernameController: UsernameController,
+        @inject(Types.EndGameController) private endGameController: EndGameController,
     ) {
         this.app = express();
 
@@ -54,6 +56,7 @@ export class Application {
         this.app.use("/api/game", this.createGameController.router);
         this.app.use("/api/scene", this.sceneDataController.router);
         this.app.use("/api/user", this.usernameController.router);
+        this.app.use("/api/endgame", this.endGameController.router);
         this.errorHandeling();
     }
 

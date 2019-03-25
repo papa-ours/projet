@@ -1,5 +1,7 @@
+import Axios from "axios";
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
+import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { Message, MessageType } from "../../../common/communication/message";
 import { VectorInterface } from "../../../common/communication/vector-interface";
 import { DifferenceCheckerService } from "../services/difference-checker.service";
@@ -12,7 +14,10 @@ import Types from "../types";
 @injectable()
 export class DifferenceCheckerController {
 
-    public constructor(@inject(Types.DifferenceCheckerService) private differenceChecker: DifferenceCheckerService) {
+    public constructor(
+        @inject(Types.DifferenceCheckerService) private differenceChecker: DifferenceCheckerService,
+        @inject(Types.GetGameService) private getGameService: GetGameService,
+    ) {
 
     }
 
@@ -22,7 +27,6 @@ export class DifferenceCheckerController {
         router.get(
             "/:id/:x/:y",
             async (req: Request, res: Response, next: NextFunction) => {
-                const getGameService: GetGameService = new GetGameService();
                 const x: number = parseInt(req.params.x, 10);
                 const y: number = parseInt(req.params.y, 10);
                 const id: string = req.params.id;
@@ -33,13 +37,16 @@ export class DifferenceCheckerController {
                 };
 
                 try {
-                    const game: SimpleGame = getGameService.getGame(id) as SimpleGame;
+                    const game: SimpleGame = this.getGameService.getGame(id) as SimpleGame;
 
                     let isDifference: boolean = false;
                     isDifference = this.differenceChecker.isPositionDifference(x, y, game);
 
                     if (isDifference) {
                         await game.restoreModifiedImage(x, y);
+                        if (game.differenceCount === 0) {
+                            Axios.post(`${SERVER_ADDRESS}/api/endgame/${game.sheetId}/${game.username}/${game.time}`);
+                        }
                     }
 
                     message.body = isDifference.toString();
@@ -58,13 +65,15 @@ export class DifferenceCheckerController {
                     body: "false",
                 };
                 const sceneName: string = req.body.name as string;
-                const getGameService: GetGameService = new GetGameService();
-                const game: FreeGame = getGameService.getGame(sceneName) as FreeGame;
+                const game: FreeGame = this.getGameService.getGame(sceneName) as FreeGame;
                 const position: VectorInterface = req.body.position;
                 const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService();
                 const isModification: boolean = differenceChecker.checkDifference(game.scene, position);
                 if (isModification) {
                     game.restoreModifiedScene(position);
+                    if (game.differenceCount === 0) {
+                        Axios.post(`${SERVER_ADDRESS}/api/endgame/${game.sheetId}/${game.username}/${game.time}`);
+                    }
                 }
                 message.body = String(isModification);
                 res.send(message);
@@ -79,8 +88,7 @@ export class DifferenceCheckerController {
                     };
                     try {
                         const sceneName: string = req.body.name as string;
-                        const getGameService: GetGameService = new GetGameService();
-                        const game: FreeGame = getGameService.getGame(sceneName) as FreeGame;
+                        const game: FreeGame = this.getGameService.getGame(sceneName) as FreeGame;
                         const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService();
                         message.body = JSON.stringify(differenceChecker.getDifferences(game.scene));
                     } catch (err) {
