@@ -8,6 +8,7 @@ import { ThematicObjectGeneratorService } from "./scene3d/thematic-object-genera
 })
 export class AppComponent {
     public constructor(private thematicObjectGenerator: ThematicObjectGeneratorService) {
-        this.thematicObjectGenerator.waitForObjects();
+        this.thematicObjectGenerator.waitForObjects()
+            .catch((error: Error) => console.error(error.message));
     }
 }
