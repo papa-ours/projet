@@ -67,10 +67,13 @@ describe("SceneDifferenceRestoration", () => {
         });
 
         it("should not restore if there is no change", () => {
-            const position: VectorInterface = scene.modifiedScene[scene.modifiedScene.length - 1].position;
-            expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
+            const index: number = scene.modifiedScene.length - 1;
+            const position: VectorInterface = scene.modifiedScene[index].position;
+            expect(scene.modifiedScene[index].position).to.deep.equal(scene.originalScene[index].position);
+            expect(scene.modifiedScene[index].color).to.deep.equal(scene.originalScene[index].color);
             scene = sceneDifferenceRestoration.getSceneAfterDifferenceUpdate(position);
-            expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
+            expect(scene.modifiedScene[index].position).to.deep.equal(scene.originalScene[index].position);
+            expect(scene.modifiedScene[index].color).to.deep.equal(scene.originalScene[index].color);
         });
     });
 });
