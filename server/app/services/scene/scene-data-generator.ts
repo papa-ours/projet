@@ -66,7 +66,7 @@ export class SceneDataGeneratorService {
             GeometryType.PYRAMID,
         ];
 
-        return geometryTypes[Math.floor(Math.random() * geometryTypes.length)];
+        return geometryTypes[RandomNumber.randomInteger(0, geometryTypes.length)];
     }
 
     public getRandomGeometryData(thematicObjectData?: ThematicObjectData): GeometryData {
@@ -116,7 +116,7 @@ export class SceneDataGeneratorService {
             ThematicObjectType.PENCILS,     ThematicObjectType.CAR,
         ];
 
-        return thematicObjectTypes[Math.floor(Math.random() * thematicObjectTypes.length)];
+        return thematicObjectTypes[RandomNumber.randomInteger(0, thematicObjectTypes.length)];
     }
 
     public getRandomThematicObjectData(sizes: number[]): ThematicObjectData {
