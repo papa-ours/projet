@@ -80,12 +80,15 @@ export class DBConnectionService {
         });
     }
 
-    public async reinitializeScores(id: string, type: GameType): Promise<{}> {
+    public async reinitializeScores(id: string, type: GameType): Promise<void> {
         const TOP_SCORES_LENGTH: number = 2;
         const topScores: TopScores[] = [...Array(TOP_SCORES_LENGTH)].map(() => TopScores.generateTopScores());
 
         return this.performRequest((instance: typeof mongoose) => {
-            return mongoose.models.GameSheet.updateOne({id: id, type: type}, {topScores: topScores}).exec();
+            return mongoose.models.GameSheet.updateOne({id: id, type: type}, {
+                topScoresSolo: topScores[0].scores,
+                topScores1v1: topScores[1].scores,
+            }).exec();
         });
     }
 
