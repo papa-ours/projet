@@ -112,9 +112,9 @@ export class DBConnectionService {
         });
     }
 
-    public async putSoloScoreAndGetPosition(gameSheetId: string, username: string, time: number): Promise<number> {
+    public async putSoloScore(gameSheetId: string, username: string, time: number): Promise<GameSheet> {
         const now: Date = new Date();
-        let position: number = -1;
+        let gameSheet: GameSheet;
 
         return this.performRequest(async (instance: typeof mongoose) => {
             return instance.models.GameSheet.findOneAndUpdate(
@@ -129,24 +129,10 @@ export class DBConnectionService {
                     },
                 },
             ).exec().then(async (doc: mongoose.Document) => {
-                position = this.getTimeIndex(doc, time);
+                gameSheet = this.parseGameSheetDocument(doc);
 
                 return instance.disconnect();
-            }).then(() => position);
+            }).then(() => gameSheet);
         });
-    }
-
-    public getTimeIndex(doc: mongoose.Document, time: number): number {
-        const gameSheet: GameSheet = this.parseGameSheetDocument(doc);
-        let position: number = -1;
-        (gameSheet.topScores[GameMode.Solo] as TopScores).scores
-            .map((score: Score) => score.time)
-            .forEach((sheetTime: number, index: number) => {
-                if (time < sheetTime) {
-                    position = index;
-                }
-            });
-
-        return position;
     }
 }
