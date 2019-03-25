@@ -79,11 +79,7 @@ export class DBConnectionService {
                 map.set(type, []);
 
                 return documents.forEach((document: mongoose.Document) => {
-                    const gameSheet: GameSheet & {topScoresSolo: Score[], topScores1v1: Score[]} = document.toObject();
-                    gameSheet.topScores = [
-                        new TopScores(gameSheet.topScoresSolo),
-                        new TopScores(gameSheet.topScores1v1),
-                    ];
+                    const gameSheet: GameSheet = this.parseGameSheetDocument(document);
                     (map.get(type) as GameSheet[]).push(gameSheet);
                 });
             })).then(() => map);
