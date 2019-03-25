@@ -28,9 +28,10 @@ describe("RenderService", () => {
     });
 
     it("should initialize the correct camera and scene", () => {
+        const  FIELD_OF_VIEW: number = 45;
         render.initialize(container, scene);
         expect(render.scene).toEqual(scene);
-        expect(render.camera.fov).toEqual(45);
+        expect(render.camera.fov).toEqual(FIELD_OF_VIEW);
 
     });
 });
