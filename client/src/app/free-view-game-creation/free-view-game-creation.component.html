@@ -7,7 +7,7 @@
     <div class="info">
         Nom du jeu :
         <input class="name-input" placeholder="7 differences" [(ngModel)]="freeViewForm.name"><br>
-        <div class="error-message" *ngIf="(freeViewForm.name.length < OPTION_MIN_NAME_LENGTH  || freeViewForm.name.length > OPTION_MAX_NAME_LENGTH)">
+        <div class="error-message" *ngIf="(freeViewForm.name.length < OPTION_MIN_NAME_LENGTH  || freeViewForm.name.length > OPTION_MAX_NAME_LENGTH) && hasFormError">
             Le nom du jeu doit comporter entre 5 et 15 caractères
         </div>
     </div>
@@ -23,7 +23,7 @@
     <div class="info">
             Nombre d'objets :
             <input class="nbObjects-input" type="number" [(ngModel)]="freeViewForm.nbObjects"><br>
-            <div class="error-message" *ngIf="!isAIntInRange()">
+            <div class="error-message" *ngIf="!isNbObjectValid() && hasFormError">
                 La valeur doit être un nombre entre 10 et 200
             </div>
     </div>
@@ -33,7 +33,7 @@
             <input type="checkbox" class="checkbox"[(ngModel)]="freeViewForm.isAdding">ajout<br>
             <input type="checkbox" class="checkbox"[(ngModel)]="freeViewForm.isRemoval">suppression<br>
             <input type="checkbox" class="checkbox"[(ngModel)]="freeViewForm.isColorChange">changement de couleur<br>
-            <div class="error-message" *ngIf="!(freeViewForm.isAdding || freeViewForm.isRemoval || freeViewForm.isColorChange)">
+            <div class="error-message" *ngIf="!(freeViewForm.isAdding || freeViewForm.isRemoval || freeViewForm.isColorChange) && hasFormError">
                 Au moins un type de modification doit être choisit
             </div>
     </div>

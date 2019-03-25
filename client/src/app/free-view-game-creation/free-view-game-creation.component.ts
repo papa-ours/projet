@@ -15,6 +15,7 @@ export class FreeViewGameCreationComponent {
     private readonly NB_OBJECTS_MAX: number = 200;
     public loading: boolean;
 
+    public hasFormError: boolean;
     public freeViewForm: FreeViewForm;
     @Output() public closeForm: EventEmitter<boolean>;
     public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) {
@@ -24,13 +25,14 @@ export class FreeViewGameCreationComponent {
             isAdding: false,
             isRemoval: false,
             isColorChange: false,
-            sceneType: "",
+            sceneType: "geometric",
         };
         this.closeForm = new EventEmitter();
+        this.hasFormError = false;
         this.loading = false;
     }
 
-    public isAIntInRange(): boolean {
+    public isNbObjectValid(): boolean {
         return !Number.isNaN(this.freeViewForm.nbObjects) &&
                 Number(this.freeViewForm.nbObjects) <= this.NB_OBJECTS_MAX &&
                 Number(this.freeViewForm.nbObjects) >= this.NB_OBJECTS_MIN;
@@ -52,6 +54,8 @@ export class FreeViewGameCreationComponent {
             // Otherwise, CI fails
             // tslint:disable-next-line:no-suspicious-comment
             // TODO: tell the user that the request is being processed
+        } else {
+            this.hasFormError = true;
         }
     }
 
