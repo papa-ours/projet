@@ -36,6 +36,10 @@ describe("SceneDifferenceRestoration", () => {
             originalIndex = scene.originalScene.length - 1;
             expect(scene.modifiedScene[modificationIndex].position)
                 .to.deep.equal(scene.originalScene[originalIndex].position);
+            expect(scene.modifiedScene[modificationIndex].color)
+                .to.deep.equal(scene.originalScene[originalIndex].color);
+            expect(scene.modifiedScene[modificationIndex].type)
+                .to.deep.equal(scene.originalScene[originalIndex].type);
         });
     });
 
@@ -59,6 +63,10 @@ describe("SceneDifferenceRestoration", () => {
             originalIndex = scene.originalScene.length - 1;
             expect(scene.modifiedScene[modificationIndex].position)
                 .to.deep.equal(scene.originalScene[originalIndex].position);
+            expect(scene.modifiedScene[modificationIndex].color)
+                .to.deep.equal(scene.originalScene[originalIndex].color);
+            expect(scene.modifiedScene[modificationIndex].type)
+                .to.deep.equal(scene.originalScene[originalIndex].type);
         });
     });
 
