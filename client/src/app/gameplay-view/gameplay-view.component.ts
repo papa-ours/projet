@@ -1,3 +1,4 @@
+import { Location } from "@angular/common";
 import { Component, ElementRef, HostListener, OnInit, ViewChild  } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
@@ -35,6 +36,7 @@ export class GameplayViewComponent implements OnInit {
 
     public constructor(
         private route: ActivatedRoute,
+        private location: Location,
         private gameplayService: GameplayService,
         private socketService: SocketService,
         private connectionService: ConnectionService,
@@ -45,7 +47,7 @@ export class GameplayViewComponent implements OnInit {
         this.requiredDifferences = this.gameMode === GameMode.Solo ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
         this.foundDifferencesCounter = 0;
         this.images = [];
-        this.canClick = true;
+        this.canClick = false;
         this.isErrorMessageVisible = false;
         this.chrono = 0;
         this.isChronoRunning = false;
@@ -120,6 +122,7 @@ export class GameplayViewComponent implements OnInit {
     }
 
     private startChrono(): void {
+        this.canClick = true;
         this.isChronoRunning = true;
         this.incrementChrono();
     }
