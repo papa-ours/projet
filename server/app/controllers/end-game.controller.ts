@@ -34,7 +34,7 @@ export class EndGameController {
                     this.getGameService.removeGame(req.params.gameId),
                 ]).then((result: [number, {}]) => {
                     if (result[0] !== -1) {
-                        this.socket.sendBestTimeMessage(game.username, result[0] + 1, game.name, game.gameMode);
+                        this.socket.sendBestTimeMessage(game.username, result[0], game.name, game.gameMode);
                     }
                     res.send({
                         body: "",
