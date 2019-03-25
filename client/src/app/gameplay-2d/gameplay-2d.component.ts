@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { REQUIRED_DIFFERENCES_1P, S3_BUCKET_URL, SERVER_ADDRESS } from "../../../../common/communication/constants";
 import { GameType } from "../../../../common/communication/game-description";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
-import { ImageType } from "../../../../common/images/image-type";
+import { ImageType, ImageTypeName } from "../../../../common/images/image-type";
 import { DifferenceCheckerService } from "../difference-checker.service";
 
 @Component({
@@ -34,8 +34,8 @@ export class Gameplay2DComponent implements OnInit {
     }
 
     private setImagesPath(): void {
-        this.imagesUrl[ImageType.Original] = `${S3_BUCKET_URL}/${this.name}-originalImage.bmp`;
-        this.imagesUrl[ImageType.Modified] = `${S3_BUCKET_URL}/${this.name}-modifiedImage.bmp`;
+        this.imagesUrl[ImageType.Original] = `${S3_BUCKET_URL}/${this.name}-${ImageTypeName.Original}.bmp`;
+        this.imagesUrl[ImageType.Modified] = `${S3_BUCKET_URL}/${this.name}-${ImageTypeName.Modified}.bmp`;
     }
 
     public checkDifference(position: VectorInterface): void {
@@ -56,7 +56,7 @@ export class Gameplay2DComponent implements OnInit {
 
     private updateDifferenceImage(): void {
         this.imagesUrl[ImageType.Modified] = this.foundDifferencesCounter === REQUIRED_DIFFERENCES_1P ?
-            `${S3_BUCKET_URL}/${this.name}-originalImage.bmp` :
+            `${S3_BUCKET_URL}/${this.name}-${ImageTypeName.Original}.bmp` :
             `${SERVER_ADDRESS}/${this.id}.bmp?${this.foundDifferencesCounter}`;
     }
 

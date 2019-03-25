@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { S3_BUCKET_URL } from "../../../../common/communication/constants";
 import { GameSheet, GameType } from "../../../../common/communication/game-description";
+import { ImageTypeName } from "../../../../common/images/image-type";
 import { GameSheetService } from "../game-sheet.service";
 
 @Component({
@@ -32,7 +33,7 @@ export class GameSheetComponent implements OnInit {
 
     public ngOnInit(): void {
         if (this.type === GameType.Simple) {
-            this.source = `${S3_BUCKET_URL}/${this.description.name}-originalImage.bmp`;
+            this.source = `${S3_BUCKET_URL}/${this.description.name}-${ImageTypeName.Original}.bmp`;
         }
         this.btn1.nativeElement.textContent = this.isAdmin ? "Supprimer" : "Jouer";
         this.btn2.nativeElement.textContent = this.isAdmin ? "Réinitialiser" : "Créer";
