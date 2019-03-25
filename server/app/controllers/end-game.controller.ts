@@ -31,12 +31,12 @@ export class EndGameController {
                     this.scoreUpdaterService.putSoloScore(
                         req.params.sheetId,
                         req.params.name,
-                        parseInt(req.params.time, EndGameController.BASE_10),
-                    ).then((gameSheet: GameSheet) => this.scoreUpdaterService.getPosition(gameSheet, req.params.time)),
+                        parseInt(req.params.time, EndGameController.BASE_10)),
                     this.getGameService.removeGame(req.params.gameId),
-                ]).then((result: [number, {}]) => {
-                    if (result[0] !== -1) {
-                        this.socket.sendBestTimeMessage(game.username, result[0] + 1, game.name, game.gameMode);
+                ]).then((result: [GameSheet, {}]) => {
+                    const position: number = this.scoreUpdaterService.getPosition(result[0], req.params.time);
+                    if (position !== -1) {
+                        this.socket.sendBestTimeMessage(game.username, position + 1, game.name, game.gameMode);
                     }
                     res.send({
                         body: "",
