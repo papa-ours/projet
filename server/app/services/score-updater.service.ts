@@ -9,7 +9,7 @@ export class ScoreUpdaterService {
 
     }
 
-    public async putScore(gameSheetId: string, name: string, time: number): Promise<void> {
+    public async putScore(gameSheetId: string, name: string, time: number): Promise<number> {
 
         return this.dbConnectionService.putSoloScore(gameSheetId, name, time);
     }

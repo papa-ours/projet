@@ -86,7 +86,7 @@ export class DBConnectionService {
         .then(async (gameSheet: GameSheet) => instance.disconnect().then(() => gameSheet.id));
     }
 
-    public async putSoloScore(gameSheetId: string, username: string, time: number): Promise<void> {
+    public async putSoloScore(gameSheetId: string, username: string, time: number): Promise<number> {
         const now: Date = new Date();
         const instance: typeof mongoose = await this.connect();
 
@@ -101,6 +101,8 @@ export class DBConnectionService {
                     },
                 },
             },
-        ).exec().then(async () => instance.disconnect());
+        ).exec().then(async () => {
+            return instance.disconnect();
+        }).then(() => 0);
     }
 }

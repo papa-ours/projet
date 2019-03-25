@@ -28,7 +28,7 @@ export class EndGameController {
                         req.params.name,
                         parseInt(req.params.time, EndGameController.BASE_10)),
                     this.getGameService.removeGame(req.params.id),
-                ]).then(() => {
+                ]).then((result: [number, {}]) => {
                     res.send({
                         body: "",
                     });
