@@ -28,7 +28,7 @@ export class DBConnectionService {
         }
     }
 
-    private async performRequest<T>(request: (instance: typeof mongoose) => T): Promise<T> {
+    private async performRequest<T>(request: (instance: typeof mongoose) => Promise<T>): Promise<T> {
         const instance: typeof mongoose = await this.connect();
         const t: T = await request(instance);
 
@@ -47,7 +47,7 @@ export class DBConnectionService {
     }
 
     public async saveGameSheet(gameSheet: GameSheet, type: GameType): Promise<mongoose.Document> {
-        return this.performRequest((instance: typeof mongoose) => {
+        return this.performRequest(async (instance: typeof mongoose) => {
             const gameSheetDocument: mongoose.Document = new mongoose.models.GameSheet({
                 name: gameSheet.name,
                 id: gameSheet.id,
@@ -84,7 +84,7 @@ export class DBConnectionService {
         const TOP_SCORES_LENGTH: number = 2;
         const topScores: TopScores[] = [...Array(TOP_SCORES_LENGTH)].map(() => TopScores.generateTopScores());
 
-        return this.performRequest((instance: typeof mongoose) => {
+        return this.performRequest(async (instance: typeof mongoose) => {
             return mongoose.models.GameSheet.updateOne({id: id, type: type}, {
                 topScoresSolo: topScores[0].scores,
                 topScores1v1: topScores[1].scores,
@@ -93,13 +93,13 @@ export class DBConnectionService {
     }
 
     public async deleteGameSheet(id: string, type: GameType): Promise<DeleteResponse> {
-        return this.performRequest((instance: typeof mongoose) => {
+        return this.performRequest(async (instance: typeof mongoose) => {
             return mongoose.models.GameSheet.deleteOne({id: id, type: type});
         });
     }
 
     public async getGameSheetId(name: string, type: GameType): Promise<string> {
-        return this.performRequest((instance: typeof mongoose) => {
+        return this.performRequest(async (instance: typeof mongoose) => {
             return instance.models.GameSheet.findOne(
                 {name: name, type: type},
             ).exec();
@@ -109,8 +109,8 @@ export class DBConnectionService {
     public async putSoloScore(gameSheetId: string, username: string, time: number): Promise<void> {
         const now: Date = new Date();
 
-        return this.performRequest((instance: typeof mongoose) => {
-            instance.models.GameSheet.findOneAndUpdate(
+        return this.performRequest(async (instance: typeof mongoose) => {
+            return instance.models.GameSheet.findOneAndUpdate(
                 {id: gameSheetId},
                 {
                     $push: {
