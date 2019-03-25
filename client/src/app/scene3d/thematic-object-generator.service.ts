@@ -1,7 +1,12 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
-import * as OBJLoader from "three-obj-loader";
 import { ThematicObject, ThematicObjectType, THEMATIC_OBJECTS } from "../../../../common/communication/thematic-object";
+// found in the documentation without this the client dont compile
+// tslint:disable-next-line:no-any
+declare var require: any;
+// tslint:disable-next-line:typedef variable-name
+const OBJLoader = require("three-obj-loader");
+OBJLoader(THREE);
 
 @Injectable({
     providedIn: "root",
