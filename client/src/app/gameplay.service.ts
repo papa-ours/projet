@@ -12,11 +12,11 @@ import { Message } from "../../../common/communication/message";
 
 export class GameplayService {
 
-    public readonly URL: string = `${SERVER_ADDRESS}/api/game/`;
+    public readonly URL: string = `${SERVER_ADDRESS}/api/game`;
     public constructor(private http: HttpClient) { }
 
-    public getGameId(name: string, type: GameType): Observable<string> {
-        return this.http.get<Message>(this.URL + name + "/" + type)
+    public getGameId(name: string, type: GameType, username: string): Observable<string> {
+        return this.http.get<Message>(`${this.URL}/${name}/${type}/${username}`)
             .pipe(map((message: Message) => JSON.parse(message.body)),
         );
     }
