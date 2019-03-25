@@ -1,4 +1,4 @@
-import { GameType } from "../../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../../common/communication/game-description";
 import { BMPImage } from "../../../../common/images/bmp-image";
 import { DifferenceImage } from "../../../../common/images/difference-image";
 import { ImageType } from "../../../../common/images/image-type";
@@ -12,13 +12,13 @@ export class SimpleGame extends AbstractGame {
     public images: BMPImage[];
     public differenceImage: DifferenceImage;
 
-    private constructor(id: string, sheetId: string) {
-        super(id, sheetId, GameType.Simple);
+    private constructor(id: string, sheetId: string, mode: GameMode) {
+        super(id, sheetId, mode, GameType.Simple);
         this.images = [];
     }
 
-    public static async create(id: string, sheetId: string, name: string): Promise<SimpleGame> {
-        const game: SimpleGame = new SimpleGame(id, sheetId);
+    public static async create(id: string, sheetId: string, mode: GameMode, name: string): Promise<SimpleGame> {
+        const game: SimpleGame = new SimpleGame(id, sheetId, mode);
 
         return game.setUp(name).then(() => game);
     }

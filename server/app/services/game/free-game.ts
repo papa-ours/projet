@@ -1,6 +1,6 @@
 import { AWSError, S3 } from "aws-sdk";
 import { PromiseResult } from "aws-sdk/lib/request";
-import { GameType } from "../../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../../common/communication/game-description";
 import { SceneData } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { SceneDifferenceRestorationService } from "../scene/scene-difference-restoration";
@@ -12,12 +12,12 @@ export class FreeGame extends AbstractGame {
 
     public scene: SceneData;
 
-    private constructor(id: string, sheetId: string) {
-        super(id, sheetId, GameType.Free);
+    private constructor(id: string, sheetId: string, mode: GameMode) {
+        super(id, sheetId, mode, GameType.Free);
     }
 
-    public static async create(id: string, sheetId: string, name: string): Promise<FreeGame> {
-        const game: FreeGame = new FreeGame(id, sheetId);
+    public static async create(id: string, sheetId: string, mode: GameMode, name: string): Promise<FreeGame> {
+        const game: FreeGame = new FreeGame(id, sheetId, mode);
 
         return game.setUp(name).then(() => game);
     }

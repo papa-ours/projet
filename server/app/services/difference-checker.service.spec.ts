@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import { GameMode } from "../../../common/communication/game-description";
 import { DifferenceCheckerService } from "./difference-checker.service";
 import { SimpleGame } from "./game/simple-game";
 
@@ -7,7 +8,7 @@ describe("Difference Checker", () => {
     let game: SimpleGame;
 
     before((done: Mocha.Done) => {
-        SimpleGame.create("0", "0", "voiture").then((createdGame: SimpleGame) => {
+        SimpleGame.create("0", "0", GameMode.Solo, "voiture").then((createdGame: SimpleGame) => {
             game = createdGame;
             done();
         }).catch((err: Error) => console.error(err.message));
