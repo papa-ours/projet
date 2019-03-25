@@ -33,9 +33,8 @@ export class EndGameController {
                         parseInt(req.params.time, EndGameController.BASE_10)),
                     this.getGameService.removeGame(req.params.gameId),
                 ]).then((result: [number, {}]) => {
-                    const PODIUM: number = 3;
-                    if (result[0] < PODIUM) {
-                        this.socket.sendBestTimeMessage(game.username, result[0] + 1, game.username, game.gameMode);
+                    if (result[0] !== -1) {
+                        this.socket.sendBestTimeMessage(game.username, result[0] + 1, game.name, game.gameMode);
                     }
                     res.send({
                         body: "",
