@@ -12,9 +12,8 @@ export class ScoreUpdaterService {
 
     }
 
-    public async putSoloScoreAndGetPosition(gameSheetId: string, name: string, time: number): Promise<number> {
-        return this.dbConnectionService.putSoloScore(gameSheetId, name, time)
-            .then((gameSheet: GameSheet) => this.getPosition(gameSheet, time));
+    public async putSoloScore(gameSheetId: string, name: string, time: number): Promise<GameSheet> {
+        return this.dbConnectionService.putSoloScore(gameSheetId, name, time);
     }
 
     public getPosition(gameSheet: GameSheet, time: number): number {

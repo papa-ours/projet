@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
+import { GameSheet } from "../../../common/communication/game-description";
 import { AbstractGame } from "../services/game/game";
 import { GetGameService } from "../services/get-game.service";
 import { ScoreUpdaterService } from "../services/score-updater.service";
@@ -27,10 +28,11 @@ export class EndGameController {
             async (req: Request, res: Response) => {
                 const game: AbstractGame = this.getGameService.getGame(req.params.gameId);
                 Promise.all([
-                    this.scoreUpdaterService.putSoloScoreAndGetPosition(
+                    this.scoreUpdaterService.putSoloScore(
                         req.params.sheetId,
                         req.params.name,
-                        parseInt(req.params.time, EndGameController.BASE_10)),
+                        parseInt(req.params.time, EndGameController.BASE_10),
+                    ).then((gameSheet: GameSheet) => this.scoreUpdaterService.getPosition(gameSheet, req.params.time)),
                     this.getGameService.removeGame(req.params.gameId),
                 ]).then((result: [number, {}]) => {
                     if (result[0] !== -1) {
