@@ -55,7 +55,7 @@ describe("RaycasterService", () => {
     });
 
     it("should return a position beetween -1 and 1 on getMousePosition", () => {
-        const event: MouseEvent = new MouseEvent("mouseEvent", {clientX: 0, clientY: 0});
+        const event: MouseEvent = new MouseEvent("mouseEvent", {clientX: 10, clientY: 10});
         const position: VectorInterface = RaycasterService.getMousePosition(event, originalContainer);
         expect(position.x).toBeGreaterThanOrEqual(-1);
         expect(position.x).toBeLessThanOrEqual(1);

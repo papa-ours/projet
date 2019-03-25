@@ -2,31 +2,20 @@ import { TopScoresInterface } from "../../../../common/communication/game-descri
 import { Score } from "./score";
 
 export class TopScores implements TopScoresInterface {
-    public scores: Score[];
+
+    public static readonly SCORE_LENGTH: number = 3;
+
     public scoresStrings: string[];
-    private readonly SCORE_LENGTH: number = 3;
 
-    public constructor() {
-        this.createScores();
-        this.sortScores();
-        this.createScoreStrings();
+    public constructor(public scores: Score[]) {
+        this.scoresStrings = this.scores.map((score: Score) => new Score(score.time, score.username).toString());
     }
 
-    private createScores(): void {
-        this.scores = [...Array(this.SCORE_LENGTH)].map(() => {
-            return new Score();
-        });
-    }
-
-    private createScoreStrings(): void {
-        this.scoresStrings = this.scores.map((score: Score) => {
-            return score.toString();
-        });
-    }
-
-    private sortScores(): void {
-        this.scores.sort((firstScore: Score, secondScore: Score): number => {
-            return firstScore.toNumber() - secondScore.toNumber();
-        });
+    public static generateTopScores(): TopScores {
+        return new TopScores(
+            [...Array(TopScores.SCORE_LENGTH)]
+                .map(() => Score.createRandom())
+                .sort((score1: Score, score2: Score) => score1.time - score2.time),
+        );
     }
 }
