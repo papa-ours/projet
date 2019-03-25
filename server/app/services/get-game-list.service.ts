@@ -9,22 +9,12 @@ export class GetGameListService {
     public constructor(@inject(Types.DBConnectionService) private db: DBConnectionService) {}
 
     public async getGameList(): Promise<GameLists> {
-        await this.db.connect();
         const types: GameType[] = [GameType.Simple, GameType.Free];
-        const gameSheets: GameSheet[][] = await Promise.all(types.map(
-            async (type: GameType) => this.getGameSheets(type)),
-        );
-        await this.db.closeConnection();
+        const gameSheets: Map<GameType, GameSheet[]> = await this.db.getGameSheets(types);
 
-        return new Promise((resolve: (gameLists: GameLists) => void) => {
-            resolve({
-                list2d: gameSheets[GameType.Simple],
-                list3d: gameSheets[GameType.Free],
-            });
-        });
-    }
-
-    public async getGameSheets(type: GameType): Promise<GameSheet[]> {
-        return this.db.getGameSheets(type);
+        return {
+            list2d: gameSheets.get(GameType.Simple) as GameSheet[],
+            list3d: gameSheets.get(GameType.Free) as GameSheet[],
+        };
     }
 }

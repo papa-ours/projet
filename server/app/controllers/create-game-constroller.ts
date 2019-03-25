@@ -29,12 +29,13 @@ export class CreateGameController {
 
         router.delete(
             "/sheet/:id/:type",
-            (req: Request, res: Response, next: NextFunction) => {
-                this.db.connect().then(async () => {
+            async (req: Request, res: Response, next: NextFunction) => {
+                try {
                     await this.db.deleteGameSheet(req.params.id, req.params.type);
                     res.send();
-                })
-                .catch((error: Error) => console.error(error.message));
+                } catch (error) {
+                    res.send(error);
+                }
             });
 
         router.post(

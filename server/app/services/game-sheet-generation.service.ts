@@ -30,10 +30,7 @@ export class GameSheetGenerationService {
     }
 
     private saveGameSheet(gameSheet: GameSheet, type: GameType): void {
-        this.db.connect().then(() => {
-            this.db.saveGameSheet(gameSheet, type)
-            .catch((error: Error) => console.error(error.message));
-        }).catch((err: Error) => console.error(err.message));
+        this.db.saveGameSheet(gameSheet, type).catch((error: Error) => console.error(error.message));
     }
 
     private generateTopScores(): TopScores[] {

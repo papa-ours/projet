@@ -27,4 +27,5 @@ export default {
         GetCurrentTimeService: Symbol("GetCurrentTimeService"),
         ScoreUpdaterService: Symbol("ScoreUpdaterService"),
         EndGameController: Symbol("EndGameController"),
+        SceneDifferenceCheckerService: Symbol("SceneDifferenceCheckerService"),
 };
