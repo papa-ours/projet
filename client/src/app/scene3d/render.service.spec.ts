@@ -22,3 +22,7 @@ describe("RenderService", () => {
         container = elementRef.nativeElement;
     });
 
+    it("should be created", () => {
+        const service: RenderService = TestBed.get(RenderService);
+        expect(service).toBeTruthy();
+    });
