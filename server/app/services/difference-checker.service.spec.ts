@@ -7,7 +7,7 @@ describe("Difference Checker", () => {
     let game: SimpleGame;
 
     before((done: Mocha.Done) => {
-        SimpleGame.create("0", "voiture").then((createdGame: SimpleGame) => {
+        SimpleGame.create("0", "0", "voiture").then((createdGame: SimpleGame) => {
             game = createdGame;
             done();
         }).catch((err: Error) => console.error(err.message));

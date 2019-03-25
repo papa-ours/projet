@@ -1,6 +1,8 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { GameSheet, GameType, HasId } from "../../../common/communication/game-description";
+import Types from "../types";
+import { DBConnectionService } from "./db-connection.service";
 import { FreeGame } from "./game/free-game";
 import { AbstractGame } from "./game/game";
 import { SimpleGame } from "./game/simple-game";
@@ -11,36 +13,58 @@ export class GetGameService {
     private static readonly games: AbstractGame[] = [];
     private static readonly gameSheets: [GameSheet[], GameSheet[]] = [[], []];
 
+    public constructor(
+        @inject(Types.DBConnectionService) private dbConnectionService: DBConnectionService,
+    ) {
+
+    }
+
     public addGameSheet(gameSheet: GameSheet, type: GameType): void {
         gameSheet.id = this.generateUniqueId(GetGameService.gameSheets[type]);
         GetGameService.gameSheets[type].push(gameSheet);
     }
 
-    public getGame(id: string): AbstractGame {
-        const game: AbstractGame | undefined = GetGameService.games.find((currentGame: AbstractGame) => {
+    public getGameIndex(id: string): number {
+        return GetGameService.games.findIndex((currentGame: AbstractGame) => {
             return currentGame.id === id;
         });
+    }
 
-        if (!game) {
+    public getGame(id: string): AbstractGame {
+        const index: number = this.getGameIndex(id);
+
+        if (index === -1) {
             throw new RangeError("Aucune Game n'a le id " + id);
         }
 
-        return game;
+        return GetGameService.games[index];
     }
 
-    public async createGame(name: string, type: GameType): Promise<string> {
+    public async getSheetId(name: string, type: GameType): Promise<string> {
+        return this.dbConnectionService.getGameSheetId(name, type);
+    }
+
+    public async createGame(name: string, type: GameType, username: string): Promise<string> {
         const id: string = this.generateUniqueId(GetGameService.games);
+        const sheetId: string = await this.getSheetId(name, type);
         // triple equal problem
         // tslint:disable-next-line:triple-equals
-        const game: AbstractGame | void = type == GameType.Free ?
-                            await FreeGame.create(id, name).catch((error: Error) => console.error(error.message)) :
-                            await SimpleGame.create(id, name).catch((error: Error) => console.error(error.message));
-
+        const game: AbstractGame = type == GameType.Free ?
+                            await FreeGame.create(id, sheetId, name) :
+                            await SimpleGame.create(id, sheetId, name);
         if (game) {
             GetGameService.games.push(game);
+            game.start(username);
         }
 
         return new Promise<string>((resolve: Function) => resolve(id));
+    }
+
+    public async removeGame(id: string): Promise<{}> {
+        const index: number = this.getGameIndex(id);
+        const game: AbstractGame = GetGameService.games.splice(index, 1)[0];
+
+        return game.cleanUp();
     }
 
     private generateId(): string {

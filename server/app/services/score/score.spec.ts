@@ -5,7 +5,7 @@ describe("Score", () => {
     let score: Score;
 
     beforeEach(() => {
-        score = new Score();
+        score = Score.createRandom();
     });
 
     it("should return usernames between 3 and 12 characters", () => {
@@ -19,7 +19,7 @@ describe("Score", () => {
 
     it("should format seconds properly in string", () => {
         const seconds: number = 0;
-        score.seconds = seconds;
+        score.time = seconds;
         const scoreString: string = score.toString();
         // tslint:disable-next-line:no-magic-numbers
         const result: string = scoreString.slice(scoreString.length - 2);

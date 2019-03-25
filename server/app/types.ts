@@ -25,4 +25,6 @@ export default {
         ChatMessageSoloService: Symbol("ChatMessageSoloService"),
         ChatMessage1vs1Service: Symbol("ChatMessage1vs1Service"),
         GetCurrentTimeService: Symbol("GetCurrentTimeService"),
+        ScoreUpdaterService: Symbol("ScoreUpdaterService"),
+        EndGameController: Symbol("EndGameController"),
 };
