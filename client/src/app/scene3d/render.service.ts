@@ -15,7 +15,7 @@ export class RenderService {
     private readonly FIELD_OF_VIEW: number = 45;
 
     private readonly NEAR_CLIPPING_PANE: number = 1;
-    private readonly FAR_CLIPPING_PANE: number = 10000;
+    private readonly FAR_CLIPPING_PANE: number = 5000;
 
     private readonly MOUVEMENT_INTERVAL: number = 10;
     private readonly ROTATION_CONSTANT: number = 800;
