@@ -52,7 +52,7 @@ export class ThematicObjectGeneratorService {
         });
     }
 
-    private loadBackground(): Promise<THREE.Texture> {
+    private async loadBackground(): Promise<THREE.Texture> {
         const loader: THREE.TextureLoader = new THREE.TextureLoader();
 
         return new Promise((resolve: (texture: THREE.Texture) => void) =>
@@ -87,8 +87,8 @@ export class ThematicObjectGeneratorService {
         return dimensions.x > dimensions.z ? dimensions.x : dimensions.z;
     }
 
-    private createAllObjects(): Promise<THREE.Group[]> {
-        return Promise.all(THEMATIC_OBJECTS.map((thematicObject: ThematicObject) => {
+    private async createAllObjects(): Promise<THREE.Group[]> {
+        return Promise.all(THEMATIC_OBJECTS.map(async (thematicObject: ThematicObject) => {
             return new Promise((resolve: (group: THREE.Group) => void) =>
                 this.objLoader.load(
                     `${thematicObject.name}/${thematicObject.name}.obj`,
@@ -99,7 +99,7 @@ export class ThematicObjectGeneratorService {
         }));
     }
 
-    private loadDesk(): Promise<THREE.Group> {
+    private async loadDesk(): Promise<THREE.Group> {
         return new Promise((resolve: (group: THREE.Group) => void) =>
             this.objLoader.load(
                 "desk/desk.obj",
