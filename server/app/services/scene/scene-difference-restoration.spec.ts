@@ -55,9 +55,9 @@ describe("SceneDifferenceRestoration", () => {
             const position: VectorInterface = scene.modifiedScene[0].position;
             scene.modifiedScene[0].color = scene.originalScene[0].color + 1;
             sceneDifferenceRestoration = new SceneDifferenceRestorationService(scene);
-            expect(scene.modifiedScene).to.not.deep.equal(scene.originalScene);
+            expect(scene.modifiedScene[0].color).to.not.deep.equal(scene.originalScene[0].color);
             scene = sceneDifferenceRestoration.getSceneAfterDifferenceUpdate(position);
-            expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
+            expect(scene.modifiedScene[0].color).to.deep.equal(scene.originalScene[0].color);
         });
     });
 
