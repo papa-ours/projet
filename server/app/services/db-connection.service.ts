@@ -86,7 +86,7 @@ export class DBConnectionService {
         .then(async (gameSheet: GameSheet) => instance.disconnect().then(() => gameSheet.id));
     }
 
-    public async putSoloScore(gameSheetId: string, username: string, time: number): Promise<number> {
+    public async putSoloScoreAndGetPosition(gameSheetId: string, username: string, time: number): Promise<number> {
         const now: Date = new Date();
         const instance: typeof mongoose = await this.connect();
 

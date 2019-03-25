@@ -23,7 +23,7 @@ export class EndGameController {
             "/:id/:name/:time",
             async (req: Request, res: Response) => {
                 Promise.all([
-                    this.scoreUpdaterService.putScore(
+                    this.scoreUpdaterService.putSoloScoreAndGetPosition(
                         req.params.id,
                         req.params.name,
                         parseInt(req.params.time, EndGameController.BASE_10)),
