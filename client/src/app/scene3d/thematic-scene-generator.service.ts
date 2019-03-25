@@ -17,9 +17,10 @@ export class ThematicSceneGeneratorService {
     public async createScene(geometryData: GeometryData[]): Promise<THREE.Scene> {
         this.scene = new THREE.Scene();
 
-        this.thematicObjectGeneratorService.waitForObjects().then(() =>
-            geometryData.map((data: GeometryData) => this.addObject(data)),
-        );
+        this.thematicObjectGeneratorService.waitForObjects()
+        .then(() => geometryData.map((data: GeometryData) => this.addObject(data)))
+        .catch((error: Error) => console.error(error.message));
+
 
         this.scene.add(this.createDesk());
         this.setBackgroundImage();
