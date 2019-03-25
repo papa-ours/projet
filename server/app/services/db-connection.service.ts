@@ -129,17 +129,24 @@ export class DBConnectionService {
                     },
                 },
             ).exec().then(async (doc: mongoose.Document) => {
-                const gameSheet: GameSheet = this.parseGameSheetDocument(doc);
-                (gameSheet.topScores[GameMode.Solo] as TopScores).scores
-                    .map((score: Score) => score.time)
-                    .forEach((sheetTime: number, index: number) => {
-                        if (time < sheetTime && position === -1) {
-                            position = index;
-                        }
-                    });
+                position = this.getTimeIndex(doc, time);
 
                 return instance.disconnect();
             }).then(() => position);
         });
+    }
+
+    public getTimeIndex(doc: mongoose.Document, time: number): number {
+        const gameSheet: GameSheet = this.parseGameSheetDocument(doc);
+        let position: number = -1;
+        (gameSheet.topScores[GameMode.Solo] as TopScores).scores
+            .map((score: Score) => score.time)
+            .forEach((sheetTime: number, index: number) => {
+                if (time < sheetTime) {
+                    position = index;
+                }
+            });
+
+        return position;
     }
 }
