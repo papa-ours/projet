@@ -25,9 +25,17 @@ describe("SceneDifferenceRestoration", () => {
             const position: VectorInterface = scene.modifiedScene[scene.modifiedScene.length - 1].position;
             scene.modifiedScene.pop();
             sceneDifferenceRestoration = new SceneDifferenceRestorationService(scene);
-            expect(scene.modifiedScene).to.not.deep.equal(scene.originalScene);
+            let modificationIndex: number = scene.modifiedScene.length - 1;
+            let originalIndex: number = scene.originalScene.length - 1;
+            expect(scene.modifiedScene[modificationIndex].position)
+                .to.not.deep.equal(scene.originalScene[originalIndex].position);
+
             scene = sceneDifferenceRestoration.getSceneAfterDifferenceUpdate(position);
-            expect(scene.modifiedScene).to.deep.equal(scene.originalScene);
+
+            modificationIndex = scene.modifiedScene.length - 1;
+            originalIndex = scene.originalScene.length - 1;
+            expect(scene.modifiedScene[modificationIndex].position)
+                .to.deep.equal(scene.originalScene[modificationIndex].position);
         });
     });
 
