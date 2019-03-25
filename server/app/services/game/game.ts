@@ -10,6 +10,7 @@ export abstract class AbstractGame implements HasId {
     public constructor(
         public id: string,
         public sheetId: string,
+        public name: string,
         public gameMode: GameMode,
         public readonly type: GameType,
     ) {

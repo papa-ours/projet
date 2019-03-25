@@ -12,12 +12,12 @@ export class FreeGame extends AbstractGame {
 
     public scene: SceneData;
 
-    private constructor(id: string, sheetId: string, mode: GameMode) {
-        super(id, sheetId, mode, GameType.Free);
+    private constructor(id: string, name: string, sheetId: string, mode: GameMode) {
+        super(id, sheetId, name, mode, GameType.Free);
     }
 
     public static async create(id: string, sheetId: string, mode: GameMode, name: string): Promise<FreeGame> {
-        const game: FreeGame = new FreeGame(id, sheetId, mode);
+        const game: FreeGame = new FreeGame(id, name, sheetId, mode);
 
         return game.setUp(name).then(() => game);
     }
