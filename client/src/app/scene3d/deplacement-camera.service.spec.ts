@@ -7,7 +7,7 @@ describe("DeplacementCameraService", () => {
 
     let element: ElementRef;
     let renderOriginal: RenderService;
-    let render2: RenderService;
+    let renderModified: RenderService;
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
@@ -16,11 +16,11 @@ describe("DeplacementCameraService", () => {
             ],
         });
         renderOriginal = TestBed.get(RenderService);
-        render2 = TestBed.get(RenderService);
+        renderModified = TestBed.get(RenderService);
         element = new ElementRef(document);
         DeplacementCameraService.setElementRef(element, element);
         DeplacementCameraService.setRender3dModifiedImage(renderOriginal);
-        DeplacementCameraService.setRender3dOriginalImage(render2);
+        DeplacementCameraService.setRender3dOriginalImage(renderModified);
 
     });
 
