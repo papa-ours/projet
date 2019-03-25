@@ -2,7 +2,7 @@ import { ElementRef } from "@angular/core";
 import { TestBed } from "@angular/core/testing";
 import { DeplacementCameraService } from "./deplacement-camera.service";
 import { RenderService } from "./render.service";
-
+import { PerspectiveCamera}  from "three";
 describe("DeplacementCameraService", () => {
 
     let element: ElementRef;
