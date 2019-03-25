@@ -86,4 +86,13 @@ describe("DeplacementCameraService", () => {
         DeplacementCameraService["onMouseClick"](event1);
         expect(document.body.addEventListener).toHaveBeenCalled();
     });
+
+    it("should not add the mousemove event listener when the user left click", () => {
+        render1.camera = new PerspectiveCamera();
+        spyOn(document.body, "addEventListener");
+        const event1: MouseEvent = new MouseEvent("mousedown", {bubbles : true, cancelable : true, button : 1});
+        DeplacementCameraService["onMouseClick"](event1);
+        expect(document.body.addEventListener).not.toHaveBeenCalled();
+    });
+
 });
