@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import * as mongoose from "mongoose";
 import "reflect-metadata";
-import { GameSheet, GameType, GameMode } from "../../../common/communication/game-description";
+import { GameMode, GameSheet, GameType } from "../../../common/communication/game-description";
 import { Score } from "./score/score";
 import { TopScores } from "./score/top-scores";
 
