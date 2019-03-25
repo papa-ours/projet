@@ -22,22 +22,22 @@ export class EndGameController {
         router.post(
             "/:id/:name/:time",
             async (req: Request, res: Response) => {
-                try {
-                    await Promise.all([
-                        this.scoreUpdaterService.putScore(
-                            req.params.id,
-                            req.params.name,
-                            parseInt(req.params.time, EndGameController.BASE_10)),
-                        this.getGameService.removeGame(req.params.id),
-                    ]);
+                Promise.all([
+                    this.scoreUpdaterService.putScore(
+                        req.params.id,
+                        req.params.name,
+                        parseInt(req.params.time, EndGameController.BASE_10)),
+                    this.getGameService.removeGame(req.params.id),
+                ]).then(() => {
                     res.send({
                         body: "",
                     });
-                } catch (error) {
+                }).catch((error: Error) => {
                     res.send({
                         body: error,
                     });
-                }
+
+                });
             },
         );
 
