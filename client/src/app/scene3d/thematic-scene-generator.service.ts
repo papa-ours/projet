@@ -35,7 +35,6 @@ export class ThematicSceneGeneratorService {
         try {
             if (data.thematicObjectType !== undefined) {
                 const group: THREE.Group = this.thematicObjectGeneratorService.getObject(data.thematicObjectType);
-                const MINUS_HALF: number = 0.5;
                 group.position.set(data.position.x, data.position.y, data.position.z);
                 group.rotation.set(data.rotation.x, data.rotation.y, data.rotation.z);
                 group.traverse((object: THREE.Object3D) => {
