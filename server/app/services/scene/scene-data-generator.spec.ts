@@ -26,7 +26,7 @@ describe("scenceDataGenerator", () => {
         expect(() => sceneDataGeneratorService.getSceneData(nGeometry)).to.throw("Number should be beetwen 10 and 200");
     });
 
-    it("should return 0 rotation for x and z axes if y is fixed", () => {
+    it("should return 0 rotation for x and z axes if y is fixed", () => {
         const result: VectorInterface = sceneDataGeneratorService.getRandomRotation(true);
         expect(result.x === 0 && result.z === 0).to.equal(true);
     });
