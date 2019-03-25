@@ -34,7 +34,7 @@ export abstract class ChatMessageService {
     public sendBestTimeMessage(io: SocketIO.Server, username: string, position: number, gameName: string, gameMode: GameMode): void {
         const message: ChatMessage = this.getBestTimeMessage(username, position, gameName, gameMode);
         io.emit("chatMessage", message);
-}
+    }
 
     private getBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): ChatMessage {
         const gameModetext: string = gameMode === GameMode.Solo ? "solo" : "un contre un";
