@@ -87,6 +87,7 @@ export class GameplayViewComponent implements OnInit {
         if (this.foundDifferencesCounter === this.requiredDifferences) {
             this.isChronoRunning = false;
             this.canClick = false;
+            this.location.back();
         }
         GameplayViewComponent.playSound(this.CORRECT_SOUND);
     }
