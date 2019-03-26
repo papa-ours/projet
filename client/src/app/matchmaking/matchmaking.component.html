@@ -5,7 +5,10 @@
     </div>
     <div class="versus-text">VS</div>
     <div class="user-card">
-        <fa-icon class="user-icon" [icon]="faUser"></fa-icon>
-        <div class="username">{{username}}</div>
+        <div *ngIf="other==''; else user" class="loader"></div>
+        <ng-template #user>
+            <fa-icon class="user-icon" [icon]="faUser"></fa-icon>
+        </ng-template>
+        <div class="username">{{other ? other : "Recherche"}}</div>
     </div>
 </div>

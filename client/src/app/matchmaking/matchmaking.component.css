@@ -9,11 +9,13 @@
 }
 
 .user-icon {
+    margin-left: 112.5px;
     font-size: 200px;
     color: var(--primary-color);
 }
 
 .user-card {
+    width: 400px;
     margin: 40px;
 }
 
@@ -24,5 +26,29 @@
 }
 
 .users-container {
+    margin-left: 12%;
+    margin-top: 10%;
     display: flex;
+}
+
+
+.loader {
+    border: 40px solid #FFFFFF00;
+    border-top: 40px solid var(--primary-color);
+    border-radius: 50%;
+    width: 125px;
+    height: 125px;
+    margin-bottom: 25px;
+    margin-left: 75px;
+    animation: spin 1s linear infinite;
+    z-index: 5;
+}
+  
+@keyframes spin {
+    0% { 
+        transform: rotate(0deg); 
+    }
+    100% { 
+        transform: rotate(360deg); 
+    }
 }
