@@ -6,6 +6,7 @@ import { GetGameService } from "../services/get-game.service";
 import { ScoreUpdaterService } from "../services/score-updater.service";
 import { Socket } from "../socket";
 import Types from "../types";
+import { NextFunction } from "connect";
 
 @injectable()
 export class EndGameController {
@@ -25,7 +26,7 @@ export class EndGameController {
 
         router.post(
             "/",
-            async (req: Request, res: Response) => {
+            async (req: Request, res: Response, next: NextFunction) => {
                 const game: AbstractGame = this.getGameService.getGame(req.body.game.gameId);
                 Promise.all([
                     this.scoreUpdaterService.putScore(
@@ -43,10 +44,8 @@ export class EndGameController {
                         body: "",
                     });
                 }).catch((error: Error) => {
-                    res.send({
-                        body: error,
-                    });
-
+                    console.error(error);
+                    next(error);
                 });
             },
         );
