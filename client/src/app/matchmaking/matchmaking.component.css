@@ -3,5 +3,12 @@
 }
 
 .username {
+    text-align: center;
+    font-size: 30px;
+    color: var(--primary-color);
+}
+
+.user-icon {
+    font-size: 100px;
     color: var(--primary-color);
 }
