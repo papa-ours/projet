@@ -21,6 +21,7 @@ import { Difference3DCheckerService } from "./gameplay-3d/difference3d-checker.s
 import { Gameplay3dComponent } from "./gameplay-3d/gameplay-3d.component";
 import { GameplayViewComponent } from "./gameplay-view/gameplay-view.component";
 import { InitialViewComponent } from "./initial-view/initial-view.component";
+import { MatchmakingComponent } from "./matchmaking/matchmaking.component";
 import { RenderService } from "./scene3d/render.service";
 import { Scene3dComponent } from "./scene3d/scene3d.component";
 import { ThematicObjectGeneratorService } from "./scene3d/thematic-object-generator.service";
@@ -44,6 +45,7 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         Gameplay2DComponent,
         Gameplay3dComponent,
         ConfirmActionComponent,
+        MatchmakingComponent,
     ],
     imports: [
         BrowserModule,
