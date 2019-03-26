@@ -108,7 +108,9 @@ export class DBConnectionService {
         return this.performRequest(async (instance: typeof mongoose) => {
             return instance.models.GameSheet.findOne(
                 {name: name, type: type},
-            ).exec();
+            ).exec().then((doc: mongoose.Document) => {
+                return this.parseGameSheetDocument(doc).id;
+            });
         });
     }
 
