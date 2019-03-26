@@ -1,3 +1,4 @@
+import { NextFunction } from "connect";
 import { Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import { GameSheet } from "../../../common/communication/game-description";
@@ -6,7 +7,6 @@ import { GetGameService } from "../services/get-game.service";
 import { ScoreUpdaterService } from "../services/score-updater.service";
 import { Socket } from "../socket";
 import Types from "../types";
-import { NextFunction } from "connect";
 
 @injectable()
 export class EndGameController {
