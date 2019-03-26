@@ -27,16 +27,16 @@ export class EndGameController {
         router.post(
             "/",
             async (req: Request, res: Response, next: NextFunction) => {
-                const game: AbstractGame = this.getGameService.getGame(req.body.game.gameId);
+                const game: AbstractGame = this.getGameService.getGame(req.body.gameId);
                 Promise.all([
                     this.scoreUpdaterService.putScore(
-                        req.body.game.sheetId,
-                        req.body.game.name,
+                        game.sheetId,
+                        game.name,
                         parseInt(req.body.time, EndGameController.BASE_10),
-                        req.body.game.mode),
-                    this.getGameService.removeGame(req.body.game.gameId),
+                        game.gameMode),
+                    this.getGameService.removeGame(req.body.gameId),
                 ]).then((result: [GameSheet, {}]) => {
-                    const position: number = this.scoreUpdaterService.getPosition(result[0], req.body.time, req.body.game.mode);
+                    const position: number = this.scoreUpdaterService.getPosition(result[0], req.body.time, game.gameMode);
                     if (position !== -1) {
                         this.socket.sendBestTimeMessage(game.username, position + 1, game.name, game.gameMode);
                     }
