@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { faUser, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { ConnectionService } from "../connection.service";
 
 @Component({
@@ -9,7 +10,7 @@ import { ConnectionService } from "../connection.service";
 })
 export class MatchmakingComponent implements OnInit {
     public username: string;
-
+    public faUser: IconDefinition = faUser;
     public constructor(
         private connectionService: ConnectionService,
         private router: Router,
