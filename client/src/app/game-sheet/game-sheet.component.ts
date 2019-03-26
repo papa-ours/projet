@@ -66,7 +66,7 @@ export class GameSheetComponent implements OnInit {
     }
 
     public createGame(): void {
-        throw Error("Method not implemented!");
+        this.router.navigateByUrl(`/matchmaking/${this.description.name}/${this.type}`);
     }
 
     public actionConfirmed(isActionConfirmed: boolean): void {
