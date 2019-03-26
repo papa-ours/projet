@@ -11,15 +11,15 @@ import { ConnectionService } from "../connection.service";
 export class MatchmakingComponent implements OnInit {
     public username: string;
     public faUser: IconDefinition = faUser;
+    public other: string;
     public constructor(
         private connectionService: ConnectionService,
         private router: Router,
-    ) {}
+    ) {
+       this.other = "";
+    }
 
     public ngOnInit(): void {
-        if (!this.connectionService.connected) {
-            this.router.navigateByUrl("");
-        }
-        this.username = this.connectionService.username;
+        this.connectionService.connected ? this.username = this.connectionService.username : this.router.navigateByUrl("");
     }
 }
