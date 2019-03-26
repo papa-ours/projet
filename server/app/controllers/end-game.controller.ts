@@ -38,7 +38,7 @@ export class EndGameController {
                 ]).then((result: [GameSheet, {}]) => {
                     const position: number = this.scoreUpdaterService.getPosition(result[0], req.body.time, game.gameMode);
                     if (position !== -1) {
-                        this.socket.sendBestTimeMessage(game.username, position + 1, game.name, game.gameMode);
+                        this.socket.sendBestTimeMessage(game.username, position, game.name, game.gameMode);
                     }
                     res.send({
                         body: "",
