@@ -60,3 +60,24 @@
     width: 100vw;
     height: 100vh;
 }
+
+
+.cancel-btn {
+    font-family: 'Helvetica';
+    font-size: 24px;
+    color: #FFFFFF;
+    border: none;
+    width: 140px;
+    height: 54px;
+    margin: 10px;
+    border-radius: 30px;
+    cursor: pointer;
+    background: var(--header-color);
+    color: var(--danger-color);
+    transition-duration: 0.5s;
+}
+
+.cancel-btn:hover {
+    background: var(--danger-color);
+    color: var(--header-color);
+}
