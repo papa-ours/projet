@@ -131,11 +131,11 @@ describe("chat-message-service", () => {
         const gameName: string = "Voiture";
         const gameMode: GameMode = GameMode.Solo;
         socket.sendBestTimeMessage(username, position, gameName, gameMode);
-        const expected: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en solo`;
+        const expected: string = `${username} obtient la deuxième place dans les meilleurs temps du jeu ${gameName} en solo`;
         socketClient1.on("chatMessage", (result1: ChatMessage) => {
-            expect(result1.text).to.deep.equals(expected);
+            expect(decodeURIComponent(escape(result1.text))).to.deep.equals(expected);
             socketClient2.on("chatMessage", (result2: ChatMessage) => {
-                expect(result2.text).to.deep.equals(expected);
+                expect(decodeURIComponent(escape(result2.text))).to.deep.equals(expected);
                 setTimeout(done, 0);
             });
         });
@@ -147,11 +147,11 @@ describe("chat-message-service", () => {
         const gameName: string = "Voiture";
         const gameMode: GameMode = GameMode.Pvp;
         socket.sendBestTimeMessage(username, position, gameName, gameMode);
-        const expected: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en un contre un`;
+        const expected: string = `${username} obtient la deuxième place dans les meilleurs temps du jeu ${gameName} en un contre un`;
         socketClient1.on("chatMessage", (result1: ChatMessage) => {
-            expect(result1.text).to.deep.equals(expected);
+            expect(decodeURIComponent(escape(result1.text))).to.deep.equals(expected);
             socketClient2.on("chatMessage", (result2: ChatMessage) => {
-                expect(result2.text).to.deep.equals(expected);
+                expect(decodeURIComponent(escape(result2.text))).to.deep.equals(expected);
                 setTimeout(done, 0);
             });
         });
