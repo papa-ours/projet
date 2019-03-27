@@ -63,6 +63,7 @@
 
 
 .cancel-btn {
+    position: absolute;
     font-family: 'Helvetica';
     font-size: 24px;
     color: #FFFFFF;
