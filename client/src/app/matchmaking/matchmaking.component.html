@@ -10,7 +10,11 @@
             <ng-template #user>
                 <fa-icon class="user-icon" [icon]="faUser"></fa-icon>
             </ng-template>
-            <div class="username">{{other ? other : "Recherche"}}</div>
+            <div class="username">{{other ? other : "Recherche"}}
+                <span class="dot" id="dot1">.</span>
+                <span class="dot" id="dot2">.</span>
+                <span class="dot" id="dot3">.</span>
+            </div>
         </div>
     </div>
     <button (click)="goToGameList()" class="cancel-btn">Annuler</button>
