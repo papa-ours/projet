@@ -81,3 +81,35 @@
     background: var(--danger-color);
     color: var(--header-color);
 }
+
+.dot {
+    margin-left: -6px;
+}
+
+#dot1 {
+    animation: dot1 1s ease-in infinite;
+}
+
+#dot2 {
+    animation: dot2 1s ease-in infinite;
+}
+
+#dot3 {
+    animation: dot3 1s ease-in infinite;
+}
+
+
+@keyframes dot1 {
+    0%, 40%  { opacity: 0; }
+    41%, 100% { opacity: 1; }
+}
+
+@keyframes dot2 {
+    0%, 60%  { opacity: 0; }
+    61%, 100% { opacity: 1; }
+}
+
+@keyframes dot3 {
+    0%, 80%  { opacity: 0; }
+    81%, 100% { opacity: 1; }
+}
