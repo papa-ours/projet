@@ -9,7 +9,9 @@
 }
 
 .user-icon {
-    margin-left: 112.5px;
+    width: 175px;
+    margin-bottom: 25px;
+    margin-left: 122.5px;
     font-size: 200px;
     color: var(--primary-color);
 }
@@ -21,14 +23,14 @@
 
 .versus-text {
     margin-top: 140px;
+    text-align: center;
     color: var(--primary-color);
     font-size: 120px;
 }
 
 .users-container {
-    margin-left: 12%;
-    margin-top: 10%;
     display: flex;
+    margin: auto;
 }
 
 
@@ -51,4 +53,10 @@
     100% { 
         transform: rotate(360deg); 
     }
+}
+
+.page-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
 }
