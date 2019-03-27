@@ -87,29 +87,31 @@
 }
 
 #dot1 {
-    animation: dot1 1s ease-in infinite;
+    animation: dot1 1.5s ease-in infinite;
 }
 
 #dot2 {
-    animation: dot2 1s ease-in infinite;
+    animation: dot2 1.5s ease-in infinite;
 }
 
 #dot3 {
-    animation: dot3 1s ease-in infinite;
+    animation: dot3 1.5s ease-in infinite;
 }
 
 
 @keyframes dot1 {
-    0%, 40%  { opacity: 0; }
-    41%, 100% { opacity: 1; }
+    0%, 30%  { opacity: 0; }
+    31%, 60% { opacity: 1; }
+    61%, 100% { opacity: 0; }
 }
 
 @keyframes dot2 {
-    0%, 60%  { opacity: 0; }
-    61%, 100% { opacity: 1; }
+    0%, 50%  { opacity: 0; }
+    51%, 80% { opacity: 1; }
+    81%, 100% { opacity: 0; }
 }
 
 @keyframes dot3 {
-    0%, 80%  { opacity: 0; }
-    81%, 100% { opacity: 1; }
+    0%, 70%  { opacity: 0; }
+    71%, 100% { opacity: 1; }
 }
