@@ -2,8 +2,8 @@ import { inject, injectable } from "inversify";
 import { GameMode } from "../../../common/communication/game-description";
 import { ChatMessage } from "../../../common/communication/message";
 import Types from "../types";
-import { GetCurrentTimeService } from "./get-current-time.service";
 import { UsersContainerService } from "./users-container.service";
+import { GetCurrentTime } from "./utils/get-current-time.service";
 
 @injectable()
 export abstract class ChatMessageService {
@@ -12,7 +12,6 @@ export abstract class ChatMessageService {
 
     public constructor(
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
-        @inject(Types.GetCurrentTimeService) public getCurrentTimeService: GetCurrentTimeService,
     ) {}
 
     public abstract getIdentificationMessage(username: string, isDifferenceFound: boolean): ChatMessage;
@@ -44,7 +43,7 @@ export abstract class ChatMessageService {
             + " place dans les meilleurs temps du jeu " + gameName + " en " + gameModetext;
 
         return {
-            chatTime: this.getCurrentTimeService.getCurrentTime(),
+            chatTime: GetCurrentTime.getCurrentTime(),
             username: username,
             text: text,
         };
@@ -54,7 +53,7 @@ export abstract class ChatMessageService {
         const textMessage: string = isConnected ? `${username} vient de se déconnecter.` : `${username} vient de se connecter.`;
 
         return {
-            chatTime: this.getCurrentTimeService.getCurrentTime(),
+            chatTime: GetCurrentTime.getCurrentTime(),
             username: username,
             text: textMessage,
         };

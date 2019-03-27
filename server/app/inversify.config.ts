@@ -16,7 +16,6 @@ import { DifferenceCheckerService } from "./services/difference-checker.service"
 import { DifferenceImageGenerator } from "./services/difference-image-generator.service";
 import { DifferencesFinderService } from "./services/differences-finder.service";
 import { GameSheetGenerationService } from "./services/game-sheet-generation.service";
-import { GetCurrentTimeService } from "./services/get-current-time.service";
 import { GetGameListService } from "./services/get-game-list.service";
 import { GetGameService } from "./services/get-game.service";
 import { SceneDataGeneratorService } from "./services/scene/scene-data-generator";
@@ -52,7 +51,6 @@ container.bind(Types.DifferenceCheckerService).to(DifferenceCheckerService);
 container.bind(Types.UsersContainerService).to(UsersContainerService);
 container.bind(Types.ChatMessageSoloService).to(ChatMessageSoloService);
 container.bind(Types.ChatMessage1vs1Service).to(ChatMessage1vs1Service);
-container.bind(Types.GetCurrentTimeService).to(GetCurrentTimeService);
 container.bind(Types.DBConnectionService).to(DBConnectionService);
 container.bind(Types.ScoreUpdaterService).to(ScoreUpdaterService);
 container.bind(Types.EndGameController).to(EndGameController);

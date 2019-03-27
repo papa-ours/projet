@@ -4,7 +4,6 @@ import * as socketio from "socket.io";
 import { GameMode } from "../../common/communication/game-description";
 import { container } from "./inversify.config";
 import { ChatMessageService } from "./services/chat-message.service";
-import { GetCurrentTimeService } from "./services/get-current-time.service";
 import { UsersContainerService } from "./services/users-container.service";
 import Types from "./types";
 
@@ -15,7 +14,6 @@ export class Socket {
 
     public constructor(
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
-        @inject(Types.GetCurrentTimeService) public getCurrentTimeService: GetCurrentTimeService,
     ) {
         this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService);
     }
