@@ -90,14 +90,6 @@ export class RenderService {
         this.setupRenderingLoop();
     }
 
-    public setSpeedZ(z: number): void {
-        this.speedZ = z;
-    }
-
-    public setSpeedX(x: number): void {
-        this.speedX = x;
-    }
-
     public rotateCameraY(y: number): void {
         this.camera.rotateY(y / this.ROTATION_CONSTANT);
     }
