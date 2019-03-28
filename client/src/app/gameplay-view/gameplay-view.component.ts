@@ -15,7 +15,7 @@ import { SocketService } from "../socket.service";
 })
 export class GameplayViewComponent implements OnInit {
 
-    public readonly gameMode: GameMode;
+    public gameMode: GameMode;
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
     private readonly CORRECT_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
     private readonly WRONG_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
@@ -41,8 +41,6 @@ export class GameplayViewComponent implements OnInit {
         public name: string,
         public id: string,
     ) {
-        this.gameMode = GameMode.Solo;
-        this.requiredDifferences = this.gameMode === GameMode.Solo ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
         this.foundDifferencesCounter = 0;
         this.images = [];
         this.canClick = true;
@@ -63,6 +61,9 @@ export class GameplayViewComponent implements OnInit {
             this.name = params["name"];
             this.type = params["type"];
             this.id = params["id"];
+            this.gameMode = params["mode"];
+            this.requiredDifferences = this.gameMode === GameMode.Solo ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
+
             this.startChrono();
         });
         const SOUND_VOLUME: number = 0.2;
