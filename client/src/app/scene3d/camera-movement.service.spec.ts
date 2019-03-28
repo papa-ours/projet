@@ -70,8 +70,6 @@ describe("DeplacementCameraService", () => {
     });
 
     it("should change the speedX and speedZ on a w and d key press, keyup and keydown event", () => {
-        const spyX: jasmine.Spy = spyOn(renderOriginal, "setSpeedX");
-        const spyY: jasmine.Spy = spyOn(renderOriginal, "setSpeedZ");
         const eventKeyDownD: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "d", shiftKey : false});
         const eventKeyDownW: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
         const eventKeyUpD: KeyboardEvent = new KeyboardEvent("keyup", {bubbles : true, cancelable : true, key : "d", shiftKey : false});
