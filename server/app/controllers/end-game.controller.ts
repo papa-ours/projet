@@ -16,6 +16,7 @@ export class EndGameController {
     public constructor(
         @inject(Types.ScoreUpdaterService) private scoreUpdaterService: ScoreUpdaterService,
         @inject(Types.GetGameService) private getGameService: GetGameService,
+        @inject(Types.ChatMessageService) private chatMessageService: ChatMessageService,
     ) {
 
     }
@@ -36,7 +37,7 @@ export class EndGameController {
                     ).then((gameSheet: GameSheet) => {
                         const position: number = this.scoreUpdaterService.getPosition(gameSheet, req.body.time, game.gameMode);
                         if (position !== -1) {
-                            ChatMessageService.sendBestTimeMessage(game.username, position, game.name, game.gameMode);
+                            this.chatMessageService.sendBestTimeMessage(game.username, position, game.name, game.gameMode);
                         }
                     }),
                     this.getGameService.removeGame(req.body.gameId),

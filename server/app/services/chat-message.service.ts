@@ -9,28 +9,11 @@ import { GetCurrentTime } from "./utils/get-current-time.service";
 @injectable()
 export class ChatMessageService {
 
-    private static readonly POSITION_STRING: string [] = ["première", "deuxième", "troisième"];
+    private readonly POSITION_STRING: string [] = ["première", "deuxième", "troisième"];
 
     public constructor(
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
     ) {}
-
-    public static sendBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): void {
-        const message: ChatMessage = this.getBestTimeMessage(username, position, gameName, gameMode);
-        Socket.io.emit("chatMessage", message);
-    }
-
-    private static getBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): ChatMessage {
-        const gameModetext: string = gameMode === GameMode.Solo ? "solo" : "un contre un";
-        const textMessage: string = username + " obtient la " + this.POSITION_STRING[position - 1]
-            + " place dans les meilleurs temps du jeu " + gameName + " en " + gameModetext;
-
-        return {
-            chatTime: GetCurrentTime.getCurrentTime(),
-            username: username,
-            text: textMessage,
-        };
-    }
 
     public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, isDifferenceFound: boolean, gameMode: GameMode): void {
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
@@ -46,6 +29,11 @@ export class ChatMessageService {
             const message: ChatMessage = this.getConnectionMessage(isConnected, username);
             Socket.io.emit("chatMessage", message);
         }
+    }
+
+    public sendBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): void {
+        const message: ChatMessage = this.getBestTimeMessage(username, position, gameName, gameMode);
+        Socket.io.emit("chatMessage", message);
     }
 
     private getIdentificationMessage(username: string, isDifferenceFound: boolean, gameMode: GameMode): ChatMessage {
@@ -70,6 +58,18 @@ export class ChatMessageService {
 
     private getConnectionMessage(isConnected: boolean, username: string): ChatMessage {
         const textMessage: string = isConnected ? `${username} vient de se déconnecter.` : `${username} vient de se connecter.`;
+
+        return {
+            chatTime: GetCurrentTime.getCurrentTime(),
+            username: username,
+            text: textMessage,
+        };
+    }
+
+    private getBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): ChatMessage {
+        const gameModetext: string = gameMode === GameMode.Solo ? "solo" : "un contre un";
+        const textMessage: string = username + " obtient la " + this.POSITION_STRING[position]
+            + " place dans les meilleurs temps du jeu " + gameName + " en " + gameModetext;
 
         return {
             chatTime: GetCurrentTime.getCurrentTime(),
