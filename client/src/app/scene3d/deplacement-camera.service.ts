@@ -18,7 +18,7 @@ export class DeplacementCameraService {
 
     private static renderElementOriginal: RenderElement = { } as RenderElement;
     private static renderElementModified: RenderElement = { } as RenderElement;
-    private speedCamera: THREE.Vector3;
+    private static speedCamera: THREE.Vector3 = new THREE.Vector3(0, 0, 0);
 
     public static setElementRef(elementRefOriginal: ElementRef, elementRefModified: ElementRef): void {
         DeplacementCameraService.renderElementOriginal.elementRef = elementRefOriginal;
