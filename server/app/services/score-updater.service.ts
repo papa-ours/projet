@@ -4,6 +4,7 @@ import Types from "../types";
 import { DBConnectionService } from "./db-connection.service";
 import { Score } from "./score/score";
 import { TopScores } from "./score/top-scores";
+import { reverse } from "dns";
 
 @injectable()
 export class ScoreUpdaterService {
@@ -20,6 +21,7 @@ export class ScoreUpdaterService {
         let position: number = -1;
         (gameSheet.topScores[mode] as TopScores).scores
             .map((score: Score) => score.time)
+            .reverse()
             .forEach((sheetTime: number, index: number) => {
                 if (time < sheetTime) {
                     position = index;
