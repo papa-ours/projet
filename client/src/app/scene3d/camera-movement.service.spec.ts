@@ -89,8 +89,8 @@ describe("DeplacementCameraService", () => {
         spyOn(renderOriginal.camera, "rotateY");
         const event1: MouseEvent = new MouseEvent("mousemove", {bubbles : true, cancelable : true, screenY : 50});
         CameraMovementService["rotateCamera"](event1);
-        expect(renderOriginal.camera.rotateX).toHaveBeenCalled();
-        expect(renderOriginal.camera.rotateY).not.toHaveBeenCalled();
+        expect(renderOriginal.camera.rotateX).not.toHaveBeenCalledWith(0);
+        expect(renderOriginal.camera.rotateY).toHaveBeenCalledWith(0);
     });
 
     it("should rotate the camera on the y axis when the user moves on the x axis", () => {
@@ -99,8 +99,8 @@ describe("DeplacementCameraService", () => {
         spyOn(renderOriginal.camera, "rotateX");
         const event1: MouseEvent = new MouseEvent("mousemove", {bubbles : true, cancelable : true, screenX : 50});
         CameraMovementService["rotateCamera"](event1);
-        expect(renderOriginal.camera.rotateY).toHaveBeenCalled();
-        expect(renderOriginal.camera.rotateX).not.toHaveBeenCalled();
+        expect(renderOriginal.camera.rotateY).not.toHaveBeenCalledWith(0);
+        expect(renderOriginal.camera.rotateX).toHaveBeenCalledWith(0);
     });
 
     it("should add the mousemove event listener when the user right click", () => {
