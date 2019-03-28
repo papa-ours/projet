@@ -1,10 +1,11 @@
 import { REQUIRED_DIFFERENCES_1P } from "../../../../common/communication/constants";
 import { GameMode, GameType, HasId } from "../../../../common/communication/game-description";
+import { Chrono } from "../utils/chrono";
 
 export abstract class AbstractGame implements HasId {
 
     public differenceCount: number;
-    private startTime: Date;
+    private chrono: Chrono;
     public username: string;
 
     public constructor(
@@ -15,6 +16,7 @@ export abstract class AbstractGame implements HasId {
         public readonly type: GameType,
     ) {
         this.differenceCount = REQUIRED_DIFFERENCES_1P;
+        this.chrono = new Chrono();
     }
 
     protected abstract async setUp(name: string): Promise<{}>;
@@ -22,10 +24,10 @@ export abstract class AbstractGame implements HasId {
 
     public start(username: string): void {
         this.username = username;
-        this.startTime = new Date();
+        this.chrono.start();
     }
 
     public get time(): number {
-        return new Date().getUTCSeconds() - this.startTime.getUTCSeconds();
+        return this.chrono.time;
     }
 }
