@@ -76,11 +76,6 @@ export class RenderService {
         this.addLight();
         this.setupRenderingLoop();
         this.render();
-        setInterval(
-            () => {
-            this.camera.translateX(this.speedX);
-            this.camera.translateZ(this.speedZ);
-        },  this.MOUVEMENT_INTERVAL);
     }
 
     public reInitialize(container: HTMLDivElement, scene: THREE.Scene): void {
