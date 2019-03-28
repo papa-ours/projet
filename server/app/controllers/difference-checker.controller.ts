@@ -72,7 +72,7 @@ export class DifferenceCheckerController {
                 if (isModification) {
                     game.restoreModifiedScene(position);
                     if (game.differenceCount === 0) {
-                        Axios.post(`${SERVER_ADDRESS}/api/endgame/`, {gameId: req.params.id, time: game.time});
+                        Axios.post(`${SERVER_ADDRESS}/api/endgame/`, {gameId: game.id, time: game.time});
                     }
                 }
                 message.body = String(isModification);
