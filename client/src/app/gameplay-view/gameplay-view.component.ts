@@ -62,10 +62,8 @@ export class GameplayViewComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
             this.type = params["type"];
-            this.gameplayService.getGameId(this.name, this.type, this.connectionService.username).subscribe((id: string) => {
-                this.id = id;
-                this.startChrono();
-            });
+            this.id = params["id"];
+            this.startChrono();
         });
         const SOUND_VOLUME: number = 0.2;
         this.CORRECT_SOUND.volume = SOUND_VOLUME;
