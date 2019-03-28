@@ -44,4 +44,12 @@ export class SocketService {
             });
         });
     }
+
+    public getPlayerHasJoined(): Observable<string> {
+        return Observable.create((observer: Subject<string>) => {
+            this.socket.on("joined", (id: string) => {
+                observer.next(id);
+            });
+        });
+    }
 }
