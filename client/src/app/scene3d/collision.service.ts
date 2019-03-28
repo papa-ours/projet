@@ -4,7 +4,7 @@ import * as THREE from "three";
 @Injectable({
     providedIn: "root",
 })
-export class CollisionService {
+export class CollisionDetectionService {
 
     public static canMove(scene: THREE.Scene, camera: THREE.Camera, cameradirection: THREE.Vector3): boolean {
         const raycaster: THREE.Raycaster = new THREE.Raycaster();
