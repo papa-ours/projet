@@ -8,7 +8,7 @@ describe("DeplacementCameraService", () => {
     let element: ElementRef;
     let renderOriginal: RenderService;
     let renderModified: RenderService;
-    const DISTANCE: number = 10;
+    const DISTANCE: number = 5;
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
