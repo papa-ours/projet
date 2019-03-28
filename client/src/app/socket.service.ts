@@ -31,7 +31,7 @@ export class SocketService {
         this.socket.emit("errorIdentification", gameMode);
     }
 
-    public getChatMessage = () => {
+    public getChatMessage(): Observable<ChatMessage> {
         return Observable.create((observer: Subject<ChatMessage>) => {
             this.socket.on("chatMessage", (data: ChatMessage) => {
                 observer.next(data);
