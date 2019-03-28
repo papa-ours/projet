@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 import { S3_BUCKET_URL } from "../../../../common/communication/constants";
-import { GameSheet, GameType } from "../../../../common/communication/game-description";
+import { GameMode, GameSheet, GameType } from "../../../../common/communication/game-description";
 import { ImageTypeName } from "../../../../common/images/image-type";
 import { ConnectionService } from "../connection.service";
 import { GameSheetService } from "../game-sheet.service";
@@ -68,7 +68,7 @@ export class GameSheetComponent implements OnInit {
     public play(): void {
         this.gameplayService.getGameId(this.description.name, this.type, this.connectionService.username)
         .subscribe((id: string) => {
-            this.router.navigateByUrl(`/game/${this.description.name}/${this.type}/${id}`)
+            this.router.navigateByUrl(`/game/${this.description.name}/${this.type}/${GameMode.Solo}/${id}`)
             .catch((err: Error) => {
                 console.error(err);
             });
