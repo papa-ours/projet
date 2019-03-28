@@ -10,11 +10,12 @@ interface RenderElement {
 export class DeplacementCameraService {
 
     private static readonly RIGHT_CLICK: number = 2;
-    private static readonly DISTANCE: number = 10;
+    private static readonly DISTANCE: number = 5;
     private static readonly FORWARD: string = "w";
     private static readonly LEFT: string = "a";
     private static readonly RIGHT: string = "d";
     private static readonly BACKWARD: string = "s";
+    private static readonly MOUVEMENT_INTERVAL: number = 10;
 
     private static renderElementOriginal: RenderElement = { } as RenderElement;
     private static renderElementModified: RenderElement = { } as RenderElement;
