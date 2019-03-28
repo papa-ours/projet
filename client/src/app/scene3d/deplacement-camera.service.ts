@@ -105,16 +105,16 @@ export class DeplacementCameraService {
     private static resetCameraSpeed(keyEvent: KeyboardEvent): void {
         switch (keyEvent.key) {
             case DeplacementCameraService.FORWARD:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedZ(0));
+                DeplacementCameraService.speedCamera.setZ(0);
                 break;
             case DeplacementCameraService.LEFT:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(0));
+                DeplacementCameraService.speedCamera.setX(0);
                 break;
             case DeplacementCameraService.BACKWARD:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedZ(0));
+                DeplacementCameraService.speedCamera.setZ(0);
                 break;
             case DeplacementCameraService.RIGHT:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(0));
+                DeplacementCameraService.speedCamera.setX(0);
                 break;
             default:
         }
