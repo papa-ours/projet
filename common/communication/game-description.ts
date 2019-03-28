@@ -14,8 +14,8 @@ export enum GameType {
 }
 
 export enum GameMode {
-    Solo,
-    Pvp,
+    Solo = "solo",
+    Pvp = "pvp",
 }
 
 export interface GameSheetDescription {
