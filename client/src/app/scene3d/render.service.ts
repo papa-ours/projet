@@ -18,10 +18,6 @@ export class RenderService {
     private readonly MOUVEMENT_INTERVAL: number = 10;
     private readonly ROTATION_CONSTANT: number = 800;
 
-    public constructor() {
-        this.speedX = 0;
-        this.speedZ = 0;
-    }
     private createCamera(): void {
         const aspectRatio: number = this.getAspectRatio();
         this.camera = new THREE.PerspectiveCamera(
