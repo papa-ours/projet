@@ -124,5 +124,4 @@ describe("DeplacementCameraService", () => {
         CameraMovementService["onMouseClick"](event1);
         expect(document.body.removeEventListener).toHaveBeenCalled();
     });
-
 });
