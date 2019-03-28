@@ -17,6 +17,7 @@ export class DifferenceCheckerController {
     public constructor(
         @inject(Types.DifferenceCheckerService) private differenceChecker: DifferenceCheckerService,
         @inject(Types.GetGameService) private getGameService: GetGameService,
+        @inject(Types.SceneDifferenceCheckerService) private sceneDifferenceCheckerService: SceneDifferenceCheckerService,
     ) {
 
     }
@@ -45,7 +46,7 @@ export class DifferenceCheckerController {
                     if (isDifference) {
                         await game.restoreModifiedImage(x, y);
                         if (game.differenceCount === 0) {
-                            Axios.post(`${SERVER_ADDRESS}/api/endgame/${game.sheetId}/${game.id}/${game.username}/${game.time}`);
+                            Axios.post(`${SERVER_ADDRESS}/api/endgame/`, {gameId: id, time: game.time});
                         }
                     }
 
@@ -67,12 +68,11 @@ export class DifferenceCheckerController {
                 const sceneName: string = req.body.name as string;
                 const game: FreeGame = this.getGameService.getGame(sceneName) as FreeGame;
                 const position: VectorInterface = req.body.position;
-                const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService();
-                const isModification: boolean = differenceChecker.checkDifference(game.scene, position);
+                const isModification: boolean = this.sceneDifferenceCheckerService.checkDifference(game.scene, position);
                 if (isModification) {
                     game.restoreModifiedScene(position);
                     if (game.differenceCount === 0) {
-                        Axios.post(`${SERVER_ADDRESS}/api/endgame/${game.sheetId}/${game.id}/${game.username}/${game.time}`);
+                        Axios.post(`${SERVER_ADDRESS}/api/endgame/`, {gameId: req.params.id, time: game.time});
                     }
                 }
                 message.body = String(isModification);
@@ -89,8 +89,7 @@ export class DifferenceCheckerController {
                     try {
                         const sceneName: string = req.body.name as string;
                         const game: FreeGame = this.getGameService.getGame(sceneName) as FreeGame;
-                        const differenceChecker: SceneDifferenceCheckerService = new SceneDifferenceCheckerService();
-                        message.body = JSON.stringify(differenceChecker.getDifferences(game.scene));
+                        message.body = JSON.stringify(this.sceneDifferenceCheckerService.getDifferences(game.scene));
                     } catch (err) {
                         message.body = err.message;
                     }

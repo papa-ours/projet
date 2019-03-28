@@ -38,7 +38,7 @@ export abstract class ChatMessageService {
 
     private getBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): ChatMessage {
         const gameModetext: string = gameMode === GameMode.Solo ? "solo" : "un contre un";
-        const text: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en ${gameModetext}`;
+        const text: string = `${username} obtient la place ${position + 1} dans les meilleurs temps du jeu ${gameName} en ${gameModetext}`;
 
         return {
             chatTime: this.getCurrentTimeService.getCurrentTime(),

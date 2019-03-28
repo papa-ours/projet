@@ -1,19 +1,18 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { REQUIRED_DIFFERENCES_1P } from "../../../../common/communication/constants";
 import { GeometryData, Modification, ModificationType } from "../../../../common/communication/geometry";
+import Types from "../../types";
 import { DeepCloner } from "../utils/deep-cloner";
 import { SceneDataGeneratorService, ThematicObjectData } from "./scene-data-generator";
 
 @injectable()
 export class SceneDataDifferenceService {
 
-    private sceneDataGeneratorService: SceneDataGeneratorService;
     private modificationMap: Map<ModificationType, Function>;
     private modifications: Modification[];
 
-    public constructor() {
-        this.sceneDataGeneratorService = new SceneDataGeneratorService();
+    public constructor(@inject(Types.SceneDataGeneratorService) private sceneDataGeneratorService: SceneDataGeneratorService) {
         this.modificationMap = new Map();
         this.modificationMap.set(ModificationType.ADD, this.addGeometryData);
         this.modificationMap.set(ModificationType.DELETE, this.deleteGeometryData);

@@ -131,7 +131,7 @@ describe("chat-message-service", () => {
         const gameName: string = "Voiture";
         const gameMode: GameMode = GameMode.Solo;
         socket.sendBestTimeMessage(username, position, gameName, gameMode);
-        const expected: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en solo`;
+        const expected: string = `${username} obtient la place ${position + 1} dans les meilleurs temps du jeu ${gameName} en solo`;
         socketClient1.on("chatMessage", (result1: ChatMessage) => {
             expect(result1.text).to.deep.equals(expected);
             socketClient2.on("chatMessage", (result2: ChatMessage) => {
@@ -147,7 +147,7 @@ describe("chat-message-service", () => {
         const gameName: string = "Voiture";
         const gameMode: GameMode = GameMode.Pvp;
         socket.sendBestTimeMessage(username, position, gameName, gameMode);
-        const expected: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en un contre un`;
+        const expected: string = `${username} obtient la place ${position + 1} dans les meilleurs temps du jeu ${gameName} en un contre un`;
         socketClient1.on("chatMessage", (result1: ChatMessage) => {
             expect(result1.text).to.deep.equals(expected);
             socketClient2.on("chatMessage", (result2: ChatMessage) => {
