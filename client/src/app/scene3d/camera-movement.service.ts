@@ -1,5 +1,6 @@
 import { ElementRef } from "@angular/core";
 import * as THREE from "three";
+import { CollisionDetectionService } from "./collision.service";
 import { RenderService } from "./render.service";
 
 interface RenderElement {
@@ -134,5 +135,13 @@ export class CameraMovementService {
     private static forEachScene(func: (render: RenderService) => void): void {
         func(CameraMovementService.renderElementOriginal.render);
         func(CameraMovementService.renderElementModified.render);
+    }
+
+    private static canMove(): boolean {
+        const originalRender: RenderService = CameraMovementService.renderElementOriginal.render;
+        const modifiedRender: RenderService = CameraMovementService.renderElementModified.render;
+
+        return CollisionDetectionService.canMove(originalRender.scene, originalRender.camera, CameraMovementService.speedCamera) &&
+               CollisionDetectionService.canMove(modifiedRender.scene, modifiedRender.camera, CameraMovementService.speedCamera);
     }
 }
