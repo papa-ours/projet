@@ -78,8 +78,8 @@ describe("chat-message-service", () => {
         );
     });
 
-    it("should send a message if a difference is found", (done: Mocha.Func) => {
-        socketClient1.emit("foundDifference");
+    it("should send a message if a difference is found in solo mode", (done: Mocha.Func) => {
+        socketClient1.emit("foundDifference", GameMode.Solo);
         const expected: string = "Différence trouvée.";
         socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
@@ -87,8 +87,8 @@ describe("chat-message-service", () => {
         });
     });
 
-    it("should send a message if an error identification occured", (done: Mocha.Func) => {
-        socketClient1.emit("errorIdentification");
+    it("should send a message if an error identification occured in solo mode", (done: Mocha.Func) => {
+        socketClient1.emit("errorIdentification", GameMode.Solo);
         const expected: string = "Erreur.";
         socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
@@ -141,7 +141,7 @@ describe("chat-message-service", () => {
         });
     });
 
-    it("should send a message to all users if a best time 1vs1 is beaten", (done: Mocha.Func) => {
+    it("should send a message to all users if a best time pvp is beaten", (done: Mocha.Func) => {
         const username: string = "username";
         const position: number = 2;
         const gameName: string = "Voiture";
@@ -157,9 +157,8 @@ describe("chat-message-service", () => {
         });
     });
 
-    it("should switch to 1vs1 message and send an error message", (done: Mocha.Func) => {
-        socketClient1.emit("setGameType", GameType.Free);
-        socketClient1.emit("errorIdentification");
+    it("should send a message if a difference is found in pvp mode", (done: Mocha.Func) => {
+        socketClient1.emit("errorIdentification", GameType.Free);
         const expected: string = "Erreur par Username1.";
         socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
@@ -167,9 +166,8 @@ describe("chat-message-service", () => {
         });
     });
 
-    it("should switch to 1vs1 message and send found identification message", (done: Mocha.Func) => {
-        socketClient1.emit("setGameType", GameType.Free);
-        socketClient1.emit("foundDifference");
+    it("should send a message if an error identification occured in pvp mode", (done: Mocha.Func) => {
+        socketClient1.emit("foundDifference", GameType.Free);
         const expected: string = "Différence trouvée par Username1.";
         socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);

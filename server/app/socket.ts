@@ -2,7 +2,6 @@ import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
 import { GameMode } from "../../common/communication/game-description";
-import { container } from "./inversify.config";
 import { ChatMessageService } from "./services/chat-message.service";
 import { UsersContainerService } from "./services/users-container.service";
 import Types from "./types";
@@ -10,13 +9,11 @@ import Types from "./types";
 @injectable()
 export class Socket {
     public static io: SocketIO.Server;
-    private chatMessageService: ChatMessageService;
 
     public constructor(
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
-    ) {
-        this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService);
-    }
+        @inject(Types.ChatMessageService)  public chatMessageService: ChatMessageService,
+    ) {}
 
     public init(server: http.Server): void {
         Socket.io = socketio(server);
@@ -26,7 +23,6 @@ export class Socket {
             this.setupFoundDifference(socket);
             this.setupErrorIdentification(socket);
             this.setupDisconnect(socket);
-            this.setupGameType(socket);
         });
     }
 
@@ -42,16 +38,16 @@ export class Socket {
     }
 
     private setupFoundDifference(socket: SocketIO.Socket): void {
-        socket.on("foundDifference", () => {
+        socket.on("foundDifference", (gameMode: GameMode) => {
             const isDifferenceFound: boolean = true;
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound);
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound, gameMode);
         });
     }
 
     private setupErrorIdentification(socket: SocketIO.Socket): void {
-        socket.on("errorIdentification", () => {
+        socket.on("errorIdentification", (gameMode: GameMode) => {
             const isDifferenceFound: boolean = false;
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound);
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound, gameMode);
         });
     }
 
@@ -61,18 +57,6 @@ export class Socket {
             this.chatMessageService.sendConnectionMessage(socket, Socket.io, isConnected);
             this.deleteUser(socket.id);
         });
-    }
-
-    private setupGameType(socket: SocketIO.Socket): void {
-        socket.on("setGameType", (gameMode: GameMode) => {
-            this.ChangeGameType(gameMode);
-        });
-    }
-
-    private ChangeGameType(gameMode: GameMode): void {
-        gameMode === GameMode.Solo ?
-            this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService) :
-            this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessage1vs1Service);
     }
 
     private deleteUser(id: string): void {

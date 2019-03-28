@@ -22,8 +22,6 @@ export default {
         DifferenceCheckerController: Symbol("DifferenceCheckerController"),
         UsersContainerService: Symbol("UsersContainerService"),
         ChatMessageService: Symbol("ChatMessageService"),
-        ChatMessageSoloService: Symbol("ChatMessageSoloService"),
-        ChatMessage1vs1Service: Symbol("ChatMessage1vs1Service"),
         ScoreUpdaterService: Symbol("ScoreUpdaterService"),
         EndGameController: Symbol("EndGameController"),
         SceneDifferenceCheckerService: Symbol("SceneDifferenceCheckerService"),
