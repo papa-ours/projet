@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --success-color: #08A037;
+    --danger-color: #ff5757;
+}
+
 body {
     background-image: linear-gradient(var(--header-color), var(--header-secondary-color));
     padding: 0;
