@@ -8,8 +8,6 @@ export class RenderService {
     public camera: THREE.PerspectiveCamera;
     private renderer: THREE.WebGLRenderer;
     public scene: THREE.Scene;
-    private speedX: number;
-    private speedZ: number;
 
     private readonly CAMERA_Z: number = 400;
     private readonly FIELD_OF_VIEW: number = 45;
