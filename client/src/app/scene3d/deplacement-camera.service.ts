@@ -121,8 +121,8 @@ export class DeplacementCameraService {
     }
 
     private static rotateCamera(mouseEvent: MouseEvent): void {
-        DeplacementCameraService.forEachScene((render: RenderService) => render.rotateCameraX(mouseEvent.movementY));
-        DeplacementCameraService.forEachScene((render: RenderService) => render.rotateCameraY(mouseEvent.movementX));
+        DeplacementCameraService.forEachScene((render: RenderService) => render.camera.rotateX(mouseEvent.movementY/800));
+        DeplacementCameraService.forEachScene((render: RenderService) => render.camera.rotateY(mouseEvent.movementX/800));
     }
 
     private static forEachScene(func: (render: RenderService) => void): void {
