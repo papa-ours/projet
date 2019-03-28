@@ -7,6 +7,7 @@ import { container } from "../inversify.config";
 import { Server } from "../server";
 import { Socket } from "../socket";
 import Types from "../types";
+import { ChatMessageService } from "./chat-message.service";
 import { UsersContainerService } from "./users-container.service";
 
 describe("chat-message-service", () => {
@@ -130,7 +131,7 @@ describe("chat-message-service", () => {
         const position: number = 2;
         const gameName: string = "Voiture";
         const gameMode: GameMode = GameMode.Solo;
-        socket.sendBestTimeMessage(username, position, gameName, gameMode);
+        ChatMessageService.sendBestTimeMessage(username, position, gameName, gameMode);
         const expected: string = `${username} obtient la deuxième place dans les meilleurs temps du jeu ${gameName} en solo`;
         socketClient1.on("chatMessage", (result1: ChatMessage) => {
             expect(decodeURIComponent(escape(result1.text))).to.deep.equals(expected);
@@ -146,7 +147,7 @@ describe("chat-message-service", () => {
         const position: number = 2;
         const gameName: string = "Voiture";
         const gameMode: GameMode = GameMode.Pvp;
-        socket.sendBestTimeMessage(username, position, gameName, gameMode);
+        ChatMessageService.sendBestTimeMessage(username, position, gameName, gameMode);
         const expected: string = `${username} obtient la deuxième place dans les meilleurs temps du jeu ${gameName} en un contre un`;
         socketClient1.on("chatMessage", (result1: ChatMessage) => {
             expect(decodeURIComponent(escape(result1.text))).to.deep.equals(expected);

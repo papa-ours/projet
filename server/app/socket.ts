@@ -26,14 +26,10 @@ export class Socket {
         });
     }
 
-    public sendBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): void {
-        this.chatMessageService.sendBestTimeMessage(Socket.io, username, position, gameName, gameMode);
-    }
-
     private setupNewUser(socket: SocketIO.Socket): void {
        socket.on("newUser", () => {
             const isConnected: boolean = false;
-            this.chatMessageService.sendConnectionMessage(socket, Socket.io, isConnected);
+            this.chatMessageService.sendConnectionMessage(socket, isConnected);
        });
     }
 
@@ -54,7 +50,7 @@ export class Socket {
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
             const isConnected: boolean = true;
-            this.chatMessageService.sendConnectionMessage(socket, Socket.io, isConnected);
+            this.chatMessageService.sendConnectionMessage(socket, isConnected);
             this.deleteUser(socket.id);
         });
     }
