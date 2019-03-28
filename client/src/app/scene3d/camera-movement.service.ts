@@ -16,6 +16,7 @@ export class CameraMovementService {
     private static readonly RIGHT: string = "d";
     private static readonly BACKWARD: string = "s";
     private static readonly MOUVEMENT_INTERVAL: number = 10;
+    private static readonly ROTATION_CONSTANT: number = 800;
 
     private static renderElementOriginal: RenderElement = { } as RenderElement;
     private static renderElementModified: RenderElement = { } as RenderElement;
