@@ -114,6 +114,7 @@
 
 .switch.theme-color .slider {
     background-color: var(--header-text-color);
+    filter: invert(100%);
 }
 
 .switch.switch.theme-color .slider:before {
