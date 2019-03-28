@@ -27,6 +27,12 @@ export class CreateGameController {
                 res.send(message);
             });
 
+        router.post(
+            "/waitingRoom/create/",
+            async (req: Request, res: Response, next: NextFunction) => {
+                res.send();
+            });
+
         router.delete(
             "/sheet/:id/:type",
             async (req: Request, res: Response, next: NextFunction) => {
