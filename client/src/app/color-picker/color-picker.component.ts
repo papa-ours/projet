@@ -19,7 +19,7 @@ export class ColorPickerComponent {
 
     public constructor() {
         this.isPanelShown = false;
-        this.isDarkTheme = true;
+        this.isDarkTheme = false;
 
         this.colorPalettes = [
             {primary: "#379BFF", secondary: "#8AC4FF"},
