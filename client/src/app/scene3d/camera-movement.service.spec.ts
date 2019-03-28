@@ -25,14 +25,14 @@ describe("DeplacementCameraService", () => {
     });
 
     it("should change the speedZ on a w key press, keyup and keydown event", () => {
-        const spy: jasmine.Spy = spyOn(renderOriginal, "setSpeedZ");
         const eventKeyDown: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
         const eventKeyUp: KeyboardEvent = new KeyboardEvent("keyup", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
         CameraMovementService["setCameraSpeed"](eventKeyDown);
-        expect(renderOriginal.setSpeedZ).toHaveBeenCalled();
-        spy.calls.reset();
+        expect(CameraMovementService.speedCamera.z).toBe(-10);
+        expect(CameraMovementService.speedCamera.x).toBe(0);
         CameraMovementService["setCameraSpeed"](eventKeyUp);
-        expect(renderOriginal.setSpeedZ).toHaveBeenCalled();
+        expect(CameraMovementService.speedCamera.z).toBe(0);
+        expect(CameraMovementService.speedCamera.x).toBe(0);
     });
 
     it("should change the speedZ on a s key press, keyup and keydown event", () => {
