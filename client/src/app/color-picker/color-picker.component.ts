@@ -39,16 +39,17 @@ export class ColorPickerComponent {
             {primary: "#07C4BA", secondary: "#1AEFE4"},
         ];
 
-        this.activeColorPreference = {
-            palette: this.cookieService.check(this.COOKIE_KEY) ?
-                JSON.parse(this.cookieService.get(this.COOKIE_KEY)).palette : this.colorPalettes[0],
-            isDark: false,
-            isTextWhite: true,
-        };
+        this.activeColorPreference = this.cookieService.check(this.COOKIE_KEY) ?
+            JSON.parse(this.cookieService.get(this.COOKIE_KEY)) :
+            {
+                palette: this.colorPalettes[0],
+                isDark: true,
+                isTextWhite: true,
+            };
 
         this.changeColor();
-        this.changeTheme();
-        this.changeTextColor();
+        this.showTheme();
+        this.showTextColor();
     }
 
     public colorSelected(colorPalette: ColorPalette): void {
@@ -75,12 +76,15 @@ export class ColorPickerComponent {
 
     public changeTheme(): void {
         this.activeColorPreference.isDark = !this.activeColorPreference.isDark;
+        this.showTheme();
+        this.savePreference();
+    }
+
+    private showTheme(): void {
         const root: HTMLElement = this.getRoot();
         this.changeHeaderColor(root);
         this.changeHeaderSecondaryColor(root);
         this.changeHeaderTextColor(root);
-
-        this.savePreference();
     }
 
     private changeHeaderColor(root: HTMLElement): void {
@@ -100,6 +104,11 @@ export class ColorPickerComponent {
 
     public changeTextColor(): void {
         this.activeColorPreference.isTextWhite = !this.activeColorPreference.isTextWhite;
+        this.showTextColor();
+        this.savePreference();
+    }
+
+    private showTextColor(): void {
         const textColor: string = this.activeColorPreference.isTextWhite ? "#FFFFFF" : "#000000";
         this.getRoot().style.setProperty("--text-color", textColor);
     }
