@@ -29,7 +29,7 @@ describe("DeplacementCameraService", () => {
         const eventKeyDown: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
         const eventKeyUp: KeyboardEvent = new KeyboardEvent("keyup", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
         CameraMovementService["setCameraSpeed"](eventKeyDown);
-        expect(CameraMovementService.speedCamera.z).toBe(10);
+        expect(CameraMovementService.speedCamera.z).toBe(-DISTANCE);
         expect(CameraMovementService.speedCamera.x).toBe(0);
         CameraMovementService["setCameraSpeed"](eventKeyUp);
         expect(CameraMovementService.speedCamera.z).toBe(0);
@@ -40,7 +40,7 @@ describe("DeplacementCameraService", () => {
         const eventKeyDown: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "s", shiftKey : false});
         const eventKeyUp: KeyboardEvent = new KeyboardEvent("keyup", {bubbles : true, cancelable : true, key : "s", shiftKey : false});
         CameraMovementService["setCameraSpeed"](eventKeyDown);
-        expect(CameraMovementService.speedCamera.z).toBe(10);
+        expect(CameraMovementService.speedCamera.z).toBe(DISTANCE);
         expect(CameraMovementService.speedCamera.x).toBe(0);
         CameraMovementService["setCameraSpeed"](eventKeyUp);
         expect(CameraMovementService.speedCamera.z).toBe(0);
