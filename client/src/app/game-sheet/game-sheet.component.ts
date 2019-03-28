@@ -3,7 +3,9 @@ import { Router } from "@angular/router";
 import { S3_BUCKET_URL } from "../../../../common/communication/constants";
 import { GameSheet, GameType } from "../../../../common/communication/game-description";
 import { ImageTypeName } from "../../../../common/images/image-type";
+import { ConnectionService } from "../connection.service";
 import { GameSheetService } from "../game-sheet.service";
+import { GameplayService } from "../gameplay.service";
 
 @Component({
     selector: "app-game-sheet",
@@ -25,7 +27,12 @@ export class GameSheetComponent implements OnInit {
     @ViewChild("btn1") private btn1: ElementRef;
     @ViewChild("btn2") private btn2: ElementRef;
 
-    public constructor(private router: Router, private gameSheetService: GameSheetService) {
+    public constructor(
+        private router: Router,
+        private gameSheetService: GameSheetService,
+        private gameplayService: GameplayService,
+        private connectionService: ConnectionService,
+    ) {
         this.source = "";
         this.isAdmin = false;
         this.isConfirmPanelShown = false;
@@ -59,9 +66,12 @@ export class GameSheetComponent implements OnInit {
     }
 
     public play(): void {
-        this.router.navigateByUrl(`/game/${this.description.name}/${this.type}`)
-        .catch((err: Error) => {
-            console.error(err);
+        this.gameplayService.getGameId(this.description.name, this.type, this.connectionService.username)
+        .subscribe((id: string) => {
+            this.router.navigateByUrl(`/game/${this.description.name}/${this.type}/${id}`)
+            .catch((err: Error) => {
+                console.error(err);
+            });
         });
     }
 
