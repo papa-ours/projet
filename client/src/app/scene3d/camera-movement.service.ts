@@ -123,8 +123,12 @@ export class CameraMovementService {
     }
 
     private static rotateCamera(mouseEvent: MouseEvent): void {
-        CameraMovementService.forEachScene((render: RenderService) => render.camera.rotateX(mouseEvent.movementY / CameraMovementService.ROTATION_CONSTANT));
-        CameraMovementService.forEachScene((render: RenderService) => render.camera.rotateY(mouseEvent.movementX / CameraMovementService.ROTATION_CONSTANT));
+        CameraMovementService.forEachScene((render: RenderService) =>
+            render.camera.rotateX(mouseEvent.movementY / CameraMovementService.ROTATION_CONSTANT),
+        );
+        CameraMovementService.forEachScene((render: RenderService) =>
+            render.camera.rotateY(mouseEvent.movementX / CameraMovementService.ROTATION_CONSTANT),
+        );
     }
 
     private static forEachScene(func: (render: RenderService) => void): void {
