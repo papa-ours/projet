@@ -118,3 +118,22 @@ button.create-btn:hover {
 .checkbox {
     margin-left:50%;
 }
+
+.loader {
+    position: absolute;
+    border: 7px solid #FFFFFF;
+    border-top: 7px solid var(--secondary-color);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    animation: spin 1s linear infinite;
+}
+  
+@keyframes spin {
+    0% { 
+        transform: rotate(0deg); 
+    }
+    100% { 
+        transform: rotate(360deg); 
+    }
+}

@@ -3,10 +3,11 @@ import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import * as multer from "multer";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
-import { GeometryData, Modification, ModificationType, SceneData } from "../../../common/communication/geometry";
+import { GeometryData, Modification, ModificationType, SceneData, SceneType } from "../../../common/communication/geometry";
+import { MessageType } from "../../../common/communication/message";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
-import { FileWriterUtil } from "../services/utils/file-writer.util";
+import { AWSFilesUtil } from "../services/utils/aws-files.util";
 import Types from "../types";
 
 @injectable()
@@ -22,34 +23,61 @@ export class SceneDataController {
         const uploads: multer.Instance = multer();
 
         router.post(
-            "/",
+            "/geometric",
             uploads.fields([
                 {name: "name", maxCount: 1},
                 {name: "nbObjects", maxCount: 1},
                 {name: "isAdding", maxCount: 1},
                 {name: "isRemoval", maxCount: 1},
                 {name: "isColorChange", maxCount: 1},
-                {name: "objectType", maxCount: 1},
             ]),
-            (req: Request, res: Response, next: NextFunction) => {
-                const scene: SceneData = this.getSceneData(req);
-                FileWriterUtil.writeFile(`uploads/${scene.name}-data.txt`, Buffer.from(JSON.stringify(scene)))
+            async (req: Request, res: Response, next: NextFunction) => {
+                const scene: SceneData = this.getSceneData(req, SceneType.GEOMETRIC);
+                await AWSFilesUtil.writeFile(`${scene.name}-data.json`, Buffer.from(JSON.stringify(scene)))
                     .catch((err: Error) => console.error(err));
                 const SERVER_URL: string = `${SERVER_ADDRESS}/api/gamesheet/free/`;
-                Axios.post(SERVER_URL, { name: scene.name });
+                await Axios.post(SERVER_URL, { name: scene.name });
+                res.send({
+                    type: MessageType.GAME_FREE_VIEW_GENERATION,
+                    body: "",
+                });
+        });
+
+        router.post(
+            "/thematic",
+            uploads.fields([
+                {name: "name", maxCount: 1},
+                {name: "nbObjects", maxCount: 1},
+                {name: "isAdding", maxCount: 1},
+                {name: "isRemoval", maxCount: 1},
+                {name: "isColorChange", maxCount: 1},
+                {name: "sizes", maxCount: 8},
+            ]),
+            async (req: Request, res: Response, next: NextFunction) => {
+                const sizes: number[] = JSON.parse(req.body.sizes);
+                const scene: SceneData = this.getSceneData(req, SceneType.THEMATIC, sizes);
+                await AWSFilesUtil.writeFile(`${scene.name}-data.json`, Buffer.from(JSON.stringify(scene)))
+                    .catch((err: Error) => console.error(err));
+                const SERVER_URL: string = `${SERVER_ADDRESS}/api/gamesheet/free/`;
+                await Axios.post(SERVER_URL, { name: scene.name });
+                res.send({
+                    type: MessageType.GAME_FREE_VIEW_GENERATION,
+                    body: "",
+                });
         });
 
         return router;
     }
 
-    private getSceneData(req: Request): SceneData {
+    private getSceneData(req: Request, sceneType: SceneType, sizes?: number[]): SceneData {
 
         const modifications: Modification[] = this.getModifications(req);
-        const originalGeometry: GeometryData[] = this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects));
+        const originalGeometry: GeometryData[] = this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects), sizes);
 
-        const modifiedGeometry: GeometryData[] = this.sceneDataDifferenceService.getDifference(originalGeometry, modifications);
+        const modifiedGeometry: GeometryData[] =
+            this.sceneDataDifferenceService.getDifference(originalGeometry, modifications, sizes);
 
-        return { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry };
+        return { name: req.body.name, originalScene: originalGeometry, modifiedScene: modifiedGeometry, type: sceneType };
     }
 
     private getModifications(req: Request): Modification[] {

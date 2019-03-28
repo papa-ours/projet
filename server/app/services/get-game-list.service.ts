@@ -1,20 +1,20 @@
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
-import { GameLists, GameType} from "../../../common/communication/game-description";
+import { GameLists, GameSheet, GameType } from "../../../common/communication/game-description";
 import Types from "../types";
-import { GetGameService } from "./get-game.service";
-
+import { DBConnectionService } from "./db-connection.service";
 @injectable()
 export class GetGameListService {
 
-    public constructor(@inject(Types.GetGameService) private getGameService: GetGameService) {
+    public constructor(@inject(Types.DBConnectionService) private db: DBConnectionService) {}
 
-    }
+    public async getGameList(): Promise<GameLists> {
+        const types: GameType[] = [GameType.Simple, GameType.Free];
+        const gameSheets: Map<GameType, GameSheet[]> = await this.db.getGameSheets(types);
 
-    public getGameList(): GameLists {
         return {
-            list2d: this.getGameService.getGameDescriptions(GameType.Simple),
-            list3d: this.getGameService.getGameDescriptions(GameType.Free),
+            list2d: gameSheets.get(GameType.Simple) as GameSheet[],
+            list3d: gameSheets.get(GameType.Free) as GameSheet[],
         };
     }
 }

@@ -8,7 +8,7 @@ import { GeometryFactoryService } from "./geometry-factory.service";
 })
 export class SceneGeneratorService {
 
-    private readonly BACKGROUND_COLOR: number = 0x515151;
+    private readonly BACKGROUND_COLOR: number = 0x43677D;
 
     private scene: THREE.Scene;
 

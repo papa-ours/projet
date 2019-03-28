@@ -2,12 +2,12 @@ import { injectable } from "inversify";
 import "reflect-metadata";
 import { BMPImage } from "../../../common/images/bmp-image";
 import { Pixel } from "../../../common/images/pixel";
-import { Game } from "./game";
+import { SimpleGame } from "./game/simple-game";
 
 @injectable()
 export class DifferenceCheckerService {
 
-    public isPositionDifference(x: number, y: number, game: Game): boolean {
+    public isPositionDifference(x: number, y: number, game: SimpleGame): boolean {
         const differenceImage: BMPImage = game.differenceImage;
 
         return this.checkDifference(x, y, differenceImage);

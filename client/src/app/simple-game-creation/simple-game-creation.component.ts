@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 import { Message } from "../../../../common/communication/message";
+import { ImageTypeName } from "../../../../common/images/image-type";
 import { DifferenceImageService } from "../difference-image.service";
 import { FormValidationService } from "../form-validation.service";
 
@@ -28,6 +29,7 @@ export class SimpleGameCreationComponent {
     private readonly N_IMAGES: number = 2;
     public readonly OPTION_MIN_NAME_LENGTH: number = 5;
     public readonly OPTION_MAX_NAME_LENGTH: number = 15;
+    public loading: boolean;
 
     private name: string;
     private imageFiles: File[];
@@ -40,6 +42,7 @@ export class SimpleGameCreationComponent {
         private differenceImageService: DifferenceImageService,
         private formValidationService: FormValidationService,
     ) {
+        this.loading = false;
         this.name = "";
         this.imageFiles = new Array<File>(this.N_IMAGES);
         this.errorMessage = "";
@@ -73,8 +76,9 @@ export class SimpleGameCreationComponent {
     private sendForm(): void {
         const formData: FormData = new FormData();
         formData.append("name", this.name);
-        formData.append("originalImage", this.imageFiles[ImageType.ORIGINAL], "originalImage.bmp");
-        formData.append("modifiedImage", this.imageFiles[ImageType.MODIFIED], "modifiedImage.bmp");
+        formData.append(ImageTypeName.Original, this.imageFiles[ImageType.ORIGINAL], `${ImageTypeName.Original}.bmp`);
+        formData.append(ImageTypeName.Modified, this.imageFiles[ImageType.MODIFIED], `${ImageTypeName.Modified}.bmp`);
+        this.loading = true;
 
         this.differenceImageService.postDifferenceImageData(formData)
             .subscribe((message: Message) => {

@@ -6,7 +6,7 @@ import { UsersContainerService } from "../services/users-container.service";
 import Types from "../types";
 
 @injectable()
-export class UsernameValidatorController {
+export class UsernameController {
 
     public constructor(
         @inject(Types.UsernameValidatorService) private usernameValidatorService: UsernameValidatorService,
@@ -21,8 +21,7 @@ export class UsernameValidatorController {
                 const message: Message = await this.usernameValidatorService.getUsernameValidation(req.body.name);
 
                 if (message.body === "") {
-                    const PREFIX: string = "/#";
-                    this.usersContainerService.addUser({name: req.body.name, socketId: `${PREFIX}${req.body.socketId}`});
+                    this.usersContainerService.addUser({name: req.body.name, socketId: `${req.body.socketId}`});
                 }
 
                 res.send(message);

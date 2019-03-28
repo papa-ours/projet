@@ -1,0 +1,4 @@
+<div class="scene">
+<app-scene3d #originalScene oncontextmenu="return false" (difference3DEvent)="checkDifference($event)" [name]="name" [id]="id" [type]="0" [width]="width" [height]="height" [differenceCounter]="differenceCounter"></app-scene3d>
+<app-scene3d #modifiedScene oncontextmenu="return false" (difference3DEvent)="checkDifference($event)" [name]="name" [id]="id" [type]="1" [width]="width" [height]="height" [differenceCounter]="differenceCounter"></app-scene3d>
+</div>

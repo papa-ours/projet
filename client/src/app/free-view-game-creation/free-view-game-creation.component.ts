@@ -13,7 +13,9 @@ export class FreeViewGameCreationComponent {
     public readonly OPTION_MAX_NAME_LENGTH: number = 15;
     private readonly NB_OBJECTS_MIN: number = 10;
     private readonly NB_OBJECTS_MAX: number = 200;
+    public loading: boolean;
 
+    public hasFormError: boolean;
     public freeViewForm: FreeViewForm;
     @Output() public closeForm: EventEmitter<boolean>;
     public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) {
@@ -23,12 +25,14 @@ export class FreeViewGameCreationComponent {
             isAdding: false,
             isRemoval: false,
             isColorChange: false,
-            sceneType: "",
+            sceneType: "geometric",
         };
         this.closeForm = new EventEmitter();
+        this.hasFormError = false;
+        this.loading = false;
     }
 
-    public isAIntInRange(): boolean {
+    public isNbObjectValid(): boolean {
         return !Number.isNaN(this.freeViewForm.nbObjects) &&
                 Number(this.freeViewForm.nbObjects) <= this.NB_OBJECTS_MAX &&
                 Number(this.freeViewForm.nbObjects) >= this.NB_OBJECTS_MIN;
@@ -47,7 +51,11 @@ export class FreeViewGameCreationComponent {
         if (this.allValuesEntered) {
             this.sendForm();
             this.close();
-            location.reload();
+            // Otherwise, CI fails
+            // tslint:disable-next-line:no-suspicious-comment
+            // TODO: tell the user that the request is being processed
+        } else {
+            this.hasFormError = true;
         }
     }
 
@@ -60,7 +68,12 @@ export class FreeViewGameCreationComponent {
         formData.append("isColorChange", String(this.freeViewForm.isColorChange));
         formData.append("objectType", this.freeViewForm.sceneType);
 
-        this.gameFreeViewGenerationService.postGenerate(formData);
+        this.loading = true;
+        this.gameFreeViewGenerationService.postGenerate(formData).then(() => {
+            location.reload();
+        }).catch((err: Error) => {
+            alert("Erreur lors de la création de la fiche:\n" + err);
+        });
     }
 
 }

@@ -1,11 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, HostListener, OnInit, ViewChild  } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P, SERVER_ADDRESS } from "../../../../common/communication/constants";
-import { GameType } from "../../../../common/communication/game-description";
-import { ImageType } from "../../../../common/images/image-type";
-import { DifferenceCheckerService } from "../difference-checker.service";
+import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
+import { GameMode, GameType } from "../../../../common/communication/game-description";
+import { Position } from "../../../../common/images/position";
+import { ConnectionService } from "../connection.service";
 import { GameplayService } from "../gameplay.service";
+import { SocketService } from "../socket.service";
 
 @Component({
     selector: "app-gameplay-view",
@@ -14,68 +15,139 @@ import { GameplayService } from "../gameplay.service";
 })
 export class GameplayViewComponent implements OnInit {
 
+    public readonly gameMode: GameMode;
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
-    private readonly SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
-    public readonly nbPlayers: number;
+    private readonly CORRECT_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
+    private readonly WRONG_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
+    private readonly ERROR_TIMEOUT: number = 1000;
 
     public foundDifferencesCounter: number;
-    private name: string;
-    private id: string;
     public images: string[];
     public requiredDifferences: number;
     public type: GameType;
+    public canClick: boolean;
+    public isErrorMessageVisible: boolean;
+    public clickPosition: Position;
+    public chrono: number;
+    private isChronoRunning: boolean;
+
+    @ViewChild("container") private containerRef: ElementRef;
 
     public constructor(
         private route: ActivatedRoute,
-        private differenceCheckerService: DifferenceCheckerService,
         private gameplayService: GameplayService,
+        private socketService: SocketService,
+        private connectionService: ConnectionService,
+        public name: string,
+        public id: string,
     ) {
-        this.nbPlayers = 1;
-        this.requiredDifferences = this.nbPlayers === 1 ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
+        this.gameMode = GameMode.Solo;
+        this.requiredDifferences = this.gameMode === GameMode.Solo ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
         this.foundDifferencesCounter = 0;
         this.images = [];
+        this.canClick = true;
+        this.isErrorMessageVisible = false;
+        this.chrono = 0;
+        this.isChronoRunning = false;
+    }
+
+    private static playSound(sound: HTMLAudioElement): void {
+        sound.currentTime = 0;
+        sound.play().catch((err: Error) => {
+            console.error(err);
+        });
     }
 
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
             this.type = params["type"];
-            this.gameplayService.getGameId(this.name, this.type).subscribe((id: string) => {
+            this.gameplayService.getGameId(this.name, this.type, this.connectionService.username).subscribe((id: string) => {
                 this.id = id;
+                this.startChrono();
             });
-            this.setImagesPath();
         });
+        const SOUND_VOLUME: number = 0.2;
+        this.CORRECT_SOUND.volume = SOUND_VOLUME;
+        this.WRONG_SOUND.volume = SOUND_VOLUME;
     }
 
-    private setImagesPath(): void {
-        this.images[ImageType.Original] = `${SERVER_ADDRESS}/${this.name}-originalImage.bmp`;
-        this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.name}-modifiedImage.bmp`;
+    @HostListener("click", ["$event"])
+    public mouseClicked(mouseEvent: MouseEvent): void {
+        if (this.canClick) {
+            this.clickPosition = {i: mouseEvent.x, j: mouseEvent.y};
+        }
     }
 
-    public checkDifference(position: [number, number]): void {
-        this.differenceCheckerService.isPositionDifference(this.id, position[0], position[1])
-            .subscribe((isDifference: boolean) => {
-                if (isDifference) {
-                    this.differenceFound();
+    public updateGameplay(): void {
+        this.foundDifferencesCounter ++;
+        this.socketService.sendFoundDiffrenceMessage(this.gameMode);
+        if (this.foundDifferencesCounter === this.requiredDifferences) {
+            this.isChronoRunning = false;
+            this.canClick = false;
+        }
+        GameplayViewComponent.playSound(this.CORRECT_SOUND);
+    }
+
+    public identificationError(): void {
+        if (this.foundDifferencesCounter !== this.requiredDifferences) {
+            this.socketService.sendErrorIdentificationMessage(this.gameMode);
+            this.showErrorMessage();
+            this.showCursorError();
+            GameplayViewComponent.playSound(this.WRONG_SOUND);
+        }
+    }
+    private showErrorMessage(): void {
+        this.isErrorMessageVisible = true;
+        setTimeout(
+            () => {
+                this.isErrorMessageVisible = false;
+            },
+            this.ERROR_TIMEOUT);
+    }
+
+    private showCursorError(): void {
+        const NORMAL_CURSOR: string = "context-menu";
+        const ERROR_CURSOR: string = "not-allowed";
+        this.containerRef.nativeElement.style.cursor = ERROR_CURSOR;
+        this.canClick = false;
+        setTimeout(
+            () => {
+                this.containerRef.nativeElement.style.cursor = NORMAL_CURSOR;
+                this.canClick = true;
+            },
+            this.ERROR_TIMEOUT);
+    }
+
+    private startChrono(): void {
+        this.isChronoRunning = true;
+        this.incrementChrono();
+    }
+
+    private incrementChrono(): void {
+        const ONE_SECOND: number = 1000;
+        setTimeout(
+            () => {
+                if (this.isChronoRunning) {
+                    this.chrono++;
+                    this.incrementChrono();
                 }
             },
+            ONE_SECOND,
         );
     }
 
-    private differenceFound(): void {
-        this.foundDifferencesCounter++;
-        this.updateDifferenceImage();
-        this.playSound();
+    public get formattedChrono(): string {
+        const SECONDS: number = 60;
+        const seconds: number = this.chrono % SECONDS;
+        const minutes: number = Math.floor(this.chrono / SECONDS);
+
+        return `${this.formatTimeUnit(minutes)}:${this.formatTimeUnit(seconds)}`;
     }
 
-    private updateDifferenceImage(): void {
-        this.images[ImageType.Modified] = `${SERVER_ADDRESS}/${this.id}.bmp?${this.foundDifferencesCounter}`;
-    }
+    private formatTimeUnit(n: number): string {
+        const BASE: number = 10;
 
-    private playSound(): void {
-        this.SOUND.currentTime = 0;
-        this.SOUND.play().catch((err: Error) => {
-            console.error(err);
-        });
+        return `${n < BASE ? "0" : ""}${n}`;
     }
 }
