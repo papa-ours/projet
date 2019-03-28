@@ -94,10 +94,11 @@ describe("DeplacementCameraService", () => {
 
     it("should rotate the camera on the y axis when the user moves on the x axis", () => {
         renderOriginal.camera = new PerspectiveCamera();
-        spyOn(renderOriginal, "rotateCameraY");
+        spyOn(renderOriginal.camera, "rotateY");
         const event1: MouseEvent = new MouseEvent("mousemove", {bubbles : true, cancelable : true, screenX : 50});
         CameraMovementService["rotateCamera"](event1);
-        expect(renderOriginal.rotateCameraY).toHaveBeenCalled();
+        expect(renderOriginal.camera.rotateY).toHaveBeenCalled();
+        expect(renderOriginal.camera.rotateX).not.toHaveBeenCalled();
     });
 
     it("should add the mousemove event listener when the user right click", () => {
