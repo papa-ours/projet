@@ -2,6 +2,7 @@ import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
 import { GameMode } from "../../common/communication/game-description";
+import { Connection, Identification } from "../../common/communication/message";
 import { ChatMessageService } from "./services/chat-message.service";
 import { UsersContainerService } from "./services/users-container.service";
 import Types from "./types";
@@ -28,29 +29,25 @@ export class Socket {
 
     private setupNewUser(socket: SocketIO.Socket): void {
        socket.on("newUser", () => {
-            const isConnected: boolean = false;
-            this.chatMessageService.sendConnectionMessage(socket, isConnected);
+            this.chatMessageService.sendConnectionMessage(socket, Connection.CONNECT);
        });
     }
 
     private setupFoundDifference(socket: SocketIO.Socket): void {
         socket.on("foundDifference", (gameMode: GameMode) => {
-            const isDifferenceFound: boolean = true;
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound, gameMode);
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, Identification.DIFFERENCE_FOUND, gameMode);
         });
     }
 
     private setupErrorIdentification(socket: SocketIO.Socket): void {
         socket.on("errorIdentification", (gameMode: GameMode) => {
-            const isDifferenceFound: boolean = false;
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound, gameMode);
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, Identification.ERROR, gameMode);
         });
     }
 
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
-            const isConnected: boolean = true;
-            this.chatMessageService.sendConnectionMessage(socket, isConnected);
+            this.chatMessageService.sendConnectionMessage(socket, Connection.DISCONNECT);
             this.deleteUser(socket.id);
         });
     }

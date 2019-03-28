@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { GameMode } from "../../../common/communication/game-description";
-import { ChatMessage } from "../../../common/communication/message";
+import { ChatMessage, Connection, Identification } from "../../../common/communication/message";
 import { Socket } from "../socket";
 import Types from "../types";
 import { UsersContainerService } from "./users-container.service";
@@ -15,18 +15,18 @@ export class ChatMessageService {
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
     ) {}
 
-    public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, isDifferenceFound: boolean, gameMode: GameMode): void {
+    public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, identification: Identification, gameMode: GameMode): void {
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
-            const message: ChatMessage = this.getIdentificationMessage(username, isDifferenceFound, gameMode);
+            const message: ChatMessage = this.getIdentificationMessage(username, identification, gameMode);
             socket.emit("chatMessage", message);
         }
     }
 
-    public sendConnectionMessage(socket: SocketIO.Socket, isConnected: boolean): void {
+    public sendConnectionMessage(socket: SocketIO.Socket, connection: Connection): void {
         const username: string = this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
-            const message: ChatMessage = this.getConnectionMessage(isConnected, username);
+            const message: ChatMessage = this.getConnectionMessage(connection, username);
             Socket.io.emit("chatMessage", message);
         }
     }
@@ -36,8 +36,8 @@ export class ChatMessageService {
         Socket.io.emit("chatMessage", message);
     }
 
-    private getIdentificationMessage(username: string, isDifferenceFound: boolean, gameMode: GameMode): ChatMessage {
-        const textMessage: string = this.getPrefixMessage(isDifferenceFound) + this.adjustMessageToGameMode(username, gameMode);
+    private getIdentificationMessage(username: string, identification: Identification, gameMode: GameMode): ChatMessage {
+        const textMessage: string = this.getPrefixMessage(identification) + this.adjustMessageToGameMode(username, gameMode);
 
         return {
             chatTime: GetCurrentTime.getCurrentTime(),
@@ -46,9 +46,9 @@ export class ChatMessageService {
         };
     }
 
-    private getPrefixMessage(isDifferenceFound: boolean): string {
+    private getPrefixMessage(identification: Identification): string {
 
-        return isDifferenceFound ? "Différence trouvée" : "Erreur";
+        return identification === Identification.DIFFERENCE_FOUND ? "Différence trouvée" : "Erreur";
     }
 
     private adjustMessageToGameMode(username: string, gameMode: GameMode): string {
@@ -56,8 +56,10 @@ export class ChatMessageService {
         return gameMode === GameMode.Solo ? "." : ` par ${username}.`;
     }
 
-    private getConnectionMessage(isConnected: boolean, username: string): ChatMessage {
-        const textMessage: string = isConnected ? `${username} vient de se déconnecter.` : `${username} vient de se connecter.`;
+    private getConnectionMessage(connection: Connection, username: string): ChatMessage {
+        const textMessage: string = connection === Connection.CONNECT ?
+            `${username} vient de se connecter.` :
+            `${username} vient de se déconnecter.`;
 
         return {
             chatTime: GetCurrentTime.getCurrentTime(),
