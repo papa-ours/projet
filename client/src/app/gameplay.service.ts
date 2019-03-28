@@ -20,4 +20,10 @@ export class GameplayService {
             .pipe(map((message: Message) => JSON.parse(message.body)),
         );
     }
+
+    public createWaitingRoom(name: string, type: GameType, username: string): Observable<string> {
+        return this.http.post<Message>(`${this.URL}/waitingRoom/create/`, {name: name, type: type, username: username})
+            .pipe(map((message: Message) => JSON.parse(message.body)),
+        );
+    }
 }
