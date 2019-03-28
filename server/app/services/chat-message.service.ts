@@ -49,15 +49,18 @@ export class ChatMessageService {
     }
 
     private getIdentificationMessage(username: string, isDifferenceFound: boolean, gameMode: GameMode): ChatMessage {
-        const textMessage: string = isDifferenceFound ?
-            "Différence trouvée" + this.adjustMessageToGameMode(username, gameMode) :
-            "Erreur" + this.adjustMessageToGameMode(username, gameMode);
+        const textMessage: string = this.getPrefixMessage(isDifferenceFound) + this.adjustMessageToGameMode(username, gameMode);
 
         return {
             chatTime: GetCurrentTime.getCurrentTime(),
             username: username,
             text: textMessage,
         };
+    }
+
+    private getPrefixMessage(isDifferenceFound: boolean): string {
+
+        return isDifferenceFound ? "Différence trouvée" : "Erreur";
     }
 
     private adjustMessageToGameMode(username: string, gameMode: GameMode): string {
