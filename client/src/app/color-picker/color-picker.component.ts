@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { CookieService } from "ngx-cookie-service";
 
 interface ColorPalette {
     primary: string;
@@ -12,12 +13,13 @@ interface ColorPalette {
 })
 export class ColorPickerComponent {
 
+    private readonly COOKIE_KEY: string = "color-palette";
     public colorPalettes: ColorPalette[];
     public isPanelShown: boolean;
     public isTextWhite: boolean;
     public isDarkTheme: boolean;
 
-    public constructor() {
+    public constructor(private cookieService: CookieService) {
         this.isPanelShown = false;
         this.isDarkTheme = false;
 
@@ -32,7 +34,9 @@ export class ColorPickerComponent {
             {primary: "#07C4BA", secondary: "#1AEFE4"},
         ];
 
-        this.colorSelected(this.colorPalettes[0]);
+        this.cookieService.check(this.COOKIE_KEY) ?
+            this.colorSelected(JSON.parse(this.cookieService.get(this.COOKIE_KEY))) :
+            this.colorSelected(this.colorPalettes[0]);
         this.changeTheme();
         this.changeTextColor();
     }
@@ -41,6 +45,8 @@ export class ColorPickerComponent {
         const root: HTMLElement = this.getRoot();
         root.style.setProperty("--primary-color", colorPalette.primary);
         root.style.setProperty("--secondary-color", colorPalette.secondary);
+
+        this.cookieService.set(this.COOKIE_KEY, JSON.stringify(colorPalette));
     }
 
     public changePanelState(): void {
