@@ -41,12 +41,14 @@ export class CameraMovementService {
         CameraMovementService.activateMovementMouse();
         setInterval(
             () => {
-            CameraMovementService.forEachScene((render: RenderService) =>
-                render.camera.translateZ(CameraMovementService.speedCamera.z),
-            );
-            CameraMovementService.forEachScene((render: RenderService) =>
-                render.camera.translateX(CameraMovementService.speedCamera.x),
-            );
+            if (CameraMovementService.canMove()) {
+                CameraMovementService.forEachScene((render: RenderService) =>
+                    render.camera.translateZ(CameraMovementService.speedCamera.z),
+                );
+                CameraMovementService.forEachScene((render: RenderService) =>
+                    render.camera.translateX(CameraMovementService.speedCamera.x),
+                );
+            }
         },  CameraMovementService.MOUVEMENT_INTERVAL);
     }
 
