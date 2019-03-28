@@ -48,7 +48,6 @@ describe("DeplacementCameraService", () => {
     });
 
     it("should change the speedX on a a key press, keyup and keydown event", () => {
-        const spy: jasmine.Spy = spyOn(renderOriginal, "setSpeedX");
         const eventKeyDown: KeyboardEvent = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "a", shiftKey : false});
         const eventKeyUp: KeyboardEvent = new KeyboardEvent("keyup", {bubbles : true, cancelable : true, key : "a", shiftKey : false});
         CameraMovementService["setCameraSpeed"](eventKeyDown);
