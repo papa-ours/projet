@@ -79,11 +79,7 @@ export class DBConnectionService {
                 map.set(type, []);
 
                 return documents.forEach((document: mongoose.Document) => {
-                    const gameSheet: GameSheet & {topScoresSolo: Score[], topScores1v1: Score[]} = document.toObject();
-                    gameSheet.topScores = [
-                        new TopScores(gameSheet.topScoresSolo),
-                        new TopScores(gameSheet.topScores1v1),
-                    ];
+                    const gameSheet: GameSheet = this.parseGameSheetDocument(document);
                     (map.get(type) as GameSheet[]).push(gameSheet);
                 });
             })).then(() => map);
@@ -112,20 +108,24 @@ export class DBConnectionService {
         return this.performRequest(async (instance: typeof mongoose) => {
             return instance.models.GameSheet.findOne(
                 {name: name, type: type},
-            ).exec();
+            ).exec().then((doc: mongoose.Document) => {
+                return this.parseGameSheetDocument(doc).id;
+            });
         });
     }
 
-    public async putSoloScoreAndGetPosition(gameSheetId: string, username: string, time: number): Promise<number> {
+    public async putScore(gameSheetId: string, username: string, time: number, mode: GameMode): Promise<GameSheet> {
         const now: Date = new Date();
-        let position: number = -1;
+        let gameSheet: GameSheet;
+        // tslint:disable-next-line:triple-equals
+        const table: string = mode == GameMode.Solo ? "topScoresSolo" : "topScores1v1";
 
         return this.performRequest(async (instance: typeof mongoose) => {
             return instance.models.GameSheet.findOneAndUpdate(
                 {id: gameSheetId},
                 {
                     $push: {
-                        topScoresSolo: {
+                        [table]: {
                             $each: [{username, time, date: now}],
                             $sort: {time: 1},
                             $slice: TopScores.SCORE_LENGTH,
@@ -133,17 +133,10 @@ export class DBConnectionService {
                     },
                 },
             ).exec().then(async (doc: mongoose.Document) => {
-                const gameSheet: GameSheet = this.parseGameSheetDocument(doc);
-                (gameSheet.topScores[GameMode.Solo] as TopScores).scores
-                    .map((score: Score) => score.time)
-                    .forEach((sheetTime: number, index: number) => {
-                        if (time < sheetTime && position === -1) {
-                            position = index;
-                        }
-                    });
+                gameSheet = this.parseGameSheetDocument(doc);
 
                 return instance.disconnect();
-            }).then(() => position);
+            }).then(() => gameSheet);
         });
     }
 }
