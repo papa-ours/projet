@@ -89,12 +89,4 @@ export class RenderService {
         this.addLight();
         this.setupRenderingLoop();
     }
-
-    public rotateCameraY(y: number): void {
-        this.camera.rotateY(y / this.ROTATION_CONSTANT);
-    }
-
-    public rotateCameraX(x: number): void {
-        this.camera.rotateX(x / this.ROTATION_CONSTANT);
-    }
 }
