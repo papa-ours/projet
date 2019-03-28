@@ -87,16 +87,16 @@ export class DeplacementCameraService {
     private static setCameraSpeed(keyEvent: KeyboardEvent): void {
         switch (keyEvent.key) {
             case DeplacementCameraService.FORWARD:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedZ(-DeplacementCameraService.DISTANCE));
+                DeplacementCameraService.speedCamera.setZ(-DeplacementCameraService.DISTANCE);
                 break;
             case DeplacementCameraService.LEFT:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(-DeplacementCameraService.DISTANCE));
+                DeplacementCameraService.speedCamera.setX(-DeplacementCameraService.DISTANCE);
                 break;
             case DeplacementCameraService.BACKWARD:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedZ(DeplacementCameraService.DISTANCE));
+                DeplacementCameraService.speedCamera.setZ(DeplacementCameraService.DISTANCE);
                 break;
             case DeplacementCameraService.RIGHT:
-                DeplacementCameraService.forEachScene((render: RenderService) => render.setSpeedX(DeplacementCameraService.DISTANCE));
+                DeplacementCameraService.speedCamera.setX(DeplacementCameraService.DISTANCE);
                 break;
             default:
         }
