@@ -31,7 +31,7 @@ describe("DeplacementCameraService", () => {
         CameraMovementService["setCameraSpeed"](eventKeyDown);
         expect(CameraMovementService.speedCamera.z).toBe(-DISTANCE);
         expect(CameraMovementService.speedCamera.x).toBe(0);
-        CameraMovementService["setCameraSpeed"](eventKeyUp);
+        CameraMovementService["resetCameraSpeed"](eventKeyUp);
         expect(CameraMovementService.speedCamera.z).toBe(0);
         expect(CameraMovementService.speedCamera.x).toBe(0);
     });
@@ -42,7 +42,7 @@ describe("DeplacementCameraService", () => {
         CameraMovementService["setCameraSpeed"](eventKeyDown);
         expect(CameraMovementService.speedCamera.z).toBe(DISTANCE);
         expect(CameraMovementService.speedCamera.x).toBe(0);
-        CameraMovementService["setCameraSpeed"](eventKeyUp);
+        CameraMovementService["resetCameraSpeed"](eventKeyUp);
         expect(CameraMovementService.speedCamera.z).toBe(0);
         expect(CameraMovementService.speedCamera.x).toBe(0);
     });
@@ -53,7 +53,7 @@ describe("DeplacementCameraService", () => {
         CameraMovementService["setCameraSpeed"](eventKeyDown);
         expect(CameraMovementService.speedCamera.z).toBe(0);
         expect(CameraMovementService.speedCamera.x).toBe(-DISTANCE);
-        CameraMovementService["setCameraSpeed"](eventKeyUp);
+        CameraMovementService["resetCameraSpeed"](eventKeyUp);
         expect(CameraMovementService.speedCamera.z).toBe(0);
         expect(CameraMovementService.speedCamera.x).toBe(0);
     });
@@ -64,7 +64,7 @@ describe("DeplacementCameraService", () => {
         CameraMovementService["setCameraSpeed"](eventKeyDown);
         expect(CameraMovementService.speedCamera.z).toBe(0);
         expect(CameraMovementService.speedCamera.x).toBe(DISTANCE);
-        CameraMovementService["setCameraSpeed"](eventKeyUp);
+        CameraMovementService["resetCameraSpeed"](eventKeyUp);
         expect(CameraMovementService.speedCamera.z).toBe(0);
         expect(CameraMovementService.speedCamera.x).toBe(0);
     });
@@ -78,8 +78,8 @@ describe("DeplacementCameraService", () => {
         CameraMovementService["setCameraSpeed"](eventKeyDownW);
         expect(CameraMovementService.speedCamera.z).toBe(-DISTANCE);
         expect(CameraMovementService.speedCamera.x).toBe(DISTANCE);
-        CameraMovementService["setCameraSpeed"](eventKeyUpD);
-        CameraMovementService["setCameraSpeed"](eventKeyUpW);
+        CameraMovementService["resetCameraSpeed"](eventKeyUpD);
+        CameraMovementService["resetCameraSpeed"](eventKeyUpW);
         expect(CameraMovementService.speedCamera.z).toBe(0);
         expect(CameraMovementService.speedCamera.x).toBe(0);
     });
