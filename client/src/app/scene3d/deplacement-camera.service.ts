@@ -36,6 +36,15 @@ export class DeplacementCameraService {
     public static activateMovement(): void {
         DeplacementCameraService.activateMovementKeyBoard();
         DeplacementCameraService.activateMovementMouse();
+        setInterval(
+            () => {
+            DeplacementCameraService.forEachScene((render: RenderService) =>
+                render.camera.translateZ(DeplacementCameraService.speedCamera.z),
+            );
+            DeplacementCameraService.forEachScene((render: RenderService) =>
+                render.camera.translateX(DeplacementCameraService.speedCamera.x),
+            );
+        },  DeplacementCameraService.MOUVEMENT_INTERVAL);
     }
 
     private static activateMovementKeyBoard(): void {
