@@ -1,5 +1,6 @@
 import { ElementRef } from "@angular/core";
 import { RenderService } from "./render.service";
+import * as THREE from "three";
 
 interface RenderElement {
     elementRef: ElementRef;
