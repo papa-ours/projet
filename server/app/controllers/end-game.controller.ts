@@ -33,13 +33,15 @@ export class EndGameController {
                         game.sheetId,
                         game.name,
                         parseInt(req.body.time, EndGameController.BASE_10),
-                        game.gameMode),
+                        game.gameMode,
+                    ).then((gameSheet: GameSheet) => {
+                        const position: number = this.scoreUpdaterService.getPosition(gameSheet, req.body.time, game.gameMode);
+                        if (position !== -1) {
+                            this.socket.sendBestTimeMessage(game.username, position, game.name, game.gameMode);
+                        }
+                    }),
                     this.getGameService.removeGame(req.body.gameId),
-                ]).then((result: [GameSheet, {}]) => {
-                    const position: number = this.scoreUpdaterService.getPosition(result[0], req.body.time, game.gameMode);
-                    if (position !== -1) {
-                        this.socket.sendBestTimeMessage(game.username, position, game.name, game.gameMode);
-                    }
+                ]).then(() => {
                     res.send({
                         body: "",
                     });
