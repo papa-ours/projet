@@ -78,14 +78,12 @@ describe("DeplacementCameraService", () => {
         const eventKeyUpW: KeyboardEvent = new KeyboardEvent("keyup", {bubbles : true, cancelable : true, key : "w", shiftKey : false});
         CameraMovementService["setCameraSpeed"](eventKeyDownD);
         CameraMovementService["setCameraSpeed"](eventKeyDownW);
-        expect(renderOriginal.setSpeedX).toHaveBeenCalled();
-        expect(renderOriginal.setSpeedZ).toHaveBeenCalled();
-        spyX.calls.reset();
-        spyY.calls.reset();
+        expect(CameraMovementService.speedCamera.z).toBe(-DISTANCE);
+        expect(CameraMovementService.speedCamera.x).toBe(DISTANCE);
         CameraMovementService["setCameraSpeed"](eventKeyUpD);
         CameraMovementService["setCameraSpeed"](eventKeyUpW);
-        expect(renderOriginal.setSpeedX).toHaveBeenCalled();
-        expect(renderOriginal.setSpeedZ).toHaveBeenCalled();
+        expect(CameraMovementService.speedCamera.z).toBe(0);
+        expect(CameraMovementService.speedCamera.x).toBe(0);
     });
 
     it("should rotate the camera on the X axis when the user moves on the y axis", () => {
