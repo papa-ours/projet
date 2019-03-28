@@ -31,7 +31,7 @@ export class EndGameController {
                 Promise.all([
                     this.scoreUpdaterService.putScore(
                         game.sheetId,
-                        game.name,
+                        game.username,
                         parseInt(req.body.time, EndGameController.BASE_10),
                         game.gameMode,
                     ).then((gameSheet: GameSheet) => {
