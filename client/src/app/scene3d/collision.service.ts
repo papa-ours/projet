@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { SKYBOX_MAX, SKYBOX_MIN} from "../../../../common/communication/skybox";
 import * as THREE from "three";
+import { SKYBOX_MAX, SKYBOX_MIN} from "../../../../common/communication/skybox";
 
 @Injectable({
     providedIn: "root",
