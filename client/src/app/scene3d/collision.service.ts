@@ -25,9 +25,9 @@ export class CollisionDetectionService {
         const position: THREE.Vector3 = camera.position.clone();
         position.add(cameradirection);
 
-        return (SKYBOX_MAX.x < position.x && position.x > SKYBOX_MIN.x &&
-                SKYBOX_MAX.y < position.y && position.y > SKYBOX_MIN.y &&
-                SKYBOX_MAX.z < position.z && position.z > SKYBOX_MIN.z
+        return (SKYBOX_MAX.x >= position.x && position.x >= SKYBOX_MIN.x &&
+                SKYBOX_MAX.y >= position.y && position.y >= SKYBOX_MIN.y &&
+                SKYBOX_MAX.z >= position.z && position.z >= SKYBOX_MIN.z
         );
     }
 
