@@ -8,8 +8,8 @@ import { SKYBOX_MAX, SKYBOX_MIN} from "../../../../common/communication/skybox";
 export class CollisionDetectionService {
     public static MAX_CAST_DISTANCE: number = 20;
 
-    public static canMove(scene: THREE.Scene, camera: THREE.Camera, cameradirection: THREE.Vector3): boolean {
-        const normalisedDirection: THREE.Vector3 = cameradirection.clone().normalize();
+    public static canMove(scene: THREE.Scene, camera: THREE.Camera, cameraDirection: THREE.Vector3): boolean {
+        const normalisedDirection: THREE.Vector3 = cameraDirection.clone().normalize();
         const raycaster: THREE.Raycaster = new THREE.Raycaster(
             camera.position,
             normalisedDirection,
@@ -18,12 +18,12 @@ export class CollisionDetectionService {
         );
         const intersections: THREE.Intersection[] = raycaster.intersectObjects(scene.children, true);
 
-        return intersections.length <= 0 && CollisionDetectionService.isInsideBorder(camera, cameradirection);
+        return intersections.length <= 0 && CollisionDetectionService.isInsideBorder(camera, cameraDirection);
     }
 
-    public static isInsideBorder(camera: THREE.Camera, cameradirection: THREE.Vector3): boolean {
+    public static isInsideBorder(camera: THREE.Camera, cameraDirection: THREE.Vector3): boolean {
         const position: THREE.Vector3 = camera.position.clone();
-        position.add(cameradirection);
+        position.add(cameraDirection);
 
         return (SKYBOX_MAX.x > position.x && position.x > SKYBOX_MIN.x &&
                 SKYBOX_MAX.y > position.y && position.y > SKYBOX_MIN.y &&
