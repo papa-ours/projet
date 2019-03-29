@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { SKYBOX_MAX, SKYBOX_MIN} from "../../../../common/communication/skybox";
 import * as THREE from "three";
 
 @Injectable({
@@ -18,6 +19,16 @@ export class CollisionDetectionService {
         const intersections: THREE.Intersection[] = raycaster.intersectObjects(scene.children, true);
 
         return intersections.length <= 0;
+    }
+
+    public static isInsideBorder(camera: THREE.Camera, cameradirection: THREE.Vector3): boolean {
+        const position: THREE.Vector3 = camera.position.clone();
+        position.add(cameradirection);
+
+        return (SKYBOX_MAX.x < position.x && position.x > SKYBOX_MIN.x &&
+                SKYBOX_MAX.y < position.y && position.y > SKYBOX_MIN.y &&
+                SKYBOX_MAX.z < position.z && position.z > SKYBOX_MIN.z
+        );
     }
 
 }
