@@ -18,7 +18,7 @@ export class CollisionDetectionService {
         );
         const intersections: THREE.Intersection[] = raycaster.intersectObjects(scene.children, true);
 
-        return intersections.length <= 0;
+        return intersections.length <= 0 && CollisionDetectionService.isInsideBorder(camera, cameradirection);
     }
 
     public static isInsideBorder(camera: THREE.Camera, cameradirection: THREE.Vector3): boolean {
