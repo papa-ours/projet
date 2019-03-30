@@ -80,7 +80,7 @@ export class GameSheetComponent implements OnInit {
     }
 
     public playMultiplayerGame(): void {
-        this.router.navigateByUrl(`/matchmaking/${this.description.name}/${this.type}/${this.isGameCreated}`);
+        this.router.navigateByUrl(`/matchmaking/${this.description.name}/${this.type}/${!this.isGameCreated}`);
     }
 
     public actionConfirmed(isActionConfirmed: boolean): void {
