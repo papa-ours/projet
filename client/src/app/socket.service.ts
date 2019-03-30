@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import * as io from "socket.io-client";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
-import { GameMode, GameType } from "../../../common/communication/game-description";
+import { GameMode } from "../../../common/communication/game-description";
 import { ChatMessage } from "../../../common/communication/message";
 
 @Injectable({
