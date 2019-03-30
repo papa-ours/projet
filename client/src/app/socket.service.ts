@@ -52,4 +52,12 @@ export class SocketService {
             });
         });
     }
+
+    public getGameCreated(id: string): Observable<boolean> {
+        return Observable.create((observer: Subject<boolean>) => {
+            this.socket.on(`GameCreated-${id}`, (status: boolean) => {
+                observer.next(status);
+            });
+        });
+    }
 }
