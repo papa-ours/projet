@@ -19,6 +19,8 @@ export class MatchmakingComponent implements OnInit {
     public joinSubscription: Subscription;
     private name: string;
     private type: GameType;
+    public createGame: boolean;
+    public other: string;
 
     public constructor(
         private route: ActivatedRoute,
@@ -28,6 +30,7 @@ export class MatchmakingComponent implements OnInit {
         private socketService: SocketService,
         private gameplayService: GameplayService,
     ) {
+        this.other = "";
     }
 
     public ngOnInit(): void {
@@ -38,16 +41,27 @@ export class MatchmakingComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
             this.type = params["type"];
-            this.createWaitingRoom();
+            this.createGame = params["create"];
+            this.createGame ? this.createWaitingRoom() : this.joinWaitingRoom();
         });
     }
 
     private createWaitingRoom(): void {
         this.gameplayService.createWaitingRoom(this.name, this.type, this.username).subscribe(() => {
-            this.joinSubscription = this.socketService.getPlayerHasJoined().subscribe((id: string) => {
-                this.router.navigateByUrl(`game/${this.name}/${this.type}/${GameMode.Pvp}/${id}`)
-                .catch((error: Error) => console.error(error.message));
-            });
+            this.waitForGameReady();
+        });
+    }
+
+    private joinWaitingRoom(): void {
+        this.gameplayService.joinWaitingRoom(this.name, this.type, this.username).subscribe(() => {
+            this.waitForGameReady();
+        });
+    }
+
+    private waitForGameReady(): void {
+        this.joinSubscription = this.socketService.getGameReady().subscribe((id: string) => {
+            this.router.navigateByUrl(`game/${this.name}/${this.type}/${GameMode.Pvp}/${id}`)
+            .catch((error: Error) => console.error(error.message));
         });
     }
 
