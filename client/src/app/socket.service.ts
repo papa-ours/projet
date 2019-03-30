@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import * as io from "socket.io-client";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
-import { GameMode } from "../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../common/communication/game-description";
 import { ChatMessage } from "../../../common/communication/message";
 
 @Injectable({
@@ -45,9 +45,9 @@ export class SocketService {
         });
     }
 
-    public getPlayerHasJoined(): Observable<string> {
+    public getGameReady(name: string, type: GameType): Observable<string> {
         return Observable.create((observer: Subject<string>) => {
-            this.socket.on("joined", (id: string) => {
+            this.socket.on(`GameReady-${name}-${type}`, (id: string) => {
                 observer.next(id);
             });
         });
