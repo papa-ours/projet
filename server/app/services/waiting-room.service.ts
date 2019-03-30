@@ -1,10 +1,10 @@
+import Axios from "axios";
 import { injectable } from "inversify";
 import "reflect-metadata";
+import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { GameType } from "../../../common/communication/game-description";
 import { Socket } from "../socket";
 import { WaitingRoom } from "./game/waiting-room";
-import Axios from "axios";
-import { SERVER_ADDRESS } from "../../../common/communication/constants";
 
 @injectable()
 export class WaitingRoomService {
