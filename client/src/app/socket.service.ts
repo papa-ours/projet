@@ -45,9 +45,9 @@ export class SocketService {
         });
     }
 
-    public getGameReady(name: string, type: GameType): Observable<string> {
+    public getGameReady(): Observable<string> {
         return Observable.create((observer: Subject<string>) => {
-            this.socket.on(`GameReady-${name}-${type}`, (id: string) => {
+            this.socket.on(`GameReady`, (id: string) => {
                 observer.next(id);
             });
         });
