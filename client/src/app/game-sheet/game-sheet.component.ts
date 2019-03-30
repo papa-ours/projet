@@ -45,8 +45,8 @@ export class GameSheetComponent implements OnInit {
             this.source = `${S3_BUCKET_URL}/${this.description.name}-${ImageTypeName.Original}.bmp`;
         }
 
-        this.socketSerivce.getGameCreated(this.description.id).subscribe(() => {
-            this.isGameCreated = true;
+        this.socketSerivce.getGameCreated(this.description.id).subscribe((status: boolean) => {
+            this.isGameCreated = status;
         });
     }
 
