@@ -11,6 +11,7 @@ import Types from "./types";
 @injectable()
 export class Socket {
     public static io: SocketIO.Server;
+    public static readonly sockets: SocketIO.Socket[] = [];
     private chatMessageService: ChatMessageService;
 
     public constructor(
@@ -20,10 +21,17 @@ export class Socket {
         this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService);
     }
 
+    public static getSocket(id: string): SocketIO.Socket | undefined {
+        return Socket.sockets.find((socket: SocketIO.Socket) => {
+            return id === socket.id;
+        });
+    }
+
     public init(server: http.Server): void {
         Socket.io = socketio(server);
 
         Socket.io.on("connection", (socket: SocketIO.Socket) => {
+            Socket.sockets.push(socket);
             this.setupNewUser(socket);
             this.setupFoundDifference(socket);
             this.setupErrorIdentification(socket);
@@ -78,6 +86,15 @@ export class Socket {
     }
 
     private deleteUser(id: string): void {
+        this.deleteSocket(id);
         this.usersContainerService.deleteUserById(id);
+    }
+
+    private deleteSocket(id: string): void {
+        const index: number = Socket.sockets.findIndex((socket: SocketIO.Socket) => socket.id === id);
+
+        if (index !== -1) {
+            Socket.sockets.splice(index, 1);
+        }
     }
 }
