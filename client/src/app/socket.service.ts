@@ -48,7 +48,7 @@ export class SocketService {
     public getGameReady(): Observable<string> {
         return Observable.create((observer: Subject<string>) => {
             this.socket.on(`GameReady`, (id: string) => {
-                observer.next(id);
+                observer.next(JSON.parse(id));
             });
         });
     }
