@@ -52,6 +52,6 @@ export class MatchmakingComponent implements OnInit {
     }
 
     public goToGameList(): void {
-        this.gameplayService.deleteWaitingRoom(this.name, this.type, this.username).subscribe(this.location.back);
+        this.gameplayService.deleteWaitingRoom(this.name, this.type, this.username).subscribe(() => this.location.back());
     }
 }
