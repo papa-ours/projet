@@ -34,6 +34,13 @@ export class CreateGameController {
                 res.send();
             });
 
+        router.post(
+            "/waitingRoom/join/",
+            async (req: Request, res: Response, next: NextFunction) => {
+                this.getGameService.joinWaitingRoom(req.body.name, req.body.username, req.body.type);
+                res.send();
+            });
+
         router.delete(
             "/waitingRoom/:name/:username/:type",
             async (req: Request, res: Response, next: NextFunction) => {
