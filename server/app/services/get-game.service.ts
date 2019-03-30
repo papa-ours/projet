@@ -1,7 +1,6 @@
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { GameMode, GameSheet, GameType, HasId } from "../../../common/communication/game-description";
-import { container } from "../inversify.config";
 import { Socket } from "../socket";
 import Types from "../types";
 import { DBConnectionService } from "./db-connection.service";
@@ -9,7 +8,6 @@ import { FreeGame } from "./game/free-game";
 import { AbstractGame } from "./game/game";
 import { SimpleGame } from "./game/simple-game";
 import { WaitingRoom } from "./game/waiting-room";
-import { UsersContainerService } from "./users-container.service";
 
 @injectable()
 export class GetGameService {
@@ -70,7 +68,7 @@ export class GetGameService {
         .then((id: string) => {
             Socket.io.emit(`GameCreated-${id}`, true);
             GetGameService.waitingRooms[type]
-                .push(new WaitingRoom(id, username, type, container.get<UsersContainerService>(Types.UsersContainerService)));
+                .push(new WaitingRoom(id, name, username, type));
         })
         .catch((error: Error) => console.error(error.message));
     }
@@ -79,7 +77,7 @@ export class GetGameService {
         this.getSheetId(name, type)
         .then((id: string) => {
             const waitingRoom: WaitingRoom | undefined = GetGameService.waitingRooms[type].find((currentWaitingRoom: WaitingRoom) => {
-                return currentWaitingRoom.gameSheetId === id && currentWaitingRoom.usernames[0] === username;
+                return currentWaitingRoom.gameSheetId === id;
             });
 
             if (waitingRoom) {
