@@ -4,8 +4,6 @@ import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-ico
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
 import { GameMode, GameType } from "../../../../common/communication/game-description";
 import { Position } from "../../../../common/images/position";
-import { ConnectionService } from "../connection.service";
-import { GameplayService } from "../gameplay.service";
 import { SocketService } from "../socket.service";
 
 @Component({
@@ -35,9 +33,7 @@ export class GameplayViewComponent implements OnInit {
 
     public constructor(
         private route: ActivatedRoute,
-        private gameplayService: GameplayService,
         private socketService: SocketService,
-        private connectionService: ConnectionService,
         public name: string,
         public id: string,
     ) {
