@@ -20,6 +20,7 @@ export class WaitingRoom {
     public addUser(username: string): void {
         this.usernames.push(username);
         this.joinRoom(username).then(() => {
+            Socket.io.to(`${this.gameSheetId}-${this.usernames[0]}`).emit("UserJoined", JSON.stringify(this.usernames));
             const REQUIRED_PLAYERS: number = 2;
             if (this.usernames.length === REQUIRED_PLAYERS) {
                 this.startGame();
@@ -30,7 +31,7 @@ export class WaitingRoom {
     private startGame(): void {
         Axios.get(`${SERVER_ADDRESS}/api/game/${this.name}/${this.type}/${this.usernames[0]}`)
         .then((response: AxiosResponse<Message>) => {
-            Socket.io.to(this.gameSheetId).emit("GameReady", response.data.body);
+            Socket.io.to(`${this.gameSheetId}-${this.usernames[0]}`).emit("GameReady", response.data.body);
         })
         .catch((error: Error) => console.error(error.message));
     }
@@ -41,7 +42,7 @@ export class WaitingRoom {
 
         return new Promise((resolve: Function) => {
             if (socket) {
-                socket.join(this.gameSheetId);
+                socket.join(`${this.gameSheetId}-${this.usernames[0]}`);
             }
 
             resolve();
