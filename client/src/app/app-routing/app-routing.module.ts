@@ -16,7 +16,7 @@ const ROUTES: Routes = [
     { path: "gamelist/:username", component: GameListViewComponent },
     { path: "game/:name/:type/:mode/:id", component: GameplayViewComponent},
     { path: "scene3d", component: Scene3dComponent },
-    { path: "matchmaking/:name/:type", component: MatchmakingComponent },
+    { path: "matchmaking/:name/:type/:create", component: MatchmakingComponent },
 ];
 
 @NgModule({

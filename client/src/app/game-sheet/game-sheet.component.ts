@@ -79,8 +79,8 @@ export class GameSheetComponent implements OnInit {
         });
     }
 
-    public createGame(): void {
-        this.router.navigateByUrl(`/matchmaking/${this.description.name}/${this.type}`);
+    public playMultiplayerGame(): void {
+        this.router.navigateByUrl(`/matchmaking/${this.description.name}/${this.type}/${this.isGameCreated}`);
     }
 
     public actionConfirmed(isActionConfirmed: boolean): void {
