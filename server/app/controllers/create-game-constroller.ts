@@ -27,6 +27,17 @@ export class CreateGameController {
                 res.send(message);
             });
 
+        router.get(
+            "/sheet/id/:name/:type",
+            async (req: Request, res: Response, next: NextFunction) => {
+                const id: string = await this.getGameService.getSheetId(req.params.name, req.params.type);
+
+                res.send({
+                    type: MessageType.GAME_SHEET_GENERATION,
+                    body: id,
+                });
+            });
+
         router.post(
             "/waitingRoom/create/",
             async (req: Request, res: Response, next: NextFunction) => {
