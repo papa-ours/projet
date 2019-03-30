@@ -63,7 +63,11 @@ export class GetGameService {
     }
 
     public createWaitingRoom(name: string, username: string, type: GameType): void {
-        GetGameService.waitingRooms[type].push(new WaitingRoom(name, username, type));
+        this.getSheetId(name, type)
+        .then((id: string) => {
+            GetGameService.waitingRooms[type].push(new WaitingRoom(id, username, type));
+        })
+        .catch((error: Error) => console.error(error.message));
     }
 
     public async removeGame(id: string): Promise<{}> {
