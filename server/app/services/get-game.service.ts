@@ -1,6 +1,7 @@
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { GameMode, GameSheet, GameType, HasId } from "../../../common/communication/game-description";
+import { Socket } from "../socket";
 import Types from "../types";
 import { DBConnectionService } from "./db-connection.service";
 import { FreeGame } from "./game/free-game";
@@ -65,6 +66,7 @@ export class GetGameService {
     public createWaitingRoom(name: string, username: string, type: GameType): void {
         this.getSheetId(name, type)
         .then((id: string) => {
+            Socket.io.emit(`GameCreated-${id}`, true);
             GetGameService.waitingRooms[type].push(new WaitingRoom(id, username, type));
         })
         .catch((error: Error) => console.error(error.message));
