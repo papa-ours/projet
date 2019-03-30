@@ -30,4 +30,10 @@ export class GameplayService {
     public deleteWaitingRoom(name: string, type: GameType, username: string): Observable<void> {
         return this.http.delete<void>(`${this.URL}/waitingRoom/${name}/${username}/${type}`);
     }
+
+    public joinWaitingRoom(name: string, type: GameType, username: string): Observable<string> {
+        return this.http.post<Message>(`${this.URL}/waitingRoom/join/`, {name: name, type: type, username: username})
+            .pipe(map((message: Message) => JSON.parse(message.body)),
+        );
+    }
 }
