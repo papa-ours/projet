@@ -41,7 +41,7 @@ export class MatchmakingComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
             this.type = params["type"];
-            this.createGame = params["create"];
+            this.createGame = JSON.parse(params["create"]);
             this.createGame ? this.createWaitingRoom() : this.joinWaitingRoom();
         });
     }
