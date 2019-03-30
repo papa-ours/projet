@@ -1,20 +1,17 @@
 import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { GameMode, GameSheet, GameType, HasId } from "../../../common/communication/game-description";
-import { Socket } from "../socket";
 import Types from "../types";
 import { DBConnectionService } from "./db-connection.service";
 import { FreeGame } from "./game/free-game";
 import { AbstractGame } from "./game/game";
 import { SimpleGame } from "./game/simple-game";
-import { WaitingRoom } from "./game/waiting-room";
 
 @injectable()
 export class GetGameService {
 
     private static readonly games: AbstractGame[] = [];
     private static readonly gameSheets: [GameSheet[], GameSheet[]] = [[], []];
-    private static readonly waitingRooms: [WaitingRoom[], WaitingRoom[]] = [[], []];
 
     public constructor(
         @inject(Types.DBConnectionService) private dbConnectionService: DBConnectionService,
@@ -61,45 +58,6 @@ export class GetGameService {
         }
 
         return new Promise<string>((resolve: Function) => resolve(id));
-    }
-
-    public createWaitingRoom(name: string, username: string, type: GameType): void {
-        this.getSheetId(name, type)
-        .then((id: string) => {
-            Socket.io.emit(`GameCreated-${id}`, true);
-            GetGameService.waitingRooms[type]
-                .push(new WaitingRoom(id, name, username, type));
-        })
-        .catch((error: Error) => console.error(error.message));
-    }
-
-    public joinWaitingRoom(name: string, username: string, type: GameType): void {
-        this.getSheetId(name, type)
-        .then((id: string) => {
-            const waitingRoom: WaitingRoom | undefined = GetGameService.waitingRooms[type].find((currentWaitingRoom: WaitingRoom) => {
-                return currentWaitingRoom.gameSheetId === id;
-            });
-
-            if (waitingRoom) {
-                waitingRoom.addUser(username);
-            }
-        })
-        .catch((error: Error) => console.error(error.message));
-    }
-
-    public deleteWaitingRoom(name: string, username: string, type: GameType): void {
-        this.getSheetId(name, type)
-        .then((id: string) => {
-            const index: number = GetGameService.waitingRooms[type].findIndex((waitingRoom: WaitingRoom) => {
-                return waitingRoom.gameSheetId === id && waitingRoom.usernames[0] === username;
-            });
-
-            if (index !== -1) {
-                Socket.io.emit(`GameCreated-${id}`, false);
-                GetGameService.waitingRooms[type].splice(index, 1);
-            }
-        })
-        .catch((error: Error) => console.error(error.message));
     }
 
     public async removeGame(id: string): Promise<{}> {
