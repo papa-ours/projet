@@ -21,6 +21,14 @@ export class UsersContainerService {
         return foundUser ? foundUser.name : "";
     }
 
+    public getSocketIdByUsername(username: string): string {
+        const foundUser: User | undefined = UsersContainerService.users.find((user: User) => {
+            return user.name === username;
+        });
+
+        return foundUser ? foundUser.socketId : "";
+    }
+
     public addUser(user: User): void {
         UsersContainerService.users.push(user);
     }
