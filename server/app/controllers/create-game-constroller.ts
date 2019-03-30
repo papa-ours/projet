@@ -3,6 +3,7 @@ import { inject, injectable } from "inversify";
 import { Message, MessageType } from "../../../common/communication/message";
 import { DBConnectionService } from "../services/db-connection.service";
 import { GetGameService } from "../services/get-game.service";
+import { WaitingRoomService } from "../services/waiting-room.service";
 import Types from "../types";
 
 @injectable()
@@ -10,6 +11,7 @@ export class CreateGameController {
 
     public constructor(
         @inject(Types.GetGameService) private getGameService: GetGameService,
+        @inject(Types.WaitingRoomService) private waitingRoomService: WaitingRoomService,
         @inject(Types.DBConnectionService) private db: DBConnectionService) { }
 
     public get router(): Router {
@@ -41,21 +43,21 @@ export class CreateGameController {
         router.post(
             "/waitingRoom/create/",
             async (req: Request, res: Response, next: NextFunction) => {
-                this.getGameService.createWaitingRoom(req.body.name, req.body.username, req.body.type);
+                this.waitingRoomService.createWaitingRoom(req.body.name, req.body.username, req.body.type);
                 res.send();
             });
 
         router.post(
             "/waitingRoom/join/",
             async (req: Request, res: Response, next: NextFunction) => {
-                this.getGameService.joinWaitingRoom(req.body.name, req.body.username, req.body.type);
+                this.waitingRoomService.joinWaitingRoom(req.body.name, req.body.username, req.body.type);
                 res.send();
             });
 
         router.delete(
             "/waitingRoom/:name/:username/:type",
             async (req: Request, res: Response, next: NextFunction) => {
-                this.getGameService.deleteWaitingRoom(req.params.name, req.params.username, req.params.type);
+                this.waitingRoomService.deleteWaitingRoom(req.params.name, req.params.username, req.params.type);
                 res.send();
             });
 
