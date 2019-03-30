@@ -3,10 +3,10 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router} from "@angular/router";
 import { faUser, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { Subscription } from "rxjs";
+import { GameMode, GameType } from "../../../../common/communication/game-description";
 import { ConnectionService } from "../connection.service";
 import { GameplayService } from "../gameplay.service";
 import { SocketService } from "../socket.service";
-import { GameMode } from "../../../../common/communication/game-description";
 
 @Component({
     selector: "app-matchmaking",
@@ -17,6 +17,8 @@ export class MatchmakingComponent implements OnInit {
     public username: string;
     public faUser: IconDefinition = faUser;
     public joinSubscription: Subscription;
+    private name: string;
+    private type: GameType;
 
     public constructor(
         private route: ActivatedRoute,
@@ -34,11 +36,17 @@ export class MatchmakingComponent implements OnInit {
             this.router.navigateByUrl("").catch((error: Error) => console.error(error.message));
 
         this.route.params.subscribe((params: Params) => {
-            this.gameplayService.createWaitingRoom(params["name"], params["type"], this.username).subscribe(() => {
-                this.joinSubscription = this.socketService.getPlayerHasJoined().subscribe((id: string) => {
-                    this.router.navigateByUrl(`game/${params["name"]}/${params["type"]}/${GameMode.Pvp}/${id}`)
-                    .catch((error: Error) => console.error(error.message));
-                });
+            this.name = params["name"];
+            this.type = params["type"];
+            this.createWaitingRoom();
+        });
+    }
+
+    private createWaitingRoom(): void {
+        this.gameplayService.createWaitingRoom(this.name, this.type, this.username).subscribe(() => {
+            this.joinSubscription = this.socketService.getPlayerHasJoined().subscribe((id: string) => {
+                this.router.navigateByUrl(`game/${this.name}/${this.type}/${GameMode.Pvp}/${id}`)
+                .catch((error: Error) => console.error(error.message));
             });
         });
     }
