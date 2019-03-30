@@ -72,6 +72,21 @@ export class GetGameService {
         .catch((error: Error) => console.error(error.message));
     }
 
+    public deleteWaitingRoom(name: string, username: string, type: GameType): void {
+        this.getSheetId(name, type)
+        .then((id: string) => {
+            const index: number = GetGameService.waitingRooms[type].findIndex((waitingRoom: WaitingRoom) => {
+                return waitingRoom.gameSheetId === id && waitingRoom.username === username;
+            });
+
+            if (index !== -1) {
+                Socket.io.emit(`GameCreated-${id}`, false);
+                GetGameService.waitingRooms[type].splice(index, 1);
+            }
+        })
+        .catch((error: Error) => console.error(error.message));
+    }
+
     public async removeGame(id: string): Promise<{}> {
         const index: number = this.getGameIndex(id);
         const game: AbstractGame = GetGameService.games.splice(index, 1)[0];
