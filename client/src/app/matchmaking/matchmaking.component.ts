@@ -43,6 +43,11 @@ export class MatchmakingComponent implements OnInit {
             this.type = params["type"];
             this.createGame = JSON.parse(params["create"]);
             this.createGame ? this.createWaitingRoom() : this.joinWaitingRoom();
+
+            this.socketService.getUserJoined().subscribe((usernames: string[]) => {
+                this.username = usernames[0];
+                this.other = usernames[1] ? usernames[1] : "";
+            });
         });
     }
 
