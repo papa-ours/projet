@@ -6,12 +6,14 @@ import { DBConnectionService } from "./db-connection.service";
 import { FreeGame } from "./game/free-game";
 import { AbstractGame } from "./game/game";
 import { SimpleGame } from "./game/simple-game";
+import { WaitingRoom } from "./game/waiting-room";
 
 @injectable()
 export class GetGameService {
 
     private static readonly games: AbstractGame[] = [];
     private static readonly gameSheets: [GameSheet[], GameSheet[]] = [[], []];
+    private static readonly waitingRooms: [WaitingRoom[], WaitingRoom[]] = [[], []];
 
     public constructor(
         @inject(Types.DBConnectionService) private dbConnectionService: DBConnectionService,
@@ -58,6 +60,10 @@ export class GetGameService {
         }
 
         return new Promise<string>((resolve: Function) => resolve(id));
+    }
+
+    public createWaitingRoom(name: string, username: string, type: GameType): void {
+        GetGameService.waitingRooms[type].push(new WaitingRoom(name, username, type));
     }
 
     public async removeGame(id: string): Promise<{}> {
