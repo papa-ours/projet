@@ -26,4 +26,8 @@ export class GameplayService {
             .pipe(map((message: Message) => JSON.parse(message.body)),
         );
     }
+
+    public deleteWaitingRoom(name: string, type: GameType, username: string): Observable<void> {
+        return this.http.delete<void>(`${this.URL}/waitingRoom/${name}/${username}/${type}`);
+    }
 }
