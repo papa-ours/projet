@@ -37,7 +37,7 @@ export class CreateGameController {
         router.delete(
             "/waitingRoom/:name/:username/:type",
             async (req: Request, res: Response, next: NextFunction) => {
-                this.getGameService.deleteWaitingRoom(req.params.id, req.params.username, req.params.type);
+                this.getGameService.deleteWaitingRoom(req.params.name, req.params.username, req.params.type);
                 res.send();
             });
 
