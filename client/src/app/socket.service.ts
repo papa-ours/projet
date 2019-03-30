@@ -60,4 +60,12 @@ export class SocketService {
             });
         });
     }
+
+    public getUserJoined(): Observable<string[]> {
+        return Observable.create((observer: Subject<string[]>) => {
+            this.socket.on("UserJoined", (usernames: string) => {
+                observer.next(JSON.parse(usernames));
+            });
+        });
+    }
 }
