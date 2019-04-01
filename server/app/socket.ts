@@ -4,9 +4,8 @@ import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
 import { SERVER_ADDRESS } from "../../common/communication/constants";
 import { GameMode } from "../../common/communication/game-description";
-import { container } from "./inversify.config";
+import { Connection, Identification } from "../../common/communication/message";
 import { ChatMessageService } from "./services/chat-message.service";
-import { GetCurrentTimeService } from "./services/get-current-time.service";
 import { UsersContainerService } from "./services/users-container.service";
 import Types from "./types";
 
@@ -14,14 +13,11 @@ import Types from "./types";
 export class Socket {
     public static io: SocketIO.Server;
     public static readonly sockets: SocketIO.Socket[] = [];
-    private chatMessageService: ChatMessageService;
 
     public constructor(
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
-        @inject(Types.GetCurrentTimeService) public getCurrentTimeService: GetCurrentTimeService,
-    ) {
-        this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService);
-    }
+        @inject(Types.ChatMessageService)  public chatMessageService: ChatMessageService,
+    ) {}
 
     public static getSocket(id: string): SocketIO.Socket | undefined {
         return Socket.sockets.find((socket: SocketIO.Socket) => {
@@ -38,53 +34,32 @@ export class Socket {
             this.setupFoundDifference(socket);
             this.setupErrorIdentification(socket);
             this.setupDisconnect(socket);
-            this.setupGameType(socket);
         });
-    }
-
-    public sendBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): void {
-        this.chatMessageService.sendBestTimeMessage(Socket.io, username, position, gameName, gameMode);
     }
 
     private setupNewUser(socket: SocketIO.Socket): void {
        socket.on("newUser", () => {
-            const isConnected: boolean = false;
-            this.chatMessageService.sendConnectionMessage(socket, Socket.io, isConnected);
+            this.chatMessageService.sendConnectionMessage(socket, Connection.CONNECT);
        });
     }
 
     private setupFoundDifference(socket: SocketIO.Socket): void {
-        socket.on("foundDifference", () => {
-            const isDifferenceFound: boolean = true;
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound);
+        socket.on("foundDifference", (gameMode: GameMode) => {
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, Identification.DIFFERENCE_FOUND, gameMode);
         });
     }
 
     private setupErrorIdentification(socket: SocketIO.Socket): void {
-        socket.on("errorIdentification", () => {
-            const isDifferenceFound: boolean = false;
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, isDifferenceFound);
+        socket.on("errorIdentification", (gameMode: GameMode) => {
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, Identification.ERROR, gameMode);
         });
     }
 
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
-            const isConnected: boolean = true;
-            this.chatMessageService.sendConnectionMessage(socket, Socket.io, isConnected);
+            this.chatMessageService.sendConnectionMessage(socket, Connection.DISCONNECT);
             this.deleteUser(socket.id);
         });
-    }
-
-    private setupGameType(socket: SocketIO.Socket): void {
-        socket.on("setGameType", (gameMode: GameMode) => {
-            this.ChangeGameType(gameMode);
-        });
-    }
-
-    private ChangeGameType(gameMode: GameMode): void {
-        gameMode === GameMode.Solo ?
-            this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessageSoloService) :
-            this.chatMessageService = container.get<ChatMessageService>(Types.ChatMessage1vs1Service);
     }
 
     private deleteUser(id: string): void {
