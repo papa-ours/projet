@@ -18,31 +18,27 @@ export class ChatMessageService {
     public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, identification: Identification, gameMode: GameMode): void {
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
-            const message: ChatMessage = this.getIdentificationMessage(username, identification, gameMode);
-            socket.emit("chatMessage", message);
+            socket.emit("chatMessage", this.getIdentificationMessage(username, identification, gameMode));
         }
     }
 
     public sendConnectionMessage(socket: SocketIO.Socket, connection: Connection): void {
         const username: string = this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
-            const message: ChatMessage = this.getConnectionMessage(connection, username);
-            Socket.io.emit("chatMessage", message);
+            Socket.io.emit("chatMessage", this.getConnectionMessage(connection, username));
         }
     }
 
     public sendBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): void {
-        const message: ChatMessage = this.getBestTimeMessage(username, position, gameName, gameMode);
-        Socket.io.emit("chatMessage", message);
+        Socket.io.emit("chatMessage", this.getBestTimeMessage(username, position, gameName, gameMode));
     }
 
     private getIdentificationMessage(username: string, identification: Identification, gameMode: GameMode): ChatMessage {
-        const textMessage: string = this.getPrefixMessage(identification) + this.adjustMessageToGameMode(username, gameMode);
 
         return {
             chatTime: GetCurrentTime.getCurrentTime(),
             username: username,
-            text: textMessage,
+            text: this.getPrefixMessage(identification) + this.adjustMessageToGameMode(username, gameMode),
         };
     }
 
@@ -57,14 +53,11 @@ export class ChatMessageService {
     }
 
     private getConnectionMessage(connection: Connection, username: string): ChatMessage {
-        const textMessage: string = connection === Connection.CONNECT ?
-            `${username} vient de se connecter.` :
-            `${username} vient de se déconnecter.`;
 
         return {
             chatTime: GetCurrentTime.getCurrentTime(),
             username: username,
-            text: textMessage,
+            text: connection === Connection.CONNECT ? `${username} vient de se connecter.` : `${username} vient de se déconnecter.`,
         };
     }
 
