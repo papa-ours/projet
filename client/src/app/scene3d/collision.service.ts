@@ -6,7 +6,7 @@ import { SKYBOX_MAX, SKYBOX_MIN} from "../../../../common/communication/skybox";
     providedIn: "root",
 })
 export class CollisionDetectionService {
-    public static MAX_CAST_DISTANCE: number = 20;
+    public static MAX_CAST_DISTANCE: number = 50;
 
     private static computeDirection(camera: THREE.Camera, cameraDirection: THREE.Vector3): THREE.Vector3 {
         const position: THREE.Vector3 = camera.position.clone();
