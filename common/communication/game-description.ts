@@ -33,6 +33,7 @@ export interface GameSheet extends HasId {
     id: string;
     name: string;
     topScores: TopScoresInterface[];
+    hasWaitingRoom?: boolean;
 }
 
 export interface GameLists {
