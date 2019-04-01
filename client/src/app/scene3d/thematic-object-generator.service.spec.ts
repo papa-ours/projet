@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { ThematicObjectType } from "../../../../common/communication/thematic-object";
 import { ThematicObjectGeneratorService } from "./thematic-object-generator.service";
 
-fdescribe("ThematicObjectGeneratorService", () => {
+describe("ThematicObjectGeneratorService", () => {
     beforeEach(() => TestBed.configureTestingModule({}));
     it("should be created", () => {
         const service: ThematicObjectGeneratorService = TestBed.get(ThematicObjectGeneratorService);
