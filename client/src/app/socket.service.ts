@@ -27,8 +27,8 @@ export class SocketService {
         this.socket.emit("foundDifference", gameId, gameMode);
     }
 
-    public sendErrorIdentificationMessage(gameMode: GameMode): void {
-        this.socket.emit("errorIdentification", gameMode);
+    public sendErrorIdentificationMessage(gameId: string, gameMode: GameMode): void {
+        this.socket.emit("errorIdentification", gameId, gameMode);
     }
 
     public getChatMessage(): Observable<ChatMessage> {

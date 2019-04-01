@@ -86,7 +86,7 @@ export class GameplayViewComponent implements OnInit {
 
     public identificationError(): void {
         if (this.foundDifferencesCounter !== this.requiredDifferences) {
-            this.socketService.sendErrorIdentificationMessage(this.gameMode);
+            this.socketService.sendErrorIdentificationMessage(this.id, this.gameMode);
             this.showErrorMessage();
             this.showCursorError();
             GameplayViewComponent.playSound(this.WRONG_SOUND);
