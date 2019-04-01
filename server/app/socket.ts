@@ -1,6 +1,8 @@
+import Axios from "axios";
 import * as http from "http";
 import { inject, injectable } from "inversify";
 import * as socketio from "socket.io";
+import { SERVER_ADDRESS } from "../../common/communication/constants";
 import { GameMode } from "../../common/communication/game-description";
 import { container } from "./inversify.config";
 import { ChatMessageService } from "./services/chat-message.service";
@@ -86,6 +88,8 @@ export class Socket {
     }
 
     private deleteUser(id: string): void {
+        Axios.delete(`${SERVER_ADDRESS}/api/game/waitingRoom/all/${this.usersContainerService.getUsernameBySocketId(id)}`)
+            .catch((error: Error) => console.error(error.message));
         this.deleteSocket(id);
         this.usersContainerService.deleteUserById(id);
     }
