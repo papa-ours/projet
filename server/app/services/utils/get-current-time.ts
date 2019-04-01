@@ -6,8 +6,8 @@ export class GetCurrentTime {
         const currentTime: Date = new Date();
 
         return {hours: currentTime.getHours(),
-                minutes: this.formatTime(currentTime.getMinutes()),
-                seconds: this.formatTime(currentTime.getSeconds())};
+                minutes: GetCurrentTime.formatTime(currentTime.getMinutes()),
+                seconds: GetCurrentTime.formatTime(currentTime.getSeconds())};
     }
 
     private static formatTime(time: number): string {
