@@ -47,6 +47,12 @@ export class CreateGameController {
                 res.send();
             });
 
+        router.get(
+            "/waitingRoom/listAll",
+            (req: Request, res: Response, next: NextFunction) => {
+                res.send(WaitingRoomService.waitingRooms);
+            });
+
         router.post(
             "/waitingRoom/join/",
             async (req: Request, res: Response, next: NextFunction) => {
