@@ -44,14 +44,14 @@ export class Socket {
     }
 
     private setupFoundDifference(socket: SocketIO.Socket): void {
-        socket.on("foundDifference", (gameMode: GameMode) => {
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, Identification.DIFFERENCE_FOUND, gameMode);
+        socket.on("foundDifference", (gameId: string, gameMode: GameMode) => {
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, gameId, Identification.DIFFERENCE_FOUND, gameMode);
         });
     }
 
     private setupErrorIdentification(socket: SocketIO.Socket): void {
-        socket.on("errorIdentification", (gameMode: GameMode) => {
-            this.chatMessageService.sendDifferenceIdentificationMessage(socket, Identification.ERROR, gameMode);
+        socket.on("errorIdentification", (gameId: string, gameMode: GameMode) => {
+            this.chatMessageService.sendDifferenceIdentificationMessage(socket, gameId, Identification.ERROR, gameMode);
         });
     }
 
