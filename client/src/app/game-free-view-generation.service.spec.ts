@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { Message, MessageType } from "../../../common/communication/message";
 import { GameFreeViewGenerationService } from "./game-free-view-generation.service";
 
-fdescribe("GameFreeViewGenerationService", () => {
+describe("GameFreeViewGenerationService", () => {
     let gameFreeViewGenerationService: GameFreeViewGenerationService;
     let httpMock: HttpTestingController;
 
