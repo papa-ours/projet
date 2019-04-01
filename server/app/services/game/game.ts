@@ -1,10 +1,10 @@
-import { REQUIRED_DIFFERENCES_1P } from "../../../../common/communication/constants";
+import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
 import { GameMode, GameType, HasId } from "../../../../common/communication/game-description";
 import { Chrono } from "../utils/chrono";
 
 export abstract class AbstractGame implements HasId {
 
-    public differenceCount: number;
+    public differenceCounts: number[];
     private chrono: Chrono;
     public usernames: string[];
     public winner: number;
@@ -17,7 +17,6 @@ export abstract class AbstractGame implements HasId {
         public readonly type: GameType,
     ) {
         this.winner = 0;
-        this.differenceCount = REQUIRED_DIFFERENCES_1P;
         this.chrono = new Chrono();
     }
 
@@ -26,6 +25,9 @@ export abstract class AbstractGame implements HasId {
 
     public start(usernames: string[]): void {
         this.usernames = usernames;
+
+        this.differenceCounts = usernames.length === 1 ? [REQUIRED_DIFFERENCES_1P] : [REQUIRED_DIFFERENCES_2P, REQUIRED_DIFFERENCES_2P];
+
         this.chrono.start();
     }
 
