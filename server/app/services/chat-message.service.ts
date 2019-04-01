@@ -23,8 +23,9 @@ export class ChatMessageService {
         const game: AbstractGame = this.getGameService.getGame(gameId);
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
-            Socket.io.to(`${game.sheetId}-${game.usernames[0]}`)
-                .emit("chatMessage", this.getIdentificationMessage(username, identification, gameMode));
+            const emitter: SocketIO.Socket | SocketIO.Namespace = gameMode === GameMode.Solo ?
+                socket : Socket.io.to(`${game.sheetId}-${game.usernames[0]}`);
+            emitter.emit("chatMessage", this.getIdentificationMessage(username, identification, gameMode));
         }
     }
 
