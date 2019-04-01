@@ -6,7 +6,8 @@ export abstract class AbstractGame implements HasId {
 
     public differenceCount: number;
     private chrono: Chrono;
-    public username: string;
+    public usernames: string[];
+    public winner: number;
 
     public constructor(
         public id: string,
@@ -15,6 +16,7 @@ export abstract class AbstractGame implements HasId {
         public gameMode: GameMode,
         public readonly type: GameType,
     ) {
+        this.winner = 0;
         this.differenceCount = REQUIRED_DIFFERENCES_1P;
         this.chrono = new Chrono();
     }
@@ -22,8 +24,8 @@ export abstract class AbstractGame implements HasId {
     protected abstract async setUp(name: string): Promise<{}>;
     public abstract async cleanUp(): Promise<{}>;
 
-    public start(username: string): void {
-        this.username = username;
+    public start(usernames: string[]): void {
+        this.usernames = usernames;
         this.chrono.start();
     }
 
