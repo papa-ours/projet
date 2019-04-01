@@ -8,7 +8,7 @@ import { WaitingRoom } from "./game/waiting-room";
 
 @injectable()
 export class WaitingRoomService {
-    private static readonly waitingRooms: [WaitingRoom[], WaitingRoom[]] = [[], []];
+    public static readonly waitingRooms: [WaitingRoom[], WaitingRoom[]] = [[], []];
 
     public createWaitingRoom(name: string, username: string, type: GameType): void {
         this.getSheetId(name, type)
