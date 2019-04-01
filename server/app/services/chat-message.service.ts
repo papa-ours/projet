@@ -4,7 +4,7 @@ import { ChatMessage, Connection, Identification } from "../../../common/communi
 import { Socket } from "../socket";
 import Types from "../types";
 import { UsersContainerService } from "./users-container.service";
-import { GetCurrentTime } from "./utils/get-current-time.service";
+import { GetCurrentTime } from "./utils/get-current-time";
 
 @injectable()
 export class ChatMessageService {
