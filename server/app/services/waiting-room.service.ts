@@ -49,6 +49,16 @@ export class WaitingRoomService {
         .catch((error: Error) => console.error(error.message));
     }
 
+    public deleteAllWaitingRooms(username: string): void {
+        WaitingRoomService.waitingRooms.forEach((waitingRoomList: WaitingRoom[], type: number) => {
+            waitingRoomList.forEach((waitingRoom: WaitingRoom) => {
+                if (waitingRoom.usernames[0] === username) {
+                    this.deleteWaitingRoom(waitingRoom.name, username, type);
+                }
+            });
+        });
+    }
+
     private async getSheetId(name: string, type: GameType): Promise<string> {
         return (await Axios.get(`${SERVER_ADDRESS}/api/game/sheet/id/${name}/${type}`)).data.body;
     }
