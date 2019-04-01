@@ -36,7 +36,6 @@ export class GameSheetComponent implements OnInit {
     ) {
         this.source = "";
         this.isAdmin = false;
-        this.isGameCreated = false;
         this.isConfirmPanelShown = false;
     }
 
@@ -45,6 +44,7 @@ export class GameSheetComponent implements OnInit {
             this.source = `${S3_BUCKET_URL}/${this.description.name}-${ImageTypeName.Original}.bmp`;
         }
 
+        this.isGameCreated = this.description.hasWaitingRoom ? true : false;
         this.socketSerivce.getGameCreated(this.description.id).subscribe((status: boolean) => {
             this.isGameCreated = status;
         });
