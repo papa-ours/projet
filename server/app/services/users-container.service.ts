@@ -1,4 +1,6 @@
+import Axios from "axios";
 import { injectable } from "inversify";
+import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { User } from "./user";
 
 @injectable()
@@ -37,6 +39,8 @@ export class UsersContainerService {
         const userIndex: number = UsersContainerService.users.findIndex((u: User) => {
             return u.name === name;
         });
+
+        Axios.delete(`${SERVER_ADDRESS}/api/game/waitingRoom/all/${name}`);
 
         this.deleteUserAt(userIndex);
     }
