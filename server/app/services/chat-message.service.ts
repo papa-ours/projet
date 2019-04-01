@@ -3,6 +3,8 @@ import { GameMode } from "../../../common/communication/game-description";
 import { ChatMessage, Connection, Identification } from "../../../common/communication/message";
 import { Socket } from "../socket";
 import Types from "../types";
+import { AbstractGame } from "./game/game";
+import { GetGameService } from "./get-game.service";
 import { UsersContainerService } from "./users-container.service";
 import { GetCurrentTime } from "./utils/get-current-time";
 
@@ -13,12 +15,16 @@ export class ChatMessageService {
 
     public constructor(
         @inject(Types.UsersContainerService) public usersContainerService: UsersContainerService,
+        @inject(Types.GetGameService) public getGameService: GetGameService,
     ) {}
 
-    public sendDifferenceIdentificationMessage(socket: SocketIO.Socket, identification: Identification, gameMode: GameMode): void {
+    public sendDifferenceIdentificationMessage(
+            socket: SocketIO.Socket, gameId: string, identification: Identification, gameMode: GameMode): void {
+        const game: AbstractGame = this.getGameService.getGame(gameId);
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
-            socket.emit("chatMessage", this.getIdentificationMessage(username, identification, gameMode));
+            Socket.io.to(`${game.sheetId}-${game.usernames[0]}`)
+                .emit("chatMessage", this.getIdentificationMessage(username, identification, gameMode));
         }
     }
 
