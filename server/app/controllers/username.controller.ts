@@ -43,6 +43,15 @@ export class UsernameController {
                 });
             });
 
+        router.get(
+            "/name/:id",
+            (req: Request, res: Response, next: NextFunction) => {
+                res.send({
+                    type: MessageType.USERNAME_VALIDATION,
+                    body: this.usersContainerService.getUsernameBySocketId(req.params.id),
+                });
+            });
+
         return router;
     }
 }
