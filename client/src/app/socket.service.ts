@@ -23,8 +23,8 @@ export class SocketService {
         this.socket.emit("newUser");
     }
 
-    public sendFoundDiffrenceMessage(gameMode: GameMode): void {
-        this.socket.emit("foundDifference", gameMode);
+    public sendFoundDiffrenceMessage(gameId: string, gameMode: GameMode): void {
+        this.socket.emit("foundDifference", gameId, gameMode);
     }
 
     public sendErrorIdentificationMessage(gameMode: GameMode): void {
