@@ -1,4 +1,4 @@
-export const SERVER_ADDRESS: string = "http://10.200.30.135:5001";
+export const SERVER_ADDRESS: string = "http://192.168.1.10:5001";
 
 export const BMP_IMAGE_WIDTH: number = 640;
 export const BMP_IMAGE_HEIGHT: number = 480;
