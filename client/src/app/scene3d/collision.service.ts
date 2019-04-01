@@ -31,11 +31,11 @@ export class CollisionDetectionService {
     }
 
     public static isInsideBorder(camera: THREE.Camera, cameraDirection: THREE.Vector3): boolean {
-        const position: THREE.Vector3 = CollisionDetectionService.computeDirection(camera, cameraDirection);
+        const nextPosition: THREE.Vector3 = CollisionDetectionService.computeDirection(camera, cameraDirection);
 
-        return (SKYBOX_MAX.x > position.x && position.x > SKYBOX_MIN.x &&
-                SKYBOX_MAX.y > position.y && position.y > SKYBOX_MIN.y &&
-                SKYBOX_MAX.z > position.z && position.z > SKYBOX_MIN.z
+        return (SKYBOX_MAX.x > nextPosition.x && nextPosition.x > SKYBOX_MIN.x &&
+                SKYBOX_MAX.y > nextPosition.y && nextPosition.y > SKYBOX_MIN.y &&
+                SKYBOX_MAX.z > nextPosition.z && nextPosition.z > SKYBOX_MIN.z
         );
     }
 
