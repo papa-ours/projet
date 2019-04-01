@@ -44,7 +44,7 @@ export class GetGameService {
         return this.dbConnectionService.getGameSheetId(name, type);
     }
 
-    public async createGame(name: string, type: GameType, username: string): Promise<string> {
+    public async createGame(name: string, type: GameType, usernames: string[]): Promise<string> {
         const id: string = this.generateUniqueId(GetGameService.games);
         const sheetId: string = await this.getSheetId(name, type);
         // triple equal problem
@@ -54,7 +54,7 @@ export class GetGameService {
                             await SimpleGame.create(id, sheetId, GameMode.Solo, name);
         if (game) {
             GetGameService.games.push(game);
-            game.start(username);
+            game.start(usernames);
         }
 
         return new Promise<string>((resolve: Function) => resolve(id));
