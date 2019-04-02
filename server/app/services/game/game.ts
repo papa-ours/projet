@@ -23,6 +23,10 @@ export abstract class AbstractGame implements HasId {
     protected abstract async setUp(name: string): Promise<{}>;
     public abstract async cleanUp(): Promise<{}>;
 
+    public differenceFound(username: string): void {
+        this.differenceCounts[this.usernames.indexOf(username)]--;
+    }
+
     public start(usernames: string[]): void {
         this.usernames = usernames;
 
