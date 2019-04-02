@@ -26,7 +26,7 @@ export class DifferenceCheckerController {
         const router: Router = Router();
 
         router.get(
-            "/:id/:x/:y",
+            "/:id/:x/:y/:username",
             async (req: Request, res: Response, next: NextFunction) => {
                 const x: number = parseInt(req.params.x, 10);
                 const y: number = parseInt(req.params.y, 10);
@@ -39,12 +39,12 @@ export class DifferenceCheckerController {
 
                 try {
                     const game: SimpleGame = this.getGameService.getGame(id) as SimpleGame;
-
                     let isDifference: boolean = false;
                     isDifference = this.differenceChecker.isPositionDifference(x, y, game);
 
                     if (isDifference) {
                         await game.restoreModifiedImage(x, y);
+                        game.differenceFound(req.params.username);
                         if (game.differenceCounts.indexOf(0) !== -1) {
                             Axios.post(`${SERVER_ADDRESS}/api/endgame/`, {gameId: id, time: game.time});
                         }
@@ -71,6 +71,7 @@ export class DifferenceCheckerController {
                 const isModification: boolean = this.sceneDifferenceCheckerService.checkDifference(game.scene, position);
                 if (isModification) {
                     game.restoreModifiedScene(position);
+                    game.differenceFound(req.body.username);
                     if (game.differenceCounts.indexOf(0) !== -1) {
                         Axios.post(`${SERVER_ADDRESS}/api/endgame/`, {gameId: game.id, time: game.time});
                     }
