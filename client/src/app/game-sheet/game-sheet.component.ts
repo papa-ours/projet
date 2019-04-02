@@ -70,7 +70,7 @@ export class GameSheetComponent implements OnInit {
     }
 
     public play(): void {
-        this.gameplayService.getGameId(this.description.name, this.type, this.connectionService.username)
+        this.gameplayService.getGameId(this.description.name, this.type, GameMode.Solo, this.connectionService.username)
         .subscribe((id: string) => {
             this.router.navigateByUrl(`/game/${this.description.name}/${this.type}/${GameMode.Solo}/${id}`)
             .catch((err: Error) => {

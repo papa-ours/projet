@@ -44,14 +44,14 @@ export class GetGameService {
         return this.dbConnectionService.getGameSheetId(name, type);
     }
 
-    public async createGame(name: string, type: GameType, usernames: string[]): Promise<string> {
+    public async createGame(name: string, type: GameType, mode: GameMode, usernames: string[]): Promise<string> {
         const id: string = this.generateUniqueId(GetGameService.games);
         const sheetId: string = await this.getSheetId(name, type);
         // triple equal problem
         // tslint:disable-next-line:triple-equals
         const game: AbstractGame = type == GameType.Free ?
-                            await FreeGame.create(id, sheetId, GameMode.Solo, name) :
-                            await SimpleGame.create(id, sheetId, GameMode.Solo, name);
+                            await FreeGame.create(id, sheetId, mode, name) :
+                            await SimpleGame.create(id, sheetId, mode, name);
         if (game) {
             GetGameService.games.push(game);
             game.start(usernames);

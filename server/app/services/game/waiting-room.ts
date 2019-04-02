@@ -1,6 +1,6 @@
 import Axios, { AxiosResponse } from "axios";
 import { SERVER_ADDRESS } from "../../../../common/communication/constants";
-import { GameType } from "../../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../../common/communication/game-description";
 import { Message } from "../../../../common/communication/message";
 import { Socket } from "../../socket";
 
@@ -29,7 +29,7 @@ export class WaitingRoom {
     }
 
     private startGame(): void {
-        Axios.get(`${SERVER_ADDRESS}/api/game/${this.name}/${this.type}/${JSON.stringify(this.usernames)}`)
+        Axios.get(`${SERVER_ADDRESS}/api/game/${this.name}/${this.type}/${GameMode.Pvp}/${JSON.stringify(this.usernames)}`)
         .then((response: AxiosResponse<Message>) => {
             Socket.io.to(`${this.gameSheetId}-${this.usernames[0]}`).emit("GameReady", response.data.body);
         })
