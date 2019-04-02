@@ -49,8 +49,6 @@ export class SimpleGame extends AbstractGame {
             this.differenceImage.placePixel(differenceIndex, Pixel.WHITE_PIXEL);
         });
 
-        this.differenceCounts[0]--;
-
         return this.saveModifiedImage();
     }
 
