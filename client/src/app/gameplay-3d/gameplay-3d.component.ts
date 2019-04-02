@@ -38,6 +38,7 @@ export class Gameplay3dComponent implements AfterViewInit {
     public constructor(private difference3DCheckerService: Difference3DCheckerService) {
         this.foundDifferenceEvent = new EventEmitter<void>();
         this.errorIdentificationEvent = new EventEmitter<void>();
+        this.differenceCounter = 0;
     }
 
     public ngAfterViewInit(): void {
