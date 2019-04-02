@@ -45,7 +45,7 @@ export class DifferenceCheckerController {
 
                     if (isDifference) {
                         await game.restoreModifiedImage(x, y);
-                        if (game.differenceCount === 0) {
+                        if (game.differenceCounts.indexOf(0) !== -1) {
                             Axios.post(`${SERVER_ADDRESS}/api/endgame/`, {gameId: id, time: game.time});
                         }
                     }
@@ -71,7 +71,7 @@ export class DifferenceCheckerController {
                 const isModification: boolean = this.sceneDifferenceCheckerService.checkDifference(game.scene, position);
                 if (isModification) {
                     game.restoreModifiedScene(position);
-                    if (game.differenceCount === 0) {
+                    if (game.differenceCounts.indexOf(0) !== -1) {
                         Axios.post(`${SERVER_ADDRESS}/api/endgame/`, {gameId: game.id, time: game.time});
                     }
                 }
