@@ -16,7 +16,7 @@ export class GameplayService {
     public constructor(private http: HttpClient) { }
 
     public getGameId(name: string, type: GameType, mode: GameMode, username: string): Observable<string> {
-        return this.http.get<Message>(`${this.URL}/${name}/${type}/${mode}/${JSON.stringify([username])}`)
+        return this.http.get<Message>(`${this.URL}/id/s${name}/${type}/${mode}/${JSON.stringify([username])}`)
             .pipe(map((message: Message) => JSON.parse(message.body)),
         );
     }

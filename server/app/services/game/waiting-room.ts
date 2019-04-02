@@ -29,7 +29,7 @@ export class WaitingRoom {
     }
 
     private startGame(): void {
-        Axios.get(`${SERVER_ADDRESS}/api/game/${this.name}/${this.type}/${GameMode.Pvp}/${JSON.stringify(this.usernames)}`)
+        Axios.get(`${SERVER_ADDRESS}/api/game/id/${this.name}/${this.type}/${GameMode.Pvp}/${JSON.stringify(this.usernames)}`)
         .then((response: AxiosResponse<Message>) => {
             Socket.io.to(`${this.gameSheetId}-${this.usernames[0]}`).emit("GameReady", response.data.body);
         })

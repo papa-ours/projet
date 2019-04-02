@@ -18,7 +18,7 @@ export class CreateGameController {
         const router: Router = Router();
 
         router.get(
-            "/:name/:type/:mode/:usernames",
+            "/id/:name/:type/:mode/:usernames",
             async (req: Request, res: Response, next: NextFunction) => {
                 const id: string = await this.getGameService
                     .createGame(req.params.name, req.params.type, req.params.mode, JSON.parse(req.params.usernames));
