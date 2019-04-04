@@ -6,6 +6,7 @@ import { ThematicObjectType } from "../../../../common/communication/thematic-ob
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { RandomNumber } from "../utils/random-number";
 import { GeometryIntersection } from "./geometry-intersection";
+import { Vector } from "./vector";
 
 export interface ThematicObjectData {
     thematicType: ThematicObjectType;
@@ -73,13 +74,17 @@ export class SceneDataGeneratorService {
         const randomPosition: VectorInterface = this.getRandomPosition(thematicObjectData !== undefined);
         const randomRotation: VectorInterface = this.getRandomRotation(thematicObjectData !== undefined);
         const randomColor: number = this.getRandomColor();
-        const randomSize: number = thematicObjectData ? this.getRandomSize(thematicObjectData.size) : this.getRandomSize();
+        const randomSize: VectorInterface = {
+            x: this.getRandomSize(thematicObjectData && thematicObjectData.size),
+            y: this.getRandomSize(thematicObjectData && thematicObjectData.size),
+            z: this.getRandomSize(thematicObjectData && thematicObjectData.size),
+        };
 
         return {
             position: randomPosition,
             rotation: randomRotation,
             color: randomColor,
-            size: {x: randomSize, y: randomSize, z: randomSize},
+            size: randomSize,
             isModified: false,
             type: thematicObjectData ? thematicObjectData.geometricType : this.getRandomGeometryType(),
         };
