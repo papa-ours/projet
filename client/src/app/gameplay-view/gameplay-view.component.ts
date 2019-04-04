@@ -55,7 +55,7 @@ export class GameplayViewComponent implements OnInit {
         }
 
         this.socketService.getChatMessage().subscribe((message: ChatMessage) => {
-            if (!message.text.includes("Erreur")) {
+            if (message.text.includes("Différence")) {
                 this.updateDifferenceCounters(this.connectionService.username === message.username ? 0 : 1);
             }
         });
