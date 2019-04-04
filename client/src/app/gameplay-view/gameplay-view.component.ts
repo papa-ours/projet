@@ -21,6 +21,7 @@ export class GameplayViewComponent implements OnInit {
     private readonly WRONG_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
     private readonly ERROR_TIMEOUT: number = 1000;
 
+    public finished: boolean;
     public foundDifferencesCounter: number;
     public images: string[];
     public requiredDifferences: number;
@@ -49,6 +50,7 @@ export class GameplayViewComponent implements OnInit {
         this.isErrorMessageVisible = false;
         this.chrono = 0;
         this.isChronoRunning = false;
+        this.finished = false;
     }
 
     private static playSound(sound: HTMLAudioElement): void {
@@ -83,8 +85,9 @@ export class GameplayViewComponent implements OnInit {
         this.foundDifferencesCounter ++;
         this.socketService.sendFoundDiffrenceMessage(this.gameMode);
         if (this.foundDifferencesCounter === this.requiredDifferences) {
-            this.isChronoRunning = false;
+            //this.isChronoRunning = false;
             this.canClick = false;
+            this.finished = true;
         }
         GameplayViewComponent.playSound(this.CORRECT_SOUND);
     }
