@@ -6,15 +6,17 @@ interface RenderElement {
     elementRef: ElementRef;
     render: RenderService;
 }
+enum Movement {
+    FORWARD = "w",
+    LEFT = "a",
+    RIGHT = "d",
+    BACKWARD = "s",
+}
 
 export class CameraMovementService {
 
     private static readonly RIGHT_CLICK: number = 2;
     private static readonly DISTANCE: number = 5;
-    private static readonly FORWARD: string = "w";
-    private static readonly LEFT: string = "a";
-    private static readonly RIGHT: string = "d";
-    private static readonly BACKWARD: string = "s";
     private static readonly MOUVEMENT_INTERVAL: number = 10;
     private static readonly ROTATION_CONSTANT: number = 800;
 
@@ -89,16 +91,16 @@ export class CameraMovementService {
 
     private static setCameraSpeed(keyEvent: KeyboardEvent): void {
         switch (keyEvent.key) {
-            case CameraMovementService.FORWARD:
+            case Movement.FORWARD:
                 CameraMovementService.speedCamera.setZ(-CameraMovementService.DISTANCE);
                 break;
-            case CameraMovementService.LEFT:
+            case Movement.LEFT:
                 CameraMovementService.speedCamera.setX(-CameraMovementService.DISTANCE);
                 break;
-            case CameraMovementService.BACKWARD:
+            case Movement.BACKWARD:
                 CameraMovementService.speedCamera.setZ(CameraMovementService.DISTANCE);
                 break;
-            case CameraMovementService.RIGHT:
+            case Movement.RIGHT:
                 CameraMovementService.speedCamera.setX(CameraMovementService.DISTANCE);
                 break;
             default:
@@ -107,16 +109,16 @@ export class CameraMovementService {
 
     private static resetCameraSpeed(keyEvent: KeyboardEvent): void {
         switch (keyEvent.key) {
-            case CameraMovementService.FORWARD:
+            case Movement.FORWARD:
                 CameraMovementService.speedCamera.setZ(0);
                 break;
-            case CameraMovementService.LEFT:
+            case Movement.LEFT:
                 CameraMovementService.speedCamera.setX(0);
                 break;
-            case CameraMovementService.BACKWARD:
+            case Movement.BACKWARD:
                 CameraMovementService.speedCamera.setZ(0);
                 break;
-            case CameraMovementService.RIGHT:
+            case Movement.RIGHT:
                 CameraMovementService.speedCamera.setX(0);
                 break;
             default:
