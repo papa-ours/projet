@@ -14,27 +14,27 @@ export class GetGameListService {
 
     public async getGameList(): Promise<GameLists> {
         const types: GameType[] = [GameType.Simple, GameType.Free];
-        const gameSheets: Map<GameType, GameSheet[]> = await this.db.getGameSheets(types);
-
-        const waitingRooms: WaitingRoom[][] = (await Axios.get(`${SERVER_ADDRESS}/api/game/waitingRoom/listAll`)).data;
-
-        waitingRooms.forEach((list: WaitingRoom[]) => {
-            list.forEach((waitingRoom: WaitingRoom) => {
-                const gameSheetList: GameSheet[] | undefined = gameSheets.get(waitingRoom.type);
-
-                if (gameSheetList) {
-                    const index: number = gameSheetList.findIndex((gs: GameSheet) => gs.id === waitingRoom.gameSheetId);
-                    if (index !== -1) {
-                        (gameSheets.get(waitingRoom.type) as GameSheet[])[index].hasWaitingRoom = true;
-                    }
-                }
-
-            });
-        });
+        const gameSheets: Map<GameType, GameSheet[]> = await this.setHasWaitingRoom(await this.db.getGameSheets(types));
 
         return {
             list2d: gameSheets.get(GameType.Simple) as GameSheet[],
             list3d: gameSheets.get(GameType.Free) as GameSheet[],
         };
+    }
+
+    private async setHasWaitingRoom(gameSheets: Map<GameType, GameSheet[]>): Promise<Map<GameType, GameSheet[]>> {
+        const waitingRooms: WaitingRoom[][] = (await Axios.get(`${SERVER_ADDRESS}/api/game/waitingRoom/listAll`)).data;
+
+        gameSheets.forEach((list: GameSheet[], type: number) => {
+            list.forEach((gameSheet: GameSheet) => {
+                    const index: number = waitingRooms[type]
+                        .findIndex((waitingRoom: WaitingRoom) => gameSheet.id === waitingRoom.gameSheetId);
+                    if (index !== -1) {
+                        gameSheet.hasWaitingRoom = true;
+                    }
+                });
+            });
+
+        return gameSheets;
     }
 }
