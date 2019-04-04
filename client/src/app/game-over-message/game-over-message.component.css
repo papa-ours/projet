@@ -1,3 +1,9 @@
+.returnToGames {
+    font-size: 20px;
+    color: var(--success-color);
+    background: var(--header-color);
+    transition-duration: 0.5s;
+}
 
 .messageFelicitations {
     font-size: 40px;
