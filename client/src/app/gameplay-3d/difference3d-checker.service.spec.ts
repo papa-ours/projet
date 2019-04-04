@@ -39,7 +39,7 @@ describe("Difference3DCheckerService", () => {
     it("should be a POST REQUEST that returns a data set of geometry on getAllDifferences", () => {
         const result: GeometryData[] = [{
             color: 0xFFFFFF,
-            size: 10,
+            size: {x: 10, y: 10, z: 10},
             rotation: { x: 0, y: 0, z: 0 },
             position: { x: 0, y: 0, z: 0 },
             isModified: false,

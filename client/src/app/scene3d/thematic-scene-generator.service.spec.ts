@@ -19,7 +19,7 @@ fdescribe("ThematicSceneGeneratorService", () => {
             const geometryData: GeometryData[] = [{
                 position: { x: 0 , y: 0 , z: 0 },
                 rotation: { x: 0 , y: 0 , z: 0 },
-                size: 30,
+                size: {x: 30, y: 30, z: 30},
                 color: 0,
                 type: 0,
                 isModified: false,

@@ -22,7 +22,7 @@ describe("scenceDataGenerator", () => {
                 z: 0,
             },
             color: 0,
-            size: 5,
+            size: {x: 5, y: 5, z: 5},
             type: GeometryType.CUBE,
             isModified: false,
         };
@@ -39,7 +39,7 @@ describe("scenceDataGenerator", () => {
                 z: 0,
             },
             color: 0,
-            size: 5,
+            size: {x: 5, y: 5, z: 5},
             type: GeometryType.CUBE,
             isModified: false,
         };
@@ -55,17 +55,17 @@ describe("scenceDataGenerator", () => {
     });
 
     it("should report intersection of two touching objects", () => {
-        geometry2.position.y += geometry2.size;
+        geometry2.position.y += geometry2.size.y;
         expect(GeometryIntersection.intersects(geometry1, geometry2)).to.equal(true);
     });
 
     it("should report intersection of two sufficiently near objects", () => {
-        geometry2.position.y += geometry2.size + 1;
+        geometry2.position.y += geometry2.size.y + 1;
         expect(GeometryIntersection.intersects(geometry1, geometry2)).to.equal(true);
     });
 
     it("should not report intersection of two sufficiently far objects", () => {
-        geometry2.position.y += geometry2.size + 10;
+        geometry2.position.y += geometry2.size.y + 10;
         expect(GeometryIntersection.intersects(geometry1, geometry2)).to.equal(false);
     });
 

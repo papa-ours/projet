@@ -5,7 +5,7 @@ import { Geometry } from "./geometry";
 
 describe("Geometry", () => {
     const geometryData: GeometryData = {
-        size: 0,
+        size: {x: 0, y: 0, z: 0},
         position: { x: 1, y: 1, z: 1 },
         rotation: { x: 10, y: 10, z: 10 },
         color: 0,
@@ -62,7 +62,7 @@ describe("Geometry", () => {
 
         it("should return false if GeometryData is not equal ", () => {
             const geometryData2: GeometryData = {
-                size: 0, position: { x: 100, y: 59, z: 36 },
+                size: {x: 0, y: 0, z: 0}, position: { x: 100, y: 59, z: 36 },
                 rotation: { x: 20, y: 15, z: 1 }, color: 36,
                 type: 3, isModified: false,
             };
