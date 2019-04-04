@@ -17,6 +17,10 @@ export class CollisionDetectionService {
         return  position.add(direction);
     }
 
+    private static isValueBetween(min: number , value: number, max: number): boolean {
+        return  max > value && value > min ;
+    }
+
     public static canMove(scene: THREE.Scene, camera: THREE.Camera, cameraDirection: THREE.Vector3): boolean {
         const normalisedDirection: THREE.Vector3 = cameraDirection.clone().normalize();
         const raycaster: THREE.Raycaster = new THREE.Raycaster(
@@ -33,9 +37,9 @@ export class CollisionDetectionService {
     public static isInsideBorder(camera: THREE.Camera, cameraDirection: THREE.Vector3): boolean {
         const nextPosition: THREE.Vector3 = CollisionDetectionService.computeDirection(camera, cameraDirection);
 
-        return (SKYBOX_MAX.x > nextPosition.x && nextPosition.x > SKYBOX_MIN.x &&
-                SKYBOX_MAX.y > nextPosition.y && nextPosition.y > SKYBOX_MIN.y &&
-                SKYBOX_MAX.z > nextPosition.z && nextPosition.z > SKYBOX_MIN.z
+        return ( CollisionDetectionService.isValueBetween(SKYBOX_MIN.x, nextPosition.x, SKYBOX_MAX.x) &&
+                 CollisionDetectionService.isValueBetween(SKYBOX_MIN.y, nextPosition.y, SKYBOX_MAX.y) &&
+                 CollisionDetectionService.isValueBetween(SKYBOX_MIN.z, nextPosition.z, SKYBOX_MAX.z)
         );
     }
 
