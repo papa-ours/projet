@@ -17,7 +17,8 @@ describe("scenceDataGenerator", () => {
 
     it("should create sceneData if the parameter sizes is defined", () => {
         const nGeometry: number = 10;
-        const sizes: number[] = [1, 1, 1];
+        const baseSize: VectorInterface = {x: 1, y: 1, z: 1};
+        const sizes: VectorInterface[] = [baseSize, baseSize, baseSize];
         expect(sceneDataGeneratorService.getSceneData(nGeometry, sizes).length).to.equal(nGeometry);
     });
 

@@ -5,6 +5,7 @@ import * as multer from "multer";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { GeometryData, Modification, ModificationType, SceneData, SceneType } from "../../../common/communication/geometry";
 import { MessageType } from "../../../common/communication/message";
+import { VectorInterface } from "../../../common/communication/vector-interface";
 import { SceneDataGeneratorService } from "../services/scene/scene-data-generator";
 import { SceneDataDifferenceService } from "../services/scene/scene-difference-generator";
 import { AWSFilesUtil } from "../services/utils/aws-files.util";
@@ -54,7 +55,7 @@ export class SceneDataController {
                 {name: "sizes", maxCount: 8},
             ]),
             async (req: Request, res: Response, next: NextFunction) => {
-                const sizes: number[] = JSON.parse(req.body.sizes);
+                const sizes: VectorInterface[] = JSON.parse(req.body.sizes);
                 const scene: SceneData = this.getSceneData(req, SceneType.THEMATIC, sizes);
                 await AWSFilesUtil.writeFile(`${scene.name}-data.json`, Buffer.from(JSON.stringify(scene)))
                     .catch((err: Error) => console.error(err));
@@ -69,7 +70,7 @@ export class SceneDataController {
         return router;
     }
 
-    private getSceneData(req: Request, sceneType: SceneType, sizes?: number[]): SceneData {
+    private getSceneData(req: Request, sceneType: SceneType, sizes?: VectorInterface[]): SceneData {
 
         const modifications: Modification[] = this.getModifications(req);
         const originalGeometry: GeometryData[] = this.sceneDataGeneratorService.getSceneData(Number(req.body.nbObjects), sizes);

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
 import { ThematicObject, ThematicObjectType, THEMATIC_OBJECTS } from "../../../../common/communication/thematic-object";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
 // found in the documentation without this the client dont compile
 // tslint:disable-next-line:no-any
 declare var require: any;
@@ -16,7 +17,7 @@ export class ThematicObjectGeneratorService {
     private static objects: THREE.Group[];
     public static desk: THREE.Group;
     public static backgroundImage: THREE.Texture;
-    public static sizes: number[];
+    public static sizes: VectorInterface[];
     private objLoader: THREE.OBJLoader;
 
     public constructor() {
@@ -78,13 +79,12 @@ export class ThematicObjectGeneratorService {
         });
     }
 
-    private calculateDimension(group: THREE.Group, index: number): number {
+    private calculateDimension(group: THREE.Group, index: number): VectorInterface {
         const scale: number = THEMATIC_OBJECTS[index].baseScale;
         group.scale.set(scale, scale, scale);
         const box: THREE.Box3 = new THREE.Box3().setFromObject(group);
-        const dimensions: THREE.Vector3 = box.max.sub(box.min);
 
-        return dimensions.x > dimensions.z ? dimensions.x : dimensions.z;
+        return box.max.sub(box.min);
     }
 
     private async createAllObjects(): Promise<THREE.Group[]> {

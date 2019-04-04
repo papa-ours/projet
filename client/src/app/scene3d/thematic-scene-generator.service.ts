@@ -80,7 +80,7 @@ export class ThematicSceneGeneratorService {
             throw RangeError("Object size could not be found");
         }
 
-        const objectSize: number = ThematicObjectGeneratorService.sizes[thematicObjectType];
+        const objectSize: number = ThematicObjectGeneratorService.sizes[thematicObjectType].x;
 
         return THEMATIC_OBJECTS[thematicObjectType].baseScale * size / objectSize;
     }
