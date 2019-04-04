@@ -74,8 +74,8 @@ export class GameplayViewComponent implements OnInit {
             this.type = params["type"];
             this.id = params["id"];
             this.gameMode = params["mode"];
-            this.requiredDifferences = this.gameMode === GameMode.Solo ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
-            this.foundDifferencesCounters = this.gameMode === GameMode.Solo ? [0] : [0, 0];
+            this.requiredDifferences = this.gameMode == GameMode.Solo ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
+            this.foundDifferencesCounters = this.gameMode == GameMode.Solo ? [0] : [0, 0];
             this.startChrono();
         });
         const SOUND_VOLUME: number = 0.2;

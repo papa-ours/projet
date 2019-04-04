@@ -28,7 +28,7 @@ export abstract class AbstractGame implements HasId {
     public start(usernames: string[]): void {
         this.usernames = usernames;
 
-        this.differenceCounts = this.gameMode === GameMode.Solo ?
+        this.differenceCounts = this.gameMode == GameMode.Solo ?
             [REQUIRED_DIFFERENCES_1P] : [REQUIRED_DIFFERENCES_2P, REQUIRED_DIFFERENCES_2P];
 
         this.chrono.start();

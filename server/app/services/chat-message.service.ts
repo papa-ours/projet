@@ -23,7 +23,7 @@ export class ChatMessageService {
         const game: AbstractGame = this.getGameService.getGame(gameId);
         const username: string =  this.usersContainerService.getUsernameBySocketId(socket.id);
         if (username !== "") {
-            const emitter: SocketIO.Socket | SocketIO.Namespace = gameMode === GameMode.Solo ?
+            const emitter: SocketIO.Socket | SocketIO.Namespace = gameMode == GameMode.Solo ?
                 socket : Socket.io.to(`${game.sheetId}-${game.usernames[0]}`);
             emitter.emit("chatMessage", this.getIdentificationMessage(username, identification, gameMode));
         }
@@ -56,7 +56,7 @@ export class ChatMessageService {
 
     private adjustMessageToGameMode(username: string, gameMode: GameMode): string {
 
-        return gameMode === GameMode.Solo ? "." : ` par ${username}.`;
+        return gameMode == GameMode.Solo ? "." : ` par ${username}.`;
     }
 
     private getConnectionMessage(connection: Connection, username: string): ChatMessage {
@@ -69,7 +69,7 @@ export class ChatMessageService {
     }
 
     private getBestTimeMessage(username: string, position: number, gameName: string, gameMode: GameMode): ChatMessage {
-        const gameModetext: string = gameMode === GameMode.Solo ? "solo" : "un contre un";
+        const gameModetext: string = gameMode == GameMode.Solo ? "solo" : "un contre un";
         const textMessage: string = `${username} obtient la ${this.POSITION_STRING[position]}`
             + ` place dans les meilleurs temps du jeu ${gameName} en ${gameModetext}`;
 
