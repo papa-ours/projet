@@ -22,3 +22,13 @@ export interface ChatTime {
     minutes: string;
     seconds: string;
 }
+
+export enum Connection {
+    CONNECT,
+    DISCONNECT,
+}
+
+export enum Identification {
+    DIFFERENCE_FOUND,
+    ERROR,
+}
