@@ -60,22 +60,18 @@ export class CameraMovementService {
         CameraMovementService.renderElementOriginal.elementRef.nativeElement.addEventListener(
             "mousedown",
             CameraMovementService.onMouseClick,
-            false,
         );
         CameraMovementService.renderElementOriginal.elementRef.nativeElement.addEventListener(
             "mouseup",
             CameraMovementService.onMouseClick,
-            false,
         );
         CameraMovementService.renderElementModified.elementRef.nativeElement.addEventListener(
             "mousedown",
             CameraMovementService.onMouseClick,
-            false,
         );
         CameraMovementService.renderElementModified.elementRef.nativeElement.addEventListener(
             "mouseup",
             CameraMovementService.onMouseClick,
-            false,
         );
     }
 
