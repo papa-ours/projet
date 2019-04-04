@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild  } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
 import { GameMode, GameType } from "../../../../common/communication/game-description";
@@ -36,6 +36,7 @@ export class GameplayViewComponent implements OnInit {
 
     public constructor(
         private route: ActivatedRoute,
+        private router: Router,
         private socketService: SocketService,
         public name: string,
         public id: string,
@@ -48,6 +49,10 @@ export class GameplayViewComponent implements OnInit {
         this.chrono = 0;
         this.isChronoRunning = false;
         this.totalDifferenceCounter = 0;
+
+        if (!this.connectionService.connected) {
+            this.router.navigateByUrl("/");
+        }
 
         this.socketService.getChatMessage().subscribe((message: ChatMessage) => {
             if (!message.text.includes("Erreur")) {
