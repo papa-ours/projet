@@ -7,7 +7,6 @@ export abstract class AbstractGame implements HasId {
     public differenceCounts: number[];
     private chrono: Chrono;
     public usernames: string[];
-    public winner: number;
 
     public constructor(
         public id: string,
@@ -16,7 +15,6 @@ export abstract class AbstractGame implements HasId {
         public gameMode: GameMode,
         public readonly type: GameType,
     ) {
-        this.winner = 0;
         this.chrono = new Chrono();
     }
 
@@ -38,5 +36,9 @@ export abstract class AbstractGame implements HasId {
 
     public get time(): number {
         return this.chrono.time;
+    }
+
+    public get winner(): number {
+        return this.differenceCounts.indexOf(0);
     }
 }
