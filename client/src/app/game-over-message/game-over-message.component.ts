@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-game-over-message',
@@ -7,8 +8,15 @@ import { Component } from '@angular/core';
 })
 export class GameOverMessageComponent {
 
-  constructor() { }
+    public constructor(private router: Router) {
+        
+    }
 
-  }
-
+    public returnToLobby(): void {
+        this.router.navigateByUrl("/gamelist/" + "aaa")
+                    .catch((err: Error) => {
+                        console.error(err);
+                    },
+                );
+    }
 }
