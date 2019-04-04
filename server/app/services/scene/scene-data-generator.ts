@@ -6,7 +6,6 @@ import { ThematicObjectType } from "../../../../common/communication/thematic-ob
 import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { RandomNumber } from "../utils/random-number";
 import { GeometryIntersection } from "./geometry-intersection";
-import { Vector } from "./vector";
 
 export interface ThematicObjectData {
     thematicType: ThematicObjectType;
