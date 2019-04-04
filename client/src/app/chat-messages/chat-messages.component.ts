@@ -1,4 +1,5 @@
-import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { AfterViewChecked, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core";
+import { Subscription } from "rxjs";
 import { ChatMessage } from "../../../../common/communication/message";
 import { SocketService } from "../socket.service";
 
@@ -7,20 +8,23 @@ import { SocketService } from "../socket.service";
     templateUrl: "./chat-messages.component.html",
     styleUrls: ["./chat-messages.component.css"],
 })
-export class ChatMessagesComponent implements OnInit, AfterViewChecked {
+export class ChatMessagesComponent implements AfterViewChecked, OnDestroy {
     public chatMessages: ChatMessage[];
+    private chatSubscription: Subscription;
 
     @ViewChild("chatContainer") private chatContainer: ElementRef;
 
     public constructor(private socketService: SocketService) {
         this.chatMessages = [];
-    }
-
-    public ngOnInit(): void {
-        this.socketService.getChatMessage().subscribe((message: ChatMessage) => {
+        this.chatSubscription = this.socketService.getChatMessage().subscribe((message: ChatMessage) => {
             this.chatMessages.push(message);
         });
     }
+
+    public ngOnDestroy(): void {
+        this.chatSubscription.unsubscribe();
+    }
+
     public ngAfterViewChecked(): void {
         this.scrollToBottom();
     }
