@@ -42,7 +42,7 @@ export class ThematicSceneGeneratorService {
                         object.material = new THREE.MeshPhysicalMaterial({color: data.color});
                     }
                 });
-                const scale: number = this.calculateScale(data.thematicObjectType, data.size);
+                const scale: number = this.calculateScale(data.thematicObjectType, data.size.x);
                 group.scale.set(scale, scale, scale);
                 this.scene.add(group);
             }

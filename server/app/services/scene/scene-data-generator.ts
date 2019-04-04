@@ -79,7 +79,7 @@ export class SceneDataGeneratorService {
             position: randomPosition,
             rotation: randomRotation,
             color: randomColor,
-            size: randomSize,
+            size: {x: randomSize, y: randomSize, z: randomSize},
             isModified: false,
             type: thematicObjectData ? thematicObjectData.geometricType : this.getRandomGeometryType(),
         };
