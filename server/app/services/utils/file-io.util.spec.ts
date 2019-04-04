@@ -42,4 +42,14 @@ describe("IO", () => {
         });
     });
 
+    describe("FileDeleterUtil", () => {
+
+        it("should reject if the directory doesn't exist", (done: Mocha.Done) => {
+            FileIO.deleteFile("fakeDire/fakeFile.out")
+                .then(() => done(new Error("Promise should not resolve")))
+                .catch(() => done());
+        });
+
+    });
+
 });
