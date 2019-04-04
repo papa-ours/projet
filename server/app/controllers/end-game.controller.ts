@@ -1,11 +1,15 @@
+import Axios, { AxiosResponse } from "axios";
 import { NextFunction } from "connect";
 import { Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
-import { GameSheet } from "../../../common/communication/game-description";
+import { SERVER_ADDRESS } from "../../../common/communication/constants";
+import { GameMode, GameSheet } from "../../../common/communication/game-description";
+import { Message } from "../../../common/communication/message";
 import { ChatMessageService } from "../services/chat-message.service";
 import { AbstractGame } from "../services/game/game";
 import { GetGameService } from "../services/get-game.service";
 import { ScoreUpdaterService } from "../services/score-updater.service";
+import { Socket } from "../socket";
 import Types from "../types";
 
 @injectable()
@@ -28,6 +32,7 @@ export class EndGameController {
             "/",
             async (req: Request, res: Response, next: NextFunction) => {
                 const game: AbstractGame = this.getGameService.getGame(req.body.gameId);
+                await this.sendWinner(game);
                 await this.scoreUpdaterService.putScore(
                         game.sheetId,
                         game.usernames[game.winner],
@@ -53,5 +58,24 @@ export class EndGameController {
         );
 
         return router;
+    }
+
+    private sendWinner(game: AbstractGame): void {
+        game.gameMode == GameMode.Solo ? this.sendWinnerSolo(game) : this.sendWinnerPvp(game);
+    }
+
+    private sendWinnerSolo(game: AbstractGame): void {
+        Axios.get(`${SERVER_ADDRESS}/api/id/${game.usernames[game.winner]}/`)
+        .then((response: AxiosResponse<Message>) => {
+            const socketId: string = response.data.body;
+            const socket: SocketIO.Socket | undefined = Socket.getSocket(socketId);
+            if (socket) {
+                socket.emit("endGameWinner", game.usernames[game.winner]);
+            }
+        });
+    }
+
+    private sendWinnerPvp(game: AbstractGame): void {
+        Socket.io.to(`${game.sheetId}-${game.usernames[0]}`).emit("endGameWinner", game.usernames[game.winner]);
     }
 }
