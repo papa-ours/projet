@@ -85,7 +85,7 @@ export class GameplayViewComponent implements OnInit {
         this.foundDifferencesCounter ++;
         this.socketService.sendFoundDiffrenceMessage(this.gameMode);
         if (this.foundDifferencesCounter === this.requiredDifferences) {
-            //this.isChronoRunning = false;
+            this.isChronoRunning = false;
             this.canClick = false;
             this.finished = true;
         }
