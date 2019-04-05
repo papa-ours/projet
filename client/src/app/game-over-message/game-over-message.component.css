@@ -1,6 +1,6 @@
 .game-over-message-popup {
     position: absolute;
-    left: 40%;
+    left: 24%;
     top: 30vh;
     padding: 30px;
     background-color: var(--header-color);
@@ -10,14 +10,25 @@
     height: auto;
     border-radius: 10px;
     margin-top: 100px;
-    z-index: 5;
+    z-index: 6;
 }
 
 .returnToGames {
     font-size: 20px;
-    color: var(--success-color);
-    background: var(--header-color);
+    background: var(--success-color);
+    color:  #FFFFFF;
     transition-duration: 0.5s;
+    border-radius: 30px;
+    margin-left: 30%;
+    border: 0px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.returnToGames:hover {
+    background: #FFFFFF;
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
 }
 
 .messageFelicitations {
