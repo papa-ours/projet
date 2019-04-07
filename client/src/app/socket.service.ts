@@ -62,4 +62,12 @@ export class SocketService {
             });
         });
     }
+
+    public getWinner(): Observable<string> {
+        return Observable.create((observer: Subject<string>) => {
+            this.socket.on("endGameWinner", (username: string) => {
+                observer.next(username);
+            });
+        });
+    }
 }
