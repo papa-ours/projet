@@ -8,9 +8,10 @@ export class GameNameChecker {
 
     public constructor(private getGameService: GetGameService) { }
 
-    public async checkName(name: string, type: GameType): Promise<boolean>{
+    public async checkName(name: string, type: GameType): Promise<boolean> {
 
         const id: string = await this.getGameService.getSheetId(name, type);
+
         return id !== undefined;
     }
 }
