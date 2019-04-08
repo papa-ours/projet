@@ -1,15 +1,12 @@
-import Axios from "axios";
 import { NextFunction } from "connect";
 import { Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
-import { SERVER_ADDRESS } from "../../../common/communication/constants";
-import { GameMode, GameSheet } from "../../../common/communication/game-description";
-import { Message } from "../../../common/communication/message";
+import { GameSheet } from "../../../common/communication/game-description";
 import { ChatMessageService } from "../services/chat-message.service";
 import { AbstractGame } from "../services/game/game";
 import { GetGameService } from "../services/get-game.service";
 import { ScoreUpdaterService } from "../services/score-updater.service";
-import { Socket } from "../socket";
+import { SendWinnerService } from "../services/send-winner.service";
 import Types from "../types";
 
 @injectable()
@@ -21,6 +18,7 @@ export class EndGameController {
         @inject(Types.ScoreUpdaterService) private scoreUpdaterService: ScoreUpdaterService,
         @inject(Types.GetGameService) private getGameService: GetGameService,
         @inject(Types.ChatMessageService) private chatMessageService: ChatMessageService,
+        @inject(Types.SendWinnerService) private sendWinnerService: SendWinnerService,
     ) {
 
     }
@@ -43,8 +41,7 @@ export class EndGameController {
                             this.chatMessageService.sendBestTimeMessage(game.usernames[game.winner], position, game.name, game.gameMode);
                         }
                     });
-                this.sendWinner(game);
-
+                this.sendWinnerService.sendWinner(game);
                 this.getGameService.removeGame(req.body.gameId)
                 .then(() => {
                     res.send({
@@ -58,26 +55,5 @@ export class EndGameController {
         );
 
         return router;
-    }
-
-    private sendWinner(game: AbstractGame): void {
-        game.gameMode == GameMode.Solo ? this.sendWinnerSolo(game) : this.sendWinnerPvp(game);
-    }
-
-    private async sendWinnerSolo(game: AbstractGame): Promise<{}> {
-        const id: string = (await Axios.get<Message>(`${SERVER_ADDRESS}/api/user/id/${game.usernames[game.winner]}`)).data.body;
-        const socket: SocketIO.Socket | undefined = Socket.getSocket(id);
-
-        return new Promise((resolve: Function) => {
-            if (socket) {
-                socket.emit("endGameWinner", game.usernames[game.winner]);
-            }
-
-            resolve();
-        });
-    }
-
-    private sendWinnerPvp(game: AbstractGame): void {
-        Socket.io.to(`${game.sheetId}-${game.usernames[0]}`).emit("endGameWinner", game.usernames[game.winner]);
     }
 }
