@@ -26,6 +26,7 @@ import { Scene3dComponent } from "./scene3d/scene3d.component";
 import { ThematicObjectGeneratorService } from "./scene3d/thematic-object-generator.service";
 import { FileIO } from "./simple-game-creation/file-reader.util";
 import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-creation.component";
+import { ChronoComponent } from './chrono/chrono.component';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         Gameplay2DComponent,
         Gameplay3dComponent,
         ConfirmActionComponent,
+        ChronoComponent,
     ],
     imports: [
         BrowserModule,
