@@ -13,6 +13,12 @@
     z-index: 5;
 }
 
+.button-section {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+}
+
 button {
     font-family: 'Helvetica';
     font-size: 18px;
@@ -20,7 +26,7 @@ button {
     border: none;
     width: 100px;
     height: 35px;
-    margin: 10px;
+    margin: auto;
     border-radius: 30px;
     cursor: pointer;
 }
