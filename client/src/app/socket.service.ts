@@ -23,18 +23,42 @@ export class SocketService {
         this.socket.emit("newUser");
     }
 
-    public sendFoundDiffrenceMessage(gameMode: GameMode): void {
-        this.socket.emit("foundDifference", gameMode);
+    public sendFoundDiffrenceMessage(gameId: string, gameMode: GameMode): void {
+        this.socket.emit("foundDifference", gameId, gameMode);
     }
 
-    public sendErrorIdentificationMessage(gameMode: GameMode): void {
-        this.socket.emit("errorIdentification", gameMode);
+    public sendErrorIdentificationMessage(gameId: string, gameMode: GameMode): void {
+        this.socket.emit("errorIdentification", gameId, gameMode);
     }
 
     public getChatMessage(): Observable<ChatMessage> {
         return Observable.create((observer: Subject<ChatMessage>) => {
             this.socket.on("chatMessage", (data: ChatMessage) => {
                 observer.next(data);
+            });
+        });
+    }
+
+    public getGameReady(): Observable<string> {
+        return Observable.create((observer: Subject<string>) => {
+            this.socket.on(`GameReady`, (id: string) => {
+                observer.next(JSON.parse(id));
+            });
+        });
+    }
+
+    public getGameCreated(id: string): Observable<boolean> {
+        return Observable.create((observer: Subject<boolean>) => {
+            this.socket.on(`GameCreated-${id}`, (status: boolean) => {
+                observer.next(status);
+            });
+        });
+    }
+
+    public getUserJoined(): Observable<string[]> {
+        return Observable.create((observer: Subject<string[]>) => {
+            this.socket.on("UserJoined", (usernames: string) => {
+                observer.next(JSON.parse(usernames));
             });
         });
     }

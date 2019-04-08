@@ -30,7 +30,7 @@ export class Gameplay3dComponent implements AfterViewInit {
     private modifiedScene: Scene3dComponent;
     private rayCaster: RaycasterService;
     private cheatModeService: CheatModeService;
-    public differenceCounter: number;
+    @Input() public differenceCounter: number;
     @ViewChild("originalScene", {read: ElementRef}) private originalSceneElement: ElementRef;
     @ViewChild("modifiedScene", {read: ElementRef}) private modifiedSceneElement: ElementRef;
     @ViewChildren(Scene3dComponent) private scenes: QueryList<Scene3dComponent>;

@@ -1,11 +1,13 @@
 <app-confirm-action *ngIf="isConfirmPanelShown" [actionMessage]="actionMessage" (confirmAction)="actionConfirmed($event)"></app-confirm-action>
 <div class="game-sheet">
     <div class="game-preview">
-        <app-scene3d *ngIf="type; else image" class="game-preview-image" [name]="description.name" [width]="240" [height]="180"></app-scene3d>
+        <div *ngIf="loading" class="loader"></div>
+        <app-scene3d [class.faded]="loading" *ngIf="type; else image" class="game-preview-image" [name]="description.name" [width]="240" [height]="180"></app-scene3d>
         <ng-template #image>
-                <img class="game-preview-image" src={{source}}>
+                <img [class.faded]="loading" class="game-preview-image" src={{source}}>
         </ng-template>
     </div>
+    
     
     <div class="header">
         <div class="game-title">{{description.name}}</div>
@@ -29,11 +31,11 @@
     </div>
 
     <div class="buttons">
-        <button #btn1 (click)="isAdmin ? showConfirmPanel('supprimer') : play()">
-            <div>Jouer</div>
+        <button #btn1 (click)="isAdmin ? showConfirmPanel('supprimer') : play()" [disabled]="loading">
+            <div>{{isAdmin ? "Supprimer" : "Jouer"}}</div>
         </button>
-        <button #btn2 (click)="isAdmin ? showConfirmPanel('réinitialiser') : createGame()">
-            <div>Créer</div>
+        <button #btn2 (click)="isAdmin ? showConfirmPanel('réinitialiser') : playMultiplayerGame()" [disabled]="loading">
+            <div>{{isAdmin ? "Réinitialiser" : isGameCreated ? "Joindre" : "Créer"}}</div>
         </button>
     </div>
 </div>

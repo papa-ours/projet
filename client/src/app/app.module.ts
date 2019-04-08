@@ -7,6 +7,7 @@ import { AdminViewComponent } from "./admin-view/admin-view.component";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { AppComponent } from "./app.component";
 import { ChatMessagesComponent } from "./chat-messages/chat-messages.component";
+import { ChronoComponent } from "./chrono/chrono.component";
 import { ConfirmActionComponent } from "./confirm-action/confirm-action.component";
 import { ConnectionService } from "./connection.service";
 import { DifferenceCheckerService } from "./difference-checker.service";
@@ -21,12 +22,12 @@ import { Difference3DCheckerService } from "./gameplay-3d/difference3d-checker.s
 import { Gameplay3dComponent } from "./gameplay-3d/gameplay-3d.component";
 import { GameplayViewComponent } from "./gameplay-view/gameplay-view.component";
 import { InitialViewComponent } from "./initial-view/initial-view.component";
+import { MatchmakingComponent } from "./matchmaking/matchmaking.component";
 import { RenderService } from "./scene3d/render.service";
 import { Scene3dComponent } from "./scene3d/scene3d.component";
 import { ThematicObjectGeneratorService } from "./scene3d/thematic-object-generator.service";
 import { FileIO } from "./simple-game-creation/file-reader.util";
 import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-creation.component";
-import { ChronoComponent } from './chrono/chrono.component';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import { ChronoComponent } from './chrono/chrono.component';
         Gameplay3dComponent,
         ConfirmActionComponent,
         ChronoComponent,
+        MatchmakingComponent,
     ],
     imports: [
         BrowserModule,

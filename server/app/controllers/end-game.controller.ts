@@ -28,20 +28,20 @@ export class EndGameController {
             "/",
             async (req: Request, res: Response, next: NextFunction) => {
                 const game: AbstractGame = this.getGameService.getGame(req.body.gameId);
-                Promise.all([
-                    this.scoreUpdaterService.putScore(
+                await this.scoreUpdaterService.putScore(
                         game.sheetId,
-                        game.username,
+                        game.usernames[game.winner],
                         parseInt(req.body.time, EndGameController.BASE_10),
                         game.gameMode,
                     ).then((gameSheet: GameSheet) => {
                         const position: number = this.scoreUpdaterService.getPosition(gameSheet, req.body.time, game.gameMode);
                         if (position !== -1) {
-                            this.chatMessageService.sendBestTimeMessage(game.username, position, game.name, game.gameMode);
+                            this.chatMessageService.sendBestTimeMessage(game.usernames[game.winner], position, game.name, game.gameMode);
                         }
-                    }),
-                    this.getGameService.removeGame(req.body.gameId),
-                ]).then(() => {
+                    });
+
+                this.getGameService.removeGame(req.body.gameId)
+                .then(() => {
                     res.send({
                         body: "",
                     });

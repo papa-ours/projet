@@ -44,17 +44,20 @@ export class GetGameService {
         return this.dbConnectionService.getGameSheetId(name, type);
     }
 
-    public async createGame(name: string, type: GameType, username: string): Promise<string> {
+    public async createGame(name: string, type: GameType, mode: GameMode, usernames: string[]): Promise<string> {
         const id: string = this.generateUniqueId(GetGameService.games);
-        const sheetId: string = await this.getSheetId(name, type);
-        // triple equal problem
-        // tslint:disable-next-line:triple-equals
-        const game: AbstractGame = type == GameType.Free ?
-                            await FreeGame.create(id, sheetId, GameMode.Solo, name) :
-                            await SimpleGame.create(id, sheetId, GameMode.Solo, name);
-        if (game) {
-            GetGameService.games.push(game);
-            game.start(username);
+        const sheetId: string | void = await this.getSheetId(name, type).catch((error: Error) => console.error(error.message));
+
+        if (sheetId)  {
+            // triple equal problem
+            // tslint:disable-next-line:triple-equals
+            const game: AbstractGame = type == GameType.Free ?
+                await FreeGame.create(id, sheetId, mode, name) :
+                await SimpleGame.create(id, sheetId, mode, name);
+            if (game) {
+                GetGameService.games.push(game);
+                game.start(usernames);
+            }
         }
 
         return new Promise<string>((resolve: Function) => resolve(id));

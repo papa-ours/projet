@@ -1,9 +1,12 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { S3_BUCKET_URL } from "../../../../common/communication/constants";
-import { GameSheet, GameType } from "../../../../common/communication/game-description";
+import { GameMode, GameSheet, GameType } from "../../../../common/communication/game-description";
 import { ImageTypeName } from "../../../../common/images/image-type";
+import { ConnectionService } from "../connection.service";
 import { GameSheetService } from "../game-sheet.service";
+import { GameplayService } from "../gameplay.service";
+import { SocketService } from "../socket.service";
 
 @Component({
     selector: "app-game-sheet",
@@ -19,24 +22,34 @@ export class GameSheetComponent implements OnInit {
     ];
     public isConfirmPanelShown: boolean;
     public actionMessage: string;
+    public isGameCreated: boolean;
     @Input() public type: GameType;
     @Input() public description: GameSheet;
-    @Input() private isAdmin: boolean;
-    @ViewChild("btn1") private btn1: ElementRef;
-    @ViewChild("btn2") private btn2: ElementRef;
+    @Input() public isAdmin: boolean;
+    public loading: boolean;
 
-    public constructor(private router: Router, private gameSheetService: GameSheetService) {
+    public constructor(
+        private router: Router,
+        private gameSheetService: GameSheetService,
+        private gameplayService: GameplayService,
+        private connectionService: ConnectionService,
+        private socketSerivce: SocketService,
+    ) {
         this.source = "";
         this.isAdmin = false;
         this.isConfirmPanelShown = false;
+        this.loading = false;
     }
 
     public ngOnInit(): void {
         if (this.type === GameType.Simple) {
             this.source = `${S3_BUCKET_URL}/${this.description.name}-${ImageTypeName.Original}.bmp`;
         }
-        this.btn1.nativeElement.textContent = this.isAdmin ? "Supprimer" : "Jouer";
-        this.btn2.nativeElement.textContent = this.isAdmin ? "Réinitialiser" : "Créer";
+
+        this.isGameCreated = this.description.hasWaitingRoom ? true : false;
+        this.socketSerivce.getGameCreated(this.description.id).subscribe((status: boolean) => {
+            this.isGameCreated = status;
+        });
     }
 
     public delete(): void {
@@ -59,14 +72,18 @@ export class GameSheetComponent implements OnInit {
     }
 
     public play(): void {
-        this.router.navigateByUrl(`/game/${this.description.name}/${this.type}`)
-        .catch((err: Error) => {
-            console.error(err);
+        this.loading = true;
+        this.gameplayService.getGameId(this.description.name, this.type, GameMode.Solo, this.connectionService.username)
+        .subscribe((id: string) => {
+            this.router.navigateByUrl(`/game/${this.description.name}/${this.type}/${GameMode.Solo}/${id}`)
+            .catch((err: Error) => {
+                console.error(err);
+            });
         });
     }
 
-    public createGame(): void {
-        throw Error("Method not implemented!");
+    public playMultiplayerGame(): void {
+        this.router.navigateByUrl(`/matchmaking/${this.description.name}/${this.type}/${!this.isGameCreated}`);
     }
 
     public actionConfirmed(isActionConfirmed: boolean): void {
