@@ -5,7 +5,7 @@
     padding: 30px;
     background-color: var(--header-color);
     width: auto;
-    color: var(--primary-color);
+    color: var(--header-text-color);
     font-family: 'Helvetica';
     height: auto;
     border-radius: 10px;
