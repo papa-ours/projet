@@ -105,7 +105,8 @@
 }
 
 .switch.text-color .slider:before {
-    background-color: var(--primary-color);
+    filter: invert(100%);
+    background-color: var(--text-color);
 }
 
 .switch.theme-color .slider {
@@ -113,8 +114,9 @@
     filter: invert(100%);
 }
 
-.switch.switch.theme-color .slider:before {
-    background-color: var(--primary-color);
+.switch.theme-color .slider:before {
+    filter: invert(100%);
+    background-color: var(--header-text-color);
 }
   
 .slider:before {
