@@ -12,6 +12,6 @@ export class GameNameChecker {
 
         const id: string = await this.getGameService.getSheetId(name, type);
 
-        return id !== undefined;
+        return id === undefined;
     }
 }
