@@ -50,6 +50,13 @@ describe("IO", () => {
                 .catch(() => done());
         });
 
+        it("should delete if the directory exists", async () => {
+            const data: Uint8Array = new Uint8Array([0, 1, 0, 1]);
+            await FileIO.writeFile("test/test2.bmp", Buffer.from(data));
+            await FileIO.deleteFile("test/test2.bmp");
+            // tslint:disable-next-line:no-any
+            FileIO.readFile("test/test2.bmp").catch((reason: any) => expect(reason).to.not.equal(undefined));
+        });
     });
 
 });
