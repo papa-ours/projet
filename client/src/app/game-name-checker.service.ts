@@ -5,4 +5,9 @@ import { Injectable } from "@angular/core";
 })
 export class GameNameChecker {
 
+    public checkName(): boolean{
+
+
+        return false;
+    }
 }
