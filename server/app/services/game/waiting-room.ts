@@ -32,6 +32,8 @@ export class WaitingRoom {
     private startGame(): void {
         Axios.get(`${SERVER_ADDRESS}/api/game/id/${this.name}/${this.type}/${GameMode.Pvp}/${JSON.stringify(this.usernames)}`)
         .then((response: AxiosResponse<Message>) => {
+            Axios.delete(`${SERVER_ADDRESS}/api/game/waitingRoom/${this.name}/${this.usernames[0]}/${this.type}`)
+                .catch((error: Error) => console.error(error.message));
             Socket.io.to(`${this.gameSheetId}-${this.usernames[0]}`).emit("GameReady", response.data.body);
         })
         .catch((error: Error) => console.error(error.message));
