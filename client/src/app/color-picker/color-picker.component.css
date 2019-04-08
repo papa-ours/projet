@@ -134,3 +134,11 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+.icon {
+    color: var(--header-text-color);
+    grid-column: 1;
+    font-size: 26px;
+    margin: 12px;
+    text-align: center;
+}
