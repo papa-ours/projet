@@ -26,6 +26,7 @@ export class GameSheetComponent implements OnInit {
     @Input() public type: GameType;
     @Input() public description: GameSheet;
     @Input() public isAdmin: boolean;
+    public loading: boolean;
 
     public constructor(
         private router: Router,
@@ -37,6 +38,7 @@ export class GameSheetComponent implements OnInit {
         this.source = "";
         this.isAdmin = false;
         this.isConfirmPanelShown = false;
+        this.loading = false;
     }
 
     public ngOnInit(): void {
@@ -70,6 +72,7 @@ export class GameSheetComponent implements OnInit {
     }
 
     public play(): void {
+        this.loading = true;
         this.gameplayService.getGameId(this.description.name, this.type, GameMode.Solo, this.connectionService.username)
         .subscribe((id: string) => {
             this.router.navigateByUrl(`/game/${this.description.name}/${this.type}/${GameMode.Solo}/${id}`)
