@@ -9,11 +9,13 @@
             (click)="colorSelected(colorPalette)">
     </span>
 
+    <fa-icon class="icon theme" [icon]="faMoon"></fa-icon>
     <label class="switch theme-color">
         <input type="checkbox" checked (click)="changeTheme()">
         <span class="slider round"></span>
     </label>
 
+    <fa-icon class="icon text" [icon]="faFont"></fa-icon>
     <label class="switch text-color">
         <input type="checkbox" checked (click)="changeTextColor()">
         <span class="slider round"></span>
