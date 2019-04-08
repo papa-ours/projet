@@ -13,7 +13,7 @@ export const THEMATIC_OBJECTS: ThematicObject[] = [
     {name: "scissors", baseScale: 10},
     {name: "can", baseScale: 12},
     {name: "pencils", baseScale: 15},
-    {name: "car", baseScale: 0.5},
+    {name: "car", baseScale: 1},
 ];
 
 export enum ThematicObjectType {
