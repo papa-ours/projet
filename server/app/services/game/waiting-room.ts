@@ -6,7 +6,7 @@ import { Socket } from "../../socket";
 
 export class WaitingRoom {
     public usernames: string[];
-
+    private readonly REQUIRED_PLAYERS: number = 2;
     public constructor(
         public gameSheetId: string,
         public name: string,
@@ -18,14 +18,15 @@ export class WaitingRoom {
     }
 
     public addUser(username: string): void {
-        this.usernames.push(username);
-        this.joinRoom(username).then(() => {
-            Socket.io.to(`${this.gameSheetId}-${this.usernames[0]}`).emit("UserJoined", JSON.stringify(this.usernames));
-            const REQUIRED_PLAYERS: number = 2;
-            if (this.usernames.length === REQUIRED_PLAYERS) {
-                this.startGame();
-            }
-        });
+        if (this.usernames.length < this.REQUIRED_PLAYERS) {
+            this.usernames.push(username);
+            this.joinRoom(username).then(() => {
+                Socket.io.to(`${this.gameSheetId}-${this.usernames[0]}`).emit("UserJoined", JSON.stringify(this.usernames));
+                if (this.usernames.length === this.REQUIRED_PLAYERS) {
+                    this.startGame();
+                }
+            });
+        }
     }
 
     private startGame(): void {
