@@ -11,8 +11,8 @@ import { SocketService } from "../socket.service";
 })
 export class GameOverMessageComponent implements OnDestroy {
 
-    private readonly winnerMessage: string = "Bravo! Vous avez trouvé les différences!";
-    private readonly loserMessage: string = "Vous avez perdu";
+    private readonly WINNER_MESSAGE: string = "Bravo! Vous avez trouvé les différences!";
+    private readonly LOSER_MESSAGE: string = "Vous avez perdu";
 
     public endGameMessage: string;
     private winnerSubscription: Subscription;
@@ -26,7 +26,7 @@ export class GameOverMessageComponent implements OnDestroy {
         this.endGameMessage = "";
         this.username = this.connectionService.username;
         this.winnerSubscription = this.socketService.getWinner().subscribe((winner: string) => {
-            this.endGameMessage = winner === this.username ? this.winnerMessage : this.loserMessage;
+            this.endGameMessage = winner === this.username ? this.WINNER_MESSAGE : this.LOSER_MESSAGE;
         });
     }
 
