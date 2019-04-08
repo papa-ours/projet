@@ -1,4 +1,4 @@
-import Axios, { AxiosResponse } from "axios";
+import Axios from "axios";
 import { NextFunction } from "connect";
 import { Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
@@ -32,7 +32,7 @@ export class EndGameController {
             "/",
             async (req: Request, res: Response, next: NextFunction) => {
                 const game: AbstractGame = this.getGameService.getGame(req.body.gameId);
-                await this.sendWinner(game);
+                this.sendWinner(game);
                 await this.scoreUpdaterService.putScore(
                         game.sheetId,
                         game.usernames[game.winner],
@@ -64,14 +64,16 @@ export class EndGameController {
         game.gameMode == GameMode.Solo ? this.sendWinnerSolo(game) : this.sendWinnerPvp(game);
     }
 
-    private sendWinnerSolo(game: AbstractGame): void {
-        Axios.get(`${SERVER_ADDRESS}/api/id/${game.usernames[game.winner]}/`)
-        .then((response: AxiosResponse<Message>) => {
-            const socketId: string = response.data.body;
-            const socket: SocketIO.Socket | undefined = Socket.getSocket(socketId);
+    private async sendWinnerSolo(game: AbstractGame): Promise<{}> {
+        const id: string = (await Axios.get<Message>(`${SERVER_ADDRESS}/api/user/id/${game.usernames[game.winner]}`)).data.body;
+        const socket: SocketIO.Socket | undefined = Socket.getSocket(id);
+
+        return new Promise((resolve: Function) => {
             if (socket) {
                 socket.emit("endGameWinner", game.usernames[game.winner]);
             }
+
+            resolve();
         });
     }
 
