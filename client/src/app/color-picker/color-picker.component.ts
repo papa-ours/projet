@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { faMoon, faPalette, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { CookieService } from "ngx-cookie-service";
 
 interface ColorPalette {
@@ -19,6 +20,8 @@ interface ColorPreference {
 })
 export class ColorPickerComponent {
 
+    public readonly faMoon: IconDefinition = faMoon;
+    public readonly faPalette: IconDefinition = faPalette;
     private readonly COOKIE_KEY: string = "color-palette";
     public colorPalettes: ColorPalette[];
     public isPanelShown: boolean;
