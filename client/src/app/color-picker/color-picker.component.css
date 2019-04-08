@@ -142,3 +142,11 @@ input:checked + .slider:before {
     margin: 12px;
     text-align: center;
 }
+
+.palette-icon {
+    color: var(--primary-color);
+    font-size: 32px;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+}
