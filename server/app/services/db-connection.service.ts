@@ -1,8 +1,7 @@
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 import * as mongoose from "mongoose";
 import "reflect-metadata";
 import { GameMode, GameSheet, GameType } from "../../../common/communication/game-description";
-import Types from "../types";
 import { Score } from "./score/score";
 import { TopScores } from "./score/top-scores";
 
@@ -13,7 +12,7 @@ interface DeleteResponse {
 
 @injectable()
 export class DBConnectionService {
-    public static readonly URI: string = "mongodb+srv://ving34:pass123@cluster0-m1gwf.mongodb.net/test?retryWrites=true";
+    private readonly uri: string = "mongodb+srv://ving34:pass123@cluster0-m1gwf.mongodb.net/test?retryWrites=true";
     private readonly gameSheetSchema: mongoose.Schema = new mongoose.Schema({
         name: String,
         id: String,
@@ -22,7 +21,7 @@ export class DBConnectionService {
         type: Number,
     });
 
-    public constructor(@inject(Types.DBConnectionServiceURI) private uri: string) {
+    public constructor() {
         if (!mongoose.models.GameSheet) {
             mongoose.model("GameSheet", this.gameSheetSchema);
             mongoose.set("useFindAndModify", false);

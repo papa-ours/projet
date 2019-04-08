@@ -25,5 +25,4 @@ export default {
     ScoreUpdaterService: Symbol("ScoreUpdaterService"),
     EndGameController: Symbol("EndGameController"),
     SceneDifferenceCheckerService: Symbol("SceneDifferenceCheckerService"),
-    DBConnectionServiceURI: Symbol("DBConnectionServiceURI"),
 };

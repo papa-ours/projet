@@ -50,7 +50,6 @@ container.bind(Types.DifferenceCheckerService).to(DifferenceCheckerService);
 container.bind(Types.UsersContainerService).to(UsersContainerService);
 container.bind(Types.ChatMessageService).to(ChatMessageService);
 container.bind(Types.DBConnectionService).to(DBConnectionService);
-container.bind(Types.DBConnectionServiceURI).toConstantValue(DBConnectionService.URI);
 container.bind(Types.ScoreUpdaterService).to(ScoreUpdaterService);
 container.bind(Types.EndGameController).to(EndGameController);
 container.bind(Types.SceneDifferenceCheckerService).to(SceneDifferenceCheckerService);
