@@ -32,7 +32,6 @@ export class EndGameController {
             "/",
             async (req: Request, res: Response, next: NextFunction) => {
                 const game: AbstractGame = this.getGameService.getGame(req.body.gameId);
-                this.sendWinner(game);
                 await this.scoreUpdaterService.putScore(
                         game.sheetId,
                         game.usernames[game.winner],
@@ -44,6 +43,7 @@ export class EndGameController {
                             this.chatMessageService.sendBestTimeMessage(game.usernames[game.winner], position, game.name, game.gameMode);
                         }
                     });
+                this.sendWinner(game);
 
                 this.getGameService.removeGame(req.body.gameId)
                 .then(() => {
