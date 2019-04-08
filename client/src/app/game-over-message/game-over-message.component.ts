@@ -16,7 +16,6 @@ export class GameOverMessageComponent implements OnDestroy {
 
     public endGameMessage: string;
     private winnerSubscription: Subscription;
-    private username: string;
 
     public constructor(
         private router: Router,
@@ -24,9 +23,8 @@ export class GameOverMessageComponent implements OnDestroy {
         private socketService: SocketService,
     ) {
         this.endGameMessage = "";
-        this.username = this.connectionService.username;
         this.winnerSubscription = this.socketService.getWinner().subscribe((winner: string) => {
-            this.endGameMessage = winner === this.username ? this.WINNER_MESSAGE : this.LOSER_MESSAGE;
+            this.endGameMessage = winner === this.connectionService.username ? this.WINNER_MESSAGE : this.LOSER_MESSAGE;
         });
     }
 
@@ -35,7 +33,7 @@ export class GameOverMessageComponent implements OnDestroy {
     }
 
     public returnToLobby(): void {
-        this.router.navigateByUrl(`/gamelist/${this.username}`)
+        this.router.navigateByUrl(`/gamelist/${this.connectionService.username}`)
                     .catch((err: Error) => {
                         console.error(err);
                     },
