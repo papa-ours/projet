@@ -6,7 +6,7 @@
     
     <div class="info-container">
         <span>
-            <app-chrono></app-chrono>
+            <app-chrono [chronoRunning]="isChronoRunning"></app-chrono>
         </span>
         <span *ngFor="let counter of foundDifferencesCounters" class="differences-count">
             <span>{{counter}}/{{requiredDifferences}}</span>
