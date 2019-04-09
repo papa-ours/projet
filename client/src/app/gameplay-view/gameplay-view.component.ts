@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild  } from "@angular/core";
+import { Component, ElementRef, HostListener, OnInit, ViewChild  } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
 import { GameMode, GameType } from "../../../../common/communication/game-description";
@@ -18,8 +18,7 @@ export class GameplayViewComponent implements OnInit {
     private readonly CORRECT_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
     private readonly WRONG_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
     private readonly ERROR_TIMEOUT: number = 1000;
-    private isChronoRunning: boolean;
-    @Output() public startChrono: EventEmitter <boolean>;
+    public isChronoRunning: boolean;
 
     public totalDifferenceCounter: number;
     public foundDifferencesCounters: number[];
@@ -72,9 +71,7 @@ export class GameplayViewComponent implements OnInit {
             this.gameMode = params["mode"];
             this.requiredDifferences = this.gameMode == GameMode.Solo ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
             this.foundDifferencesCounters = this.gameMode == GameMode.Solo ? [0] : [0, 0];
-            this.startChrono = new EventEmitter<boolean>();
             this.isChronoRunning = true;
-            this.startChrono.emit( this.isChronoRunning);
         });
         const SOUND_VOLUME: number = 0.2;
         this.CORRECT_SOUND.volume = SOUND_VOLUME;
@@ -98,7 +95,6 @@ export class GameplayViewComponent implements OnInit {
         this.totalDifferenceCounter++;
         if (this.foundDifferencesCounters.indexOf(this.requiredDifferences) !== -1) {
             this.isChronoRunning = false;
-            this.startChrono.emit(this.isChronoRunning );
             this.canClick = false;
         }
     }
