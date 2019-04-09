@@ -4,13 +4,6 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     max-height: 65px;
 }
-.time-container {
-    background: var(--primary-color);
-    font-weight: 600;
-    border-radius: 60px;
-    margin-left: 20px;
-    padding: 20px;
-}
 
 .differences-count {
     margin-left: 20px;
