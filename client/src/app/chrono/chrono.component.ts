@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
@@ -17,7 +17,7 @@ export class ChronoComponent {
         this.isChronoRunning = false;
     }
 
-    public tuggleChrono(isRunningMode: boolean): void {
+    @Input() public set chronoRunning(isRunningMode: boolean) {
         isRunningMode ? this.startChrono() : this.stopChrono();
     }
 
