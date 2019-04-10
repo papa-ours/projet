@@ -23,7 +23,6 @@ export class GameplayViewComponent implements OnInit {
 
     public totalDifferenceCounter: number;
     public foundDifferencesCounters: number[];
-    public finished: boolean;
     public images: string[];
     public requiredDifferences: number;
     public type: GameType;
@@ -51,7 +50,6 @@ export class GameplayViewComponent implements OnInit {
         this.chrono = 0;
         this.isChronoRunning = false;
         this.totalDifferenceCounter = 0;
-        this.finished = false;
 
         if (!this.connectionService.connected) {
             this.router.navigateByUrl("/");
@@ -108,7 +106,6 @@ export class GameplayViewComponent implements OnInit {
         if (this.foundDifferencesCounters.indexOf(this.requiredDifferences) !== -1) {
             this.isChronoRunning = false;
             this.canClick = false;
-            this.finished = true;
         }
     }
 
