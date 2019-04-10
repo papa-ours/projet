@@ -14,7 +14,7 @@
         </span>
     </div>
 
-    <app-game-over-message *ngIf="finished"></app-game-over-message>
+    <app-game-over-message *ngIf="winner" [winner]="winner"></app-game-over-message>
     <div *ngIf="!isChronoRunning" class="loader"></div>
     <div #container class="images-chat-container" [class.disabled]="!isChronoRunning">
         <div [style.left.px]="clickPosition.i" [style.top.px]="clickPosition.j" class="error-tag" *ngIf="isErrorMessageVisible">ERREUR</div>

@@ -31,6 +31,7 @@ export class GameplayViewComponent implements OnInit {
     public isErrorMessageVisible: boolean;
     public clickPosition: Position;
     public chrono: number;
+    public winner: string;
     private isChronoRunning: boolean;
 
     @ViewChild("container") private containerRef: ElementRef;
@@ -60,6 +61,10 @@ export class GameplayViewComponent implements OnInit {
             if (message.text.includes("Différence")) {
                 this.updateDifferenceCounters(this.connectionService.username === message.username ? 0 : 1);
             }
+        });
+
+        this.socketService.getWinner().subscribe((winner: string) => {
+            this.winner = winner;
         });
     }
 
