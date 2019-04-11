@@ -6,6 +6,7 @@ import { GameListService } from "./game-list-getter.service";
 })
 export class GameNameCheckerService {
 
+    private names: string[];
     public constructor(private gameListService: GameListService) {  }
 
     public initialize(): void {
