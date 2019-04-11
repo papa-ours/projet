@@ -18,6 +18,11 @@ export class GameNameCheckerService {
         });
     }
     public checkName(name: string, type: GameType): boolean {
+        for (const nameGame of this.names) {
+            if (name === nameGame) {
+                return true;
+            }
+        }
 
         return false;
     }
