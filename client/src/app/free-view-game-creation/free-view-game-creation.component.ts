@@ -43,6 +43,10 @@ export class FreeViewGameCreationComponent {
 
     }
 
+    public isNameDuplicate(): boolean {
+        return this.gameNameCheckerService.checkName(this.freeViewForm.name, GameType.Free);
+    }
+
     public close(): void {
         this.closeForm.emit(false);
     }
