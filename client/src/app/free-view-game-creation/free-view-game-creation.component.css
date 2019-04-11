@@ -3,7 +3,7 @@
     background-color: var(--header-color);
     width: auto;
     color: var(--primary-color);
-    font-family: 'Helvetica';
+    font-family: 'Fjalla One', sans-serif;
     height: auto;
     border-radius: 10px;
     margin-top: 100px;
@@ -74,7 +74,7 @@ input {
 }
 
 button {
-    font-family: 'Helvetica';
+    font-family: 'Fjalla One', sans-serif;
     font-size: 18px;
     color: var(--text-color);
     border: none;

@@ -6,7 +6,7 @@
     background-color: var(--header-color);
     width: auto;
     color: var(--header-text-color);
-    font-family: 'Helvetica';
+    font-family: 'Fjalla One', sans-serif;
     height: auto;
     border-radius: 10px;
     margin-top: 100px;
@@ -20,7 +20,7 @@
 }
 
 button {
-    font-family: 'Helvetica';
+    font-family: 'Fjalla One', sans-serif;
     font-size: 18px;
     color: #FFFFFF;
     border: none;
