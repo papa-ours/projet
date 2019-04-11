@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
 import { GameType } from "../../../common/communication/game-description";
-import { GetGameService } from "../../../server/app/services/get-game.service";
+import { GameListService } from "./game-list-getter.service";
 @Injectable({
     providedIn: "root",
 })
 export class GameNameCheckerService {
 
-    public constructor(private getGameService: GetGameService) { }
+    public constructor(private gameListService: GameListService) {  }
 
     public initialize(): void {
     }
