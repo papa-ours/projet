@@ -31,13 +31,14 @@ export class MatchmakingComponent implements OnInit {
         private gameplayService: GameplayService,
     ) {
         this.other = "";
+
+        this.connectionService.connected ?
+        this.username = this.connectionService.username :
+        this.router.navigateByUrl("").catch((error: Error) => console.error(error.message));
+
     }
 
     public ngOnInit(): void {
-        this.connectionService.connected ?
-            this.username = this.connectionService.username :
-            this.router.navigateByUrl("").catch((error: Error) => console.error(error.message));
-
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
             this.type = params["type"];

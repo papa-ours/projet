@@ -1,4 +1,4 @@
-export const SERVER_ADDRESS: string = "http://10.200.6.172:3000";
+export const SERVER_ADDRESS: string = "http://localhost:3000";
 
 export const BMP_IMAGE_WIDTH: number = 640;
 export const BMP_IMAGE_HEIGHT: number = 480;
