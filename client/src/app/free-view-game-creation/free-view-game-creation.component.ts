@@ -56,7 +56,7 @@ export class FreeViewGameCreationComponent {
     }
 
     public submitForm(): void {
-        if (this.allValuesEntered) {
+        if (this.allValuesEntered && !this.isNameDuplicate()) {
             this.sendForm();
             this.close();
             // Otherwise, CI fails
