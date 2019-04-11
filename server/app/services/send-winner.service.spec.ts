@@ -28,7 +28,7 @@ after((done: Mocha.Done) => {
 });
 
 // tslint:disable-next-line:max-func-body-length
-describe.only("send-winner.service", () => {
+describe("send-winner.service", () => {
     const getGameService: GetGameService = container.get<GetGameService>(Types.GetGameService);
     const userContainerService: UsersContainerService = container.get<UsersContainerService>(Types.UsersContainerService);
     const username1: string = "Username1";
@@ -69,6 +69,30 @@ describe.only("send-winner.service", () => {
                                            {i: 468, j: 335}, {i: 222, j: 262}, {i: 343, j: 158}];
             Promise.all(positions.map((position: Position) =>
                 Axios.get(`${SERVER_ADDRESS}/api/difference/${game.id}/${position.i}/${position.j}/${username1}`)));
+        });
+    });
+
+    it("should send the winner to both players in pvp", (done: Mocha.Done) => {
+        socketClient1.on("endGameWinner", (winner1: string) => {
+            expect(winner1).to.equal(username1);
+            socketClient1.on("endGameWinner", (winner2: string) => {
+                expect(winner2).to.equal(username1);
+                done();
+            });
+        });
+        Axios.get(`${SERVER_ADDRESS}/api/game/id/voiture/${GameType.Simple}/${GameMode.Pvp}/${JSON.stringify(["Username1", "Username2"])}`)
+        .then((response: AxiosResponse<Message>) => {
+            const gameId: string = JSON.parse(response.data.body);
+            const game: AbstractGame = getGameService.getGame(gameId);
+            const userSocket1: SocketIO.Socket | undefined = Socket.getSocket(socketClient1.id);
+            const userSocket2: SocketIO.Socket | undefined = Socket.getSocket(socketClient2.id);
+            if (userSocket1 && userSocket2) {
+                userSocket1.join(`${game.sheetId}-Username1`);
+                userSocket2.join(`${game.sheetId}-Username1`);
+                const positions: Position[] = [{i: 480, j: 171}, {i: 477, j: 234}, {i: 254, j: 145}, {i: 33, j: 192}];
+                Promise.all(positions.map((position: Position) =>
+                    Axios.get(`${SERVER_ADDRESS}/api/difference/${game.id}/${position.i}/${position.j}/${username1}`)));
+            }
         });
     });
 });
