@@ -7,7 +7,7 @@
     <div class="info name-section">
         Nom du jeu :
         <input class="name-input" placeholder="7 differences" [(ngModel)]="name"><br>
-        <div  class="error-message" *ngIf="(name.length < OPTION_MIN_NAME_LENGTH  || name.length > OPTION_MAX_NAME_LENGTH)">
+        <div  class="error-message" *ngIf="(name.length < OPTION_MIN_NAME_LENGTH  || name.length > OPTION_MAX_NAME_LENGTH) && hasFormError">
             Le nom du jeu doit comporter entre 5 et 15 caractères
         </div>
     </div>
