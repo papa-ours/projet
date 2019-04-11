@@ -5,7 +5,6 @@ import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { GameMode, GameType } from "../../../common/communication/game-description";
 import { ChatMessage, Message } from "../../../common/communication/message";
 import { container } from "../inversify.config";
-import { Server } from "../server";
 import { Socket } from "../socket";
 import Types from "../types";
 import { ChatMessageService } from "./chat-message.service";
@@ -15,11 +14,6 @@ import { UsersContainerService } from "./users-container.service";
 
 describe("chat-message-service", () => {
     const getGameService: GetGameService = container.get<GetGameService>(Types.GetGameService);
-    const server: Server = container.get<Server>(Types.Server);
-    server.init();
-    const socket: Socket = container.get<Socket>(Types.Socket);
-    socket.init(server.getServer());
-
     const userContainerService: UsersContainerService = container.get<UsersContainerService>(Types.UsersContainerService);
     const chatMessageService: ChatMessageService = container.get<ChatMessageService>(Types.ChatMessageService);
     const username1: string = "Username1";
@@ -44,12 +38,6 @@ describe("chat-message-service", () => {
     afterEach((done: Mocha.Done) => {
         socketClient1.disconnect();
         socketClient2.disconnect();
-        done();
-    });
-
-    after((done: Mocha.Done) => {
-        Socket.io.close();
-        server.getServer().close();
         done();
     });
 
