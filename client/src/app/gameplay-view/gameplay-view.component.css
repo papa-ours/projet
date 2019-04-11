@@ -1,7 +1,7 @@
 .info-container {
-    color: #FFFFFF;
+    color: var(--text-color);
     font-size: 50px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Fjalla One', sans-serif;
     max-height: 65px;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .info-label {
-    color: #FFFFFF;
+    color: var(--text-color);
 }
 
 .images-chat-container {
@@ -40,9 +40,9 @@ app-chat-messages {
 }
 .instruction-container, .title-container {
     height: 75px;
-    color: #FFFFFF;
+    color: var(--header-text-color);
     width: 100%;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Fjalla One', sans-serif;
     text-align: center;
 }
 

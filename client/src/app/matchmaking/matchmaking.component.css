@@ -1,5 +1,5 @@
 * {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Fjalla One', sans-serif;
 }
 
 .username {
@@ -29,6 +29,7 @@
 }
 
 .users-container {
+    flex-direction: row;
     display: flex;
     margin: auto;
 }
@@ -57,20 +58,20 @@
 
 .page-container {
     display: flex;
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
 }
 
 
 .cancel-btn {
-    position: absolute;
-    font-family: 'Helvetica';
+    margin: 0px auto auto auto;
+    font-family: 'Fjalla One', sans-serif;
     font-size: 24px;
     color: #FFFFFF;
     border: none;
     width: 140px;
     height: 54px;
-    margin: 10px;
     border-radius: 30px;
     cursor: pointer;
     background: var(--header-color);

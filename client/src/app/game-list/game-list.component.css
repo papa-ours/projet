@@ -8,9 +8,9 @@
     padding-top: 10px;
     margin-top:70px;
     background: var(--secondary-color);
-    color: #FFFFFF;
+    color: var(--text-color);
     font-weight: 600;
-    font-family: 'Trebuchet MS';
+    font-family: 'Fjalla One', sans-serif;
     font-size: 28px;
     text-align: center;
     height: 6%;
