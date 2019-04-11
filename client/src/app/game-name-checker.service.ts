@@ -4,7 +4,7 @@ import { GetGameService } from "../../../server/app/services/get-game.service";
 @Injectable({
     providedIn: "root",
 })
-export class GameNameChecker {
+export class GameNameCheckerService {
 
     public constructor(private getGameService: GetGameService) { }
 
