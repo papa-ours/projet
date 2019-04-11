@@ -3,10 +3,12 @@ import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { CookieService } from "ngx-cookie-service";
 import { AdminViewComponent } from "./admin-view/admin-view.component";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { AppComponent } from "./app.component";
 import { ChatMessagesComponent } from "./chat-messages/chat-messages.component";
+import { ColorPickerComponent } from "./color-picker/color-picker.component";
 import { ConfirmActionComponent } from "./confirm-action/confirm-action.component";
 import { ConnectionService } from "./connection.service";
 import { DifferenceCheckerService } from "./difference-checker.service";
@@ -42,6 +44,7 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         GameplayViewComponent,
         ChatMessagesComponent,
         GameImageComponent,
+        ColorPickerComponent,
         Gameplay2DComponent,
         Gameplay3dComponent,
         ConfirmActionComponent,
@@ -55,6 +58,7 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         FontAwesomeModule,
       ],
     providers: [
+        CookieService,
         ConnectionService,
         DifferenceImageService,
         DifferenceCheckerService,
