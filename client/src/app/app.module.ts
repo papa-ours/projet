@@ -26,7 +26,7 @@ import { Scene3dComponent } from "./scene3d/scene3d.component";
 import { ThematicObjectGeneratorService } from "./scene3d/thematic-object-generator.service";
 import { FileIO } from "./simple-game-creation/file-reader.util";
 import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-creation.component";
-
+import { GameNameCheckerService } from "./game-name-checker.service";
 @NgModule({
     declarations: [
         AppComponent,
@@ -60,6 +60,7 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         FileIO,
         Difference3DCheckerService,
         RenderService,
+        GameNameCheckerService,
         GameplayViewComponent,
         Gameplay2DComponent,
         {provide: String, useValue: "stringValue"},
