@@ -29,6 +29,7 @@
 }
 
 .users-container {
+    flex-direction: row;
     display: flex;
     margin: auto;
 }
@@ -57,20 +58,20 @@
 
 .page-container {
     display: flex;
+    flex-direction: column;
     width: 100vw;
     height: 100vh;
 }
 
 
 .cancel-btn {
-    position: absolute;
+    margin: 0px auto auto auto;
     font-family: 'Helvetica';
     font-size: 24px;
     color: #FFFFFF;
     border: none;
     width: 140px;
     height: 54px;
-    margin: 10px;
     border-radius: 30px;
     cursor: pointer;
     background: var(--header-color);
