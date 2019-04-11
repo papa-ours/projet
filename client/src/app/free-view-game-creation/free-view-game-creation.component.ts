@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from "@angular/core";
 import { FormValidationFreeViewService } from "../form-validation-free-view.service";
 import { FreeViewForm } from "../free-view-form";
 import { GameFreeViewGenerationService } from "../game-free-view-generation.service";
-
+import { GameNameCheckerService } from "../game-name-checker.service";
 @Component({
     selector: "app-free-view-game-creation",
     templateUrl: "./free-view-game-creation.component.html",
