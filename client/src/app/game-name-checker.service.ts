@@ -10,7 +10,8 @@ export class GameNameCheckerService {
 
     public initialize(): void {
     }
+    public checkName(name: string, type: GameType): boolean {
 
-        return id === undefined;
+        return false;
     }
 }
