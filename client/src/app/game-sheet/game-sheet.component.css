@@ -4,7 +4,7 @@
     grid-template-columns: 214px 300px;
     grid-template-rows: 10% 90%;
     border-radius: 10px;
-    font-family: 'Fjalla One', sans-serif;
+    font-family: var(--font);
     background-image: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     margin-bottom: 20px;
     height: 220px;
