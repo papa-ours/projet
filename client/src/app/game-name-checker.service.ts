@@ -10,6 +10,12 @@ export class GameNameCheckerService {
     public constructor(private gameListService: GameListService) {  }
 
     public initialize(): void {
+        this.names = [];
+        this.gameListService.getGameList().subscribe((lists) => {
+            for (const game3d of lists.list3d) {
+                this.names.push(game3d.name);
+            }
+        });
     }
     public checkName(name: string, type: GameType): boolean {
 
