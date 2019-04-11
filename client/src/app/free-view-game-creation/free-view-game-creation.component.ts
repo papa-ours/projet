@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from "@angular/core";
+import { GameType } from "../../../../common/communication/game-description";
 import { FormValidationFreeViewService } from "../form-validation-free-view.service";
 import { FreeViewForm } from "../free-view-form";
 import { GameFreeViewGenerationService } from "../game-free-view-generation.service";
