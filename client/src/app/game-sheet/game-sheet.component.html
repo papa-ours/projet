@@ -35,7 +35,7 @@
             <div>{{isAdmin ? "Supprimer" : "Jouer"}}</div>
         </button>
         <button #btn2 (click)="isAdmin ? showConfirmPanel('réinitialiser') : playMultiplayerGame()" [disabled]="loading">
-            <div>{{isAdmin ? "Réinitialiser" : isGameCreated ? "Joindre" : "Créer"}}</div>
+            <div>{{isAdmin ? "Réinitialiser" : description.hasWaitingRoom ? "Joindre" : "Créer"}}</div>
         </button>
     </div>
 </div>

@@ -22,7 +22,6 @@ export class GameSheetComponent implements OnInit {
     ];
     public isConfirmPanelShown: boolean;
     public actionMessage: string;
-    public isGameCreated: boolean;
     @Input() public type: GameType;
     @Input() public description: GameSheet;
     @Input() public isAdmin: boolean;
@@ -46,9 +45,8 @@ export class GameSheetComponent implements OnInit {
             this.source = `${S3_BUCKET_URL}/${this.description.name}-${ImageTypeName.Original}.bmp`;
         }
 
-        this.isGameCreated = this.description.hasWaitingRoom ? true : false;
         this.socketSerivce.getGameCreated(this.description.id).subscribe((status: boolean) => {
-            this.isGameCreated = status;
+            this.description.hasWaitingRoom = status;
         });
     }
 
@@ -83,7 +81,7 @@ export class GameSheetComponent implements OnInit {
     }
 
     public playMultiplayerGame(): void {
-        this.router.navigateByUrl(`/matchmaking/${this.description.name}/${this.type}/${!this.isGameCreated}`);
+        this.router.navigateByUrl(`/matchmaking/${this.description.name}/${this.type}/${!this.description.hasWaitingRoom}`);
     }
 
     public actionConfirmed(isActionConfirmed: boolean): void {
