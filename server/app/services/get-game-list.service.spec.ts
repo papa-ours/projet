@@ -9,6 +9,7 @@ describe("get game list", () => {
     it("should return the game list properly", () => {
         getGameListService.getGameList().then((result: GameLists) => {
             expect(result).to.not.equals(undefined);
-        });
+        })
+        .catch((error: Error) => console.error(error.message));
     });
 });
