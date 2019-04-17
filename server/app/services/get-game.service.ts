@@ -54,10 +54,8 @@ export class GetGameService {
             const game: AbstractGame = type == GameType.Free ?
                 await FreeGame.create(id, sheetId, mode, name) :
                 await SimpleGame.create(id, sheetId, mode, name);
-            if (game) {
-                GetGameService.games.push(game);
-                game.start(usernames);
-            }
+            GetGameService.games.push(game);
+            game.start(usernames);
         }
 
         return new Promise<string>((resolve: Function) => resolve(id));
