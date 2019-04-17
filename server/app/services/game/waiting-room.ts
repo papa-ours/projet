@@ -25,7 +25,8 @@ export class WaitingRoom {
                 if (this.usernames.length === this.REQUIRED_PLAYERS) {
                     this.startGame();
                 }
-            });
+            })
+            .catch((error: Error) => console.error(error.message));
         }
     }
 
