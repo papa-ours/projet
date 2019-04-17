@@ -5,13 +5,13 @@
     <div class="title-container">{{name}}</div>
     
     <div class="info-container">
-        <span class="time-container">
+        <div class="time-container">
             <fa-icon [icon]="hourglassIcon" class="info-label"></fa-icon>
             <span>{{formattedChrono}}</span>
-        </span>
-        <span *ngFor="let counter of foundDifferencesCounters" class="differences-count">
+        </div>
+        <div *ngFor="let counter of foundDifferencesCounters" class="differences-count">
             <span>{{counter}}/{{requiredDifferences}}</span>
-        </span>
+        </div>
     </div>
 
 

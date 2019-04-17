@@ -3,6 +3,8 @@
     font-size: 50px;
     font-family: var(--font);
     max-height: 65px;
+    display: flex;
+    flex-direction: row;
 }
 .time-container {
     background: var(--primary-color);
@@ -10,10 +12,14 @@
     border-radius: 60px;
     margin-left: 20px;
     padding: 20px;
+    height: 100%;
+    width: 165px;
 }
 
 .differences-count {
+    width: 70px;
     margin-left: 20px;
+    height: 100%;
     border-radius: 100%;
     background: var(--success-color);
     padding: 25px;
