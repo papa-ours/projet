@@ -23,13 +23,24 @@
     width: 165px;
 }
 
+.counters {
+    display: flex;
+    flex-direction: row;
+}
+
 .differences-count {
     width: 70px;
-    margin-left: 420px;
     height: 100%;
     border-radius: 100%;
-    background: var(--success-color);
     padding: 25px;
+}
+
+.differences-count:nth-child(2) {
+    background: var(--success-color);
+}
+
+.differences-count:nth-child(4)  {
+    background: var(--danger-color);
 }
 
 .filler {
@@ -37,7 +48,7 @@
 }
 
 .spacer {
-    flex-grow: 1;
+    width: 10px;
 }
 
 .info-container div {
