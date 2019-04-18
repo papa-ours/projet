@@ -21,7 +21,8 @@ export class CreateGameController {
             "/id/:name/:type/:mode/:usernames",
             async (req: Request, res: Response, next: NextFunction) => {
                 const id: string = await this.getGameService
-                    .createGame(req.params.name, req.params.type, req.params.mode, JSON.parse(req.params.usernames));
+                    .createGame(req.params.name, req.params.type, req.params.mode, JSON.parse(req.params.usernames))
+                        .catch((error: Error) => console.error(error.message));
                 const message: Message = {
                     type: MessageType.GAME_SHEET_GENERATION,
                     body: JSON.stringify(id),

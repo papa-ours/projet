@@ -46,7 +46,9 @@ export class GetGameService {
 
     public async createGame(name: string, type: GameType, mode: GameMode, usernames: string[]): Promise<string> {
         const id: string = this.generateUniqueId(GetGameService.games);
-        const sheetId: string | void = await this.getSheetId(name, type).catch((error: Error) => console.error(error.message));
+        const sheetId: string | void = await this.getSheetId(name, type).catch((error: Error) => {
+            throw error;
+        });
 
         if (sheetId)  {
             // triple equal problem
