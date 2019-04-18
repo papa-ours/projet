@@ -58,13 +58,16 @@ export class Socket {
     private setupDisconnect(socket: SocketIO.Socket): void {
         socket.on("disconnect", () => {
             this.chatMessageService.sendConnectionMessage(socket, Connection.DISCONNECT);
-            this.deleteUser(socket.id);
+            try {
+                this.deleteUser(socket.id);
+            } catch (error) {
+                console.error(error.message);
+            }
         });
     }
 
     private deleteUser(id: string): void {
-        Axios.delete(`${SERVER_ADDRESS}/api/game/waitingRoom/all/${this.usersContainerService.getUsernameBySocketId(id)}`)
-            .catch((error: Error) => console.error(error.message));
+        Axios.delete(`${SERVER_ADDRESS}/api/game/waitingRoom/all/${this.usersContainerService.getUsernameBySocketId(id)}`);
         this.deleteSocket(id);
         this.usersContainerService.deleteUserById(id);
     }
