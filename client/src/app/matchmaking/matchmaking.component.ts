@@ -66,7 +66,7 @@ export class MatchmakingComponent implements OnInit {
     private waitForGameReady(): void {
         this.joinSubscription = this.socketService.getGameReady().subscribe((id: string) => {
             this.router.navigateByUrl(`game/${this.name}/${this.type}/${GameMode.Pvp}/${id}`)
-            .catch((error: Error) => console.error(error.message));
+                .catch((error: Error) => console.error(error.message));
         });
     }
 
