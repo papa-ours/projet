@@ -1,5 +1,5 @@
 import { Location } from "@angular/common";
-import { Component, OnDestroy OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router} from "@angular/router";
 import { faUser, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { Subscription } from "rxjs";
