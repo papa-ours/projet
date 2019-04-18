@@ -33,8 +33,8 @@ export class WaitingRoomService {
             });
     }
 
-    public deleteWaitingRoom(name: string, username: string, type: GameType): void {
-        this.getSheetId(name, type)
+    public async deleteWaitingRoom(name: string, username: string, type: GameType): Promise<void> {
+        return this.getSheetId(name, type)
             .then((id: string) => {
                 const index: number = WaitingRoomService.waitingRooms[type].findIndex((waitingRoom: WaitingRoom) => {
                     return waitingRoom.gameSheetId === id && waitingRoom.usernames[0] === username;
@@ -44,8 +44,7 @@ export class WaitingRoomService {
                     Socket.io.emit(`GameCreated-${id}`, false);
                     WaitingRoomService.waitingRooms[type].splice(index, 1);
                 }
-            })
-            .catch((error: Error) => console.error(error.message));
+            });
     }
 
     public deleteAllWaitingRooms(username: string): void {
