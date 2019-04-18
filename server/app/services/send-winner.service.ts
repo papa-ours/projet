@@ -10,6 +10,7 @@ import { AbstractGame } from "./game/game";
 export class SendWinnerService {
 
     public sendWinner(game: AbstractGame): void {
+        // tslint:disable-next-line:triple-equals
         game.gameMode == GameMode.Solo ? this.sendWinnerSolo(game) : this.sendWinnerPvp(game);
     }
 
