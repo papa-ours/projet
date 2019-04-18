@@ -31,7 +31,7 @@
     </div>
 
     <div class="buttons">
-        <button #btn1 (click)="isAdmin ? showConfirmPanel('supprimer') : play()" [disabled]="loading">
+        <button #btn1 (click)="isAdmin ? showConfirmPanel('supprimer') : play()" [disabled]="loading || !canPlay">
             <div>{{isAdmin ? "Supprimer" : "Jouer"}}</div>
         </button>
         <button #btn2 (click)="isAdmin ? showConfirmPanel('réinitialiser') : playMultiplayerGame()" [disabled]="loading">
