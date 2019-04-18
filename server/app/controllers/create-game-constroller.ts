@@ -44,7 +44,8 @@ export class CreateGameController {
         router.post(
             "/waitingRoom/create/",
             async (req: Request, res: Response, next: NextFunction) => {
-                this.waitingRoomService.createWaitingRoom(req.body.name, req.body.username, req.body.type);
+                await this.waitingRoomService.createWaitingRoom(req.body.name, req.body.username, req.body.type)
+                    .catch((error: Error) => console.error(error.message));
                 res.send();
             });
 

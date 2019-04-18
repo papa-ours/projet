@@ -10,14 +10,13 @@ import { WaitingRoom } from "./game/waiting-room";
 export class WaitingRoomService {
     public static readonly waitingRooms: [WaitingRoom[], WaitingRoom[]] = [[], []];
 
-    public createWaitingRoom(name: string, username: string, type: GameType): void {
-        this.getSheetId(name, type)
+    public async createWaitingRoom(name: string, username: string, type: GameType): Promise<void> {
+        return this.getSheetId(name, type)
             .then((id: string) => {
                 Socket.io.emit(`GameCreated-${id}`, true);
                 WaitingRoomService.waitingRooms[type]
                     .push(new WaitingRoom(id, name, username, type));
-            })
-            .catch((error: Error) => console.error(error.message));
+            });
     }
 
     public joinWaitingRoom(name: string, username: string, type: GameType): void {
