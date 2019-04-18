@@ -19,7 +19,7 @@ export class MatchmakingComponent implements OnInit {
     public joinSubscription: Subscription;
     private name: string;
     private type: GameType;
-    public createGame: boolean;
+    public isGameCreated: boolean;
     public other: string;
 
     public constructor(
@@ -42,8 +42,8 @@ export class MatchmakingComponent implements OnInit {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
             this.type = params["type"];
-            this.createGame = JSON.parse(params["create"]);
-            this.createGame ? this.createWaitingRoom() : this.joinWaitingRoom();
+            this.isGameCreated = JSON.parse(params["create"]);
+            this.isGameCreated ? this.joinWaitingRoom() : this.createWaitingRoom();
 
             this.socketService.getUserJoined().subscribe((usernames: string[]) => {
                 this.username = usernames[0];
