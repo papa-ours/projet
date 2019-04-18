@@ -12,41 +12,42 @@ export class WaitingRoomService {
 
     public createWaitingRoom(name: string, username: string, type: GameType): void {
         this.getSheetId(name, type)
-        .then((id: string) => {
-            Socket.io.emit(`GameCreated-${id}`, true);
-            WaitingRoomService.waitingRooms[type]
-                .push(new WaitingRoom(id, name, username, type));
-        })
-        .catch((error: Error) => console.error(error.message));
+            .then((id: string) => {
+                Socket.io.emit(`GameCreated-${id}`, true);
+                WaitingRoomService.waitingRooms[type]
+                    .push(new WaitingRoom(id, name, username, type));
+            })
+            .catch((error: Error) => console.error(error.message));
     }
 
     public joinWaitingRoom(name: string, username: string, type: GameType): void {
         this.getSheetId(name, type)
-        .then((id: string) => {
-            const waitingRoom: WaitingRoom | undefined = WaitingRoomService.waitingRooms[type].find((currentWaitingRoom: WaitingRoom) => {
-                return currentWaitingRoom.gameSheetId === id;
-            });
+            .then((id: string) => {
+                const waitingRoom: WaitingRoom | undefined = WaitingRoomService.waitingRooms[type]
+                    .find((currentWaitingRoom: WaitingRoom) => {
+                        return currentWaitingRoom.gameSheetId === id;
+                    });
 
-            if (waitingRoom) {
-                waitingRoom.addUser(username);
-            }
-        })
-        .catch((error: Error) => console.error(error.message));
+                if (waitingRoom) {
+                    waitingRoom.addUser(username);
+                }
+            })
+            .catch((error: Error) => console.error(error.message));
     }
 
     public deleteWaitingRoom(name: string, username: string, type: GameType): void {
         this.getSheetId(name, type)
-        .then((id: string) => {
-            const index: number = WaitingRoomService.waitingRooms[type].findIndex((waitingRoom: WaitingRoom) => {
-                return waitingRoom.gameSheetId === id && waitingRoom.usernames[0] === username;
-            });
+            .then((id: string) => {
+                const index: number = WaitingRoomService.waitingRooms[type].findIndex((waitingRoom: WaitingRoom) => {
+                    return waitingRoom.gameSheetId === id && waitingRoom.usernames[0] === username;
+                });
 
-            if (index !== -1) {
-                Socket.io.emit(`GameCreated-${id}`, false);
-                WaitingRoomService.waitingRooms[type].splice(index, 1);
-            }
-        })
-        .catch((error: Error) => console.error(error.message));
+                if (index !== -1) {
+                    Socket.io.emit(`GameCreated-${id}`, false);
+                    WaitingRoomService.waitingRooms[type].splice(index, 1);
+                }
+            })
+            .catch((error: Error) => console.error(error.message));
     }
 
     public deleteAllWaitingRooms(username: string): void {
