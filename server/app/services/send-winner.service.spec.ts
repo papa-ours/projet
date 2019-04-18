@@ -13,20 +13,6 @@ import { AbstractGame } from "./game/game";
 import { GetGameService } from "./get-game.service";
 import { UsersContainerService } from "./users-container.service";
 
-const server: Server = container.get<Server>(Types.Server);
-
-before(() => {
-    server.init();
-    const socket: Socket = container.get<Socket>(Types.Socket);
-    socket.init(server.getServer());
-});
-
-after((done: Mocha.Done) => {
-    Socket.io.close();
-    server.getServer().close();
-    done();
-});
-
 describe("send-winner.service", () => {
     const getGameService: GetGameService = container.get<GetGameService>(Types.GetGameService);
     const userContainerService: UsersContainerService = container.get<UsersContainerService>(Types.UsersContainerService);
@@ -34,6 +20,20 @@ describe("send-winner.service", () => {
     const username2: string = "Username2";
     let socketClient1: SocketIOClient.Socket;
     let socketClient2: SocketIOClient.Socket;
+
+    const server: Server = container.get<Server>(Types.Server);
+    const socket: Socket = container.get<Socket>(Types.Socket);
+
+    before(() => {
+        server.init();
+        socket.init(server.getServer());
+    });
+
+    after((done: Mocha.Done) => {
+        Socket.io.close();
+        server.getServer().close();
+        done();
+    });
 
     beforeEach((done: Mocha.Done) => {
         socketClient1 = io.connect(SERVER_ADDRESS, { forceNew: true, reconnectionDelay: 0 });
