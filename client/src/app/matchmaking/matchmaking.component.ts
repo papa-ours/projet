@@ -1,5 +1,5 @@
 import { Location } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router} from "@angular/router";
 import { faUser, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { Subscription } from "rxjs";
@@ -13,7 +13,7 @@ import { SocketService } from "../socket.service";
     templateUrl: "./matchmaking.component.html",
     styleUrls: ["./matchmaking.component.css"],
 })
-export class MatchmakingComponent implements OnInit {
+export class MatchmakingComponent implements OnInit, OnDestroy {
     public username: string;
     public faUser: IconDefinition = faUser;
     public joinSubscription: Subscription;
@@ -49,6 +49,10 @@ export class MatchmakingComponent implements OnInit {
                 this.other = usernames[1] ? usernames[1] : "";
             });
         });
+    }
+
+    public ngOnDestroy(): void {
+        this.joinSubscription.unsubscribe();
     }
 
     private createWaitingRoom(): void {
