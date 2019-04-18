@@ -74,9 +74,9 @@ export class GameSheetComponent implements OnInit {
         this.gameplayService.getGameId(this.description.name, this.type, GameMode.Solo, this.connectionService.username)
         .subscribe((id: string) => {
             this.router.navigateByUrl(`/game/${this.description.name}/${this.type}/${GameMode.Solo}/${id}`)
-            .catch((err: Error) => {
-                console.error(err);
-            });
+                .catch((err: Error) => {
+                    console.error(err);
+                });
         });
     }
 
