@@ -19,7 +19,6 @@
         <div class="filler"></div>
     </div>
 
-
     <div *ngIf="!isChronoRunning" class="loader"></div>
     <div #container class="images-chat-container" [class.disabled]="!isChronoRunning">
         <div [style.left.px]="clickPosition.i" [style.top.px]="clickPosition.j" class="error-tag" *ngIf="isErrorMessageVisible">ERREUR</div>
