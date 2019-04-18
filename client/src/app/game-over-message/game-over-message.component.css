@@ -1,7 +1,6 @@
 .game-over-message-popup {
     position: absolute;
     left: 24%;
-    top: 30vh;
     padding: 30px;
     background-color: var(--header-color);
     width: auto;
@@ -11,6 +10,7 @@
     border-radius: 10px;
     margin-top: 100px;
     z-index: 6;
+    text-align: center;
 }
 
 .returnToGames {
@@ -19,7 +19,6 @@
     color:  #FFFFFF;
     transition-duration: 0.5s;
     border-radius: 30px;
-    margin-left: 30%;
     border: 0px;
     padding: 10px;
     margin-top: 10px;
