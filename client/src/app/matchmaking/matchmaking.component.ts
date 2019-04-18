@@ -33,9 +33,8 @@ export class MatchmakingComponent implements OnInit {
         this.other = "";
 
         this.connectionService.connected ?
-        this.username = this.connectionService.username :
-        this.router.navigateByUrl("").catch((error: Error) => console.error(error.message));
-
+            this.username = this.connectionService.username :
+            this.router.navigateByUrl("").catch((error: Error) => console.error(error.message));
     }
 
     public ngOnInit(): void {
