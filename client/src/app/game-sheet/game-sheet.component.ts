@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { S3_BUCKET_URL } from "../../../../common/communication/constants";
 import { GameMode, GameSheet, GameType } from "../../../../common/communication/game-description";
@@ -25,6 +25,8 @@ export class GameSheetComponent implements OnInit {
     @Input() public type: GameType;
     @Input() public description: GameSheet;
     @Input() public isAdmin: boolean;
+    @Input() public canPlay: boolean;
+    @Output() public loadGame: EventEmitter<void>;
     public loading: boolean;
 
     public constructor(
@@ -38,6 +40,7 @@ export class GameSheetComponent implements OnInit {
         this.isAdmin = false;
         this.isConfirmPanelShown = false;
         this.loading = false;
+        this.loadGame = new EventEmitter();
     }
 
     public ngOnInit(): void {
@@ -59,9 +62,9 @@ export class GameSheetComponent implements OnInit {
 
     public reinitializeScores(): void {
         this.gameSheetService.reinitializeScores(this.description.id, this.type)
-        .subscribe(() => {
-            location.reload();
-        });
+            .subscribe(() => {
+                location.reload();
+            });
     }
 
     public showConfirmPanel(message: string): void {
@@ -71,18 +74,19 @@ export class GameSheetComponent implements OnInit {
 
     public play(): void {
         this.loading = true;
+        this.loadGame.emit();
         this.gameplayService.getGameId(this.description.name, this.type, GameMode.Solo, this.connectionService.username)
         .subscribe((id: string) => {
             this.router.navigateByUrl(`/game/${this.description.name}/${this.type}/${GameMode.Solo}/${id}`)
-            .catch((err: Error) => {
-                console.error(err);
-            });
+                .catch((err: Error) => {
+                    console.error(err);
+                });
         });
     }
 
     public playMultiplayerGame(): void {
-        this.router.navigateByUrl(`/matchmaking/${this.description.name}/${this.type}/${!this.description.hasWaitingRoom}`)
-        .catch((error: Error) => console.error(error.message));
+        this.router.navigateByUrl(`/matchmaking/${this.description.name}/${this.type}/${this.description.hasWaitingRoom}`)
+            .catch((error: Error) => console.error(error.message));
     }
 
     public actionConfirmed(isActionConfirmed: boolean): void {

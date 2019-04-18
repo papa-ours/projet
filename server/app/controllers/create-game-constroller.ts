@@ -20,8 +20,9 @@ export class CreateGameController {
         router.get(
             "/id/:name/:type/:mode/:usernames",
             async (req: Request, res: Response, next: NextFunction) => {
-                const id: string = await this.getGameService
-                    .createGame(req.params.name, req.params.type, req.params.mode, JSON.parse(req.params.usernames));
+                const id: string | void = await this.getGameService
+                    .createGame(req.params.name, req.params.type, req.params.mode, JSON.parse(req.params.usernames))
+                        .catch((error: Error) => console.error(error.message));
                 const message: Message = {
                     type: MessageType.GAME_SHEET_GENERATION,
                     body: JSON.stringify(id),
@@ -44,7 +45,8 @@ export class CreateGameController {
         router.post(
             "/waitingRoom/create/",
             async (req: Request, res: Response, next: NextFunction) => {
-                this.waitingRoomService.createWaitingRoom(req.body.name, req.body.username, req.body.type);
+                await this.waitingRoomService.createWaitingRoom(req.body.name, req.body.username, req.body.type)
+                    .catch((error: Error) => console.error(error.message));
                 res.send();
             });
 
@@ -57,14 +59,16 @@ export class CreateGameController {
         router.post(
             "/waitingRoom/join/",
             async (req: Request, res: Response, next: NextFunction) => {
-                this.waitingRoomService.joinWaitingRoom(req.body.name, req.body.username, req.body.type);
+                await this.waitingRoomService.joinWaitingRoom(req.body.name, req.body.username, req.body.type)
+                    .catch((error: Error) => console.error(error.message));
                 res.send();
             });
 
         router.delete(
             "/waitingRoom/:name/:username/:type",
             async (req: Request, res: Response, next: NextFunction) => {
-                this.waitingRoomService.deleteWaitingRoom(req.params.name, req.params.username, req.params.type);
+                await this.waitingRoomService.deleteWaitingRoom(req.params.name, req.params.username, req.params.type)
+                    .catch((error: Error) => console.error(error.message));
                 res.send();
             });
 

@@ -22,6 +22,7 @@ export class GameListViewComponent implements OnInit {
     public username: string;
     public faUser: IconDefinition = faUser;
     private games: GameSheet[][];
+    public isGameLoading: boolean;
 
     public constructor(
         private route: ActivatedRoute,
@@ -29,6 +30,7 @@ export class GameListViewComponent implements OnInit {
         private connectionService: ConnectionService,
         private gameListService: GameListService,
     ) {
+        this.isGameLoading = false;
         this.isAdmin = false;
         this.username = "";
         this.games = [];
