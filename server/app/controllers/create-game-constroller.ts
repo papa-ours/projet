@@ -20,7 +20,7 @@ export class CreateGameController {
         router.get(
             "/id/:name/:type/:mode/:usernames",
             async (req: Request, res: Response, next: NextFunction) => {
-                const id: string = await this.getGameService
+                const id: string | void = await this.getGameService
                     .createGame(req.params.name, req.params.type, req.params.mode, JSON.parse(req.params.usernames))
                         .catch((error: Error) => console.error(error.message));
                 const message: Message = {
