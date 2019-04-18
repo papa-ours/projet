@@ -51,7 +51,8 @@ export class WaitingRoomService {
         WaitingRoomService.waitingRooms.forEach((waitingRoomList: WaitingRoom[], type: number) => {
             waitingRoomList.forEach((waitingRoom: WaitingRoom) => {
                 if (waitingRoom.usernames[0] === username) {
-                    this.deleteWaitingRoom(waitingRoom.name, username, type);
+                    this.deleteWaitingRoom(waitingRoom.name, username, type)
+                        .catch((error: Error) => console.error(error.message));
                 }
             });
         });
