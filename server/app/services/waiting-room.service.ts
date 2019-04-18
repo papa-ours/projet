@@ -19,8 +19,8 @@ export class WaitingRoomService {
             });
     }
 
-    public joinWaitingRoom(name: string, username: string, type: GameType): void {
-        this.getSheetId(name, type)
+    public async joinWaitingRoom(name: string, username: string, type: GameType): Promise<void> {
+        return this.getSheetId(name, type)
             .then((id: string) => {
                 const waitingRoom: WaitingRoom | undefined = WaitingRoomService.waitingRooms[type]
                     .find((currentWaitingRoom: WaitingRoom) => {
@@ -30,8 +30,7 @@ export class WaitingRoomService {
                 if (waitingRoom) {
                     waitingRoom.addUser(username);
                 }
-            })
-            .catch((error: Error) => console.error(error.message));
+            });
     }
 
     public deleteWaitingRoom(name: string, username: string, type: GameType): void {
