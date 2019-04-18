@@ -2,6 +2,11 @@
 :root {
     --success-color: #08A037;
     --danger-color: #ff5757;
+    --font: 'Concert One', cursive;
+}
+
+* {
+    font-family: var(--font)
 }
 
 body {

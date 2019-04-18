@@ -26,7 +26,6 @@ export class Gameplay2DComponent implements OnInit {
             `${SERVER_ADDRESS}/${this.id}.bmp?${counter}`;
     }
 
-
     public constructor(
         private differenceCheckerService: DifferenceCheckerService,
     ) {

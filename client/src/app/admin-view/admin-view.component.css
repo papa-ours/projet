@@ -9,7 +9,7 @@
 }
 
 .button {
-    font-family: 'Helvetica';
+    font-family: var(--font);
     font-size: 22px;
     background-color: var(--header-color);
     transition-duration: 0.4s;

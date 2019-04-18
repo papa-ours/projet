@@ -1,5 +1,5 @@
 .chat-container {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: var(--font);
     min-width: 350px;
     max-width: 350px;
     height: 350px;

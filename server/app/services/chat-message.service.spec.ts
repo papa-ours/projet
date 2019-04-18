@@ -81,7 +81,8 @@ describe("chat-message-service", () => {
             socketClient1.on("chatMessage", (result: ChatMessage) => {
                 expect(result.text).to.deep.equals(expected);
             });
-        });
+        })
+        .catch((error: Error) => console.error(error.message));
     });
 
     it("should send a message if an error identification occured in solo mode", () => {
@@ -92,7 +93,8 @@ describe("chat-message-service", () => {
             socketClient1.on("chatMessage", (result: ChatMessage) => {
                 expect(result.text).to.deep.equals(expected);
             });
-        });
+        })
+        .catch((error: Error) => console.error(error.message));
     });
 
     it("should send a message to all users if a user is disconnected", () => {
@@ -154,7 +156,8 @@ describe("chat-message-service", () => {
                     expect(result.text).to.deep.equals(expected);
                 });
             }
-        });
+        })
+        .catch((error: Error) => console.error(error.message));
     });
 
     it("should send a message if an error identification occured in pvp mode", () => {
@@ -178,6 +181,7 @@ describe("chat-message-service", () => {
             } catch (e) {
                 console.error(e.message);
             }
-        });
+        })
+        .catch((error: Error) => console.error(error.message));
     });
 });

@@ -1,5 +1,6 @@
 <div class="header">
-    <div class="username">Bonjour {{username}}</div>
+    <fa-icon class="username" [icon]="faUser"></fa-icon>
+    <div class="username">{{username}}</div>
 </div>
 <div class="game-lists">
     <app-game-list *ngFor="let game of games; index as i" [is3D]="i" [descriptions]="game" [isAdmin]="isAdmin"></app-game-list>
