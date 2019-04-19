@@ -17,8 +17,8 @@ export class ChronoComponent {
         this.isChronoRunning = false;
     }
 
-    @Input() public set chronoRunning(isRunningMode: boolean) {
-        isRunningMode ? this.startChrono() : this.stopChrono();
+    @Input() public set chronoRunning(isChronoStarted: boolean) {
+        isChronoStarted ? this.startChrono() : this.stopChrono();
     }
 
     private startChrono(): void {
