@@ -20,9 +20,9 @@ export class FreeViewGameCreationComponent {
     public freeViewForm: FreeViewForm;
     @Output() public closeForm: EventEmitter<boolean>;
     public constructor(
-            private gameFreeViewGenerationService: GameFreeViewGenerationService,
-            private gameNameCheckerService: GameNameCheckerService,
-            ) {
+        private gameFreeViewGenerationService: GameFreeViewGenerationService,
+        private gameNameCheckerService: GameNameCheckerService,
+        ) {
         this.freeViewForm = {
             name: "",
             nbObjects: 0,
