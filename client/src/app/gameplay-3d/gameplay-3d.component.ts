@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input
     Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { GeometryData, SceneType } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
-import { DeplacementCameraService } from "../scene3d/deplacement-camera.service";
+import { CameraMovementService } from "../scene3d/camera-movement.service";
 import { RaycasterService } from "../scene3d/raycaster.service";
 import { Scene3dComponent } from "../scene3d/scene3d.component";
 import { CheatModeService } from "./cheat-mode.service";
@@ -30,7 +30,7 @@ export class Gameplay3dComponent implements AfterViewInit {
     private modifiedScene: Scene3dComponent;
     private rayCaster: RaycasterService;
     private cheatModeService: CheatModeService;
-    public differenceCounter: number;
+    @Input() public differenceCounter: number;
     @ViewChild("originalScene", {read: ElementRef}) private originalSceneElement: ElementRef;
     @ViewChild("modifiedScene", {read: ElementRef}) private modifiedSceneElement: ElementRef;
     @ViewChildren(Scene3dComponent) private scenes: QueryList<Scene3dComponent>;
@@ -45,8 +45,8 @@ export class Gameplay3dComponent implements AfterViewInit {
         this.originalScene = this.scenes.toArray()[Query.originalScene];
         this.modifiedScene = this.scenes.toArray()[Query.modifiedScene];
         this.rayCaster = new RaycasterService(this.originalScene.renderService, this.modifiedScene.renderService);
-        DeplacementCameraService.setElementRef(this.originalSceneElement, this.modifiedSceneElement);
-        DeplacementCameraService.activateMovement();
+        CameraMovementService.setElementRef(this.originalSceneElement, this.modifiedSceneElement);
+        CameraMovementService.activateMovement();
         this.cheatModeService = new CheatModeService(this.originalScene.renderService, this.modifiedScene.renderService);
     }
 

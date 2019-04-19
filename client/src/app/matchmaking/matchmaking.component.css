@@ -1,0 +1,157 @@
+* {
+    font-family: var(--font);
+}
+
+.popup {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 30%;
+    width: 40%;
+    left: 30%;
+    background: var(--header-color);
+    text-align: center;
+    padding: 20px;
+    z-index: 4;
+    border-radius: 12px;
+    height: 120px;
+}
+
+.message {
+    color: var(--primary-color);
+    font-size: 26px;
+}
+
+.back-btn {
+    color: var(--header-text-color);
+    background: var(--success-color);
+    cursor: pointer;
+    height: 44px;
+    border: none;
+    font-size: 24px;
+    padding: 5px 10px;
+    text-align: center;
+    border-radius: 22px;
+    margin: 20px auto;
+}
+
+.back-btn:hover {
+    color: var(--success-color);
+    background: var(--header-text-color);
+}
+
+.username {
+    text-align: center;
+    font-size: 60px;
+    color: var(--primary-color);
+}
+
+.user-icon {
+    width: 175px;
+    margin-bottom: 25px;
+    margin-left: 122.5px;
+    font-size: 200px;
+    color: var(--primary-color);
+}
+
+.user-card {
+    width: 400px;
+    margin: 40px;
+}
+
+.versus-text {
+    margin-top: 140px;
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 120px;
+}
+
+.users-container {
+    flex-direction: row;
+    display: flex;
+    margin: auto;
+}
+
+
+.loader {
+    border: 40px solid #FFFFFF00;
+    border-top: 40px solid var(--primary-color);
+    border-radius: 50%;
+    width: 125px;
+    height: 125px;
+    margin-bottom: 25px;
+    margin-left: 75px;
+    animation: spin 1s linear infinite;
+    z-index: 5;
+}
+  
+@keyframes spin {
+    0% { 
+        transform: rotate(0deg); 
+    }
+    100% { 
+        transform: rotate(360deg); 
+    }
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.cancel-btn {
+    margin: 0px auto auto auto;
+    font-family: var(--font);
+    font-size: 24px;
+    color: #FFFFFF;
+    border: none;
+    width: 140px;
+    height: 54px;
+    border-radius: 30px;
+    cursor: pointer;
+    background: var(--header-color);
+    color: var(--danger-color);
+    transition-duration: 0.5s;
+}
+
+.cancel-btn:hover {
+    background: var(--danger-color);
+    color: var(--header-color);
+}
+
+.dot {
+    margin-left: -6px;
+}
+
+#dot1 {
+    animation: dot1 1.5s ease-in infinite;
+}
+
+#dot2 {
+    animation: dot2 1.5s ease-in infinite;
+}
+
+#dot3 {
+    animation: dot3 1.5s ease-in infinite;
+}
+
+
+@keyframes dot1 {
+    0%, 30%  { opacity: 0; }
+    31%, 60% { opacity: 1; }
+    61%, 100% { opacity: 0; }
+}
+
+@keyframes dot2 {
+    0%, 50%  { opacity: 0; }
+    51%, 80% { opacity: 1; }
+    81%, 100% { opacity: 0; }
+}
+
+@keyframes dot3 {
+    0%, 70%  { opacity: 0; }
+    71%, 100% { opacity: 1; }
+}

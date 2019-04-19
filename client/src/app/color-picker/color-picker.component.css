@@ -149,6 +149,6 @@ input:checked + .slider:before {
     color: var(--primary-color);
     font-size: 32px;
     position: absolute;
-    top: 8px;
+    top: 6px;
     left: 8px;
 }

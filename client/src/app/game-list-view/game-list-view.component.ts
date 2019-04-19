@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { faUser, IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { GameSheet } from "../../../../common/communication/game-description";
 import { ConnectionService } from "../connection.service";
 import { GameListService } from "../game-list-getter.service";
@@ -20,7 +21,9 @@ export class GameListViewComponent implements OnInit {
 
     @Input() public isAdmin: boolean;
     public username: string;
+    public faUser: IconDefinition = faUser;
     private games: GameSheet[][];
+    public isGameLoading: boolean;
     public areObjectsLoaded: boolean;
 
     public constructor(
@@ -30,6 +33,7 @@ export class GameListViewComponent implements OnInit {
         private gameListService: GameListService,
         private thematicObjectGenerator: ThematicObjectGeneratorService,
     ) {
+        this.isGameLoading = false;
         this.areObjectsLoaded = false;
         this.isAdmin = false;
         this.username = "";

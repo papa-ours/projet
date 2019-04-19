@@ -48,6 +48,7 @@ export class DBConnectionService {
 
     private parseGameSheetDocument(doc: mongoose.Document): GameSheet {
         const gameSheet: GameSheet & {topScoresSolo: Score[], topScores1v1: Score[]} = doc.toObject();
+        gameSheet.hasWaitingRoom = false;
         gameSheet.topScores = [
             new TopScores(gameSheet.topScoresSolo),
             new TopScores(gameSheet.topScores1v1),

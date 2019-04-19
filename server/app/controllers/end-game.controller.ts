@@ -6,6 +6,7 @@ import { ChatMessageService } from "../services/chat-message.service";
 import { AbstractGame } from "../services/game/game";
 import { GetGameService } from "../services/get-game.service";
 import { ScoreUpdaterService } from "../services/score-updater.service";
+import { SendWinnerService } from "../services/send-winner.service";
 import Types from "../types";
 
 @injectable()
@@ -17,6 +18,7 @@ export class EndGameController {
         @inject(Types.ScoreUpdaterService) private scoreUpdaterService: ScoreUpdaterService,
         @inject(Types.GetGameService) private getGameService: GetGameService,
         @inject(Types.ChatMessageService) private chatMessageService: ChatMessageService,
+        @inject(Types.SendWinnerService) private sendWinnerService: SendWinnerService,
     ) {
 
     }
@@ -28,27 +30,27 @@ export class EndGameController {
             "/",
             async (req: Request, res: Response, next: NextFunction) => {
                 const game: AbstractGame = this.getGameService.getGame(req.body.gameId);
-                Promise.all([
-                    this.scoreUpdaterService.putScore(
+                await this.scoreUpdaterService.putScore(
                         game.sheetId,
-                        game.username,
+                        game.usernames[game.winner],
                         parseInt(req.body.time, EndGameController.BASE_10),
                         game.gameMode,
                     ).then((gameSheet: GameSheet) => {
                         const position: number = this.scoreUpdaterService.getPosition(gameSheet, req.body.time, game.gameMode);
                         if (position !== -1) {
-                            this.chatMessageService.sendBestTimeMessage(game.username, position, game.name, game.gameMode);
+                            this.chatMessageService.sendBestTimeMessage(game.usernames[game.winner], position, game.name, game.gameMode);
                         }
-                    }),
-                    this.getGameService.removeGame(req.body.gameId),
-                ]).then(() => {
-                    res.send({
-                        body: "",
                     });
-                }).catch((error: Error) => {
-                    console.error(error);
-                    next(error);
-                });
+                this.sendWinnerService.sendWinner(game);
+                this.getGameService.removeGame(req.body.gameId)
+                    .then(() => {
+                        res.send({
+                            body: "",
+                        });
+                    }).catch((error: Error) => {
+                        console.error(error);
+                        next(error);
+                    });
             },
         );
 

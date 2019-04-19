@@ -10,7 +10,7 @@
     background: var(--secondary-color);
     color: var(--text-color);
     font-weight: 600;
-    font-family: 'Trebuchet MS';
+    font-family: var(--font);
     font-size: 28px;
     text-align: center;
     height: 6%;

@@ -1,4 +1,6 @@
+import Axios from "axios";
 import { injectable } from "inversify";
+import { SERVER_ADDRESS } from "../../../common/communication/constants";
 import { User } from "./user";
 
 @injectable()
@@ -21,6 +23,14 @@ export class UsersContainerService {
         return foundUser ? foundUser.name : "";
     }
 
+    public getSocketIdByUsername(username: string): string {
+        const foundUser: User | undefined = UsersContainerService.users.find((user: User) => {
+            return user.name === username;
+        });
+
+        return foundUser ? foundUser.socketId : "";
+    }
+
     public addUser(user: User): void {
         UsersContainerService.users.push(user);
     }
@@ -29,6 +39,8 @@ export class UsersContainerService {
         const userIndex: number = UsersContainerService.users.findIndex((u: User) => {
             return u.name === name;
         });
+
+        Axios.delete(`${SERVER_ADDRESS}/api/game/waitingRoom/all/${name}`);
 
         this.deleteUserAt(userIndex);
     }
