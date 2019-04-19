@@ -8,6 +8,7 @@ import { AdminViewComponent } from "./admin-view/admin-view.component";
 import { AppRoutingModule } from "./app-routing/app-routing.module";
 import { AppComponent } from "./app.component";
 import { ChatMessagesComponent } from "./chat-messages/chat-messages.component";
+import { ChronoComponent } from "./chrono/chrono.component";
 import { ColorPickerComponent } from "./color-picker/color-picker.component";
 import { ConfirmActionComponent } from "./confirm-action/confirm-action.component";
 import { ConnectionService } from "./connection.service";
@@ -17,6 +18,7 @@ import { FreeViewGameCreationComponent } from "./free-view-game-creation/free-vi
 import { GameImageComponent } from "./game-image/game-image.component";
 import { GameListViewComponent } from "./game-list-view/game-list-view.component";
 import { GameListComponent } from "./game-list/game-list.component";
+import { GameOverMessageComponent } from "./game-over-message/game-over-message.component";
 import { GameSheetComponent } from "./game-sheet/game-sheet.component";
 import { Gameplay2DComponent } from "./gameplay-2d/gameplay-2d.component";
 import { Difference3DCheckerService } from "./gameplay-3d/difference3d-checker.service";
@@ -48,7 +50,9 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         Gameplay2DComponent,
         Gameplay3dComponent,
         ConfirmActionComponent,
+        ChronoComponent,
         MatchmakingComponent,
+        GameOverMessageComponent,
     ],
     imports: [
         BrowserModule,
