@@ -18,13 +18,8 @@ export class GameNameCheckerService {
         });
         });
     }
-    public checkName(name: string, gameType: GameType): boolean {
-        for (const nameGame of this.names) {
-            if (name === nameGame) {
-                return true;
-            }
-        }
+    public checkName(name: string): boolean {
 
-        return false;
+        return this.names.indexOf(name) !== -1;
     }
 }

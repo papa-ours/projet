@@ -59,7 +59,7 @@ export class SimpleGameCreationComponent {
     }
 
     public isNameDuplicate(): boolean {
-        return this.gameNameCheckerService.checkName(this.name, GameType.Simple);
+        return this.gameNameCheckerService.checkName(this.name);
     }
 
     public fileEntered(event: FileReaderEvent, type: ImageType): void {
