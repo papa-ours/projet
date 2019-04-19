@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { GameType, GameSheet } from "../../../common/communication/game-description";
+import { GameSheet, GameType } from "../../../common/communication/game-description";
 import { GameListService } from "./game-list-getter.service";
 @Injectable({
     providedIn: "root",
@@ -11,7 +11,6 @@ export class GameNameCheckerService {
 
     public initialize(type: GameType): void {
         this.names = [];
-        
         this.gameListService.getGameList().subscribe((lists) => {
             const listNames: GameSheet[] = type === GameType.Simple ? lists.list2d : lists.list3d;
             for (const game3d of listNames) {
