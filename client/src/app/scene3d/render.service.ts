@@ -8,22 +8,14 @@ export class RenderService {
     public camera: THREE.PerspectiveCamera;
     private renderer: THREE.WebGLRenderer;
     public scene: THREE.Scene;
-    private speedX: number;
-    private speedZ: number;
 
     private readonly CAMERA_Z: number = 400;
+    private readonly CAMERA_Y: number = 30;
     private readonly FIELD_OF_VIEW: number = 45;
 
     private readonly NEAR_CLIPPING_PANE: number = 1;
     private readonly FAR_CLIPPING_PANE: number = 5000;
 
-    private readonly MOUVEMENT_INTERVAL: number = 10;
-    private readonly ROTATION_CONSTANT: number = 800;
-
-    public constructor() {
-        this.speedX = 0;
-        this.speedZ = 0;
-    }
     private createCamera(): void {
         const aspectRatio: number = this.getAspectRatio();
         this.camera = new THREE.PerspectiveCamera(
@@ -33,6 +25,7 @@ export class RenderService {
             this.FAR_CLIPPING_PANE,
         );
         this.camera.position.z = this.CAMERA_Z;
+        this.camera.position.y = this.CAMERA_Y;
     }
 
     private getAspectRatio(): number {
@@ -82,11 +75,6 @@ export class RenderService {
         this.addLight();
         this.setupRenderingLoop();
         this.render();
-        setInterval(
-            () => {
-            this.camera.translateX(this.speedX);
-            this.camera.translateZ(this.speedZ);
-        },  this.MOUVEMENT_INTERVAL);
     }
 
     public reInitialize(container: HTMLDivElement, scene: THREE.Scene): void {
@@ -94,21 +82,5 @@ export class RenderService {
         this.scene = scene;
         this.addLight();
         this.setupRenderingLoop();
-    }
-
-    public setSpeedZ(z: number): void {
-        this.speedZ = z;
-    }
-
-    public setSpeedX(x: number): void {
-        this.speedX = x;
-    }
-
-    public rotateCameraY(y: number): void {
-        this.camera.rotateY(y / this.ROTATION_CONSTANT);
-    }
-
-    public rotateCameraX(x: number): void {
-        this.camera.rotateX(x / this.ROTATION_CONSTANT);
     }
 }
