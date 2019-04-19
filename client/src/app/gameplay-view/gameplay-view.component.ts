@@ -46,7 +46,7 @@ export class GameplayViewComponent implements OnInit {
         this.totalDifferenceCounter = 0;
         this.isChronoRunning = false;
         if (!this.connectionService.connected) {
-            this.router.navigateByUrl("/");
+            this.router.navigateByUrl("/").catch((error: Error) => console.error(error.message));
         }
 
         this.socketService.getChatMessage().subscribe((message: ChatMessage) => {
@@ -69,7 +69,9 @@ export class GameplayViewComponent implements OnInit {
             this.type = params["type"];
             this.id = params["id"];
             this.gameMode = params["mode"];
+            // tslint:disable-next-line:triple-equals
             this.requiredDifferences = this.gameMode == GameMode.Solo ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
+            // tslint:disable-next-line:triple-equals
             this.foundDifferencesCounters = this.gameMode == GameMode.Solo ? [0] : [0, 0];
             this.isChronoRunning = true;
         });

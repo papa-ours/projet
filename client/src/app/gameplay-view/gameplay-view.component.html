@@ -3,16 +3,23 @@
 
 <div class="container">
     <div class="title-container">{{name}}</div>
-    
+
     <div class="info-container">
+        <div class="spacer"></div>
         <span>
             <app-chrono [chronoRunning]="isChronoRunning"></app-chrono>
         </span>
-        <span *ngFor="let counter of foundDifferencesCounters" class="differences-count">
-            <span>{{counter}}/{{requiredDifferences}}</span>
-        </span>
+        <div class="spacer"></div>
+        <div class="counters">
+            <ng-container *ngFor="let counter of foundDifferencesCounters">
+                <div class="spacer"></div>
+                <div class="differences-count">
+                    <span>{{counter}}/{{requiredDifferences}}</span>
+                </div>
+            </ng-container>
+        </div>
+        <div class="filler"></div>
     </div>
-
 
     <div *ngIf="!isChronoRunning" class="loader"></div>
     <div #container class="images-chat-container" [class.disabled]="!isChronoRunning">

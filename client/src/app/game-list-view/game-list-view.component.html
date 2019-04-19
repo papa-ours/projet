@@ -3,5 +3,5 @@
     <div class="username">{{username}}</div>
 </div>
 <div class="game-lists">
-    <app-game-list *ngFor="let game of games; index as i" [is3D]="i" [descriptions]="game" [isAdmin]="isAdmin"></app-game-list>
+    <app-game-list *ngFor="let game of games; index as i" [is3D]="i" [descriptions]="game" [isAdmin]="isAdmin" (loadGame)="isGameLoading=true" [canPlay]="!isGameLoading"></app-game-list>
 </div>

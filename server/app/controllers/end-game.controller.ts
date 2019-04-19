@@ -41,14 +41,14 @@ export class EndGameController {
                     });
 
                 this.getGameService.removeGame(req.body.gameId)
-                .then(() => {
-                    res.send({
-                        body: "",
+                    .then(() => {
+                        res.send({
+                            body: "",
+                        });
+                    }).catch((error: Error) => {
+                        console.error(error);
+                        next(error);
                     });
-                }).catch((error: Error) => {
-                    console.error(error);
-                    next(error);
-                });
             },
         );
 

@@ -1,15 +1,43 @@
 .info-container {
     color: var(--text-color);
     font-size: 50px;
-    font-family: 'Fjalla One', sans-serif;
+    font-family: var(--font);
     max-height: 65px;
+    display: flex;
+    flex-direction: row;
 }
 
 .differences-count {
-    margin-left: 20px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.counters {
+    display: flex;
+    flex-direction: row;
+}
+
+.differences-count {
+    width: 70px;
+    height: 100%;
     border-radius: 100%;
-    background: var(--success-color);
     padding: 25px;
+}
+
+.differences-count:nth-child(2) {
+    background: var(--success-color);
+}
+
+.differences-count:nth-child(4)  {
+    background: var(--danger-color);
+}
+
+.filler {
+    flex-grow: 20;
+}
+
+.spacer {
+    width: 10px;
 }
 
 .info-container div {
@@ -42,7 +70,7 @@ app-chat-messages {
     height: 75px;
     color: var(--header-text-color);
     width: 100%;
-    font-family: 'Fjalla One', sans-serif;
+    font-family: var(--font);
     text-align: center;
 }
 
