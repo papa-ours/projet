@@ -16,7 +16,9 @@ import { SocketService } from "../socket.service";
 export class MatchmakingComponent implements OnInit, OnDestroy {
     public username: string;
     public faUser: IconDefinition = faUser;
-    public joinSubscription: Subscription;
+    private waitingRoomSubscription: Subscription;
+    private gameSheetDeletedSubscription: Subscription;
+    private gameReadySubscription: Subscription;
     private name: string;
     private type: GameType;
     public other: string;
@@ -41,32 +43,29 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
             this.name = params["name"];
             this.type = params["type"];
             JSON.parse(params["create"]) ? this.joinWaitingRoom() : this.createWaitingRoom();
-
-            this.socketService.getUserJoined().subscribe((usernames: string[]) => {
-                this.username = usernames[0];
-                this.other = usernames[1] ? usernames[1] : "";
-            });
         });
     }
 
     public ngOnDestroy(): void {
-        this.joinSubscription.unsubscribe();
+        this.waitingRoomSubscription.unsubscribe();
+        this.gameReadySubscription.unsubscribe();
+        this.gameSheetDeletedSubscription.unsubscribe();
     }
 
     private createWaitingRoom(): void {
-        this.gameplayService.createWaitingRoom(this.name, this.type, this.username).subscribe(() => {
+        this.waitingRoomSubscription = this.gameplayService.createWaitingRoom(this.name, this.type, this.username).subscribe(() => {
             this.waitForGameReady();
         });
     }
 
     private joinWaitingRoom(): void {
-        this.gameplayService.joinWaitingRoom(this.name, this.type, this.username).subscribe(() => {
+        this.waitingRoomSubscription = this.gameplayService.joinWaitingRoom(this.name, this.type, this.username).subscribe(() => {
             this.waitForGameReady();
         });
     }
 
     private waitForGameReady(): void {
-        this.joinSubscription = this.socketService.getGameReady().subscribe((id: string) => {
+        this.gameReadySubscription = this.socketService.getGameReady().subscribe((id: string) => {
             this.router.navigateByUrl(`game/${this.name}/${this.type}/${GameMode.Pvp}/${id}`)
                 .catch((error: Error) => console.error(error.message));
         });
