@@ -10,6 +10,7 @@ export class RenderService {
     public scene: THREE.Scene;
 
     private readonly CAMERA_Z: number = 400;
+    private readonly CAMERA_Y: number = 30;
     private readonly FIELD_OF_VIEW: number = 45;
 
     private readonly NEAR_CLIPPING_PANE: number = 1;
@@ -24,6 +25,7 @@ export class RenderService {
             this.FAR_CLIPPING_PANE,
         );
         this.camera.position.z = this.CAMERA_Z;
+        this.camera.position.y = this.CAMERA_Y;
     }
 
     private getAspectRatio(): number {
