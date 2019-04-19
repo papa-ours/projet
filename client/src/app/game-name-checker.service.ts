@@ -15,7 +15,7 @@ export class GameNameCheckerService {
             const listNames: GameSheet[] = type === GameType.Simple ? lists.list2d : lists.list3d;
             listNames.forEach( (sheet) => {
                 this.names.push(sheet.name);
-        });
+            });
         });
     }
     public checkName(name: string): boolean {
