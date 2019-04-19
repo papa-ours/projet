@@ -3,13 +3,12 @@
 
 <div class="container">
     <div class="title-container">{{name}}</div>
-    
+
     <div class="info-container">
         <div class="spacer"></div>
-        <div class="time-container">
-            <fa-icon [icon]="hourglassIcon" class="info-label"></fa-icon>
-            <span>{{formattedChrono}}</span>
-        </div>
+        <span>
+            <app-chrono [chronoRunning]="isChronoRunning"></app-chrono>
+        </span>
         <div class="spacer"></div>
         <div class="counters">
             <ng-container *ngFor="let counter of foundDifferencesCounters">
