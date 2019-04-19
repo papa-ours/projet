@@ -67,7 +67,8 @@ export class Socket {
     }
 
     private deleteUser(id: string): void {
-        Axios.delete(`${SERVER_ADDRESS}/api/game/waitingRoom/all/${this.usersContainerService.getUsernameBySocketId(id)}`);
+        Axios.delete(`${SERVER_ADDRESS}/api/game/waitingRoom/all/${this.usersContainerService.getUsernameBySocketId(id)}`)
+            .catch((error: Error) => console.error(error.message));
         this.deleteSocket(id);
         this.usersContainerService.deleteUserById(id);
     }
