@@ -1,0 +1,425 @@
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       2 commits  - ins.:     92  del.:      2   av. ins.:  46.00, av. del:   1.00
+Author MC       8 commits  - ins.:    153  del.:     48   av. ins.:  19.12, av. del:   6.00
+Author PDB      8 commits  - ins.:    153  del.:     48   av. ins.:  19.12, av. del:   6.00
+Author VG      17 commits  - ins.:    374  del.:     71   av. ins.:  22.00, av. del:   4.18
+Author VM      17 commits  - ins.:    374  del.:     71   av. ins.:  22.00, av. del:   4.18
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       2 commits  - ins.:     92  del.:      2   av. ins.:  46.00, av. del:   1.00
+Author MC       8 commits  - ins.:    153  del.:     48   av. ins.:  19.12, av. del:   6.00
+Author PDB      8 commits  - ins.:    153  del.:     48   av. ins.:  19.12, av. del:   6.00
+Author VG      24 commits  - ins.:    391  del.:    139   av. ins.:  16.29, av. del:   5.79
+Author VM      24 commits  - ins.:    391  del.:    139   av. ins.:  16.29, av. del:   5.79
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author VG      11 commits  - ins.:     27  del.:     79   av. ins.:   2.45, av. del:   7.18
+Author VM      11 commits  - ins.:     27  del.:     79   av. ins.:   2.45, av. del:   7.18
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       4 commits  - ins.:    118  del.:      5   av. ins.:  29.50, av. del:   1.25
+Author MC       4 commits  - ins.:    118  del.:      5   av. ins.:  29.50, av. del:   1.25
+Author PDB      5 commits  - ins.:     91  del.:     32   av. ins.:  18.20, av. del:   6.40
+Author VG      18 commits  - ins.:    119  del.:     49   av. ins.:   6.61, av. del:   2.72
+Author VM      16 commits  - ins.:    117  del.:     46   av. ins.:   7.31, av. del:   2.88
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       4 commits  - ins.:    118  del.:      5   av. ins.:  29.50, av. del:   1.25
+Author MC      12 commits  - ins.:    263  del.:     51   av. ins.:  21.92, av. del:   4.25
+Author PDB     14 commits  - ins.:    249  del.:    105   av. ins.:  17.79, av. del:   7.50
+Author VG      17 commits  - ins.:    123  del.:    108   av. ins.:   7.24, av. del:   6.35
+Author VM      12 commits  - ins.:    107  del.:     35   av. ins.:   8.92, av. del:   2.92
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC       8 commits  - ins.:    145  del.:     46   av. ins.:  18.12, av. del:   5.75
+Author PDB      9 commits  - ins.:    158  del.:     73   av. ins.:  17.56, av. del:   8.11
+Author VG       3 commits  - ins.:     14  del.:     70   av. ins.:   4.67, av. del:  23.33
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC       1 commits  - ins.:     15  del.:      8   av. ins.:  15.00, av. del:   8.00
+Author VG      14 commits  - ins.:    217  del.:     99   av. ins.:  15.50, av. del:   7.07
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       3 commits  - ins.:     41  del.:     20   av. ins.:  13.67, av. del:   6.67
+Author MC       2 commits  - ins.:     51  del.:     11   av. ins.:  25.50, av. del:   5.50
+Author PDB      6 commits  - ins.:     82  del.:    112   av. ins.:  13.67, av. del:  18.67
+Author VG      23 commits  - ins.:    388  del.:    136   av. ins.:  16.87, av. del:   5.91
+Author VM       6 commits  - ins.:    104  del.:     28   av. ins.:  17.33, av. del:   4.67
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       3 commits  - ins.:     41  del.:     20   av. ins.:  13.67, av. del:   6.67
+Author MC       1 commits  - ins.:     36  del.:      3   av. ins.:  36.00, av. del:   3.00
+Author PDB      6 commits  - ins.:     82  del.:    112   av. ins.:  13.67, av. del:  18.67
+Author VG      20 commits  - ins.:    292  del.:    240   av. ins.:  14.60, av. del:  12.00
+Author VM       6 commits  - ins.:    104  del.:     28   av. ins.:  17.33, av. del:   4.67
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC       4 commits  - ins.:     24  del.:     27   av. ins.:   6.00, av. del:   6.75
+Author VG      23 commits  - ins.:    324  del.:    319   av. ins.:  14.09, av. del:  13.87
+Author VM       2 commits  - ins.:      9  del.:     13   av. ins.:   4.50, av. del:   6.50
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       1 commits  - ins.:      6  del.:      1   av. ins.:   6.00, av. del:   1.00
+Author MC       4 commits  - ins.:     24  del.:     27   av. ins.:   6.00, av. del:   6.75
+Author VG      15 commits  - ins.:    268  del.:    193   av. ins.:  17.87, av. del:  12.87
+Author VM       2 commits  - ins.:      9  del.:     13   av. ins.:   4.50, av. del:   6.50
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       1 commits  - ins.:      6  del.:      1   av. ins.:   6.00, av. del:   1.00
+Author VG       3 commits  - ins.:     65  del.:     77   av. ins.:  21.67, av. del:  25.67
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       3 commits  - ins.:     69  del.:      6   av. ins.:  23.00, av. del:   2.00
+Author MC       3 commits  - ins.:     41  del.:      6   av. ins.:  13.67, av. del:   2.00
+Author VG       8 commits  - ins.:     91  del.:     44   av. ins.:  11.38, av. del:   5.50
+Author VM       3 commits  - ins.:     13  del.:      4   av. ins.:   4.33, av. del:   1.33
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       3 commits  - ins.:     69  del.:      6   av. ins.:  23.00, av. del:   2.00
+Author MC       8 commits  - ins.:    123  del.:     20   av. ins.:  15.38, av. del:   2.50
+Author VG      11 commits  - ins.:    118  del.:     49   av. ins.:  10.73, av. del:   4.45
+Author VM       3 commits  - ins.:     13  del.:      4   av. ins.:   4.33, av. del:   1.33
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC       5 commits  - ins.:     82  del.:     14   av. ins.:  16.40, av. del:   2.80
+Author PDB      7 commits  - ins.:    293  del.:    115   av. ins.:  41.86, av. del:  16.43
+Author VG      15 commits  - ins.:    198  del.:     70   av. ins.:  13.20, av. del:   4.67
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       5 commits  - ins.:     43  del.:     31   av. ins.:   8.60, av. del:   6.20
+Author MC      14 commits  - ins.:     82  del.:     72   av. ins.:   5.86, av. del:   5.14
+Author PDB      7 commits  - ins.:    293  del.:    115   av. ins.:  41.86, av. del:  16.43
+Author VG      34 commits  - ins.:    705  del.:    276   av. ins.:  20.74, av. del:   8.12
+Author VM       3 commits  - ins.:     34  del.:      3   av. ins.:  11.33, av. del:   1.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       5 commits  - ins.:     43  del.:     31   av. ins.:   8.60, av. del:   6.20
+Author MC      25 commits  - ins.:    212  del.:    323   av. ins.:   8.48, av. del:  12.92
+Author VG      23 commits  - ins.:    540  del.:    212   av. ins.:  23.48, av. del:   9.22
+Author VM       3 commits  - ins.:     34  del.:      3   av. ins.:  11.33, av. del:   1.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       6 commits  - ins.:     85  del.:     69   av. ins.:  14.17, av. del:  11.50
+Author MC      18 commits  - ins.:    198  del.:    262   av. ins.:  11.00, av. del:  14.56
+Author PDB      6 commits  - ins.:     45  del.:     50   av. ins.:   7.50, av. del:   8.33
+Author VG      19 commits  - ins.:    322  del.:    100   av. ins.:  16.95, av. del:   5.26
+Author VM       2 commits  - ins.:      2  del.:      1   av. ins.:   1.00, av. del:   0.50
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       9 commits  - ins.:    677  del.:    805   av. ins.:  75.22, av. del:  89.44
+Author MC      12 commits  - ins.:     93  del.:     40   av. ins.:   7.75, av. del:   3.33
+Author PDB     37 commits  - ins.:    178  del.:    122   av. ins.:   4.81, av. del:   3.30
+Author VG      70 commits  - ins.:    809  del.:    669   av. ins.:  11.56, av. del:   9.56
+Author VM      12 commits  - ins.:     32  del.:     34   av. ins.:   2.67, av. del:   2.83
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      13 commits  - ins.:    847  del.:    775   av. ins.:  65.15, av. del:  59.62
+Author MC      25 commits  - ins.:    494  del.:    213   av. ins.:  19.76, av. del:   8.52
+Author PDB     34 commits  - ins.:    184  del.:     99   av. ins.:   5.41, av. del:   2.91
+Author VG      66 commits  - ins.:    740  del.:    592   av. ins.:  11.21, av. del:   8.97
+Author VM      23 commits  - ins.:    324  del.:     50   av. ins.:  14.09, av. del:   2.17
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      10 commits  - ins.:    255  del.:     39   av. ins.:  25.50, av. del:   3.90
+Author MC      33 commits  - ins.:    569  del.:    262   av. ins.:  17.24, av. del:   7.94
+Author PDB      3 commits  - ins.:     51  del.:     27   av. ins.:  17.00, av. del:   9.00
+Author VG      14 commits  - ins.:    247  del.:     22   av. ins.:  17.64, av. del:   1.57
+Author VM      13 commits  - ins.:    294  del.:     17   av. ins.:  22.62, av. del:   1.31
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC      13 commits  - ins.:    100  del.:     78   av. ins.:   7.69, av. del:   6.00
+Author VM      10 commits  - ins.:    104  del.:     81   av. ins.:  10.40, av. del:   8.10
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      12 commits  - ins.:    223  del.:     48   av. ins.:  18.58, av. del:   4.00
+Author MC      11 commits  - ins.:    140  del.:     67   av. ins.:  12.73, av. del:   6.09
+Author VG      13 commits  - ins.:    127  del.:     26   av. ins.:   9.77, av. del:   2.00
+Author VM      22 commits  - ins.:    197  del.:    110   av. ins.:   8.95, av. del:   5.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      12 commits  - ins.:    223  del.:     48   av. ins.:  18.58, av. del:   4.00
+Author MC      11 commits  - ins.:    140  del.:     67   av. ins.:  12.73, av. del:   6.09
+Author VG      23 commits  - ins.:    304  del.:     59   av. ins.:  13.22, av. del:   2.57
+Author VM      12 commits  - ins.:     93  del.:     29   av. ins.:   7.75, av. del:   2.42
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC      20 commits  - ins.:    137  del.:     99   av. ins.:   6.85, av. del:   4.95
+Author VG      65 commits  - ins.:    607  del.:    294   av. ins.:   9.34, av. del:   4.52
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC      20 commits  - ins.:    137  del.:     99   av. ins.:   6.85, av. del:   4.95
+Author VG      83 commits  - ins.:    581  del.:    364   av. ins.:   7.00, av. del:   4.39
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      12 commits  - ins.:    113  del.:     19   av. ins.:   9.42, av. del:   1.58
+Author MC       1 commits  - ins.:     28  del.:      0   av. ins.:  28.00, av. del:   0.00
+Author VG      69 commits  - ins.:    631  del.:    461   av. ins.:   9.14, av. del:   6.68
+Author VM       6 commits  - ins.:     91  del.:     28   av. ins.:  15.17, av. del:   4.67
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      12 commits  - ins.:    113  del.:     19   av. ins.:   9.42, av. del:   1.58
+Author MC      30 commits  - ins.:    373  del.:    129   av. ins.:  12.43, av. del:   4.30
+Author VG      43 commits  - ins.:    480  del.:    367   av. ins.:  11.16, av. del:   8.53
+Author VM      15 commits  - ins.:    214  del.:     43   av. ins.:  14.27, av. del:   2.87
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       9 commits  - ins.:     61  del.:     12   av. ins.:   6.78, av. del:   1.33
+Author MC      41 commits  - ins.:    400  del.:    161   av. ins.:   9.76, av. del:   3.93
+Author VG      78 commits  - ins.:    363  del.:    327   av. ins.:   4.65, av. del:   4.19
+Author VM      12 commits  - ins.:    126  del.:     18   av. ins.:  10.50, av. del:   1.50
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      16 commits  - ins.:     88  del.:     32   av. ins.:   5.50, av. del:   2.00
+Author MC      12 commits  - ins.:     55  del.:     32   av. ins.:   4.58, av. del:   2.67
+Author VG      99 commits  - ins.:    534  del.:    383   av. ins.:   5.39, av. del:   3.87
+Author VM       3 commits  - ins.:      3  del.:      3   av. ins.:   1.00, av. del:   1.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      15 commits  - ins.:     64  del.:     45   av. ins.:   4.27, av. del:   3.00
+Author VG      23 commits  - ins.:    171  del.:     65   av. ins.:   7.43, av. del:   2.83
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       8 commits  - ins.:     37  del.:     25   av. ins.:   4.62, av. del:   3.12
+Author VG      12 commits  - ins.:     68  del.:     35   av. ins.:   5.67, av. del:   2.92
+Author VM       5 commits  - ins.:     35  del.:     57   av. ins.:   7.00, av. del:  11.40
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      15 commits  - ins.:     96  del.:     52   av. ins.:   6.40, av. del:   3.47
+Author MC      10 commits  - ins.:     85  del.:     43   av. ins.:   8.50, av. del:   4.30
+Author PDB      1 commits  - ins.:     19  del.:      0   av. ins.:  19.00, av. del:   0.00
+Author VG      13 commits  - ins.:     69  del.:     36   av. ins.:   5.31, av. del:   2.77
+Author VM      13 commits  - ins.:    108  del.:     65   av. ins.:   8.31, av. del:   5.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      30 commits  - ins.:    177  del.:    159   av. ins.:   5.90, av. del:   5.30
+Author MC      56 commits  - ins.:    489  del.:    351   av. ins.:   8.73, av. del:   6.27
+Author PDB     15 commits  - ins.:     83  del.:     62   av. ins.:   5.53, av. del:   4.13
+Author VG      77 commits  - ins.:    324  del.:    295   av. ins.:   4.21, av. del:   3.83
+Author VM      19 commits  - ins.:    196  del.:     61   av. ins.:  10.32, av. del:   3.21
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      15 commits  - ins.:     81  del.:    107   av. ins.:   5.40, av. del:   7.13
+Author MC      47 commits  - ins.:    419  del.:    322   av. ins.:   8.91, av. del:   6.85
+Author PDB     16 commits  - ins.:     93  del.:     89   av. ins.:   5.81, av. del:   5.56
+Author VG      85 commits  - ins.:    356  del.:    316   av. ins.:   4.19, av. del:   3.72
+Author VM      11 commits  - ins.:    123  del.:     53   av. ins.:  11.18, av. del:   4.82
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       8 commits  - ins.:     26  del.:     13   av. ins.:   3.25, av. del:   1.62
+Author MC       1 commits  - ins.:     15  del.:     14   av. ins.:  15.00, av. del:  14.00
+Author PDB     13 commits  - ins.:    165  del.:     39   av. ins.:  12.69, av. del:   3.00
+Author VG      10 commits  - ins.:     38  del.:     24   av. ins.:   3.80, av. del:   2.40
+Author VM      37 commits  - ins.:    116  del.:    113   av. ins.:   3.14, av. del:   3.05
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      12 commits  - ins.:     34  del.:     19   av. ins.:   2.83, av. del:   1.58
+Author MC       4 commits  - ins.:      7  del.:      7   av. ins.:   1.75, av. del:   1.75
+Author PDB     42 commits  - ins.:    367  del.:    230   av. ins.:   8.74, av. del:   5.48
+Author VG      30 commits  - ins.:    164  del.:    118   av. ins.:   5.47, av. del:   3.93
+Author VM      56 commits  - ins.:    254  del.:    272   av. ins.:   4.54, av. del:   4.86
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      24 commits  - ins.:    117  del.:     98   av. ins.:   4.88, av. del:   4.08
+Author MC       4 commits  - ins.:      7  del.:      7   av. ins.:   1.75, av. del:   1.75
+Author PDB     31 commits  - ins.:    231  del.:    218   av. ins.:   7.45, av. del:   7.03
+Author VG      29 commits  - ins.:    159  del.:    116   av. ins.:   5.48, av. del:   4.00
+Author VM      19 commits  - ins.:    138  del.:    159   av. ins.:   7.26, av. del:   8.37
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      20 commits  - ins.:    109  del.:     92   av. ins.:   5.45, av. del:   4.60
+Author MC      27 commits  - ins.:    170  del.:    164   av. ins.:   6.30, av. del:   6.07
+Author PDB     15 commits  - ins.:     72  del.:     37   av. ins.:   4.80, av. del:   2.47
+Author VG      71 commits  - ins.:    300  del.:    232   av. ins.:   4.23, av. del:   3.27
+Author VM      14 commits  - ins.:     85  del.:    171   av. ins.:   6.07, av. del:  12.21
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      21 commits  - ins.:     67  del.:     50   av. ins.:   3.19, av. del:   2.38
+Author MC      30 commits  - ins.:    173  del.:    166   av. ins.:   5.77, av. del:   5.53
+Author PDB    100 commits  - ins.:    426  del.:    366   av. ins.:   4.26, av. del:   3.66
+Author VG     206 commits  - ins.:   1182  del.:    754   av. ins.:   5.74, av. del:   3.66
+Author VM      48 commits  - ins.:    238  del.:    287   av. ins.:   4.96, av. del:   5.98
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      36 commits  - ins.:    105  del.:     69   av. ins.:   2.92, av. del:   1.92
+Author MC       8 commits  - ins.:     80  del.:     40   av. ins.:  10.00, av. del:   5.00
+Author PDB    113 commits  - ins.:    486  del.:    385   av. ins.:   4.30, av. del:   3.41
+Author VG     192 commits  - ins.:   1219  del.:    686   av. ins.:   6.35, av. del:   3.57
+Author VM      41 commits  - ins.:    277  del.:    188   av. ins.:   6.76, av. del:   4.59
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      15 commits  - ins.:     38  del.:     19   av. ins.:   2.53, av. del:   1.27
+Author MC       5 commits  - ins.:     77  del.:     38   av. ins.:  15.40, av. del:   7.60
+Author PDB     28 commits  - ins.:    132  del.:     56   av. ins.:   4.71, av. del:   2.00
+Author VG      57 commits  - ins.:    337  del.:    164   av. ins.:   5.91, av. del:   2.88
+Author VM       7 commits  - ins.:    124  del.:     72   av. ins.:  17.71, av. del:  10.29
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC       1 commits  - ins.:     21  del.:      0   av. ins.:  21.00, av. del:   0.00
+Author VG      13 commits  - ins.:     95  del.:      6   av. ins.:   7.31, av. del:   0.46
+Author VM      11 commits  - ins.:    167  del.:    117   av. ins.:  15.18, av. del:  10.64
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC       8 commits  - ins.:     80  del.:     14   av. ins.:  10.00, av. del:   1.75
+Author VG      13 commits  - ins.:     95  del.:      6   av. ins.:   7.31, av. del:   0.46
+Author VM      25 commits  - ins.:    279  del.:    190   av. ins.:  11.16, av. del:   7.60
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC      11 commits  - ins.:     96  del.:     24   av. ins.:   8.73, av. del:   2.18
+Author VM      17 commits  - ins.:    140  del.:     86   av. ins.:   8.24, av. del:   5.06
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC       8 commits  - ins.:    125  del.:     12   av. ins.:  15.62, av. del:   1.50
+Author VM       3 commits  - ins.:     28  del.:     13   av. ins.:   9.33, av. del:   4.33
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       3 commits  - ins.:      8  del.:     10   av. ins.:   2.67, av. del:   3.33
+Author MC       7 commits  - ins.:    145  del.:     28   av. ins.:  20.71, av. del:   4.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      30 commits  - ins.:    129  del.:     83   av. ins.:   4.30, av. del:   2.77
+Author MC      17 commits  - ins.:    331  del.:     93   av. ins.:  19.47, av. del:   5.47
+Author PDB      1 commits  - ins.:      7  del.:      2   av. ins.:   7.00, av. del:   2.00
+Author VG      16 commits  - ins.:    151  del.:     59   av. ins.:   9.44, av. del:   3.69
+Author VM      27 commits  - ins.:    369  del.:    236   av. ins.:  13.67, av. del:   8.74
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      27 commits  - ins.:    121  del.:     73   av. ins.:   4.48, av. del:   2.70
+Author MC      14 commits  - ins.:    274  del.:     67   av. ins.:  19.57, av. del:   4.79
+Author PDB      1 commits  - ins.:      7  del.:      2   av. ins.:   7.00, av. del:   2.00
+Author VG      16 commits  - ins.:    151  del.:     59   av. ins.:   9.44, av. del:   3.69
+Author VM      32 commits  - ins.:    492  del.:    359   av. ins.:  15.38, av. del:  11.22
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author VG       2 commits  - ins.:      6  del.:      6   av. ins.:   3.00, av. del:   3.00
+Author VM       6 commits  - ins.:    142  del.:    130   av. ins.:  23.67, av. del:  21.67
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      13 commits  - ins.:     50  del.:     23   av. ins.:   3.85, av. del:   1.77
+Author MC       4 commits  - ins.:     46  del.:     21   av. ins.:  11.50, av. del:   5.25
+Author PDB     11 commits  - ins.:    100  del.:    102   av. ins.:   9.09, av. del:   9.27
+Author VG      15 commits  - ins.:     82  del.:     77   av. ins.:   5.47, av. del:   5.13
+Author VM      11 commits  - ins.:    154  del.:    164   av. ins.:  14.00, av. del:  14.91
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      13 commits  - ins.:     50  del.:     23   av. ins.:   3.85, av. del:   1.77
+Author MC       4 commits  - ins.:     46  del.:     21   av. ins.:  11.50, av. del:   5.25
+Author PDB     11 commits  - ins.:    100  del.:    102   av. ins.:   9.09, av. del:   9.27
+Author VG      13 commits  - ins.:     76  del.:     71   av. ins.:   5.85, av. del:   5.46
+Author VM      10 commits  - ins.:    135  del.:    157   av. ins.:  13.50, av. del:  15.70
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC      19 commits  - ins.:    281  del.:    102   av. ins.:  14.79, av. del:   5.37
+Author PDB      1 commits  - ins.:      2  del.:      2   av. ins.:   2.00, av. del:   2.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      21 commits  - ins.:     92  del.:     39   av. ins.:   4.38, av. del:   1.86
+Author MC      19 commits  - ins.:    281  del.:    102   av. ins.:  14.79, av. del:   5.37
+Author PDB      8 commits  - ins.:     45  del.:     23   av. ins.:   5.62, av. del:   2.88
+Author VM       7 commits  - ins.:    130  del.:     74   av. ins.:  18.57, av. del:  10.57
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      22 commits  - ins.:    480  del.:     39   av. ins.:  21.82, av. del:   1.77
+Author MC      27 commits  - ins.:    216  del.:    104   av. ins.:   8.00, av. del:   3.85
+Author PDB      8 commits  - ins.:    431  del.:     21   av. ins.:  53.88, av. del:   2.62
+Author VG      28 commits  - ins.:    112  del.:     47   av. ins.:   4.00, av. del:   1.68
+Author VM      10 commits  - ins.:    146  del.:    101   av. ins.:  14.60, av. del:  10.10
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      46 commits  - ins.:    538  del.:    140   av. ins.:  11.70, av. del:   3.04
+Author MC      42 commits  - ins.:    355  del.:    137   av. ins.:   8.45, av. del:   3.26
+Author PDB      1 commits  - ins.:    388  del.:      0   av. ins.: 388.00, av. del:   0.00
+Author VG      28 commits  - ins.:    112  del.:     47   av. ins.:   4.00, av. del:   1.68
+Author VM       3 commits  - ins.:     16  del.:     27   av. ins.:   5.33, av. del:   9.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      45 commits  - ins.:    150  del.:    140   av. ins.:   3.33, av. del:   3.11
+Author MC      17 commits  - ins.:    145  del.:     36   av. ins.:   8.53, av. del:   2.12
+Author PDB     11 commits  - ins.:    165  del.:    133   av. ins.:  15.00, av. del:  12.09
+Author VG       1 commits  - ins.:      4  del.:      2   av. ins.:   4.00, av. del:   2.00
+Author VM       5 commits  - ins.:     51  del.:     40   av. ins.:  10.20, av. del:   8.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      10 commits  - ins.:     21  del.:     24   av. ins.:   2.10, av. del:   2.40
+Author MC       3 commits  - ins.:      7  del.:      4   av. ins.:   2.33, av. del:   1.33
+Author PDB     13 commits  - ins.:    176  del.:    143   av. ins.:  13.54, av. del:  11.00
+Author VG      16 commits  - ins.:     58  del.:    110   av. ins.:   3.62, av. del:   6.88
+Author VM      12 commits  - ins.:    385  del.:    270   av. ins.:  32.08, av. del:  22.50
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      10 commits  - ins.:     21  del.:     24   av. ins.:   2.10, av. del:   2.40
+Author MC       1 commits  - ins.:      1  del.:      1   av. ins.:   1.00, av. del:   1.00
+Author PDB      4 commits  - ins.:     35  del.:     12   av. ins.:   8.75, av. del:   3.00
+Author VG      54 commits  - ins.:    304  del.:    215   av. ins.:   5.63, av. del:   3.98
+Author VM      21 commits  - ins.:    445  del.:    314   av. ins.:  21.19, av. del:  14.95
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      16 commits  - ins.:     76  del.:     66   av. ins.:   4.75, av. del:   4.12
+Author MC      31 commits  - ins.:    258  del.:    135   av. ins.:   8.32, av. del:   4.35
+Author PDB     34 commits  - ins.:    221  del.:     50   av. ins.:   6.50, av. del:   1.47
+Author VG      66 commits  - ins.:    488  del.:    181   av. ins.:   7.39, av. del:   2.74
+Author VM      30 commits  - ins.:    310  del.:    183   av. ins.:  10.33, av. del:   6.10
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      50 commits  - ins.:    282  del.:    131   av. ins.:   5.64, av. del:   2.62
+Author MC      59 commits  - ins.:    534  del.:    258   av. ins.:   9.05, av. del:   4.37
+Author PDB     95 commits  - ins.:    548  del.:    388   av. ins.:   5.77, av. del:   4.08
+Author VG      69 commits  - ins.:    557  del.:    219   av. ins.:   8.07, av. del:   3.17
+Author VM      24 commits  - ins.:    237  del.:    151   av. ins.:   9.88, av. del:   6.29
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      34 commits  - ins.:    206  del.:     65   av. ins.:   6.06, av. del:   1.91
+Author MC      28 commits  - ins.:    276  del.:    123   av. ins.:   9.86, av. del:   4.39
+Author PDB     72 commits  - ins.:    437  del.:    400   av. ins.:   6.07, av. del:   5.56
+Author VG      58 commits  - ins.:    449  del.:    177   av. ins.:   7.74, av. del:   3.05
+Author VM       9 commits  - ins.:     43  del.:     54   av. ins.:   4.78, av. del:   6.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author PDB     15 commits  - ins.:    106  del.:     79   av. ins.:   7.07, av. del:   5.27
+Author VG      16 commits  - ins.:    130  del.:     32   av. ins.:   8.12, av. del:   2.00
+Author VM       1 commits  - ins.:      5  del.:      2   av. ins.:   5.00, av. del:   2.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author PDB      6 commits  - ins.:     20  del.:     19   av. ins.:   3.33, av. del:   3.17
+Author VG       9 commits  - ins.:    105  del.:     26   av. ins.:  11.67, av. del:   2.89
+Author VM       4 commits  - ins.:     82  del.:    162   av. ins.:  20.50, av. del:  40.50
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      38 commits  - ins.:    247  del.:    260   av. ins.:   6.50, av. del:   6.84
+Author MC      34 commits  - ins.:    114  del.:     79   av. ins.:   3.35, av. del:   2.32
+Author PDB      4 commits  - ins.:     12  del.:     10   av. ins.:   3.00, av. del:   2.50
+Author VG      31 commits  - ins.:    263  del.:    116   av. ins.:   8.48, av. del:   3.74
+Author VM      21 commits  - ins.:    232  del.:    244   av. ins.:  11.05, av. del:  11.62
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      38 commits  - ins.:    247  del.:    260   av. ins.:   6.50, av. del:   6.84
+Author MC      34 commits  - ins.:    114  del.:     79   av. ins.:   3.35, av. del:   2.32
+Author PDB      4 commits  - ins.:     12  del.:     10   av. ins.:   3.00, av. del:   2.50
+Author VG      26 commits  - ins.:    176  del.:     90   av. ins.:   6.77, av. del:   3.46
+Author VM      17 commits  - ins.:    150  del.:     82   av. ins.:   8.82, av. del:   4.82
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author VG      51 commits  - ins.:    363  del.:    141   av. ins.:   7.12, av. del:   2.76
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author VG      47 commits  - ins.:    345  del.:    141   av. ins.:   7.34, av. del:   3.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC       4 commits  - ins.:     16  del.:      8   av. ins.:   4.00, av. del:   2.00
+Author VG      30 commits  - ins.:    149  del.:     66   av. ins.:   4.97, av. del:   2.20
+Author VM       5 commits  - ins.:     12  del.:     19   av. ins.:   2.40, av. del:   3.80
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC       4 commits  - ins.:     16  del.:      8   av. ins.:   4.00, av. del:   2.00
+Author VG      36 commits  - ins.:    185  del.:     92   av. ins.:   5.14, av. del:   2.56
+Author VM       5 commits  - ins.:     12  del.:     19   av. ins.:   2.40, av. del:   3.80
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author PDB      5 commits  - ins.:     50  del.:     42   av. ins.:  10.00, av. del:   8.40
+Author VG       6 commits  - ins.:     36  del.:     26   av. ins.:   6.00, av. del:   4.33
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      15 commits  - ins.:     96  del.:     40   av. ins.:   6.40, av. del:   2.67
+Author MC       6 commits  - ins.:     31  del.:      7   av. ins.:   5.17, av. del:   1.17
+Author PDB      8 commits  - ins.:     77  del.:     65   av. ins.:   9.62, av. del:   8.12
+Author VG       9 commits  - ins.:     53  del.:     42   av. ins.:   5.89, av. del:   4.67
+Author VM       7 commits  - ins.:     51  del.:     17   av. ins.:   7.29, av. del:   2.43
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      15 commits  - ins.:     96  del.:     40   av. ins.:   6.40, av. del:   2.67
+Author MC       6 commits  - ins.:     31  del.:      7   av. ins.:   5.17, av. del:   1.17
+Author PDB      3 commits  - ins.:     27  del.:     23   av. ins.:   9.00, av. del:   7.67
+Author VG       9 commits  - ins.:     53  del.:     42   av. ins.:   5.89, av. del:   4.67
+Author VM       7 commits  - ins.:     51  del.:     17   av. ins.:   7.29, av. del:   2.43
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author VM       1 commits  - ins.:     36  del.:      5   av. ins.:  36.00, av. del:   5.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       9 commits  - ins.:     36  del.:      6   av. ins.:   4.00, av. del:   0.67
+Author MC       4 commits  - ins.:     54  del.:     27   av. ins.:  13.50, av. del:   6.75
+Author PDB      5 commits  - ins.:    521  del.:     29   av. ins.: 104.20, av. del:   5.80
+Author VG      19 commits  - ins.:    119  del.:     52   av. ins.:   6.26, av. del:   2.74
+Author VM      12 commits  - ins.:     94  del.:     52   av. ins.:   7.83, av. del:   4.33
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       9 commits  - ins.:     36  del.:      6   av. ins.:   4.00, av. del:   0.67
+Author MC      11 commits  - ins.:    132  del.:     98   av. ins.:  12.00, av. del:   8.91
+Author PDB      5 commits  - ins.:    521  del.:     29   av. ins.: 104.20, av. del:   5.80
+Author VG      19 commits  - ins.:    119  del.:     52   av. ins.:   6.26, av. del:   2.74
+Author VM      11 commits  - ins.:     58  del.:     47   av. ins.:   5.27, av. del:   4.27
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author MC       7 commits  - ins.:     78  del.:     71   av. ins.:  11.14, av. del:  10.14
+Author VM       3 commits  - ins.:     11  del.:     15   av. ins.:   3.67, av. del:   5.00
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      16 commits  - ins.:     40  del.:     15   av. ins.:   2.50, av. del:   0.94
+Author MC       1 commits  - ins.:      1  del.:      1   av. ins.:   1.00, av. del:   1.00
+Author VG      10 commits  - ins.:    138  del.:    117   av. ins.:  13.80, av. del:  11.70
+Author VM       6 commits  - ins.:    128  del.:     34   av. ins.:  21.33, av. del:   5.67
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      16 commits  - ins.:     40  del.:     15   av. ins.:   2.50, av. del:   0.94
+Author MC       1 commits  - ins.:      1  del.:      1   av. ins.:   1.00, av. del:   1.00
+Author VG      10 commits  - ins.:    138  del.:    117   av. ins.:  13.80, av. del:  11.70
+Author VM       3 commits  - ins.:    117  del.:     19   av. ins.:  39.00, av. del:   6.33
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author VG      11 commits  - ins.:     60  del.:     28   av. ins.:   5.45, av. del:   2.55
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      19 commits  - ins.:    102  del.:     40   av. ins.:   5.37, av. del:   2.11
+Author PDB      8 commits  - ins.:    185  del.:     18   av. ins.:  23.12, av. del:   2.25
+Author VG      34 commits  - ins.:    200  del.:    133   av. ins.:   5.88, av. del:   3.91
+Author VM       7 commits  - ins.:    113  del.:     96   av. ins.:  16.14, av. del:  13.71
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP      28 commits  - ins.:    130  del.:     73   av. ins.:   4.64, av. del:   2.61
+Author PDB      8 commits  - ins.:    185  del.:     18   av. ins.:  23.12, av. del:   2.25
+Author VG      46 commits  - ins.:    335  del.:    155   av. ins.:   7.28, av. del:   3.37
+Author VM      11 commits  - ins.:    144  del.:    119   av. ins.:  13.09, av. del:  10.82
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Author DP       9 commits  - ins.:     28  del.:     33   av. ins.:   3.11, av. del:   3.67
+Author VG      23 commits  - ins.:    195  del.:     50   av. ins.:   8.48, av. del:   2.17
+Author VM       4 commits  - ins.:     31  del.:     23   av. ins.:   7.75, av. del:   5.75
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
+Commit;Date;Author;Task;Files;Inserted;Deleted
