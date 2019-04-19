@@ -32,6 +32,7 @@ export class SimpleGameCreationComponent {
     public readonly OPTION_MAX_NAME_LENGTH: number = 15;
     public loading: boolean;
 
+    public hasFormError: boolean;
     private name: string;
     private imageFiles: File[];
     public errorMessage: string;
@@ -44,6 +45,7 @@ export class SimpleGameCreationComponent {
         private formValidationService: FormValidationService,
         private gameNameCheckerService: GameNameCheckerService,
     ) {
+        this.hasFormError = false;
         this.loading = false;
         this.name = "";
         this.imageFiles = new Array<File>(this.N_IMAGES);
@@ -99,8 +101,6 @@ export class SimpleGameCreationComponent {
     }
 
     public submitForm(): void {
-        if (this.allValuesEntered) {
-            this.sendForm();
-        }
+        this.allValuesEntered ? this.sendForm() : this.hasFormError = true;
     }
 }
