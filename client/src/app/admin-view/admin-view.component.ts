@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { ThematicObjectGeneratorService } from "../scene3d/thematic-object-generator.service";
 
 @Component({
   selector: "app-admin-view",
@@ -11,15 +10,10 @@ export class AdminViewComponent {
 
     public showForm2D: boolean;
     public showForm3D: boolean;
-    public areObjectsLoaded: boolean;
 
-    public constructor(private thematicObjectGenerator: ThematicObjectGeneratorService) {
-        this.areObjectsLoaded = false;
+    public constructor() {
         this.showForm2D = false;
         this.showForm3D = false;
-        this.thematicObjectGenerator.waitForObjects()
-            .then(() => this.areObjectsLoaded = true)
-            .catch((error: Error) => console.error(error.message));
     }
 
     public changeShowForm2D(): void {
