@@ -1,3 +1,5 @@
+// Data generated from mongodb
+// tslint:disable
 export const DUMMY_DATABASE = [
     {
       "topScoresSolo": [
