@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Output } from "@angular/core";
+import { GameType } from "../../../../common/communication/game-description";
 import { Message } from "../../../../common/communication/message";
 import { ImageTypeName } from "../../../../common/images/image-type";
 import { DifferenceImageService } from "../difference-image.service";
 import { FormValidationService } from "../form-validation.service";
 import { GameNameCheckerService } from "../game-name-checker.service";
-import { GameType } from "../../../../common/communication/game-description";
 interface FileReaderEventTarget extends EventTarget {
     result: ArrayBuffer;
     files: FileList;
