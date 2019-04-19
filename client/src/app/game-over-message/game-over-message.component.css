@@ -1,5 +1,7 @@
 .game-over-message-popup {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     left: 24%;
     padding: 30px;
     background-color: var(--header-color);
@@ -13,23 +15,24 @@
     text-align: center;
 }
 
-.returnToGames {
+.return-to-games {
     font-size: 20px;
     background: var(--success-color);
-    color:  #FFFFFF;
+    color:  var(--header-text-color);
     transition-duration: 0.5s;
-    border-radius: 30px;
-    border: 0px;
+    height: 50px;
+    border-radius: 25px;
+    border: none;
     padding: 10px;
-    margin-top: 10px;
+    margin: 10px auto;
+    cursor: pointer;
 }
 
-.returnToGames:hover {
-    background: #FFFFFF;
+.return-to-games:hover {
+    background: var(--header-text-color);
     color: var(--success-color);
-    border: 1px solid var(--success-color);
 }
 
-.messageFelicitations {
+.congrats-message {
     font-size: 40px;
 }
