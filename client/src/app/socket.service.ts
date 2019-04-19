@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import * as io from "socket.io-client";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
-import { GameMode } from "../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../common/communication/game-description";
 import { ChatMessage } from "../../../common/communication/message";
 
 @Injectable({
@@ -63,9 +63,9 @@ export class SocketService {
         });
     }
 
-    public getGameSheetDeletion(id: string): Observable<void> {
+    public getGameSheetDeletion(id: string, type: GameType): Observable<void> {
         return Observable.create((observer: Subject<void>) => {
-            this.socket.on(`GameSheetDeleted-${id}`, () => {
+            this.socket.on(`GameSheetDeleted-${id}-${type}`, () => {
                 observer.next();
             });
         });
