@@ -56,6 +56,10 @@ export class SimpleGameCreationComponent {
         this.closeForm.emit(false);
     }
 
+    public isNameDuplicate(): boolean {
+        return this.gameNameCheckerService.checkName(this.name, GameType.Simple);
+    }
+
     public fileEntered(event: FileReaderEvent, type: ImageType): void {
         if (type < this.N_IMAGES) {
             this.imageFiles[type] = event.target.files[0];
