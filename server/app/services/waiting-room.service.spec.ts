@@ -13,4 +13,11 @@ describe.only("WaitingRoomService", () => {
                 done();
             });
     });
+
+    it("should resolve when joining a waitingRoom", (done: Mocha.Done) => {
+        waitingRoomService.joinWaitingRoom("voiture", "username2", GameType.Simple)
+            .then(() => {
+                done();
+            })
+    })
 });
