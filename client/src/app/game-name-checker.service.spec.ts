@@ -45,4 +45,10 @@ describe("GameNameChecker", () => {
         expect(namesTestFree[0]).toBe("test3d");
     });
 
+    it("should return true if there is a duplicate in the correct list", () => {
+        gameNameChecker.initialize(GameType.Simple);
+        expect(gameNameChecker.checkName("test2d", GameType.Simple)).toBeTruthy;
+        gameNameChecker.initialize(GameType.Free);
+        expect(gameNameChecker.checkName("test3d", GameType.Free)).toBeTruthy;
+    });
 });
