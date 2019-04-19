@@ -1,20 +1,23 @@
-import { GameNameCheckerService } from "./game-name-checker.service";
 import { TestBed } from "@angular/core/testing";
 import { of, Observable } from "rxjs";
+import { GameLists, GameSheet, GameType } from "../../../common/communication/game-description";
+import { GameListService } from "./game-list-getter.service";
+import { GameNameCheckerService } from "./game-name-checker.service";
+
 const gameListServiceStub = {
     getGameList(): Observable<GameLists> {
         const gameList2d: GameSheet[] = [
             {
                 id: "1",
                 name: "test2d",
-                topScores: [
+                topScores: [ 
                     { scoresStrings: ["1"] },
                     { scoresStrings: ["2"] },
                 ],
-                    },
+            },
         ];
         const gameList3d: GameSheet[] = [
-                    {
+            {
                 id: "1",
                 name: "test3d",
                 topScores: [
