@@ -21,6 +21,7 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
     private gameReadySubscription: Subscription;
     private name: string;
     private type: GameType;
+    private id: string;
     public other: string;
 
     public constructor(
@@ -41,7 +42,10 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
+            this.id = params["id"];
             this.type = params["type"];
+
+            this.listenToGameSheetDeletion();
             JSON.parse(params["create"]) ? this.joinWaitingRoom() : this.createWaitingRoom();
         });
     }
@@ -55,6 +59,12 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
     private createWaitingRoom(): void {
         this.waitingRoomSubscription = this.gameplayService.createWaitingRoom(this.name, this.type, this.username).subscribe(() => {
             this.waitForGameReady();
+        });
+    }
+
+    private listenToGameSheetDeletion(): void {
+        this.gameSheetDeletedSubscription = this.socketService.getGameSheetDeletion(this.id, this.type).subscribe(() => {
+            this.location.back();
         });
     }
 
