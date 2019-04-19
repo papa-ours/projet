@@ -21,7 +21,7 @@ after(async () => {
 
 beforeEach(async () => {
     return dbConnection["performRequest"](async (instance: typeof mongoose) => {
-        instance.models.GameSheet.deleteMany({});
+        await new Promise((resolve: () => void) => instance.models.GameSheet.deleteMany({}, () => resolve()));
         await instance.models.GameSheet.create(DUMMY_DATABASE);
     });
 });
