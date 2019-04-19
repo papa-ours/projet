@@ -24,20 +24,14 @@ export class SocketService {
     }
 
     public sendFoundDiffrenceMessage(gameMode: GameMode): void {
-        this.sendGameType(gameMode);
-        this.socket.emit("foundDifference");
+        this.socket.emit("foundDifference", gameMode);
     }
 
     public sendErrorIdentificationMessage(gameMode: GameMode): void {
-        this.sendGameType(gameMode);
-        this.socket.emit("errorIdentification");
+        this.socket.emit("errorIdentification", gameMode);
     }
 
-    public sendGameType(gameMode: GameMode): void {
-        this.socket.emit("setGameType", gameMode);
-    }
-
-    public getChatMessage = () => {
+    public getChatMessage(): Observable<ChatMessage> {
         return Observable.create((observer: Subject<ChatMessage>) => {
             this.socket.on("chatMessage", (data: ChatMessage) => {
                 observer.next(data);

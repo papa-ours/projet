@@ -7,6 +7,7 @@ import { container } from "../inversify.config";
 import { Server } from "../server";
 import { Socket } from "../socket";
 import Types from "../types";
+import { ChatMessageService } from "./chat-message.service";
 import { UsersContainerService } from "./users-container.service";
 
 describe("chat-message-service", () => {
@@ -16,6 +17,7 @@ describe("chat-message-service", () => {
     socket.init(server.getServer());
 
     const userContainerService: UsersContainerService = container.get<UsersContainerService>(Types.UsersContainerService);
+    const chatMessageService: ChatMessageService = container.get<ChatMessageService>(Types.ChatMessageService);
     let socketClient1: SocketIOClient.Socket;
     let socketClient2: SocketIOClient.Socket;
 
@@ -78,8 +80,8 @@ describe("chat-message-service", () => {
         );
     });
 
-    it("should send a message if a difference is found", (done: Mocha.Func) => {
-        socketClient1.emit("foundDifference");
+    it("should send a message if a difference is found in solo mode", (done: Mocha.Func) => {
+        socketClient1.emit("foundDifference", GameMode.Solo);
         const expected: string = "Différence trouvée.";
         socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
@@ -87,8 +89,8 @@ describe("chat-message-service", () => {
         });
     });
 
-    it("should send a message if an error identification occured", (done: Mocha.Func) => {
-        socketClient1.emit("errorIdentification");
+    it("should send a message if an error identification occured in solo mode", (done: Mocha.Func) => {
+        socketClient1.emit("errorIdentification", GameMode.Solo);
         const expected: string = "Erreur.";
         socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
@@ -119,47 +121,51 @@ describe("chat-message-service", () => {
     it("should send a message to all users if a user is disconnected", (done: Mocha.Func) => {
         socketClient1.disconnect();
         const expected: string = "Username1 vient de se déconnecter.";
-        socketClient2.on("chatMessage", (result: ChatMessage) => {
-            expect(decodeURIComponent(escape(result.text))).to.deep.equals(expected);
+        socketClient2.on("chatMessage", (data: ChatMessage) => {
+            const result: string = data.text.replace("Ã©", "é");
+            expect(result).to.deep.equals(expected);
             setTimeout(done, 0);
         });
     });
 
     it("should send a message to all users if a best time solo is beaten", (done: Mocha.Func) => {
         const username: string = "username";
-        const position: number = 2;
+        const positionIndex: number = 1;
         const gameName: string = "Voiture";
         const gameMode: GameMode = GameMode.Solo;
-        socket.sendBestTimeMessage(username, position, gameName, gameMode);
-        const expected: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en solo`;
-        socketClient1.on("chatMessage", (result1: ChatMessage) => {
-            expect(result1.text).to.deep.equals(expected);
-            socketClient2.on("chatMessage", (result2: ChatMessage) => {
-                expect(result2.text).to.deep.equals(expected);
+        chatMessageService.sendBestTimeMessage(username, positionIndex, gameName, gameMode);
+        const expected: string = `username obtient la deuxième place dans les meilleurs temps du jeu Voiture en solo`;
+        socketClient1.on("chatMessage", (data1: ChatMessage) => {
+            const result1: string = data1.text.replace("Ã¨", "è");
+            expect(result1).to.deep.equals(expected);
+            socketClient2.on("chatMessage", (data2: ChatMessage) => {
+                const result2: string = data2.text.replace("Ã¨", "è");
+                expect(result2).to.deep.equals(expected);
                 setTimeout(done, 0);
             });
         });
     });
 
-    it("should send a message to all users if a best time 1vs1 is beaten", (done: Mocha.Func) => {
+    it("should send a message to all users if a best time pvp is beaten", (done: Mocha.Func) => {
         const username: string = "username";
-        const position: number = 2;
+        const positionIndex: number = 1;
         const gameName: string = "Voiture";
         const gameMode: GameMode = GameMode.Pvp;
-        socket.sendBestTimeMessage(username, position, gameName, gameMode);
-        const expected: string = `${username} obtient la place ${position} dans les meilleurs temps du jeu ${gameName} en un contre un`;
-        socketClient1.on("chatMessage", (result1: ChatMessage) => {
-            expect(result1.text).to.deep.equals(expected);
-            socketClient2.on("chatMessage", (result2: ChatMessage) => {
-                expect(result2.text).to.deep.equals(expected);
+        chatMessageService.sendBestTimeMessage(username, positionIndex, gameName, gameMode);
+        const expected: string = `username obtient la deuxième place dans les meilleurs temps du jeu Voiture en un contre un`;
+        socketClient1.on("chatMessage", (data1: ChatMessage) => {
+            const result1: string = data1.text.replace("Ã¨", "è");
+            expect(result1).to.deep.equals(expected);
+            socketClient2.on("chatMessage", (data2: ChatMessage) => {
+                const result2: string = data2.text.replace("Ã¨", "è");
+                expect(result2).to.deep.equals(expected);
                 setTimeout(done, 0);
             });
         });
     });
 
-    it("should switch to 1vs1 message and send an error message", (done: Mocha.Func) => {
-        socketClient1.emit("setGameType", GameType.Free);
-        socketClient1.emit("errorIdentification");
+    it("should send a message if a difference is found in pvp mode", (done: Mocha.Func) => {
+        socketClient1.emit("errorIdentification", GameType.Free);
         const expected: string = "Erreur par Username1.";
         socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
@@ -167,9 +173,8 @@ describe("chat-message-service", () => {
         });
     });
 
-    it("should switch to 1vs1 message and send found identification message", (done: Mocha.Func) => {
-        socketClient1.emit("setGameType", GameType.Free);
-        socketClient1.emit("foundDifference");
+    it("should send a message if an error identification occured in pvp mode", (done: Mocha.Func) => {
+        socketClient1.emit("foundDifference", GameType.Free);
         const expected: string = "Différence trouvée par Username1.";
         socketClient1.on("chatMessage", (result: ChatMessage) => {
             expect(result.text).to.deep.equals(expected);
