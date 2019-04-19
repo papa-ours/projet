@@ -6,7 +6,6 @@ import { GameMode, GameType } from "../../../common/communication/game-descripti
 import { Message } from "../../../common/communication/message";
 import { Position } from "../../../common/images/position";
 import { container } from "../inversify.config";
-import { Server } from "../server";
 import { Socket } from "../socket";
 import Types from "../types";
 import { AbstractGame } from "./game/game";
@@ -20,20 +19,6 @@ describe("send-winner.service", () => {
     const username2: string = "Username2";
     let socketClient1: SocketIOClient.Socket;
     let socketClient2: SocketIOClient.Socket;
-
-    const server: Server = container.get<Server>(Types.Server);
-    const socket: Socket = container.get<Socket>(Types.Socket);
-
-    before(() => {
-        server.init();
-        socket.init(server.getServer());
-    });
-
-    after((done: Mocha.Done) => {
-        Socket.io.close();
-        server.getServer().close();
-        done();
-    });
 
     beforeEach((done: Mocha.Done) => {
         socketClient1 = io.connect(SERVER_ADDRESS, { forceNew: true, reconnectionDelay: 0 });
