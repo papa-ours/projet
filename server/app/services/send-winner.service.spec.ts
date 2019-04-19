@@ -66,9 +66,10 @@ describe("send-winner.service", () => {
                 const game: AbstractGame = getGameService.getGame(gameId);
                 const positions: Position[] = [{i: 480, j: 171}, {i: 477, j: 234}, {i: 254, j: 145}, {i: 33, j: 192},
                                                {i: 468, j: 335}, {i: 222, j: 262}, {i: 343, j: 158}];
-                Promise.all(positions.map((position: Position) =>
-                    Axios.get(`${SERVER_ADDRESS}/api/difference/${game.id}/${position.i}/${position.j}/${username1}`)));
-            });
+                Promise.all(positions.map((position: Position) => {
+                    Axios.get(`${SERVER_ADDRESS}/api/difference/${game.id}/${position.i}/${position.j}/${username1}`);
+                })).catch((error: Error) => console.error(error.message));
+            }).catch((error: Error) => console.error(error.message));
     });
 
     it("should send the winner to both players in pvp", (done: Mocha.Done) => {
@@ -89,9 +90,10 @@ describe("send-winner.service", () => {
                     userSocket1.join(`${game.sheetId}-${username1}`);
                     userSocket2.join(`${game.sheetId}-${username1}`);
                     const positions: Position[] = [{i: 480, j: 171}, {i: 477, j: 234}, {i: 254, j: 145}, {i: 33, j: 192}];
-                    Promise.all(positions.map((position: Position) =>
-                        Axios.get(`${SERVER_ADDRESS}/api/difference/${game.id}/${position.i}/${position.j}/${username1}`)));
+                    Promise.all(positions.map((position: Position) => {
+                        Axios.get(`${SERVER_ADDRESS}/api/difference/${game.id}/${position.i}/${position.j}/${username1}`);
+                    })).catch((error: Error) => console.error(error.message));
                 }
-            });
+            }).catch((error: Error) => console.error(error.message));
     });
 });
