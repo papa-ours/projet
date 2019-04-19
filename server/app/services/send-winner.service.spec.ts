@@ -56,20 +56,18 @@ describe("send-winner.service", () => {
     });
 
     it("should send the winner in solo mode", (done: Mocha.Done) => {
+        socketClient1.on("endGameWinner", (winner: string) => {
+            expect(winner).to.equal(username1);
+            done();
+        });
         Axios.get(`${SERVER_ADDRESS}/api/game/id/voiture/${GameType.Simple}/${GameMode.Solo}/${JSON.stringify([username1])}`)
             .then((response: AxiosResponse<Message>) => {
                 const gameId: string = JSON.parse(response.data.body);
                 const game: AbstractGame = getGameService.getGame(gameId);
                 const positions: Position[] = [{i: 480, j: 171}, {i: 477, j: 234}, {i: 254, j: 145}, {i: 33, j: 192},
                                                {i: 468, j: 335}, {i: 222, j: 262}, {i: 343, j: 158}];
-                Promise.all(positions.map((position: Position) => {
-                    Axios.get(`${SERVER_ADDRESS}/api/difference/${game.id}/${position.i}/${position.j}/${username1}`);
-                })).then(() => {
-                    socketClient1.on("endGameWinner", (winner: string) => {
-                        expect(winner).to.equal(username1);
-                        done();
-                    });
-                });
+                Promise.all(positions.map((position: Position) =>
+                    Axios.get(`${SERVER_ADDRESS}/api/difference/${game.id}/${position.i}/${position.j}/${username1}`)));
             });
     });
 
