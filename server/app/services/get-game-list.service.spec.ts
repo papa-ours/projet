@@ -6,8 +6,10 @@ import { GetGameListService } from "./get-game-list.service";
 
 describe("get game list", () => {
     const getGameListService: GetGameListService = container.get<GetGameListService>(Types.GetGameListService);
-    it("should return the game list properly", async () => {
-        const result: GameLists = await getGameListService.getGameList();
-        expect(result).to.not.equals(undefined);
+    it("should return the game list properly", () => {
+        getGameListService.getGameList().then((result: GameLists) => {
+            expect(result).to.not.equals(undefined);
+        })
+        .catch((error: Error) => console.error(error.message));
     });
 });

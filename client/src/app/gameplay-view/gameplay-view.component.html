@@ -3,29 +3,33 @@
 
 <div class="container">
     <div class="title-container">{{name}}</div>
-    
+
     <div class="info-container">
-        <span class="time-container">
-            <fa-icon [icon]="hourglassIcon" class="info-label"></fa-icon>
-            <span>{{formattedChrono}}</span>
+        <div class="spacer"></div>
+        <span>
+            <app-chrono [chronoRunning]="isChronoRunning"></app-chrono>
         </span>
-        <span class="differences-count">
-            <span>{{foundDifferencesCounter}}/{{requiredDifferences}}</span>
-        </span>
-        <span *ngIf="nbPlayers==2" class="differences-count">
-            <span>{{foundDifferencesCounter}}/{{requiredDifferences}}</span>
-        </span>
+        <div class="spacer"></div>
+        <div class="counters">
+            <ng-container *ngFor="let counter of foundDifferencesCounters">
+                <div class="spacer"></div>
+                <div class="differences-count">
+                    <span>{{counter}}/{{requiredDifferences}}</span>
+                </div>
+            </ng-container>
+        </div>
+        <div class="filler"></div>
     </div>
 
-
+    <app-game-over-message *ngIf="winner" [winner]="winner"></app-game-over-message>
     <div *ngIf="!isChronoRunning" class="loader"></div>
     <div #container class="images-chat-container" [class.disabled]="!isChronoRunning">
         <div [style.left.px]="clickPosition.i" [style.top.px]="clickPosition.j" class="error-tag" *ngIf="isErrorMessageVisible">ERREUR</div>
         <div *ngIf="type==0; else scenes"> 
-            <app-gameplay-2d (foundDifferenceEvent)="updateGameplay()" (errorIdentificationEvent)="identificationError()" [id]="id" [name]="name" [canClick]="canClick"></app-gameplay-2d>
+            <app-gameplay-2d (foundDifferenceEvent)="updateGameplay()" (errorIdentificationEvent)="identificationError()" [id]="id" [name]="name" [foundDifferencesCounter]="totalDifferenceCounter" [canClick]="canClick"></app-gameplay-2d>
         </div>
         <ng-template #scenes>
-            <app-gameplay-3d (foundDifferenceEvent)="updateGameplay()" (errorIdentificationEvent)="identificationError()" [id]="id" [name]="name" [width]="500" [height]="375" [canClick]="canClick"></app-gameplay-3d>
+            <app-gameplay-3d (foundDifferenceEvent)="updateGameplay()" (errorIdentificationEvent)="identificationError()" [id]="id" [name]="name" [width]="500" [height]="375"  [differenceCounter]="totalDifferenceCounter" [canClick]="canClick"></app-gameplay-3d>
         </ng-template>
         <app-chat-messages></app-chat-messages>
     </div>

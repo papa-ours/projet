@@ -1,0 +1,27 @@
+<div class="popup" *ngIf="isGameSheetDeleted">
+    <div class="message">La carte de jeu a été supprimée par un administrateur</div>
+    <button class="back-btn" (click)="goToLobby()">Retourner au menu</button>
+</div>
+<div class=page-container *ngIf="!isGameSheetDeleted">
+    <div class="users-container">
+        <div class="user-card">
+            <fa-icon class="user-icon" [icon]="faUser"></fa-icon>
+            <div class="username">{{username}}</div>
+        </div>
+        <div class="versus-text">VS</div>
+        <div class="user-card">
+            <div *ngIf="!other; else user" class="loader"></div>
+            <ng-template #user>
+                <fa-icon class="user-icon" [icon]="faUser"></fa-icon>
+            </ng-template>
+            <div class="username">{{other ? other : "Recherche"}}
+                <span *ngIf="!other">
+                    <span class="dot" id="dot1">.</span>
+                    <span class="dot" id="dot2">.</span>
+                    <span class="dot" id="dot3">.</span>
+                </span>
+            </div>
+        </div>
+    </div>  
+    <button (click)="deleteWaitingRoom()" class="cancel-btn">Annuler</button>
+</div>

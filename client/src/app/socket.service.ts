@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import * as io from "socket.io-client";
 import { SERVER_ADDRESS } from "../../../common/communication/constants";
-import { GameMode } from "../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../common/communication/game-description";
 import { ChatMessage } from "../../../common/communication/message";
 
 @Injectable({
@@ -23,18 +23,58 @@ export class SocketService {
         this.socket.emit("newUser");
     }
 
-    public sendFoundDiffrenceMessage(gameMode: GameMode): void {
-        this.socket.emit("foundDifference", gameMode);
+    public sendFoundDiffrenceMessage(gameId: string, gameMode: GameMode): void {
+        this.socket.emit("foundDifference", gameId, gameMode);
     }
 
-    public sendErrorIdentificationMessage(gameMode: GameMode): void {
-        this.socket.emit("errorIdentification", gameMode);
+    public sendErrorIdentificationMessage(gameId: string, gameMode: GameMode): void {
+        this.socket.emit("errorIdentification", gameId, gameMode);
     }
 
     public getChatMessage(): Observable<ChatMessage> {
         return Observable.create((observer: Subject<ChatMessage>) => {
             this.socket.on("chatMessage", (data: ChatMessage) => {
                 observer.next(data);
+            });
+        });
+    }
+
+    public getGameReady(): Observable<string> {
+        return Observable.create((observer: Subject<string>) => {
+            this.socket.on(`GameReady`, (id: string) => {
+                observer.next(JSON.parse(id));
+            });
+        });
+    }
+
+    public getGameCreated(id: string): Observable<boolean> {
+        return Observable.create((observer: Subject<boolean>) => {
+            this.socket.on(`GameCreated-${id}`, (status: boolean) => {
+                observer.next(status);
+            });
+        });
+    }
+
+    public getUserJoined(): Observable<string[]> {
+        return Observable.create((observer: Subject<string[]>) => {
+            this.socket.on("UserJoined", (usernames: string) => {
+                observer.next(JSON.parse(usernames));
+            });
+        });
+    }
+
+    public getGameSheetDeletion(id: string, type: GameType): Observable<void> {
+        return Observable.create((observer: Subject<void>) => {
+            this.socket.on(`GameSheetDeleted-${id}-${type}`, () => {
+                observer.next();
+            });
+        });
+    }
+
+    public getWinner(): Observable<string> {
+        return Observable.create((observer: Subject<string>) => {
+            this.socket.on("endGameWinner", (winner: string) => {
+                observer.next(winner);
             });
         });
     }

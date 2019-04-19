@@ -36,7 +36,6 @@ export class FreeGame extends AbstractGame {
         const differenceRestoration: SceneDifferenceRestorationService = new SceneDifferenceRestorationService(this.scene);
         this.scene = differenceRestoration.getSceneAfterDifferenceUpdate(position);
         this.saveModifiedScene();
-        this.differenceCount--;
     }
 
     private saveModifiedScene(): void {
