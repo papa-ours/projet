@@ -10,7 +10,7 @@ const gameListServiceStub = {
             {
                 id: "1",
                 name: "test2d",
-                topScores: [ 
+                topScores: [
                     { scoresStrings: ["1"] },
                     { scoresStrings: ["2"] },
                 ],
@@ -50,20 +50,20 @@ describe("GameNameChecker", () => {
 
     it("should return true if there is a duplicate in the correct list", () => {
         gameNameChecker.initialize(GameType.Simple);
-        expect(gameNameChecker.checkName("test2d", GameType.Simple)).toBeTruthy;
+        expect(gameNameChecker.checkName("test2d", GameType.Simple)).toBeTruthy();
         gameNameChecker.initialize(GameType.Free);
-        expect(gameNameChecker.checkName("test3d", GameType.Free)).toBeTruthy;
+        expect(gameNameChecker.checkName("test3d", GameType.Free)).toBeTruthy();
     });
     it("should return false if there is a duplicate in the other list", () => {
         gameNameChecker.initialize(GameType.Simple);
-        expect(gameNameChecker.checkName("test3d", GameType.Simple)).toBeFalsy;
+        expect(gameNameChecker.checkName("test3d", GameType.Simple)).toBeFalsy();
         gameNameChecker.initialize(GameType.Free);
-        expect(gameNameChecker.checkName("test2d", GameType.Free)).toBeFalsy;
+        expect(gameNameChecker.checkName("test2d", GameType.Free)).toBeFalsy();
     });
     it("should return false if it is not in any lists", () => {
         gameNameChecker.initialize(GameType.Simple);
-        expect(gameNameChecker.checkName("", GameType.Simple)).toBeFalsy;
+        expect(gameNameChecker.checkName("", GameType.Simple)).toBeFalsy();
         gameNameChecker.initialize(GameType.Free);
-        expect(gameNameChecker.checkName("", GameType.Free)).toBeFalsy;
+        expect(gameNameChecker.checkName("", GameType.Free)).toBeFalsy();
     });
 });
