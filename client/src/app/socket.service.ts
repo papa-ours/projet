@@ -62,4 +62,12 @@ export class SocketService {
             });
         });
     }
+
+    public getGameSheetDeletion(id: string): Observable<void> {
+        return Observable.create((observer: Subject<void>) => {
+            this.socket.on(`GameSheetDeleted-${id}`, () => {
+                observer.next();
+            })
+        });
+    }
 }
