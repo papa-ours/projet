@@ -10,6 +10,9 @@
         <div  class="error-message" *ngIf="(name.length < OPTION_MIN_NAME_LENGTH  || name.length > OPTION_MAX_NAME_LENGTH)">
             Le nom du jeu doit comporter entre 5 et 15 caractères
         </div>
+        <div class="error-message" *ngIf="isNameDuplicate()">
+            Nom du jeu déjà pris!
+        </div>
     </div>
 
     <div class="info original-image-section">
