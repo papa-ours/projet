@@ -1,5 +1,7 @@
 import { GameNameChecker } from "./game-name-checker.service";
 import { TestBed } from "@angular/core/testing";
+import { of, Observable } from "rxjs";
+import { GameSheet, GameLists } from "../../../common/communication/game-description";
 const getGameListServiceStub = {
     getGameList(): Observable<GameLists> {
         const gameList2d: GameSheet[] = [
