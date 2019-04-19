@@ -28,9 +28,6 @@ export class GameOverMessageComponent implements OnChanges {
 
     public returnToLobby(): void {
         this.router.navigateByUrl(`/gamelist/${this.connectionService.username}`)
-                    .catch((err: Error) => {
-                        console.error(err);
-                    },
-                );
+                    .catch((error: Error) => console.error(error.message));
     }
 }
