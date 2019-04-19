@@ -26,4 +26,5 @@ export default {
         EndGameController: Symbol("EndGameController"),
         SceneDifferenceCheckerService: Symbol("SceneDifferenceCheckerService"),
         WaitingRoomService: Symbol("WaitingRoomService"),
+        SendWinnerService: Symbol("SendWinnerService"),
 };
