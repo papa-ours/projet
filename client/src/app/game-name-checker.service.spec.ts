@@ -57,4 +57,10 @@ describe("GameNameChecker", () => {
         gameNameChecker.initialize(GameType.Free);
         expect(gameNameChecker.checkName("test2d", GameType.Free)).toBeFalsy;
     });
+    it("should return false if it is not in any lists", () => {
+        gameNameChecker.initialize(GameType.Simple);
+        expect(gameNameChecker.checkName("", GameType.Simple)).toBeFalsy;
+        gameNameChecker.initialize(GameType.Free);
+        expect(gameNameChecker.checkName("", GameType.Free)).toBeFalsy;
+    });
 });
