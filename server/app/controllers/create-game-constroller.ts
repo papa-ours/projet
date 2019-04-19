@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
+import { GameType } from "../../../common/communication/game-description";
 import { Message, MessageType } from "../../../common/communication/message";
 import { DBConnectionService } from "../services/db-connection.service";
 import { GetGameService } from "../services/get-game.service";
 import { WaitingRoomService } from "../services/waiting-room.service";
+import { Socket } from "../socket";
 import Types from "../types";
 
 @injectable()
@@ -86,6 +88,7 @@ export class CreateGameController {
             async (req: Request, res: Response, next: NextFunction) => {
                 try {
                     await this.db.deleteGameSheet(req.params.id, req.params.type);
+                    this.sendGameSheetDeletionMessage(req.params.id, req.params.type);
                     res.send();
                 } catch (error) {
                     res.send(error);
@@ -103,5 +106,9 @@ export class CreateGameController {
             });
 
         return router;
+    }
+
+    private sendGameSheetDeletionMessage(id: string, type: GameType): void {
+        Socket.io.emit(`GameSheetDeleted-${id}-${type}`);
     }
 }

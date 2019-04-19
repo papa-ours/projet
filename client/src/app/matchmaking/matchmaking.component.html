@@ -1,4 +1,8 @@
-<div class=page-container>
+<div class="popup" *ngIf="isGameSheetDeleted">
+    <div class="message">La carte de jeu a été supprimée par un administrateur</div>
+    <button class="back-btn" (click)="goToLobby()">Retourner au menu</button>
+</div>
+<div class=page-container *ngIf="!isGameSheetDeleted">
     <div class="users-container">
         <div class="user-card">
             <fa-icon class="user-icon" [icon]="faUser"></fa-icon>
@@ -19,5 +23,5 @@
             </div>
         </div>
     </div>  
-    <button (click)="goToGameList()" class="cancel-btn">Annuler</button>
+    <button (click)="deleteWaitingRoom()" class="cancel-btn">Annuler</button>
 </div>

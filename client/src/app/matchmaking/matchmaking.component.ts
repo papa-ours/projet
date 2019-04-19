@@ -16,10 +16,13 @@ import { SocketService } from "../socket.service";
 export class MatchmakingComponent implements OnInit, OnDestroy {
     public username: string;
     public faUser: IconDefinition = faUser;
-    public joinSubscription: Subscription;
+    private waitingRoomSubscription: Subscription;
+    private gameSheetDeletedSubscription: Subscription;
+    private gameReadySubscription: Subscription;
+    public isGameSheetDeleted: boolean;
     private name: string;
     private type: GameType;
-    public isGameCreated: boolean;
+    private id: string;
     public other: string;
 
     public constructor(
@@ -31,6 +34,7 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
         private gameplayService: GameplayService,
     ) {
         this.other = "";
+        this.isGameSheetDeleted = false;
 
         this.connectionService.connected ?
             this.username = this.connectionService.username :
@@ -40,41 +44,50 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
+            this.id = params["id"];
             this.type = params["type"];
-            this.isGameCreated = JSON.parse(params["create"]);
-            this.isGameCreated ? this.joinWaitingRoom() : this.createWaitingRoom();
 
-            this.socketService.getUserJoined().subscribe((usernames: string[]) => {
-                this.username = usernames[0];
-                this.other = usernames[1] ? usernames[1] : "";
-            });
+            this.listenToGameSheetDeletion();
+            JSON.parse(params["create"]) ? this.joinWaitingRoom() : this.createWaitingRoom();
         });
     }
 
     public ngOnDestroy(): void {
-        this.joinSubscription.unsubscribe();
+        this.waitingRoomSubscription.unsubscribe();
+        this.gameReadySubscription.unsubscribe();
+        this.gameSheetDeletedSubscription.unsubscribe();
     }
 
     private createWaitingRoom(): void {
-        this.gameplayService.createWaitingRoom(this.name, this.type, this.username).subscribe(() => {
+        this.waitingRoomSubscription = this.gameplayService.createWaitingRoom(this.name, this.type, this.username).subscribe(() => {
             this.waitForGameReady();
         });
     }
 
+    private listenToGameSheetDeletion(): void {
+        this.gameSheetDeletedSubscription = this.socketService.getGameSheetDeletion(this.id, this.type).subscribe(() => {
+            this.isGameSheetDeleted = true;
+        });
+    }
+
     private joinWaitingRoom(): void {
-        this.gameplayService.joinWaitingRoom(this.name, this.type, this.username).subscribe(() => {
+        this.waitingRoomSubscription = this.gameplayService.joinWaitingRoom(this.name, this.type, this.username).subscribe(() => {
             this.waitForGameReady();
         });
     }
 
     private waitForGameReady(): void {
-        this.joinSubscription = this.socketService.getGameReady().subscribe((id: string) => {
+        this.gameReadySubscription = this.socketService.getGameReady().subscribe((id: string) => {
             this.router.navigateByUrl(`game/${this.name}/${this.type}/${GameMode.Pvp}/${id}`)
                 .catch((error: Error) => console.error(error.message));
         });
     }
 
-    public goToGameList(): void {
-        this.gameplayService.deleteWaitingRoom(this.name, this.type, this.username).subscribe(() => this.location.back());
+    public deleteWaitingRoom(): void {
+        this.gameplayService.deleteWaitingRoom(this.name, this.type, this.username).subscribe(() => this.goToLobby());
+    }
+
+    private goToLobby(): void {
+        this.location.back();
     }
 }
