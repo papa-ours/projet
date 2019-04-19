@@ -32,7 +32,7 @@ describe("GameNameChecker", () => {
     let gameNameChecker: GameNameCheckerService;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [GameNameCheckerService],
+            providers: [GameNameCheckerService, {provide: GameListService, useValue: gameListServiceStub}],
         });
         gameNameChecker = TestBed.get(GameNameCheckerService);
     });
