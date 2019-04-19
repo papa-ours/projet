@@ -4,10 +4,17 @@
 
 .popup {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     top: 30%;
     width: 40%;
+    left: 30%;
+    background: var(--header-color);
+    text-align: center;
+    padding: 20px;
     z-index: 4;
-    height: 200px;
+    border-radius: 12px;
+    height: 120px;
 }
 
 .message {
@@ -19,10 +26,13 @@
     color: var(--header-text-color);
     background: var(--success-color);
     cursor: pointer;
-    height: 40px;
-    padding: 5px;
+    height: 44px;
+    border: none;
+    font-size: 24px;
+    padding: 5px 10px;
     text-align: center;
-    border-radius: 20px;
+    border-radius: 22px;
+    margin: 20px auto;
 }
 
 .back-btn:hover {
