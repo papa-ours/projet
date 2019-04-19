@@ -6,19 +6,24 @@ import { GameListService } from "./game-list-getter.service";
 })
 export class GameNameCheckerService {
 
-    private names: string[];
+    private names2d: string[];
+    private names3d: string[];
     public constructor(private gameListService: GameListService) {  }
 
     public initialize(type: GameType): void {
-        this.names = [];
+        this.names2d = [];
+        this.names3d = [];
         this.gameListService.getGameList().subscribe((lists) => {
             for (const game3d of lists.list3d) {
-                this.names.push(game3d.name);
+                this.names2d.push(game3d.name);
+            }
+            for (const game3d of lists.list2d) {
+                this.names3d.push(game3d.name);
             }
         });
     }
-    public checkName(name: string): boolean {
-        for (const nameGame of this.names) {
+    public checkName3d(name: string): boolean {
+        for (const nameGame of this.names3d) {
             if (name === nameGame) {
                 return true;
             }
