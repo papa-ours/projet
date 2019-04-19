@@ -67,7 +67,7 @@ export class SocketService {
         return Observable.create((observer: Subject<void>) => {
             this.socket.on(`GameSheetDeleted-${id}`, () => {
                 observer.next();
-            })
+            });
         });
     }
 }
