@@ -2,10 +2,10 @@ import { NextFunction } from "connect";
 import { Request, Response, Router } from "express";
 import { inject, injectable } from "inversify";
 import { GameSheet } from "../../../common/communication/game-description";
+import { ChatMessageService } from "../services/chat-message.service";
 import { AbstractGame } from "../services/game/game";
 import { GetGameService } from "../services/get-game.service";
 import { ScoreUpdaterService } from "../services/score-updater.service";
-import { Socket } from "../socket";
 import Types from "../types";
 
 @injectable()
@@ -16,7 +16,7 @@ export class EndGameController {
     public constructor(
         @inject(Types.ScoreUpdaterService) private scoreUpdaterService: ScoreUpdaterService,
         @inject(Types.GetGameService) private getGameService: GetGameService,
-        @inject(Types.Socket) private socket: Socket,
+        @inject(Types.ChatMessageService) private chatMessageService: ChatMessageService,
     ) {
 
     }
@@ -37,7 +37,7 @@ export class EndGameController {
                     ).then((gameSheet: GameSheet) => {
                         const position: number = this.scoreUpdaterService.getPosition(gameSheet, req.body.time, game.gameMode);
                         if (position !== -1) {
-                            this.socket.sendBestTimeMessage(game.username, position, game.name, game.gameMode);
+                            this.chatMessageService.sendBestTimeMessage(game.username, position, game.name, game.gameMode);
                         }
                     }),
                     this.getGameService.removeGame(req.body.gameId),
