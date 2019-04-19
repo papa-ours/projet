@@ -19,7 +19,6 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
     public joinSubscription: Subscription;
     private name: string;
     private type: GameType;
-    public isGameCreated: boolean;
     public other: string;
 
     public constructor(
@@ -41,8 +40,7 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
         this.route.params.subscribe((params: Params) => {
             this.name = params["name"];
             this.type = params["type"];
-            this.isGameCreated = JSON.parse(params["create"]);
-            this.isGameCreated ? this.joinWaitingRoom() : this.createWaitingRoom();
+            JSON.parse(params["create"]) ? this.joinWaitingRoom() : this.createWaitingRoom();
 
             this.socketService.getUserJoined().subscribe((usernames: string[]) => {
                 this.username = usernames[0];
