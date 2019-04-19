@@ -22,8 +22,9 @@ export class GameNameCheckerService {
             }
         });
     }
-    public checkName3d(name: string): boolean {
-        for (const nameGame of this.names3d) {
+    public checkName3d(name: string, gameType: GameType): boolean {
+        const names: string[] = gameType === GameType.Simple ? this.names2d : this.names3d;
+        for (const nameGame of names) {
             if (name === nameGame) {
                 return true;
             }
