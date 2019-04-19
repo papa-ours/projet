@@ -9,6 +9,7 @@ import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-ico
 export class ChronoComponent {
 
     private isChronoRunning: boolean;
+    private SECONDS_PER_MINUTE: number = 60;
     public chrono: number;
     public readonly hourglassIcon: IconDefinition = faHourglassHalf;
 
@@ -44,9 +45,8 @@ export class ChronoComponent {
     }
 
     public get formattedChrono(): string {
-        const SECONDS: number = 60;
-        const seconds: number = this.chrono % SECONDS;
-        const minutes: number = Math.floor(this.chrono / SECONDS);
+        const seconds: number = this.chrono % this.SECONDS_PER_MINUTE;
+        const minutes: number = Math.floor(this.chrono / this.SECONDS_PER_MINUTE);
 
         return `${this.formatTimeUnit(minutes)}:${this.formatTimeUnit(seconds)}`;
     }
