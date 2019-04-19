@@ -36,5 +36,13 @@ describe("GameNameChecker", () => {
         });
         gameNameChecker = TestBed.get(GameNameCheckerService);
     });
+    it("should get the right gameList", () => {
+        gameNameChecker.initialize(GameType.Simple);
+        const namesTestSimple: string[] = gameNameChecker["names"];
+        expect(namesTestSimple[0]).toBe("test2d");
+        gameNameChecker.initialize(GameType.Free);
+        const namesTestFree: string[] = gameNameChecker["names"];
+        expect(namesTestFree[0]).toBe("test3d");
+    });
 
 });
