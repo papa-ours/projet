@@ -1,6 +1,6 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild  } from "@angular/core";
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild  } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { faHourglassHalf, IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { Subscription } from "rxjs";
 import { REQUIRED_DIFFERENCES_1P, REQUIRED_DIFFERENCES_2P } from "../../../../common/communication/constants";
 import { GameMode, GameType } from "../../../../common/communication/game-description";
 import { ChatMessage } from "../../../../common/communication/message";
@@ -13,13 +13,13 @@ import { SocketService } from "../socket.service";
     templateUrl: "./gameplay-view.component.html",
     styleUrls: ["./gameplay-view.component.css"],
 })
-export class GameplayViewComponent implements OnInit {
+export class GameplayViewComponent implements OnInit, OnDestroy {
 
     public gameMode: GameMode;
-    public readonly hourglassIcon: IconDefinition = faHourglassHalf;
     private readonly CORRECT_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Correct-answer.ogg");
     private readonly WRONG_SOUND: HTMLAudioElement = new Audio("../../../assets/sound/Wrong-answer.mp3");
     private readonly ERROR_TIMEOUT: number = 1000;
+    public isChronoRunning: boolean;
 
     public totalDifferenceCounter: number;
     public foundDifferencesCounters: number[];
@@ -30,7 +30,8 @@ export class GameplayViewComponent implements OnInit {
     public isErrorMessageVisible: boolean;
     public clickPosition: Position;
     public chrono: number;
-    private isChronoRunning: boolean;
+    public winner: string;
+    private winnerSubscription: Subscription;
 
     @ViewChild("container") private containerRef: ElementRef;
 
@@ -46,10 +47,8 @@ export class GameplayViewComponent implements OnInit {
         this.images = [];
         this.canClick = true;
         this.isErrorMessageVisible = false;
-        this.chrono = 0;
-        this.isChronoRunning = false;
         this.totalDifferenceCounter = 0;
-
+        this.isChronoRunning = false;
         if (!this.connectionService.connected) {
             this.router.navigateByUrl("/").catch((error: Error) => console.error(error.message));
         }
@@ -58,6 +57,10 @@ export class GameplayViewComponent implements OnInit {
             if (message.text.includes("Différence")) {
                 this.updateDifferenceCounters(this.connectionService.username === message.username ? 0 : 1);
             }
+        });
+
+        this.winnerSubscription = this.socketService.getWinner().subscribe((winner: string) => {
+            this.winner = winner;
         });
     }
 
@@ -78,11 +81,15 @@ export class GameplayViewComponent implements OnInit {
             this.requiredDifferences = this.gameMode == GameMode.Solo ? REQUIRED_DIFFERENCES_1P : REQUIRED_DIFFERENCES_2P;
             // tslint:disable-next-line:triple-equals
             this.foundDifferencesCounters = this.gameMode == GameMode.Solo ? [0] : [0, 0];
-            this.startChrono();
+            this.isChronoRunning = true;
         });
         const SOUND_VOLUME: number = 0.2;
         this.CORRECT_SOUND.volume = SOUND_VOLUME;
         this.WRONG_SOUND.volume = SOUND_VOLUME;
+    }
+
+    public ngOnDestroy(): void {
+        this.winnerSubscription.unsubscribe();
     }
 
     @HostListener("click", ["$event"])
@@ -134,37 +141,5 @@ export class GameplayViewComponent implements OnInit {
                 this.canClick = true;
             },
             this.ERROR_TIMEOUT);
-    }
-
-    private startChrono(): void {
-        this.isChronoRunning = true;
-        this.incrementChrono();
-    }
-
-    private incrementChrono(): void {
-        const ONE_SECOND: number = 1000;
-        setTimeout(
-            () => {
-                if (this.isChronoRunning) {
-                    this.chrono++;
-                    this.incrementChrono();
-                }
-            },
-            ONE_SECOND,
-        );
-    }
-
-    public get formattedChrono(): string {
-        const SECONDS: number = 60;
-        const seconds: number = this.chrono % SECONDS;
-        const minutes: number = Math.floor(this.chrono / SECONDS);
-
-        return `${this.formatTimeUnit(minutes)}:${this.formatTimeUnit(seconds)}`;
-    }
-
-    private formatTimeUnit(n: number): string {
-        const BASE: number = 10;
-
-        return `${n < BASE ? "0" : ""}${n}`;
     }
 }

@@ -70,4 +70,12 @@ export class SocketService {
             });
         });
     }
+
+    public getWinner(): Observable<string> {
+        return Observable.create((observer: Subject<string>) => {
+            this.socket.on("endGameWinner", (winner: string) => {
+                observer.next(winner);
+            });
+        });
+    }
 }

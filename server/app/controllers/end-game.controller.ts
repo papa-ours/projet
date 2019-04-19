@@ -6,6 +6,7 @@ import { ChatMessageService } from "../services/chat-message.service";
 import { AbstractGame } from "../services/game/game";
 import { GetGameService } from "../services/get-game.service";
 import { ScoreUpdaterService } from "../services/score-updater.service";
+import { SendWinnerService } from "../services/send-winner.service";
 import Types from "../types";
 
 @injectable()
@@ -17,6 +18,7 @@ export class EndGameController {
         @inject(Types.ScoreUpdaterService) private scoreUpdaterService: ScoreUpdaterService,
         @inject(Types.GetGameService) private getGameService: GetGameService,
         @inject(Types.ChatMessageService) private chatMessageService: ChatMessageService,
+        @inject(Types.SendWinnerService) private sendWinnerService: SendWinnerService,
     ) {
 
     }
@@ -39,7 +41,7 @@ export class EndGameController {
                             this.chatMessageService.sendBestTimeMessage(game.usernames[game.winner], position, game.name, game.gameMode);
                         }
                     });
-
+                this.sendWinnerService.sendWinner(game);
                 this.getGameService.removeGame(req.body.gameId)
                     .then(() => {
                         res.send({
