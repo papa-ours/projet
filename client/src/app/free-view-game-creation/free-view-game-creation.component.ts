@@ -34,7 +34,7 @@ export class FreeViewGameCreationComponent {
         this.closeForm = new EventEmitter();
         this.hasFormError = false;
         this.loading = false;
-        gameNameCheckerService.initialize(GameType.Free);
+        this.gameNameCheckerService.initialize(GameType.Free);
     }
 
     public isNbObjectValid(): boolean {
