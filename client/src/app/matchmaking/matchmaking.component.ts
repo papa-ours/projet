@@ -81,7 +81,11 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
         });
     }
 
-    public goToGameList(): void {
-        this.gameplayService.deleteWaitingRoom(this.name, this.type, this.username).subscribe(() => this.location.back());
+    public deleteWaitingRoom(): void {
+        this.gameplayService.deleteWaitingRoom(this.name, this.type, this.username).subscribe(() => this.goToLobby());
+    }
+
+    private goToLobby(): void {
+        this.location.back();
     }
 }
