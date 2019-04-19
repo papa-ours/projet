@@ -13,9 +13,9 @@ export class GameNameCheckerService {
         this.names = [];
         this.gameListService.getGameList().subscribe((lists) => {
             const listNames: GameSheet[] = type === GameType.Simple ? lists.list2d : lists.list3d;
-            for (const game3d of listNames) {
-                this.names.push(game3d.name);
-            }
+            listNames.forEach( (sheet) => {
+                this.names.push(sheet.name);
+        });
         });
     }
     public checkName(name: string, gameType: GameType): boolean {
