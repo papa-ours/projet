@@ -18,6 +18,6 @@ describe.only("WaitingRoomService", () => {
         waitingRoomService.joinWaitingRoom("voiture", "username2", GameType.Simple)
             .then(() => {
                 done();
-            })
-    })
+            });
+    });
 });
