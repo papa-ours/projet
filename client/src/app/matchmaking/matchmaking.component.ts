@@ -19,6 +19,7 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
     private waitingRoomSubscription: Subscription;
     private gameSheetDeletedSubscription: Subscription;
     private gameReadySubscription: Subscription;
+    public isGameSheetDeleted: boolean;
     private name: string;
     private type: GameType;
     private id: string;
@@ -33,6 +34,7 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
         private gameplayService: GameplayService,
     ) {
         this.other = "";
+        this.isGameSheetDeleted = false;
 
         this.connectionService.connected ?
             this.username = this.connectionService.username :
@@ -64,7 +66,7 @@ export class MatchmakingComponent implements OnInit, OnDestroy {
 
     private listenToGameSheetDeletion(): void {
         this.gameSheetDeletedSubscription = this.socketService.getGameSheetDeletion(this.id, this.type).subscribe(() => {
-            this.location.back();
+            this.isGameSheetDeleted = true;
         });
     }
 
