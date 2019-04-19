@@ -20,6 +20,6 @@ after(async () => {
 describe("DB connection service", async () => {
 
     it("Should inject URL properly", async () => {
-        expect(dbConnection["uri"]).to.equal(await mongodb.getUri());
+        expect(DBConnectionService["URI"]).to.equal(await mongodb.getUri());
     });
 });
