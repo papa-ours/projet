@@ -51,7 +51,7 @@ export class SimpleGameCreationComponent {
         this.imageFiles = new Array<File>(this.N_IMAGES);
         this.errorMessage = "";
         this.closeForm = new EventEmitter();
-        gameNameCheckerService.initialize(GameType.Simple);
+        this.gameNameCheckerService.initialize(GameType.Simple);
     }
 
     public close(): void {
