@@ -18,6 +18,7 @@ import { FreeViewGameCreationComponent } from "./free-view-game-creation/free-vi
 import { GameImageComponent } from "./game-image/game-image.component";
 import { GameListViewComponent } from "./game-list-view/game-list-view.component";
 import { GameListComponent } from "./game-list/game-list.component";
+import { GameNameCheckerService } from "./game-name-checker.service";
 import { GameOverMessageComponent } from "./game-over-message/game-over-message.component";
 import { GameSheetComponent } from "./game-sheet/game-sheet.component";
 import { Gameplay2DComponent } from "./gameplay-2d/gameplay-2d.component";
@@ -31,7 +32,6 @@ import { Scene3dComponent } from "./scene3d/scene3d.component";
 import { ThematicObjectGeneratorService } from "./scene3d/thematic-object-generator.service";
 import { FileIO } from "./simple-game-creation/file-reader.util";
 import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-creation.component";
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -70,6 +70,7 @@ import { SimpleGameCreationComponent } from "./simple-game-creation/simple-game-
         FileIO,
         Difference3DCheckerService,
         RenderService,
+        GameNameCheckerService,
         GameplayViewComponent,
         Gameplay2DComponent,
         {provide: String, useValue: "stringValue"},

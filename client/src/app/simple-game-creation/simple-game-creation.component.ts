@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output } from "@angular/core";
+import { GameType } from "../../../../common/communication/game-description";
 import { Message } from "../../../../common/communication/message";
 import { ImageTypeName } from "../../../../common/images/image-type";
 import { DifferenceImageService } from "../difference-image.service";
 import { FormValidationService } from "../form-validation.service";
-
+import { GameNameCheckerService } from "../game-name-checker.service";
 interface FileReaderEventTarget extends EventTarget {
     result: ArrayBuffer;
     files: FileList;
@@ -42,6 +43,7 @@ export class SimpleGameCreationComponent {
     public constructor(
         private differenceImageService: DifferenceImageService,
         private formValidationService: FormValidationService,
+        private gameNameCheckerService: GameNameCheckerService,
     ) {
         this.hasFormError = false;
         this.loading = false;
@@ -49,10 +51,15 @@ export class SimpleGameCreationComponent {
         this.imageFiles = new Array<File>(this.N_IMAGES);
         this.errorMessage = "";
         this.closeForm = new EventEmitter();
+        this.gameNameCheckerService.initialize(GameType.Simple);
     }
 
     public close(): void {
         this.closeForm.emit(false);
+    }
+
+    public isNameDuplicate(): boolean {
+        return this.gameNameCheckerService.checkName(this.name);
     }
 
     public fileEntered(event: FileReaderEvent, type: ImageType): void {

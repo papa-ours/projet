@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Output } from "@angular/core";
+import { GameType } from "../../../../common/communication/game-description";
 import { FormValidationFreeViewService } from "../form-validation-free-view.service";
 import { FreeViewForm } from "../free-view-form";
 import { GameFreeViewGenerationService } from "../game-free-view-generation.service";
-
+import { GameNameCheckerService } from "../game-name-checker.service";
 @Component({
     selector: "app-free-view-game-creation",
     templateUrl: "./free-view-game-creation.component.html",
@@ -18,7 +19,10 @@ export class FreeViewGameCreationComponent {
     public hasFormError: boolean;
     public freeViewForm: FreeViewForm;
     @Output() public closeForm: EventEmitter<boolean>;
-    public constructor(private gameFreeViewGenerationService: GameFreeViewGenerationService) {
+    public constructor(
+        private gameFreeViewGenerationService: GameFreeViewGenerationService,
+        private gameNameCheckerService: GameNameCheckerService,
+        ) {
         this.freeViewForm = {
             name: "",
             nbObjects: 0,
@@ -30,6 +34,7 @@ export class FreeViewGameCreationComponent {
         this.closeForm = new EventEmitter();
         this.hasFormError = false;
         this.loading = false;
+        this.gameNameCheckerService.initialize(GameType.Free);
     }
 
     public isNbObjectValid(): boolean {
@@ -37,6 +42,10 @@ export class FreeViewGameCreationComponent {
                 Number(this.freeViewForm.nbObjects) <= this.NB_OBJECTS_MAX &&
                 Number(this.freeViewForm.nbObjects) >= this.NB_OBJECTS_MIN;
 
+    }
+
+    public isNameDuplicate(): boolean {
+        return this.gameNameCheckerService.checkName(this.freeViewForm.name);
     }
 
     public close(): void {
@@ -48,7 +57,7 @@ export class FreeViewGameCreationComponent {
     }
 
     public submitForm(): void {
-        if (this.allValuesEntered) {
+        if (this.allValuesEntered && !this.isNameDuplicate()) {
             this.sendForm();
             this.close();
             // Otherwise, CI fails
