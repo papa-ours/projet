@@ -3,6 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { GeometryData } from "../../../../common/communication/geometry";
 import { Message, MessageType } from "../../../../common/communication/message";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
+import { ConnectionService } from "../connection.service";
 import { Difference3DCheckerService } from "./difference3d-checker.service";
 
 describe("Difference3DCheckerService", () => {
@@ -12,7 +13,7 @@ describe("Difference3DCheckerService", () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [Difference3DCheckerService],
+            providers: [Difference3DCheckerService, ConnectionService],
         });
         differenceCheckerService = TestBed.get(Difference3DCheckerService);
         httpMock = TestBed.get(HttpTestingController);
