@@ -24,11 +24,11 @@ describe("SocketService", () => {
     it("should emit found difference on found difference", () => {
         spyOn(socketService["socket"], "emit");
         socketService.sendFoundDiffrenceMessage("test", GameMode.Solo);
-        expect(socketService["socket"].emit).toHaveBeenCalledWith("foundDifference","test",GameMode.Solo);
+        expect(socketService["socket"].emit).toHaveBeenCalledWith("foundDifference", "test", GameMode.Solo);
     });
     it("should emit error identification on error identification", () => {
         spyOn(socketService["socket"], "emit");
         socketService.sendErrorIdentificationMessage("test", GameMode.Solo);
-        expect(socketService["socket"].emit).toHaveBeenCalledWith("errorIdentification","test",GameMode.Solo);
+        expect(socketService["socket"].emit).toHaveBeenCalledWith("errorIdentification", "test", GameMode.Solo);
     });
 });
