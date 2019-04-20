@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { PerspectiveCamera} from "three";
 import { CameraMovementService } from "./camera-movement.service";
 import { RenderService } from "./render.service";
-describe("DeplacementCameraService", () => {
+describe("CameraMovementService", () => {
 
     let element: ElementRef;
     let renderOriginal: RenderService;
