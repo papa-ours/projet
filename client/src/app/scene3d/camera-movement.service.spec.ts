@@ -3,7 +3,7 @@ import { TestBed } from "@angular/core/testing";
 import { PerspectiveCamera} from "three";
 import { CameraMovementService } from "./camera-movement.service";
 import { RenderService } from "./render.service";
-describe("DeplacementCameraService", () => {
+describe("CameraMovementService", () => {
 
     let element: ElementRef;
     let renderOriginal: RenderService;
@@ -89,7 +89,6 @@ describe("DeplacementCameraService", () => {
         spyOn(renderOriginal.camera, "rotateY");
         const event1: MouseEvent = new MouseEvent("mousemove", {bubbles : true, cancelable : true, screenY : 50});
         CameraMovementService["rotateCamera"](event1);
-        expect(renderOriginal.camera.rotateX).not.toHaveBeenCalledWith(0);
         expect(renderOriginal.camera.rotateY).toHaveBeenCalledWith(0);
     });
 
@@ -99,7 +98,6 @@ describe("DeplacementCameraService", () => {
         spyOn(renderOriginal.camera, "rotateX");
         const event1: MouseEvent = new MouseEvent("mousemove", {bubbles : true, cancelable : true, screenX : 50});
         CameraMovementService["rotateCamera"](event1);
-        expect(renderOriginal.camera.rotateY).not.toHaveBeenCalledWith(0);
         expect(renderOriginal.camera.rotateX).toHaveBeenCalledWith(0);
     });
 

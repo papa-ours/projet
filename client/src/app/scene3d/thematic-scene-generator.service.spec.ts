@@ -4,7 +4,7 @@ import { GeometryData } from "../../../../common/communication/geometry";
 import { ThematicObjectGeneratorService } from "./thematic-object-generator.service";
 import { ThematicSceneGeneratorService } from "./thematic-scene-generator.service";
 
-fdescribe("ThematicSceneGeneratorService", () => {
+describe("ThematicSceneGeneratorService", () => {
     beforeEach(() => TestBed.configureTestingModule({}));
 
     it("should be created", () => {

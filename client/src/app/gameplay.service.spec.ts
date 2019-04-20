@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
-import { GameType } from "../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../common/communication/game-description";
 import { GameplayService } from "./gameplay.service";
 
 describe("GameplayService", () => {
@@ -21,10 +21,11 @@ describe("GameplayService", () => {
     });
 
     it("should be a GET REQUEST", () => {
-        gameplayService.getGameId("test", GameType.Simple, "name").subscribe(
+        gameplayService.getGameId("test", GameType.Simple, GameMode.Solo, "name").subscribe(
             (data: string) => { expect(data).toBeDefined();
         });
-        const request: TestRequest = httpMock.expectOne(`${gameplayService.URL}name/${GameType.Simple}`);
+        const request: TestRequest =
+            httpMock.expectOne(`${gameplayService.URL}/id/test/${GameType.Simple}/${GameMode.Solo}/${JSON.stringify(["name"])}`);
         expect(request.request.method).toBe("GET");
         httpMock.verify();
     });
