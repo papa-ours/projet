@@ -1,16 +1,19 @@
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
+import { ConnectionService } from "./connection.service";
 import { DifferenceCheckerService } from "./difference-checker.service";
 
 describe("DifferenceCheckerService", () => {
     let differenceCheckerService: DifferenceCheckerService;
     let httpMock: HttpTestingController;
+    let connectionService: ConnectionService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [DifferenceCheckerService],
+            providers: [DifferenceCheckerService, ConnectionService],
         });
+        connectionService = TestBed.get(ConnectionService);
         differenceCheckerService = TestBed.get(DifferenceCheckerService);
         httpMock = TestBed.get(HttpTestingController);
     });
@@ -22,7 +25,7 @@ describe("DifferenceCheckerService", () => {
     it("should be a GET REQUEST", () => {
         differenceCheckerService.isPositionDifference("0", 0, 0)
             .subscribe(async (data: boolean) => expect(data).toBeDefined());
-        const request: TestRequest = httpMock.expectOne(`${differenceCheckerService.BASE_URL}0/0/480`);
+        const request: TestRequest = httpMock.expectOne(`${differenceCheckerService.BASE_URL}/0/0/480/${connectionService.username}`);
         expect(request.request.method).toBe("GET");
         httpMock.verify();
     });
@@ -30,7 +33,7 @@ describe("DifferenceCheckerService", () => {
     it("should return a JSON", () => {
         differenceCheckerService.isPositionDifference("0", 0, 0)
             .subscribe(async (data: boolean) => expect(data).toBeDefined());
-        const request: TestRequest = httpMock.expectOne(`${differenceCheckerService.BASE_URL}0/0/480`);
+        const request: TestRequest = httpMock.expectOne(`${differenceCheckerService.BASE_URL}/0/0/480/${connectionService.username}`);
         expect(request.request.responseType).toBe("json");
         httpMock.verify();
     });
