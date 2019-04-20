@@ -1,0 +1,1 @@
+Certains tests du côté client, comme certains du raycaster et geometryFactoryService fail lorsqu'ils sont fait en combinaison avec tout les autres. Par contre, ils passent la moitié du temps. Puisque nous n'avons pas pu trouver la cause du problème, si un de ces tests fail, svp refaites ce test tout seul pour voir s'il marche (fdescribe).
