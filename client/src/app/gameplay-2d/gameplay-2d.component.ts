@@ -17,9 +17,14 @@ export class Gameplay2DComponent implements OnInit {
     @Input() private canClick: boolean;
     public imagesUrl: string[];
     public type: GameType;
-    private foundDifferencesCounter: number;
     @Output() public foundDifferenceEvent: EventEmitter<void>;
     @Output() public errorIdentificationEvent: EventEmitter<void>;
+
+    @Input() public set foundDifferencesCounter(counter: number) {
+        this.imagesUrl[ImageType.Modified] = counter === REQUIRED_DIFFERENCES_1P ?
+            `${S3_BUCKET_URL}/${this.name}-${ImageTypeName.Original}.bmp` :
+            `${SERVER_ADDRESS}/${this.id}.bmp?${counter}`;
+    }
 
     public constructor(
         private differenceCheckerService: DifferenceCheckerService,
@@ -49,15 +54,7 @@ export class Gameplay2DComponent implements OnInit {
     }
 
     private differenceFound(): void {
-        this.foundDifferencesCounter++;
         this.foundDifferenceEvent.emit();
-        this.updateDifferenceImage();
-    }
-
-    private updateDifferenceImage(): void {
-        this.imagesUrl[ImageType.Modified] = this.foundDifferencesCounter === REQUIRED_DIFFERENCES_1P ?
-            `${S3_BUCKET_URL}/${this.name}-${ImageTypeName.Original}.bmp` :
-            `${SERVER_ADDRESS}/${this.id}.bmp?${this.foundDifferencesCounter}`;
     }
 
 }

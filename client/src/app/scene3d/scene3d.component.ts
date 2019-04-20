@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input
          OnChanges, Output, SimpleChange, SimpleChanges, ViewChild} from "@angular/core";
 import { GeometryData, SceneData, SceneType } from "../../../../common/communication/geometry";
 import { VectorInterface } from "../../../../common/communication/vector-interface";
-import { DeplacementCameraService } from "./deplacement-camera.service";
+import { CameraMovementService } from "./camera-movement.service";
 import { GetSceneDataService } from "./get-scene-data.service";
 import { RaycasterService } from "./raycaster.service";
 import { RenderService } from "./render.service";
@@ -69,8 +69,8 @@ export class Scene3dComponent implements AfterViewInit, OnChanges {
                 this.renderService.reInitialize(this.container, await this.createScene(geometryData));
             } else {
                 this.renderService.initialize(this.container, await this.createScene(geometryData));
-                this.type ? DeplacementCameraService.setRender3dModifiedImage(this.renderService) :
-                            DeplacementCameraService.setRender3dOriginalImage(this.renderService);
+                this.type ? CameraMovementService.setRender3dModifiedImage(this.renderService) :
+                            CameraMovementService.setRender3dOriginalImage(this.renderService);
             }
         });
     }

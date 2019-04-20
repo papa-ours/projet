@@ -21,8 +21,10 @@ import { SceneDataGeneratorService } from "./services/scene/scene-data-generator
 import { SceneDifferenceCheckerService } from "./services/scene/scene-difference-checker";
 import { SceneDataDifferenceService } from "./services/scene/scene-difference-generator";
 import { ScoreUpdaterService } from "./services/score-updater.service";
+import { SendWinnerService } from "./services/send-winner.service";
 import { UsernameValidatorService } from "./services/username-validator.service";
 import { UsersContainerService } from "./services/users-container.service";
+import { WaitingRoomService } from "./services/waiting-room.service";
 import { Socket } from "./socket";
 import Types from "./types";
 
@@ -53,4 +55,6 @@ container.bind(Types.DBConnectionService).to(DBConnectionService);
 container.bind(Types.ScoreUpdaterService).to(ScoreUpdaterService);
 container.bind(Types.EndGameController).to(EndGameController);
 container.bind(Types.SceneDifferenceCheckerService).to(SceneDifferenceCheckerService);
+container.bind(Types.WaitingRoomService).to(WaitingRoomService);
+container.bind(Types.SendWinnerService).to(SendWinnerService);
 export { container };

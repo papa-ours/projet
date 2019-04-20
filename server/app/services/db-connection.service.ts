@@ -12,7 +12,7 @@ interface DeleteResponse {
 
 @injectable()
 export class DBConnectionService {
-    private readonly uri: string = "mongodb+srv://ving34:pass123@cluster0-m1gwf.mongodb.net/test?retryWrites=true";
+    private static readonly URI: string = "mongodb+srv://ving34:pass123@cluster0-m1gwf.mongodb.net/test?retryWrites=true";
     private readonly gameSheetSchema: mongoose.Schema = new mongoose.Schema({
         name: String,
         id: String,
@@ -36,7 +36,7 @@ export class DBConnectionService {
     }
 
     public async connect(): Promise<typeof mongoose> {
-        return mongoose.connect(this.uri, {
+        return mongoose.connect(DBConnectionService.URI, {
             useNewUrlParser: true,
         });
     }
@@ -48,6 +48,7 @@ export class DBConnectionService {
 
     private parseGameSheetDocument(doc: mongoose.Document): GameSheet {
         const gameSheet: GameSheet & {topScoresSolo: Score[], topScores1v1: Score[]} = doc.toObject();
+        gameSheet.hasWaitingRoom = false;
         gameSheet.topScores = [
             new TopScores(gameSheet.topScoresSolo),
             new TopScores(gameSheet.topScores1v1),

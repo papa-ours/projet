@@ -1,0 +1,11 @@
+.time-container {
+    background: var(--primary-color);
+    font-weight: 600;
+    border-radius: 60px;
+    margin: 0px 20px 0px 20px;
+    padding: 20px;
+    height: 100%;
+    width: 165px;
+    display: inline-block;
+    margin-left: 10px;
+}

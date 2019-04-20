@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { GameType } from "../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../common/communication/game-description";
 import { container } from "../inversify.config";
 import Types from "../types";
 import { AbstractGame } from "./game/game";
@@ -22,7 +22,7 @@ describe("GetGameService", () => {
 
     it.skip("should create an id with the correct length", () => {
         const ID_LENGTH: number = 25;
-        getGameService.createGame("voiture", GameType.Simple, "")
+        getGameService.createGame("voiture", GameType.Simple, GameMode.Solo, [""])
         .then((id: string) => {
             const game: AbstractGame = getGameService.getGame(id);
             expect(game.id.length).to.equals(ID_LENGTH);
@@ -31,7 +31,7 @@ describe("GetGameService", () => {
     });
 
     it.skip("should create a game properly", async () => {
-        const id: string = await getGameService.createGame("voiture", GameType.Simple, "");
+        const id: string = await getGameService.createGame("voiture", GameType.Simple, GameMode.Solo, [""]);
         const game: AbstractGame = getGameService.getGame(id);
         expect(game.id).to.equals(id);
     });

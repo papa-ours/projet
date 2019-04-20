@@ -1,22 +1,43 @@
 .info-container {
     color: var(--text-color);
     font-size: 50px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: var(--font);
     max-height: 65px;
-}
-.time-container {
-    background: var(--primary-color);
-    font-weight: 600;
-    border-radius: 60px;
-    margin-left: 20px;
-    padding: 20px;
+    display: flex;
+    flex-direction: row;
 }
 
 .differences-count {
-    margin-left: 20px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.counters {
+    display: flex;
+    flex-direction: row;
+}
+
+.differences-count {
+    width: 70px;
+    height: 100%;
     border-radius: 100%;
-    background: var(--success-color);
     padding: 25px;
+}
+
+.differences-count:nth-child(2) {
+    background: var(--success-color);
+}
+
+.differences-count:nth-child(4)  {
+    background: var(--danger-color);
+}
+
+.filler {
+    flex-grow: 20;
+}
+
+.spacer {
+    width: 10px;
 }
 
 .info-container div {
@@ -49,7 +70,7 @@ app-chat-messages {
     height: 75px;
     color: var(--header-text-color);
     width: 100%;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: var(--font);
     text-align: center;
 }
 
