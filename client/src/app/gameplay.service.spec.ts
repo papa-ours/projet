@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController, TestRequest } from "@angular/common/http/testing";
 import { TestBed } from "@angular/core/testing";
-import { GameType, GameMode } from "../../../common/communication/game-description";
+import { GameMode, GameType } from "../../../common/communication/game-description";
 import { GameplayService } from "./gameplay.service";
 
 describe("GameplayService", () => {
