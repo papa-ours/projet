@@ -4,6 +4,8 @@ import { GameLists, GameSheet, GameType } from "../../../common/communication/ga
 import { GameListService } from "./game-list-getter.service";
 import { GameNameCheckerService } from "./game-name-checker.service";
 
+// Declaration de stub, mais donne erreur tslint
+// tslint:disable-next-line: typedef
 const gameListServiceStub = {
     getGameList(): Observable<GameLists> {
         const gameList2d: GameSheet[] = [
