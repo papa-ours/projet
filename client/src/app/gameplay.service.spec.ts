@@ -25,7 +25,7 @@ describe("GameplayService", () => {
             (data: string) => { expect(data).toBeDefined();
         });
         const request: TestRequest =
-            httpMock.expectOne(`${gameplayService.URL}/test/${GameType.Simple}/${GameMode.Solo}/${JSON.stringify("name")}`);
+            httpMock.expectOne(`${gameplayService.URL}/id/test/${GameType.Simple}/${GameMode.Solo}/${JSON.stringify(["name"])}`);
         expect(request.request.method).toBe("GET");
         httpMock.verify();
     });
