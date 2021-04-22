@@ -5,7 +5,7 @@ export interface GeometryData {
    position: VectorInterface;
    rotation: VectorInterface;
    color: number;
-   size: number;
+   size: VectorInterface;
    type: GeometryType;
    isModified: boolean;
    thematicObjectType?: ThematicObjectType;

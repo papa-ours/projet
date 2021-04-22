@@ -9,7 +9,7 @@ import { GeometryIntersection } from "./geometry-intersection";
 
 export interface ThematicObjectData {
     thematicType: ThematicObjectType;
-    size: number;
+    size: VectorInterface;
     geometricType: GeometryType;
 }
 
@@ -73,7 +73,11 @@ export class SceneDataGeneratorService {
         const randomPosition: VectorInterface = this.getRandomPosition(thematicObjectData !== undefined);
         const randomRotation: VectorInterface = this.getRandomRotation(thematicObjectData !== undefined);
         const randomColor: number = this.getRandomColor();
-        const randomSize: number = thematicObjectData ? this.getRandomSize(thematicObjectData.size) : this.getRandomSize();
+        const randomSize: VectorInterface = {
+            x: this.getRandomSize(thematicObjectData && thematicObjectData.size.x),
+            y: this.getRandomSize(thematicObjectData && thematicObjectData.size.y),
+            z: this.getRandomSize(thematicObjectData && thematicObjectData.size.z),
+        };
 
         return {
             position: randomPosition,
@@ -96,7 +100,7 @@ export class SceneDataGeneratorService {
         return geometry;
     }
 
-    public getSceneData(numberOfObjects: number, sizes?: number[]): GeometryData[] {
+    public getSceneData(numberOfObjects: number, sizes?: VectorInterface[]): GeometryData[] {
         this.validateNumberOfObjects(numberOfObjects);
         const geometryData: GeometryData[] = [];
         for (let i: number = 0; i < numberOfObjects; i++) {
@@ -119,7 +123,7 @@ export class SceneDataGeneratorService {
         return thematicObjectTypes[RandomNumber.randomInteger(0, thematicObjectTypes.length)];
     }
 
-    public getRandomThematicObjectData(sizes: number[]): ThematicObjectData {
+    public getRandomThematicObjectData(sizes: VectorInterface[]): ThematicObjectData {
         const thematicObjectType: ThematicObjectType = this.getRandomThematicObjectType();
 
         return {

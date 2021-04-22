@@ -16,6 +16,10 @@ export class Vector implements VectorInterface {
         return this.dot(this);
     }
 
+    public size(): number {
+        return Math.sqrt(this.sizeSquared());
+    }
+
     public mul(k: number): Vector {
         return new Vector(k * this.x, k * this.y, k * this.z);
     }

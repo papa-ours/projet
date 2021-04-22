@@ -8,7 +8,7 @@ export class Geometry implements GeometryData {
         public position: VectorInterface,
         public rotation: VectorInterface,
         public color: number,
-        public size: number,
+        public size: VectorInterface,
         public type: GeometryType,
         public isModified: boolean,
     ) { }

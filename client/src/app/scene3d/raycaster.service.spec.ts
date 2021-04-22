@@ -8,7 +8,7 @@ describe("RaycasterService", () => {
     const ORIGINAL_GEOMETRY: GeometryData[] = [
         {
         color: 0xFF00FF,
-        size: 65,
+        size: {x: 65, y: 65, z: 65},
         type: 2,
         position: { x: 0, y: 0, z: 0 },
         rotation: { x: 0, y: 0, z: 0 },
@@ -16,7 +16,7 @@ describe("RaycasterService", () => {
         },
         {
             color: 0x0000FF,
-            size: 65,
+            size: {x: 65, y: 65, z: 65},
             type: 2,
             position: { x: 0, y: 0, z: -500 },
             rotation: { x: 0, y: 0, z: 0 },
@@ -26,7 +26,7 @@ describe("RaycasterService", () => {
     const MODIFIED_GEOMETRY: GeometryData[] = [
         {
             color: 0x00FF00,
-            size: 65,
+            size: {x: 65, y: 65, z: 65},
             type: 2,
             position: { x: 0, y: 0, z: 0 },
             rotation: { x: 0, y: 0, z: 0 },

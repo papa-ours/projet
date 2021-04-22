@@ -9,7 +9,7 @@ describe("CheatModeService", () => {
     const ORIGINAL_GEOMETRY: GeometryData[] = [
         {
             color: 0xFF00FF,
-            size: 65,
+            size: {x: 65, y: 65, z: 65},
             type: 2,
             position: { x: 0, y: 0, z: 0 },
             rotation: { x: 0, y: 0, z: 0 },
@@ -17,7 +17,7 @@ describe("CheatModeService", () => {
         },
         {
             color: 0x00FF00,
-            size: 65,
+            size: {x: 65, y: 65, z: 65},
             type: 0,
             position: { x: 200, y: 200, z: -400 },
             rotation: { x: 0, y: 0, z: 0 },
@@ -27,7 +27,7 @@ describe("CheatModeService", () => {
     const MODIFIED_GEOMETRY: GeometryData[] = [
         {
             color: 0x00FF00,
-            size: 65,
+            size: {x: 65, y: 65, z: 65},
             type: 2,
             position: { x: 0, y: 0, z: 0 },
             rotation: { x: 0, y: 0, z: 0 },
@@ -35,7 +35,7 @@ describe("CheatModeService", () => {
         },
         {
             color: 0x00FF00,
-            size: 65,
+            size: {x: 65, y: 65, z: 65},
             type: 2,
             position: { x: 100, y: 100, z: 100 },
             rotation: { x: 0, y: 0, z: 0 },

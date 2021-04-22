@@ -2,6 +2,7 @@ import { inject, injectable } from "inversify";
 import "reflect-metadata";
 import { REQUIRED_DIFFERENCES_1P } from "../../../../common/communication/constants";
 import { GeometryData, Modification, ModificationType } from "../../../../common/communication/geometry";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
 import Types from "../../types";
 import { DeepCloner } from "../utils/deep-cloner";
 import { SceneDataGeneratorService, ThematicObjectData } from "./scene-data-generator";
@@ -48,7 +49,7 @@ export class SceneDataDifferenceService {
             randomFunction(geometryDataDifference, randomIndex);
     }
 
-    public getDifference(geometryData: GeometryData[], modifications: Modification[], sizes?: number[]): GeometryData[] {
+    public getDifference(geometryData: GeometryData[], modifications: Modification[], sizes?: VectorInterface[]): GeometryData[] {
         const geometryDataDifference: GeometryData[] = DeepCloner.clone(geometryData);
         this.modifications = modifications;
         let differenceCounter: number = 0;

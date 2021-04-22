@@ -8,16 +8,13 @@ export class GeometryIntersection {
     }
 
     public static intersects(geometry1: GeometryData, geometry2: GeometryData): boolean {
-        // La constante est sqrt(3)/2, tslint donne un warning parce que
-        // le 3 et le 2 font partis d'une expression.
-        // tslint:disable-next-line:no-magic-numbers
-        const LONGEST_LINE_IN_A_BOX: number = Math.sqrt(3) / 2;
         const TOLERANCE: number = 5;
 
         const distance: Vector = Vector.fromVector(geometry1.position).sub(geometry2.position);
-        const radius: number = LONGEST_LINE_IN_A_BOX * (geometry1.size + geometry2.size);
+        const size1: Vector = Vector.fromVector(geometry1.size);
+        const size2: Vector = Vector.fromVector(geometry2.size);
 
-        return distance.sizeSquared() + TOLERANCE <= radius * radius;
+        return distance.size() + TOLERANCE <= size1.size() + size2.size();
     }
 
 }

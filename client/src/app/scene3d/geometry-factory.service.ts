@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import * as THREE from "three";
 import { GeometryType } from "../../../../common/communication/geometry";
+import { VectorInterface } from "../../../../common/communication/vector-interface";
 import { GeometryGeneratorService } from "./geometry-generator.service";
 
-type GeometryCreator = (size: number, material: THREE.Material) => THREE.Mesh;
+type GeometryCreator = (size: VectorInterface, material: THREE.Material) => THREE.Mesh;
 
 @Injectable({
     providedIn: "root",
@@ -22,7 +23,7 @@ export class GeometryFactoryService {
         this.geometryCreatorMap.set(GeometryType.CYLINDER, this.geometryGeneratorService.createCylinder);
         this.geometryCreatorMap.set(GeometryType.PYRAMID, this.geometryGeneratorService.createPyramid);
     }
-    public createShape(size: number, material: THREE.Material, type: GeometryType): THREE.Mesh {
+    public createShape(size: VectorInterface, material: THREE.Material, type: GeometryType): THREE.Mesh {
         return (this.geometryCreatorMap.get(type) as GeometryCreator)(size, material);
     }
 }
